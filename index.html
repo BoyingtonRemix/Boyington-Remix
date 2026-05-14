@@ -141,6 +141,8 @@
     .mini{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03);color:#fff;cursor:pointer}
     .bar{height:8px;border-radius:999px;background:#303030;position:relative;overflow:hidden;flex:1;min-width:220px}.bar span{display:block;height:100%;width:62%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:inherit}
     .time-row{display:flex;justify-content:space-between;gap:12px;color:#cfcfcf;font-size:13px}
+    .equalizer{display:flex;align-items:flex-end;gap:5px;height:28px;margin:14px 0 4px}
+    .equalizer span{flex:1;height:8px;border-radius:999px;background:linear-gradient(180deg,var(--gold2),var(--gold));transform-origin:bottom center;transform:scaleY(.25);opacity:.9;transition:transform .08s linear,opacity .08s linear}
     .slider-row{display:flex;align-items:center;gap:10px;margin-top:14px}input[type=range]{width:220px;accent-color:var(--gold2)}
     .top-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.small-btn{padding:10px 14px;border-radius:12px;border:1px solid rgba(215,167,58,.42);color:#f3f3f3;background:rgba(255,255,255,.02);cursor:pointer;text-transform:uppercase;letter-spacing:.06em;font-size:12px}
 
@@ -207,6 +209,7 @@
           <div style="margin-bottom:18px;padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)"><div id="currentTrackName" style="font-size:16px;font-weight:700;color:#fff">Chargement…</div><div id="currentTrackStyle" style="margin-top:4px;font-size:13px;color:#b8b8b8">Lecture des fichiers du dépôt GitHub</div></div>
           <div class="bar"><span id="progress"></span></div>
           <div class="time-row"><span id="currentTime">0:00</span><span id="duration">0:00</span></div>
+          <div class="equalizer" id="equalizer" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
           <div class="controls"><button class="mini" id="shuffleBtn" title="Lecture aléatoire">⟲</button><button class="mini" id="prevBtn" title="Titre précédent">⟨</button><button class="round" id="playBtn">▶</button><button class="mini" id="nextBtn" title="Titre suivant">⟩</button><button class="mini" id="repeatBtn" title="Répétition">↻</button></div>
           <div class="top-actions"></div>
           <div class="slider-row"><span>🔊</span><input type="range" id="volume" min="0" max="1" step="0.01" value="0.8"></div>
@@ -243,6 +246,7 @@
     const shuffleBtn = $('shuffleBtn'), repeatBtn = $('repeatBtn');
     const releasesEl = $('releases'), releasePrev = $('releasePrev'), releaseNext = $('releaseNext');
     const topGrid = $('topGrid');
+    const equalizerEl = $('equalizer');
 
     let tracks = [];
     let currentIndex = 0;
@@ -251,6 +255,11 @@
     let shuffleEnabled = false;
     let repeatEnabled = true;
     let sortMode = 'az';
+    let currentBpm = 120;
+    let audioContext = null;
+    let analyser = null;
+    let sourceNode = null;
+    let equalizerRaf = 0;
 
     const formatTime = (s) => isFinite(s) ? `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}` : '0:00';
     const safeText = (v, f='') => String(v || '').trim() || f;
@@ -295,6 +304,59 @@
 
     function resolveCover(track) {
       return track.cover || CONFIG.fallbackCover;
+    }
+
+    function getTrackBpm(track) {
+      const value = Number(track?.bpm ?? track?.BPM ?? track?.tbpm ?? track?.TBPM ?? track?.tempo);
+      return Number.isFinite(value) && value > 0 ? value : 120;
+    }
+
+    function stopEqualizer() {
+      if (equalizerRaf) cancelAnimationFrame(equalizerRaf);
+      equalizerRaf = 0;
+    }
+
+    function startEqualizer() {
+      if (!equalizerEl || !analyser) return;
+      stopEqualizer();
+      const bars = Array.from(equalizerEl.querySelectorAll('span'));
+      const data = new Uint8Array(analyser.frequencyBinCount);
+      const tick = () => {
+        analyser.getByteFrequencyData(data);
+        const energy = data.reduce((a, b) => a + b, 0) / (data.length * 255 || 1);
+        const beatMs = 60000 / Math.max(60, currentBpm);
+        const beatPhase = (performance.now() % beatMs) / beatMs;
+        const pulse = Math.sin(beatPhase * Math.PI * 2) * 0.5 + 0.5;
+        bars.forEach((bar, i) => {
+          const band = data[Math.min(data.length - 1, i * 2)] / 255;
+          const height = 0.18 + (band * 0.82) * (0.55 + pulse * 0.45) + energy * 0.22;
+          bar.style.transform = `scaleY(${Math.max(0.12, Math.min(1.25, height))})`;
+          bar.style.opacity = String(0.55 + band * 0.45);
+        });
+        equalizerRaf = requestAnimationFrame(tick);
+      };
+      tick();
+    }
+
+    function setupAudioAnalysis(track) {
+      currentBpm = getTrackBpm(track);
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return;
+      try {
+        if (!audioContext) audioContext = new Ctx();
+        if (!analyser) {
+          analyser = audioContext.createAnalyser();
+          analyser.fftSize = 64;
+        }
+        if (sourceNode) {
+          try { sourceNode.disconnect(); } catch (_) {}
+        }
+        sourceNode = audioContext.createMediaElementSource(audio);
+        sourceNode.connect(analyser);
+        analyser.connect(audioContext.destination);
+        if (audioContext.state === 'suspended') audioContext.resume().catch(() => {});
+        startEqualizer();
+      } catch (_) {}
     }
 
     function applyTrack(t) {
@@ -380,6 +442,7 @@
             const c = pictureToDataUrl(tags.picture);
             if (c) t.cover = c;
             t.subtitle = t.genre || t.artist || 'Lecture disponible';
+            t.bpm = Number(tags.bpm || tags.BPM || tags.tbpm || tags.TBPM || tags.tempo || t.bpm || 120);
             t.loaded = true;
             t.loading = false;
             updateRenderedTrack(t);
@@ -417,6 +480,7 @@
       audio.load();
       applyTrack(t);
       statusLine.textContent = `Lecture : ${t.title}`;
+      setupAudioAnalysis(t);
       currentTimeEl.textContent = '0:00';
       durationEl.textContent = '0:00';
       progress.style.width = '0%';
@@ -424,7 +488,7 @@
       miniPlay.textContent = '▶';
       refreshActive();
       fetchMeta(t).then(() => { applyTrack(t); buildChips(); renderPlaylist(); renderTop(); });
-      if (autoplay) audio.play().then(() => { playBtn.textContent = '❚❚'; miniPlay.textContent = '❚❚'; }).catch(() => {});
+      if (autoplay) audio.play().then(() => { playBtn.textContent = '❚❚'; miniPlay.textContent = '❚❚'; setupAudioAnalysis(t); }).catch(() => {});
     }
 
     async function init() {
@@ -453,7 +517,7 @@
     sortSelect.onchange = () => { sortMode = sortSelect.value; renderPlaylist(); };
     shuffleBtn.onclick = () => { shuffleEnabled = !shuffleEnabled; statusLine.textContent = shuffleEnabled ? 'Lecture aléatoire activée.' : 'Lecture aléatoire désactivée.'; };
     repeatBtn.onclick = () => { repeatEnabled = !repeatEnabled; statusLine.textContent = repeatEnabled ? 'Lecture continue activée.' : 'Lecture continue désactivée.'; };
-    playBtn.onclick = () => { if (!tracks.length) return; if (!audio.src) loadTrack(currentIndex, false); if (audio.paused) audio.play().then(() => { playBtn.textContent = '❚❚'; miniPlay.textContent = '❚❚'; }).catch(() => {}); else { audio.pause(); playBtn.textContent = '▶'; miniPlay.textContent = '▶'; } };
+    playBtn.onclick = () => { if (!tracks.length) return; if (!audio.src) loadTrack(currentIndex, false); if (audio.paused) audio.play().then(() => { playBtn.textContent = '❚❚'; miniPlay.textContent = '❚❚'; setupAudioAnalysis(tracks[currentIndex]); }).catch(() => {}); else { audio.pause(); playBtn.textContent = '▶'; miniPlay.textContent = '▶'; } };
     prevBtn.onclick = () => tracks.length && loadTrack(chooseNext(-1), true);
     nextBtn.onclick = () => tracks.length && loadTrack(chooseNext(1), true);
     miniPlay.onclick = () => playBtn.click();
@@ -464,8 +528,8 @@
 
     audio.onloadedmetadata = () => durationEl.textContent = formatTime(audio.duration);
     audio.ontimeupdate = () => { const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0; progress.style.width = pct + '%'; currentTimeEl.textContent = formatTime(audio.currentTime); };
-    audio.onended = () => repeatEnabled ? loadTrack(chooseNext(1), true) : (playBtn.textContent = '▶', miniPlay.textContent = '▶');
-    audio.onerror = () => { playBtn.textContent = '▶'; miniPlay.textContent = '▶'; statusLine.textContent = 'Erreur de lecture sur ce fichier.'; };
+    audio.onended = () => { stopEqualizer(); repeatEnabled ? loadTrack(chooseNext(1), true) : (playBtn.textContent = '▶', miniPlay.textContent = '▶'); };
+    audio.onerror = () => { stopEqualizer(); playBtn.textContent = '▶'; miniPlay.textContent = '▶'; statusLine.textContent = 'Erreur de lecture sur ce fichier.'; };
     volume.oninput = () => audio.volume = parseFloat(volume.value);
     audio.volume = parseFloat(volume.value);
     window.addEventListener('resize', updateMini);
