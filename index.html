@@ -195,17 +195,7 @@
         <div class="btns"><button class="btn primary" onclick="document.getElementById('musique').scrollIntoView({behavior:'smooth'})">▶ Écouter maintenant</button><button class="btn" onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'})">Voir les top releases</button><button class="btn" onclick="document.getElementById('playlistSection').scrollIntoView({behavior:'smooth'})">Playlist complète</button></div>
       </div>
       <div class="hero-right"><div class="studio-scene" aria-hidden="true"><div class="speaker"></div><div class="speaker2"></div><div class="lamp"></div><div class="desk"></div><div class="glow"></div><div class="silhouette"></div></div><div class="hero-chip"><small>Playlist officielle</small><p>Covers depuis tags ID3<br/>Chargement automatique des MP3</p></div></div>
-    </section>
-
-    <section class="info-row" aria-label="Fonctions principales">
-      <article class="info-card"><div class="iconbox">▶</div><div><h3>Lecteur automatique</h3><p>Les MP3 sont chargés depuis la racine du dépôt.</p></div></article>
-      <article class="info-card"><div class="iconbox">▣</div><div><h3>Covers intégrées</h3><p>Pochettes lues directement dans les tags ID3 du MP3.</p></div></article>
-      <article class="info-card"><div class="iconbox">⌵</div><div><h3>Filtres avancés</h3><p>Recherche et filtrage par style / genre.</p></div></article>
-      <article class="info-card"><div class="iconbox">★</div><div><h3>Style premium</h3><p>Interface noire et or pensée pour les artistes.</p></div></article>
-      <article class="info-card"><div class="iconbox">▤</div><div><h3>100% responsive</h3><p>Expérience optimale sur tous les appareils.</p></div></article>
-    </section>
-
-    <div class="section-head" id="top"><h2>Top Releases</h2><div class="ghost">Voir tout</div></div>
+    </section><div class="section-head" id="top"><h2>Top Releases</h2><div class="ghost">Voir tout</div></div>
     <section class="releases"><button class="arrow" id="releasePrev" aria-label="Précédent">‹</button><div class="carousel" id="releases"></div><button class="arrow" id="releaseNext" aria-label="Suivant">›</button></section>
 
     <section class="player-grid" id="musique">
@@ -229,12 +219,7 @@
         <div class="playlist-tools"><input class="search" id="searchInput" type="search" placeholder="Rechercher un titre, un style, un mot-clé…"><select class="sort" id="sortSelect"><option value="az">Tri A → Z</option><option value="za">Tri Z → A</option><option value="recent">Ordre du dépôt</option></select></div>
         <div style="height:10px"></div><div class="chips" id="chipRow"></div><div style="height:12px"></div><div class="list" id="playlist"></div>
       </aside>
-    </section>
-
-    <section class="top-releases"><h2>Dernières sorties</h2><p>Les vignettes ci-dessous restent illustratives. Le lecteur principal, lui, se nourrit automatiquement des fichiers MP3 de ton dépôt.</p><div class="top-grid" id="topGrid"></div></section>
-    <section class="quote"><h2>✨ “Accepte ce qui est, laisse aller ce qui était, et aie confiance en ce qui sera.” ✨</h2></section>
-    <section class="about" id="about"><div class="box"><h3>Boyington Remix</h3><p>Un site vitrine musical pensé comme un mini label personnel : identité visuelle sombre et luxueuse, lecture audio automatisée, et lecture des métadonnées directement depuis les MP3.</p><div class="badge-line"><span class="badge-pill">Noir / Or</span><span class="badge-pill">Beatport Style</span><span class="badge-pill">ID3 Tags</span><span class="badge-pill">Playlist auto</span><span class="badge-pill">Cover embarquée</span></div></div><div class="box"><h3>Ce que le site fait</h3><p>Il lit les fichiers `.mp3` présents à la racine du dépôt GitHub, affiche leurs noms, récupère la pochette intégrée, et propose une navigation simple avec filtre et recherche.</p><div class="badge-line"><span class="badge-pill">GitHub Pages</span><span class="badge-pill">HTML / CSS / JS</span><span class="badge-pill">Sans backend</span><span class="badge-pill">Sans covers séparées</span></div></div></section>
-  </main>
+    </section><section class="top-releases"><h2>Dernières sorties</h2><div class="top-grid" id="topGrid"></div></section></main>
 
   <footer class="footer" id="contact"><div>© BOYINGTON REMIX — Tous droits réservés</div><div>Alias Péppino</div><div class="links"><a href="#" target="_blank" rel="noopener">SoundCloud</a><a href="#" target="_blank" rel="noopener">Spotify</a><a href="#" target="_blank" rel="noopener">Beatport</a><a href="#" target="_blank" rel="noopener">YouTube</a><a href="#" target="_blank" rel="noopener">Instagram</a><a href="#" target="_blank" rel="noopener">Facebook</a></div></footer>
   <div class="mini-player" id="miniPlayer"><img id="miniCover" src="studio-boyington.png" alt="Mini cover"><div><div class="mini-title" id="miniTitle">Boyington Remix</div><div class="mini-sub" id="miniSub">Playlist officielle</div></div><div class="mini-actions"><button id="miniPrev">⟨</button><button class="mini-play" id="miniPlay">▶</button><button id="miniNext">⟩</button></div></div>
