@@ -75,8 +75,10 @@
     .brand{display:flex;align-items:center;gap:12px;min-width:250px}
     .brand-logo{
       width:42px;height:42px;border-radius:12px;object-fit:contain;
-      background:rgba(255,255,255,.03);border:1px solid rgba(215,167,58,.28);
-      box-shadow:0 0 24px rgba(215,167,58,.10);padding:4px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(215,167,58,.28);
+      box-shadow:0 0 24px rgba(215,167,58,.10);
+      padding:4px;
     }
     .brand span{font-weight:800;letter-spacing:.08em;color:#d9b15a}
     .nav{display:flex;align-items:center;gap:34px;font-size:14px;text-transform:uppercase;letter-spacing:.06em}
@@ -98,7 +100,13 @@
       position:relative;
     }
     .hero-left{
-      min-height:430px;padding:34px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+      min-height:430px;
+      padding:34px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
       background:linear-gradient(180deg, rgba(15,15,16,.92), rgba(5,5,5,.96));
     }
     .kicker,.subtitle{letter-spacing:.34em;text-transform:uppercase}
@@ -146,16 +154,12 @@
     .player-meta{padding-top:4px}
     .track-title{font-size:clamp(1.8rem,3vw,3rem);font-weight:800;margin:2px 0 8px;line-height:1.02}
     .track-sub{color:var(--muted);margin:0 0 10px;line-height:1.45}
-    .nowplaying{
-      margin:14px 0 16px;
-      padding:16px 18px;
-      border-radius:20px;
-      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      border:1px solid rgba(255,255,255,.07);
-    }
+    .nowplaying{margin:14px 0 16px;padding:16px 18px;border-radius:20px;background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.07)}
     .nowplaying .main{font-size:16px;font-weight:700;color:#fff}
     .nowplaying .sub{margin-top:4px;font-size:13px;color:#b8b8b8}
 
+    .bar{height:9px;border-radius:999px;background:#303030;position:relative;overflow:hidden;flex:1;min-width:220px}
+    .bar span.progress{display:block;position:absolute;inset:0 auto 0 0;height:100%;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:inherit;z-index:1}
     .equalizer{
       position:absolute;
       inset:0;
@@ -193,9 +197,13 @@
     @keyframes eq{
       0%,100%{transform:scaleY(.55);opacity:.62}
       50%{transform:scaleY(1.35);opacity:1}
-    }x-wrap:wrap;margin:16px 0 12px}
+    }
+
+    .time-row{display:flex;justify-content:space-between;gap:12px;color:#cfcfcf;font-size:13px;margin-top:9px}
+    .controls{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:16px 0 12px}
     .round{width:62px;height:62px;border-radius:50%;border:0;background:linear-gradient(180deg,var(--gold2),var(--gold));box-shadow:0 10px 24px rgba(215,167,58,.24);color:#111;font-size:24px;font-weight:900;cursor:pointer}
-    .mini{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03);color:#fff;cursor:pointer;transition:.18s ease}.mini.active{background:rgba(215,167,58,.16);border-color:rgba(215,167,58,.45);color:#fff;box-shadow:0 0 0 1px rgba(215,167,58,.12) inset}
+    .mini{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03);color:#fff;cursor:pointer;transition:.18s ease}
+    .mini.active{background:rgba(215,167,58,.16);border-color:rgba(215,167,58,.45);color:#fff;box-shadow:0 0 0 1px rgba(215,167,58,.12) inset}
     .slider-row{display:flex;align-items:center;gap:10px;margin-top:12px}
     input[type=range]{width:220px;accent-color:var(--gold2)}
     .action-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
@@ -309,9 +317,7 @@
 
     <section class="player-grid" id="musique">
       <div class="player" id="playerCard">
-        <div class="player-cover">
-          <img id="coverImage" src="cover%20principal.jpg" alt="Cover Boyington Remix">
-        </div>
+        <div class="player-cover"><img id="coverImage" src="cover%20principal.jpg" alt="Cover Boyington Remix"></div>
         <div class="player-meta">
           <h3 class="track-title" id="currentTitle">Chargement…</h3>
           <p class="track-sub" id="currentSubtitle">Lecture des fichiers du dépôt GitHub</p>
@@ -320,7 +326,7 @@
             <div class="sub" id="currentTrackStyle">Lecture des fichiers du dépôt GitHub</div>
           </div>
           <div class="bar" aria-hidden="true">
-            <span id="progress"></span>
+            <span class="progress" id="progress"></span>
             <div class="equalizer" id="equalizer">
               <span></span><span></span><span></span><span></span><span></span>
               <span></span><span></span><span></span><span></span><span></span>
@@ -337,13 +343,8 @@
             <button class="mini" id="nextBtn" title="Titre suivant">⟩</button>
             <button class="mini" id="repeatBtn" title="Répétition">↻</button>
           </div>
-          <div class="slider-row">
-            <span>🔊</span>
-            <input type="range" id="volume" min="0" max="1" step="0.01" value="0.8">
-          </div>
-          <div class="action-row">
-            <button class="small-btn" id="openBtn">Ouvrir le fichier</button>
-          </div>
+          <div class="slider-row"><span>🔊</span><input type="range" id="volume" min="0" max="1" step="0.01" value="0.8"></div>
+          <div class="action-row"><button class="small-btn" id="openBtn">Ouvrir le fichier</button></div>
           <div class="helper" id="statusLine">Chargement de la playlist…</div>
         </div>
       </div>
@@ -443,8 +444,6 @@
     const searchInput = $('searchInput');
     const chipRow = $('chipRow');
     const sortSelect = $('sortSelect');
-    const shuffleBtn = $('shuffleBtn');
-    const repeatBtn = $('repeatBtn');
     const topGrid = $('topGrid');
     const miniPlayer = $('miniPlayer');
     const btnShuffle = $('shuffleBtn');
@@ -722,6 +721,7 @@
       renderPlaylist();
       loadTrack(0, false);
       tracks.forEach(fetchMeta);
+      updateModeButtons();
       statusLine.textContent = `${tracks.length} morceau(x) détecté(s) dans le dépôt (${activeBranch}).`;
     }
 
@@ -754,19 +754,19 @@
     miniNext.onclick = () => nextBtn.click();
 
     audio.onloadedmetadata = () => durationEl.textContent = formatTime(audio.duration);
-    audio.ontimeupdate = () => { const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0; progress.style.width = pct + '%'; currentTimeEl.textContent = formatTime(audio.currentTime); };
+    audio.ontimeupdate = () => {
+      const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
+      progress.style.width = pct + '%';
+      currentTimeEl.textContent = formatTime(audio.currentTime);
+    };
     audio.onended = () => {
-      if (repeatEnabled) {
-        loadTrack(chooseNext(1), true);
-      } else {
-        setPlayingState(false);
-      }
+      if (repeatEnabled) loadTrack(chooseNext(1), true);
+      else setPlayingState(false);
     };
     audio.onerror = () => { setPlayingState(false); statusLine.textContent = 'Erreur de lecture sur ce fichier.'; };
     volume.oninput = () => audio.volume = parseFloat(volume.value);
     audio.volume = parseFloat(volume.value);
-    window.addEventListener('resize', () => { miniPlayer.style.display = window.matchMedia('(max-width: 720px)').matches ? 'grid' : 'none';
-    updateModeButtons(); });
+    window.addEventListener('resize', () => { miniPlayer.style.display = window.matchMedia('(max-width: 720px)').matches ? 'grid' : 'none'; });
     miniPlayer.style.display = window.matchMedia('(max-width: 720px)').matches ? 'grid' : 'none';
 
     init().catch(() => {
