@@ -218,7 +218,7 @@
           <div class="bar"><span id="progress"></span></div>
           <div class="time-row"><span id="currentTime">0:00</span><span id="duration">0:00</span></div>
           <div class="controls"><button class="mini" id="shuffleBtn" title="Lecture aléatoire">⟲</button><button class="mini" id="prevBtn" title="Titre précédent">⟨</button><button class="round" id="playBtn">▶</button><button class="mini" id="nextBtn" title="Titre suivant">⟩</button><button class="mini" id="repeatBtn" title="Répétition">↻</button></div>
-          <div class="top-actions"><button class="small-btn" id="openBtn">Ouvrir le fichier</button><button class="small-btn" id="downloadBtn" style="display:none">Télécharger</button></div>
+          <div class="top-actions"></div>
           <div class="slider-row"><span>🔊</span><input type="range" id="volume" min="0" max="1" step="0.01" value="0.8"></div>
           <div class="helper" id="statusLine">Chargement de la playlist…</div>
         </div>
@@ -255,7 +255,7 @@
     const miniTitle = $('miniTitle'), miniSub = $('miniSub');
     const statusLine = $('statusLine');
     const searchInput = $('searchInput'), chipRow = $('chipRow'), sortSelect = $('sortSelect');
-    const shuffleBtn = $('shuffleBtn'), repeatBtn = $('repeatBtn'), openBtn = $('openBtn');
+    const shuffleBtn = $('shuffleBtn'), repeatBtn = $('repeatBtn');
     const releasesEl = $('releases'), releasePrev = $('releasePrev'), releaseNext = $('releaseNext');
     const topGrid = $('topGrid');
 
@@ -322,8 +322,7 @@
       const c = resolveCover(t);
       coverImage.src = c;
       miniCover.src = c;
-      openBtn.onclick = () => window.open(encodeURI(t.src), '_blank');
-    }
+          }
 
     function renderTop() {
       const top = tracks.slice(0, 8);
