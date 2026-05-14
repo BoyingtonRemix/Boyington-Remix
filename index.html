@@ -68,19 +68,7 @@
 
     .page{width:min(1600px,calc(100% - 24px));margin:0 auto}
 
-    .topbar{
-      height:72px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:0 18px;
-      position:sticky;
-      top:0;
-      z-index:30;
-      backdrop-filter:blur(10px);
-      background:rgba(5,5,5,.88);
-      border-bottom:1px solid rgba(255,255,255,.06)
-    }
+    .topbar{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;position:sticky;top:0;z-index:30;backdrop-filter:blur(10px);background:rgba(5,5,5,.88);border-bottom:1px solid rgba(255,255,255,.06)}
     .brand{display:flex;align-items:center;gap:12px;min-width:250px}
     .logo{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:linear-gradient(180deg,#f3c95f,#9a6a10);color:#111;font-weight:900;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
     .brand span{font-weight:800;letter-spacing:.08em;color:#d9b15a}
@@ -178,46 +166,16 @@
     .mini-player img{width:52px;height:52px;border-radius:14px;object-fit:cover;border:1px solid rgba(255,255,255,.08)}.mini-player .mini-title{font-size:13px;font-weight:700}.mini-player .mini-sub{font-size:11px;color:#bbb;margin-top:3px}.mini-player .mini-actions{display:flex;gap:8px}.mini-player button{width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.08);color:#fff;cursor:pointer}.mini-player .mini-play{background:var(--gold);color:#050507;font-weight:800}
     .helper{margin-top:12px;font-size:12px;color:#a8a8a8}
 
-    @media (max-width:1180px){
-      .hero,.player-grid,.about,.top-grid{grid-template-columns:1fr}
-      .player{grid-template-columns:1fr}
-      .player-content{padding:0}
-      .info-row{grid-template-columns:1fr}
-      .nav{display:none}
-      .brand,.icons{min-width:auto}
-      .hero-right{min-height:360px}
-    }
-    @media (max-width:720px){
-      .topbar{padding:14px 16px;height:66px}
-      .hero{padding-top:10px}
-      .hero-left{padding:24px 18px;min-height:380px}
-      .hero h1{font-size:54px}
-      .lead{font-size:15px}
-      .section-head,.section-title,.top-releases,.about,.quote{padding-left:6%;padding-right:6%}
-      .hero-chip{position:relative;right:auto;bottom:auto;margin-top:22px;width:100%}
-      .mini-player{display:grid}
-      .top-grid{grid-template-columns:1fr}
-    }
+    @media (max-width:1180px){.hero,.player-grid,.about,.top-grid{grid-template-columns:1fr}.player{grid-template-columns:1fr}.player-content{padding:0}.info-row{grid-template-columns:1fr}.nav{display:none}.brand,.icons{min-width:auto}.hero-right{min-height:360px}}
+    @media (max-width:720px){.topbar{padding:14px 16px;height:66px}.hero{padding-top:10px}.hero-left{padding:24px 18px;min-height:380px}.hero h1{font-size:54px}.lead{font-size:15px}.section-head,.section-title,.top-releases,.about,.quote{padding-left:6%;padding-right:6%}.hero-chip{position:relative;right:auto;bottom:auto;margin-top:22px;width:100%}.mini-player{display:grid}.top-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
   <audio id="audio"></audio>
 
   <header class="topbar page">
-    <div class="brand">
-      <div class="logo">BR</div>
-      <span>BOYINGTON REMIX</span>
-    </div>
-
-    <nav class="nav" aria-label="Navigation principale">
-      <a href="#accueil">Accueil</a>
-      <a href="#musique" class="active">Musique</a>
-      <a href="#top">Top Releases</a>
-      <a href="#playlistSection">Playlist complète</a>
-      <a href="#about">À propos</a>
-      <a href="#contact">Contact</a>
-    </nav>
-
+    <div class="brand"><div class="logo">BR</div><span>BOYINGTON REMIX</span></div>
+    <nav class="nav" aria-label="Navigation principale"><a href="#accueil">Accueil</a><a href="#musique" class="active">Musique</a><a href="#top">Top Releases</a><a href="#playlistSection">Playlist complète</a><a href="#about">À propos</a><a href="#contact">Contact</a></nav>
     <div class="icons" aria-label="Raccourcis sociaux">
       <a class="icon-btn" href="#" title="Spotify" aria-label="Spotify"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm4.6 14.45a.72.72 0 0 1-1 .22c-2.82-1.72-6.38-2.11-10.56-1.16a.72.72 0 1 1-.32-1.4c4.56-1.04 8.5-.59 11.64 1.33a.72.72 0 0 1 .24 1.01Zm1.31-2.93a.9.9 0 0 1-1.24.3c-3.1-1.9-7.82-2.45-11.47-1.34a.9.9 0 1 1-.53-1.72c4.18-1.28 9.3-.66 12.85 1.52a.9.9 0 0 1 .39 1.24Zm.12-3.1C14.9 8.2 8.53 8 5.09 9.05a1.08 1.08 0 0 1-.64-2.07c3.95-1.2 11.02-.97 15.17 1.51a1.08 1.08 0 1 1-1.18 1.83Z" fill="currentColor"/></svg></a>
       <a class="icon-btn" href="#" title="Instagram" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M7.5 2A5.5 5.5 0 0 0 2 7.5v9A5.5 5.5 0 0 0 7.5 22h9a5.5 5.5 0 0 0 5.5-5.5v-9A5.5 5.5 0 0 0 16.5 2h-9Zm0 1.6h9A3.9 3.9 0 0 1 20.4 7.5v9a3.9 3.9 0 0 1-3.9 3.9h-9a3.9 3.9 0 0 1-3.9-3.9v-9A3.9 3.9 0 0 1 7.5 3.6Zm9.85 1.1a1.05 1.05 0 1 0 0 2.1 1.05 1.05 0 0 0 0-2.1ZM12 6.1A5.9 5.9 0 1 0 17.9 12 5.9 5.9 0 0 0 12 6.1Zm0 1.6A4.3 4.3 0 1 1 7.7 12 4.3 4.3 0 0 1 12 7.7Z" fill="currentColor"/></svg></a>
@@ -234,144 +192,56 @@
         <h1><span class="white">BOYINGTON</span><span class="gold">REMIX</span></h1>
         <div class="subtitle">Son cinématique • Énergie émotionnelle • Signature musicale</div>
         <p class="lead">Une expérience électronique unique entre émotion, groove et puissance. Le site reprend la direction visuelle du mockup : noir profond, or premium, hero imposant, releases en cartes, lecteur central et playlist à droite.</p>
-        <div class="btns">
-          <button class="btn primary" onclick="document.getElementById('musique').scrollIntoView({behavior:'smooth'})">▶ Écouter maintenant</button>
-          <button class="btn" onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'})">Voir les top releases</button>
-          <button class="btn" onclick="document.getElementById('playlistSection').scrollIntoView({behavior:'smooth'})">Playlist complète</button>
-        </div>
+        <div class="btns"><button class="btn primary" onclick="document.getElementById('musique').scrollIntoView({behavior:'smooth'})">▶ Écouter maintenant</button><button class="btn" onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'})">Voir les top releases</button><button class="btn" onclick="document.getElementById('playlistSection').scrollIntoView({behavior:'smooth'})">Playlist complète</button></div>
       </div>
-
-      <div class="hero-right">
-        <div class="studio-scene" aria-hidden="true">
-          <div class="speaker"></div><div class="speaker2"></div><div class="lamp"></div><div class="desk"></div><div class="glow"></div><div class="silhouette"></div>
-        </div>
-        <div class="hero-chip">
-          <small>Playlist officielle</small>
-          <p>Covers depuis tags ID3<br/>Chargement automatique des MP3</p>
-        </div>
-      </div>
+      <div class="hero-right"><div class="studio-scene" aria-hidden="true"><div class="speaker"></div><div class="speaker2"></div><div class="lamp"></div><div class="desk"></div><div class="glow"></div><div class="silhouette"></div></div><div class="hero-chip"><small>Playlist officielle</small><p>Covers depuis tags ID3<br/>Chargement automatique des MP3</p></div></div>
     </section>
 
     <section class="info-row" aria-label="Fonctions principales">
       <article class="info-card"><div class="iconbox">▶</div><div><h3>Lecteur automatique</h3><p>Les MP3 sont chargés depuis la racine du dépôt.</p></div></article>
-      <article class="info-card"><div class="iconbox">▣</div><div><h3>Covers intégrées</h3><p>Pochettes lues directement dans les tags ID3 et images du dépôt.</p></div></article>
+      <article class="info-card"><div class="iconbox">▣</div><div><h3>Covers intégrées</h3><p>Pochettes lues directement dans les tags ID3 du MP3.</p></div></article>
       <article class="info-card"><div class="iconbox">⌵</div><div><h3>Filtres avancés</h3><p>Recherche et filtrage par style / genre.</p></div></article>
       <article class="info-card"><div class="iconbox">★</div><div><h3>Style premium</h3><p>Interface noire et or pensée pour les artistes.</p></div></article>
       <article class="info-card"><div class="iconbox">▤</div><div><h3>100% responsive</h3><p>Expérience optimale sur tous les appareils.</p></div></article>
     </section>
 
-    <div class="section-head" id="top">
-      <h2>Top Releases</h2>
-      <div class="ghost">Voir tout</div>
-    </div>
-
-    <section class="releases">
-      <button class="arrow" id="releasePrev" aria-label="Précédent">‹</button>
-      <div class="carousel" id="releases"></div>
-      <button class="arrow" id="releaseNext" aria-label="Suivant">›</button>
-    </section>
+    <div class="section-head" id="top"><h2>Top Releases</h2><div class="ghost">Voir tout</div></div>
+    <section class="releases"><button class="arrow" id="releasePrev" aria-label="Précédent">‹</button><div class="carousel" id="releases"></div><button class="arrow" id="releaseNext" aria-label="Suivant">›</button></section>
 
     <section class="player-grid" id="musique">
       <div class="player">
-        <div class="player-cover">
-          <img id="coverImage" src="studio-boyington.png" alt="Cover Boyington Remix">
-        </div>
+        <div class="player-cover"><img id="coverImage" src="studio-boyington.png" alt="Cover Boyington Remix"></div>
         <div class="player-content">
           <h3 class="track-title" id="currentTitle">Chargement…</h3>
           <p class="track-sub" id="currentSubtitle">Lecture des fichiers du dépôt GitHub</p>
-          <div style="margin-bottom:18px;padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
-            <div id="currentTrackName" style="font-size:16px;font-weight:700;color:#fff">Chargement…</div>
-            <div id="currentTrackStyle" style="margin-top:4px;font-size:13px;color:#b8b8b8">Lecture des fichiers du dépôt GitHub</div>
-          </div>
+          <div style="margin-bottom:18px;padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)"><div id="currentTrackName" style="font-size:16px;font-weight:700;color:#fff">Chargement…</div><div id="currentTrackStyle" style="margin-top:4px;font-size:13px;color:#b8b8b8">Lecture des fichiers du dépôt GitHub</div></div>
           <div class="bar"><span id="progress"></span></div>
           <div class="time-row"><span id="currentTime">0:00</span><span id="duration">0:00</span></div>
-          <div class="controls">
-            <button class="mini" id="shuffleBtn" title="Lecture aléatoire">⟲</button>
-            <button class="mini" id="prevBtn" title="Titre précédent">⟨</button>
-            <button class="round" id="playBtn">▶</button>
-            <button class="mini" id="nextBtn" title="Titre suivant">⟩</button>
-            <button class="mini" id="repeatBtn" title="Répétition">↻</button>
-          </div>
-          <div class="top-actions">
-            <button class="small-btn" id="openBtn">Ouvrir le fichier</button>
-            <button class="small-btn" id="downloadBtn">Télécharger</button>
-          </div>
+          <div class="controls"><button class="mini" id="shuffleBtn" title="Lecture aléatoire">⟲</button><button class="mini" id="prevBtn" title="Titre précédent">⟨</button><button class="round" id="playBtn">▶</button><button class="mini" id="nextBtn" title="Titre suivant">⟩</button><button class="mini" id="repeatBtn" title="Répétition">↻</button></div>
+          <div class="top-actions"><button class="small-btn" id="openBtn">Ouvrir le fichier</button><button class="small-btn" id="downloadBtn" style="display:none">Télécharger</button></div>
           <div class="slider-row"><span>🔊</span><input type="range" id="volume" min="0" max="1" step="0.01" value="0.8"></div>
           <div class="helper" id="statusLine">Chargement de la playlist…</div>
         </div>
       </div>
 
       <aside class="playlist" id="playlistSection">
-        <div class="playlist-head">
-          <h3>Playlist complète <span style="color:#8e8e8e;font-size:12px">(détectée automatiquement)</span></h3>
-        </div>
-        <div class="playlist-tools">
-          <input class="search" id="searchInput" type="search" placeholder="Rechercher un titre, un style, un mot-clé…">
-          <select class="sort" id="sortSelect">
-            <option value="az">Tri A → Z</option>
-            <option value="za">Tri Z → A</option>
-            <option value="recent">Ordre du dépôt</option>
-          </select>
-        </div>
-        <div style="height:10px"></div>
-        <div class="chips" id="chipRow"></div>
-        <div style="height:12px"></div>
-        <div class="list" id="playlist"></div>
+        <div class="playlist-head"><h3>Playlist complète <span style="color:#8e8e8e;font-size:12px">(détectée automatiquement)</span></h3></div>
+        <div class="playlist-tools"><input class="search" id="searchInput" type="search" placeholder="Rechercher un titre, un style, un mot-clé…"><select class="sort" id="sortSelect"><option value="az">Tri A → Z</option><option value="za">Tri Z → A</option><option value="recent">Ordre du dépôt</option></select></div>
+        <div style="height:10px"></div><div class="chips" id="chipRow"></div><div style="height:12px"></div><div class="list" id="playlist"></div>
       </aside>
     </section>
 
-    <section class="top-releases">
-      <h2>Dernières sorties</h2>
-      <p>Les vignettes ci-dessous restent illustratives. Le lecteur principal, lui, se nourrit automatiquement des fichiers MP3 de ton dépôt.</p>
-      <div class="top-grid" id="topGrid"></div>
-    </section>
-
-    <section class="quote">
-      <h2>✨ “Accepte ce qui est, laisse aller ce qui était, et aie confiance en ce qui sera.” ✨</h2>
-    </section>
-
-    <section class="about" id="about">
-      <div class="box">
-        <h3>Boyington Remix</h3>
-        <p>Un site vitrine musical pensé comme un mini label personnel : identité visuelle sombre et luxueuse, lecture audio automatisée, et lecture des métadonnées directement depuis les MP3.</p>
-        <div class="badge-line"><span class="badge-pill">Noir / Or</span><span class="badge-pill">Beatport Style</span><span class="badge-pill">ID3 Tags</span><span class="badge-pill">Playlist auto</span><span class="badge-pill">Cover embarquée</span></div>
-      </div>
-      <div class="box">
-        <h3>Ce que le site fait</h3>
-        <p>Il lit les fichiers `.mp3` présents à la racine du dépôt GitHub, affiche leurs noms, récupère la pochette intégrée ou une image associée, et propose une navigation simple avec filtre et recherche.</p>
-        <div class="badge-line"><span class="badge-pill">GitHub Pages</span><span class="badge-pill">HTML / CSS / JS</span><span class="badge-pill">Sans backend</span><span class="badge-pill">Sans covers séparées</span></div>
-      </div>
-    </section>
+    <section class="top-releases"><h2>Dernières sorties</h2><p>Les vignettes ci-dessous restent illustratives. Le lecteur principal, lui, se nourrit automatiquement des fichiers MP3 de ton dépôt.</p><div class="top-grid" id="topGrid"></div></section>
+    <section class="quote"><h2>✨ “Accepte ce qui est, laisse aller ce qui était, et aie confiance en ce qui sera.” ✨</h2></section>
+    <section class="about" id="about"><div class="box"><h3>Boyington Remix</h3><p>Un site vitrine musical pensé comme un mini label personnel : identité visuelle sombre et luxueuse, lecture audio automatisée, et lecture des métadonnées directement depuis les MP3.</p><div class="badge-line"><span class="badge-pill">Noir / Or</span><span class="badge-pill">Beatport Style</span><span class="badge-pill">ID3 Tags</span><span class="badge-pill">Playlist auto</span><span class="badge-pill">Cover embarquée</span></div></div><div class="box"><h3>Ce que le site fait</h3><p>Il lit les fichiers `.mp3` présents à la racine du dépôt GitHub, affiche leurs noms, récupère la pochette intégrée, et propose une navigation simple avec filtre et recherche.</p><div class="badge-line"><span class="badge-pill">GitHub Pages</span><span class="badge-pill">HTML / CSS / JS</span><span class="badge-pill">Sans backend</span><span class="badge-pill">Sans covers séparées</span></div></div></section>
   </main>
 
-  <footer class="footer" id="contact">
-    <div>© BOYINGTON REMIX — Tous droits réservés</div>
-    <div>Alias Péppino</div>
-    <div class="links">
-      <a href="#" target="_blank" rel="noopener">SoundCloud</a>
-      <a href="#" target="_blank" rel="noopener">Spotify</a>
-      <a href="#" target="_blank" rel="noopener">Beatport</a>
-      <a href="#" target="_blank" rel="noopener">YouTube</a>
-      <a href="#" target="_blank" rel="noopener">Instagram</a>
-      <a href="#" target="_blank" rel="noopener">Facebook</a>
-    </div>
-  </footer>
-
-  <div class="mini-player" id="miniPlayer">
-    <img id="miniCover" src="studio-boyington.png" alt="Mini cover">
-    <div><div class="mini-title" id="miniTitle">Boyington Remix</div><div class="mini-sub" id="miniSub">Playlist officielle</div></div>
-    <div class="mini-actions"><button id="miniPrev">⟨</button><button class="mini-play" id="miniPlay">▶</button><button id="miniNext">⟩</button></div>
-  </div>
+  <footer class="footer" id="contact"><div>© BOYINGTON REMIX — Tous droits réservés</div><div>Alias Péppino</div><div class="links"><a href="#" target="_blank" rel="noopener">SoundCloud</a><a href="#" target="_blank" rel="noopener">Spotify</a><a href="#" target="_blank" rel="noopener">Beatport</a><a href="#" target="_blank" rel="noopener">YouTube</a><a href="#" target="_blank" rel="noopener">Instagram</a><a href="#" target="_blank" rel="noopener">Facebook</a></div></footer>
+  <div class="mini-player" id="miniPlayer"><img id="miniCover" src="studio-boyington.png" alt="Mini cover"><div><div class="mini-title" id="miniTitle">Boyington Remix</div><div class="mini-sub" id="miniSub">Playlist officielle</div></div><div class="mini-actions"><button id="miniPrev">⟨</button><button class="mini-play" id="miniPlay">▶</button><button id="miniNext">⟩</button></div></div>
 
   <script>
-    const CONFIG = {
-      owner: 'boyingtonremix',
-      repo: 'Boyington-Remix',
-      branch: 'main',
-      fallbackCover: 'studio-boyington.png'
-    };
+    const CONFIG = { owner:'boyingtonremix', repo:'Boyington-Remix', branch:'main', fallbackCover:'studio-boyington.png' };
     const API_URL = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/?ref=${CONFIG.branch}`;
-
     const $ = (id) => document.getElementById(id);
     const audio = $('audio');
     const playBtn = $('playBtn'), prevBtn = $('prevBtn'), nextBtn = $('nextBtn');
@@ -385,12 +255,11 @@
     const miniTitle = $('miniTitle'), miniSub = $('miniSub');
     const statusLine = $('statusLine');
     const searchInput = $('searchInput'), chipRow = $('chipRow'), sortSelect = $('sortSelect');
-    const shuffleBtn = $('shuffleBtn'), repeatBtn = $('repeatBtn'), openBtn = $('openBtn'), downloadBtn = $('downloadBtn');
+    const shuffleBtn = $('shuffleBtn'), repeatBtn = $('repeatBtn'), openBtn = $('openBtn');
     const releasesEl = $('releases'), releasePrev = $('releasePrev'), releaseNext = $('releaseNext');
     const topGrid = $('topGrid');
 
     let tracks = [];
-    let imageMap = new Map();
     let currentIndex = 0;
     let currentFilter = 'Tous';
     let searchTerm = '';
@@ -402,10 +271,7 @@
     const safeText = (v, f='') => String(v || '').trim() || f;
     const normalize = (v) => safeText(v).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[’']/g, "'").replace(/\s+/g, ' ').replace(/[^a-z0-9]+/g, ' ').trim();
     const extractGenre = (t) => safeText(t.genre || t.subtitle || 'Autre');
-    const displayTitle = (title) => safeText(title)
-      .replace(/\s+by\s+boyington(?:\s+remix)?$/i, '')
-      .replace(/\s+by\s+boyington$/i, '')
-      .replace(/\s+\((original mix|remix|extended mix|mashupremix)\)$/i, '');
+    const displayTitle = (title) => safeText(title).replace(/\s+by\s+boyington(?:\s+remix)?$/i, '').replace(/\s+by\s+boyington$/i, '').replace(/\s+\((original mix|remix|extended mix|mashupremix)\)$/i, '');
 
     function pictureToDataUrl(pic) {
       if (!pic || !pic.data) return null;
@@ -442,18 +308,8 @@
       }));
     }
 
-    function findImageForTrack(track) {
-      const stem = normalize(track.src.replace(/\.[^.]+$/, ''));
-      const candidates = ['jpg', 'jpeg', 'png', 'webp'].map(ext => `${stem}.${ext}`);
-      for (const c of candidates) {
-        if (imageMap.has(c)) return imageMap.get(c);
-      }
-      const loose = Array.from(imageMap.entries()).find(([name]) => normalize(name).startsWith(stem) || stem.startsWith(normalize(name).replace(/\.[^.]+$/, '')));
-      return loose ? loose[1] : null;
-    }
-
     function resolveCover(track) {
-      return track.cover || findImageForTrack(track) || CONFIG.fallbackCover;
+      return track.cover || CONFIG.fallbackCover;
     }
 
     function applyTrack(t) {
@@ -467,14 +323,6 @@
       coverImage.src = c;
       miniCover.src = c;
       openBtn.onclick = () => window.open(encodeURI(t.src), '_blank');
-      downloadBtn.onclick = () => {
-        const a = document.createElement('a');
-        a.href = encodeURI(t.src);
-        a.download = t.src;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-      };
     }
 
     function renderTop() {
@@ -530,9 +378,7 @@
       return (currentIndex + delta + tracks.length) % tracks.length;
     }
 
-    function updateMini() {
-      $('miniPlayer').style.display = window.matchMedia('(max-width: 720px)').matches ? 'grid' : 'none';
-    }
+    function updateMini() { $('miniPlayer').style.display = window.matchMedia('(max-width: 720px)').matches ? 'grid' : 'none'; }
 
     function fetchMeta(t) {
       if (!window.jsmediatags || t.loaded || t.loading) return t.metaPromise || Promise.resolve(t);
@@ -597,24 +443,12 @@
       if (autoplay) audio.play().then(() => { playBtn.textContent = '❚❚'; miniPlay.textContent = '❚❚'; }).catch(() => {});
     }
 
-    async function buildAssetsMap(items) {
-      imageMap = new Map();
-      items.filter(x => x.type === 'file').forEach(x => {
-        if (/\.(jpg|jpeg|png|webp)$/i.test(x.name)) imageMap.set(x.name.toLowerCase(), x.name);
-      });
-    }
-
     async function init() {
       statusLine.textContent = 'Lecture de la racine du dépôt GitHub…';
       const r = await fetch(API_URL, { cache: 'no-store' });
       if (!r.ok) throw new Error('GitHub API error');
       const items = await r.json();
-      await buildAssetsMap(items);
-      tracks = items
-        .filter(x => x.type === 'file' && x.name.toLowerCase().endsWith('.mp3'))
-        .map((x, i) => ({ index:i, src:x.name, title:x.name.replace(/\.mp3$/i,''), subtitle:'Lecture en attente…', genre:'Autre', artist:'', album:'', comment:'', cover:CONFIG.fallbackCover, loaded:false, loading:false, duration:'' }))
-        .sort((a, b) => a.title.localeCompare(b.title, 'fr', { numeric: true, sensitivity: 'base' }))
-        .map((t, i) => ({ ...t, index:i }));
+      tracks = items.filter(x => x.type === 'file' && x.name.toLowerCase().endsWith('.mp3')).map((x, i) => ({ index:i, src:x.name, title:x.name.replace(/\.mp3$/i,''), subtitle:'Lecture en attente…', genre:'Autre', artist:'', album:'', comment:'', cover:CONFIG.fallbackCover, loaded:false, loading:false, duration:'' })).sort((a, b) => a.title.localeCompare(b.title, 'fr', { numeric: true, sensitivity: 'base' })).map((t, i) => ({ ...t, index:i }));
 
       if (!tracks.length) {
         statusLine.textContent = 'Aucun MP3 trouvé dans la racine du dépôt.';
@@ -635,12 +469,7 @@
     sortSelect.onchange = () => { sortMode = sortSelect.value; renderPlaylist(); };
     shuffleBtn.onclick = () => { shuffleEnabled = !shuffleEnabled; statusLine.textContent = shuffleEnabled ? 'Lecture aléatoire activée.' : 'Lecture aléatoire désactivée.'; };
     repeatBtn.onclick = () => { repeatEnabled = !repeatEnabled; statusLine.textContent = repeatEnabled ? 'Lecture continue activée.' : 'Lecture continue désactivée.'; };
-    playBtn.onclick = () => {
-      if (!tracks.length) return;
-      if (!audio.src) loadTrack(currentIndex, false);
-      if (audio.paused) audio.play().then(() => { playBtn.textContent = '❚❚'; miniPlay.textContent = '❚❚'; }).catch(() => {});
-      else { audio.pause(); playBtn.textContent = '▶'; miniPlay.textContent = '▶'; }
-    };
+    playBtn.onclick = () => { if (!tracks.length) return; if (!audio.src) loadTrack(currentIndex, false); if (audio.paused) audio.play().then(() => { playBtn.textContent = '❚❚'; miniPlay.textContent = '❚❚'; }).catch(() => {}); else { audio.pause(); playBtn.textContent = '▶'; miniPlay.textContent = '▶'; } };
     prevBtn.onclick = () => tracks.length && loadTrack(chooseNext(-1), true);
     nextBtn.onclick = () => tracks.length && loadTrack(chooseNext(1), true);
     miniPlay.onclick = () => playBtn.click();
