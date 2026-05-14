@@ -157,36 +157,42 @@
     .nowplaying .sub{margin-top:4px;font-size:13px;color:#b8b8b8}
 
     .equalizer{
+      position:absolute;
+      inset:0;
       display:flex;
-      align-items:flex-end;
-      gap:4px;
-      height:38px;
-      margin:6px 0 14px;
-      padding:0 2px;
+      align-items:center;
+      gap:2px;
+      padding:0 10px;
+      z-index:2;
+      pointer-events:none;
       opacity:.92;
     }
     .equalizer span{
-      width:6px;
-      height:40%;
+      flex:1;
+      min-width:3px;
+      height:28%;
       border-radius:999px;
-      background:linear-gradient(180deg, var(--gold2), var(--gold));
+      background:linear-gradient(180deg, rgba(255,240,190,.96), rgba(215,167,58,.96));
       transform-origin:center bottom;
-      animation: eq 1.05s ease-in-out infinite;
+      animation:eq 1.05s ease-in-out infinite;
       animation-play-state:paused;
-      box-shadow:0 0 16px rgba(215,167,58,.12);
+      box-shadow:0 0 14px rgba(215,167,58,.12);
     }
     .player.playing .equalizer span{animation-play-state:running}
-    .equalizer span:nth-child(2){animation-delay:.1s;height:55%}
-    .equalizer span:nth-child(3){animation-delay:.2s;height:34%}
-    .equalizer span:nth-child(4){animation-delay:.3s;height:72%}
-    .equalizer span:nth-child(5){animation-delay:.4s;height:46%}
-    .equalizer span:nth-child(6){animation-delay:.2s;height:62%}
-    .equalizer span:nth-child(7){animation-delay:.35s;height:38%}
-    .equalizer span:nth-child(8){animation-delay:.15s;height:70%}
-    .equalizer span:nth-child(9){animation-delay:.28s;height:52%}
-    .equalizer span:nth-child(10){animation-delay:.05s;height:42%}
+    .equalizer span:nth-child(2n){height:42%}
+    .equalizer span:nth-child(3n){height:60%}
+    .equalizer span:nth-child(4n){height:34%}
+    .equalizer span:nth-child(5n){height:52%}
+    .equalizer span:nth-child(7n){height:72%}
+    .equalizer span:nth-child(9n){height:46%}
+    .equalizer span:nth-child(11n){height:64%}
+    .equalizer span:nth-child(13n){height:38%}
+    .equalizer span:nth-child(17n){height:58%}
+    .equalizer span:nth-child(19n){height:48%}
     @keyframes eq{
-      0%,100%{transform:scaleY(.55);opacity:.65}
+      0%,100%{transform:scaleY(.55);opacity:.62}
+      50%{transform:scaleY(1.35);opacity:1}
+    }
       50%{transform:scaleY(1.35);opacity:1}
     }
 
@@ -319,11 +325,16 @@
             <div class="main" id="currentTrackName">Chargement…</div>
             <div class="sub" id="currentTrackStyle">Lecture des fichiers du dépôt GitHub</div>
           </div>
-          <div class="equalizer" id="equalizer" aria-hidden="true">
-            <span></span><span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span><span></span>
+          <div class="bar" aria-hidden="true">
+            <span id="progress"></span>
+            <div class="equalizer" id="equalizer">
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span>
+            </div>
           </div>
-          <div class="bar"><span id="progress"></span></div>
           <div class="time-row"><span id="currentTime">0:00</span><span id="duration">0:00</span></div>
           <div class="controls">
             <button class="mini" id="shuffleBtn" title="Lecture aléatoire">⟲</button>
