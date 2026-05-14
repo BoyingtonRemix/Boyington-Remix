@@ -11,12 +11,13 @@
   <style>
     :root{
       --bg:#050505;
-      --panel:rgba(14,14,16,.92);
+      --panel:rgba(12,12,14,.92);
       --line:rgba(255,255,255,.08);
       --gold:#d7a73a;
       --gold2:#f1c35d;
       --text:#f5f5f5;
       --muted:#b9b9b9;
+      --muted2:#8e8e8e;
       --shadow:0 18px 50px rgba(0,0,0,.55);
     }
 
@@ -27,7 +28,7 @@
       font-family:Montserrat,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       color:var(--text);
       background:
-        radial-gradient(circle at 78% 12%, rgba(215,167,58,.13), transparent 18%),
+        radial-gradient(circle at 80% 12%, rgba(215,167,58,.13), transparent 18%),
         radial-gradient(circle at 18% 30%, rgba(120,40,10,.10), transparent 20%),
         linear-gradient(180deg,#090909 0%,#050505 100%);
       overflow-x:hidden;
@@ -37,7 +38,7 @@
       position:fixed;
       inset:0;
       background:
-        linear-gradient(90deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.70) 35%, rgba(0,0,0,.84) 100%),
+        linear-gradient(90deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.66) 35%, rgba(0,0,0,.84) 100%),
         url("studio-boyington.png");
       background-size:cover;
       background-position:center;
@@ -78,7 +79,7 @@
     .user{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.18);display:grid;place-items:center;color:#ddd;background:#0a0a0a}
 
     .hero{margin-top:18px;display:grid;grid-template-columns:1.12fr .88fr;gap:18px}
-    .hero-left,.hero-right,.player,.playlist,.latest-release,.top-card{border:1px solid rgba(255,255,255,.06);border-radius:28px;background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));box-shadow:var(--shadow);overflow:hidden;position:relative}
+    .hero-left,.hero-right,.player,.playlist,.top-card{border:1px solid rgba(255,255,255,.06);border-radius:28px;background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));box-shadow:var(--shadow);overflow:hidden;position:relative}
     .hero-left{min-height:430px;padding:34px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(180deg, rgba(15,15,16,.92), rgba(5,5,5,.96))}
     .kicker,.subtitle{letter-spacing:.34em;text-transform:uppercase}
     .kicker{color:#d0d0d0;font-size:12px;margin-bottom:12px}
@@ -101,12 +102,6 @@
     .ghost{padding:10px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.02);text-transform:uppercase;font-size:12px;letter-spacing:.08em}
 
     .top-releases{width:min(1280px,100%);margin:0 auto;padding:0 8%}
-    .latest-release{max-width:640px;margin:18px auto 0;display:grid;grid-template-columns:92px 1fr;gap:14px;align-items:center;padding:14px 16px;border-radius:22px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);box-shadow:0 8px 26px rgba(0,0,0,.24)}
-    .latest-release img{width:92px;height:92px;border-radius:18px;object-fit:cover;border:1px solid rgba(215,167,58,.25);background:#111}
-    .latest-release .k{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold2);margin-bottom:6px}
-    .latest-release .t{font-size:18px;font-weight:800;line-height:1.2;margin-bottom:4px}
-    .latest-release .s{font-size:13px;color:var(--muted)}
-
     .top-grid{margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
     .top-card{min-height:320px;cursor:pointer}
     .top-card img{width:100%;height:100%;object-fit:cover;display:block}
@@ -128,8 +123,6 @@
     .mini{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03);color:#fff;cursor:pointer}
     .bar{height:8px;border-radius:999px;background:#303030;position:relative;overflow:hidden;flex:1;min-width:220px}.bar span{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:inherit}
     .time-row{display:flex;justify-content:space-between;gap:12px;color:#cfcfcf;font-size:13px}
-    .equalizer{display:flex;align-items:flex-end;gap:5px;height:34px;margin:14px 0 4px;padding:7px 8px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(215,167,58,.18)}
-    .equalizer span{flex:1;height:8px;border-radius:999px;background:linear-gradient(180deg,var(--gold2),var(--gold));transform-origin:bottom center;transform:scaleY(.25);opacity:.88}
     .slider-row{display:flex;align-items:center;gap:10px;margin-top:14px}input[type=range]{width:220px;accent-color:var(--gold2)}
 
     .playlist{padding:16px;display:flex;flex-direction:column;min-height:260px}
@@ -197,14 +190,6 @@
     </div>
 
     <section class="top-releases">
-      <div class="latest-release" id="latestRelease">
-        <img id="latestCover" src="studio-boyington.png" alt="Dernière sortie">
-        <div>
-          <div class="k">Dernière sortie détectée</div>
-          <div class="t" id="latestTitle">Chargement…</div>
-          <div class="s" id="latestSub">Analyse du dépôt GitHub…</div>
-        </div>
-      </div>
       <div class="top-grid" id="topGrid"></div>
     </section>
 
@@ -220,7 +205,6 @@
           </div>
           <div class="bar"><span id="progress"></span></div>
           <div class="time-row"><span id="currentTime">0:00</span><span id="duration">0:00</span></div>
-          <div class="equalizer" id="equalizer" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
           <div class="controls">
             <button class="mini" id="shuffleBtn" title="Lecture aléatoire">⟲</button>
             <button class="mini" id="prevBtn" title="Titre précédent">⟨</button>
@@ -283,7 +267,6 @@
     const CONFIG = {
       owner: 'boyingtonremix',
       repo: 'Boyington-Remix',
-      branch: null,
       fallbackCover: 'studio-boyington.png'
     };
 
@@ -301,11 +284,7 @@
     const statusLine = $('statusLine');
     const searchInput = $('searchInput'), chipRow = $('chipRow'), sortSelect = $('sortSelect');
     const shuffleBtn = $('shuffleBtn'), repeatBtn = $('repeatBtn');
-    const latestCover = $('latestCover');
-    const latestTitle = $('latestTitle');
-    const latestSub = $('latestSub');
     const topGrid = $('topGrid');
-    const equalizerEl = $('equalizer');
 
     let tracks = [];
     let currentIndex = 0;
@@ -314,19 +293,13 @@
     let shuffleEnabled = false;
     let repeatEnabled = true;
     let sortMode = 'az';
-    let currentBpm = 120;
-    let equalizerRaf = 0;
-    let isPlaying = false;
-    let defaultBranch = null;
+    let defaultBranch = 'principal';
 
     const formatTime = (s) => isFinite(s) ? `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}` : '0:00';
     const safeText = (v, f='') => String(v || '').trim() || f;
     const normalize = (v) => safeText(v).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[’']/g, "'").replace(/\s+/g, ' ').replace(/[^a-z0-9]+/g, ' ').trim();
     const extractGenre = (t) => safeText(t.genre || t.subtitle || 'Autre');
-    const displayTitle = (title) => safeText(title)
-      .replace(/\s+by\s+boyington(?:\s+remix)?$/i, '')
-      .replace(/\s+by\s+boyington$/i, '')
-      .replace(/\s+\((original mix|remix|extended mix|mashupremix)\)$/i, '');
+    const displayTitle = (title) => safeText(title).replace(/\s+by\s+boyington(?:\s+remix)?$/i, '').replace(/\s+by\s+boyington$/i, '').replace(/\s+\((original mix|remix|extended mix|mashupremix)\)$/i, '');
 
     function pictureToDataUrl(pic) {
       if (!pic || !pic.data) return null;
@@ -335,22 +308,9 @@
       return `data:${pic.format || 'image/jpeg'};base64,${btoa(b)}`;
     }
 
-    function resolveBranch() {
-      return CONFIG.branch || defaultBranch || 'main';
-    }
-
     function apiUrl(path = '') {
-      const branch = resolveBranch();
       const clean = path ? `/${path}` : '';
-      return `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents${clean}?ref=${encodeURIComponent(branch)}`;
-    }
-
-    async function fetchRepoInfo() {
-      const r = await fetch(`https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}`, { cache: 'no-store' });
-      if (!r.ok) throw new Error('Impossible de lire le dépôt GitHub.');
-      const info = await r.json();
-      defaultBranch = info.default_branch || 'main';
-      return info;
+      return `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents${clean}?ref=${encodeURIComponent(defaultBranch)}`;
     }
 
     function sortTracks(list) {
@@ -385,46 +345,6 @@
       return track.cover || CONFIG.fallbackCover;
     }
 
-    function getTrackBpm(track) {
-      const value = Number(track?.bpm ?? track?.BPM ?? track?.tbpm ?? track?.TBPM ?? track?.tempo);
-      return Number.isFinite(value) && value > 0 ? value : 120;
-    }
-
-    function stopEqualizer() {
-      if (equalizerRaf) cancelAnimationFrame(equalizerRaf);
-      equalizerRaf = 0;
-      if (!equalizerEl) return;
-      equalizerEl.querySelectorAll('span').forEach(bar => {
-        bar.style.transform = 'scaleY(.25)';
-        bar.style.opacity = '.75';
-      });
-    }
-
-    function startEqualizer() {
-      if (!equalizerEl) return;
-      stopEqualizer();
-      const bars = Array.from(equalizerEl.querySelectorAll('span'));
-      const loop = () => {
-        if (!isPlaying) {
-          stopEqualizer();
-          return;
-        }
-        const t = audio.currentTime || 0;
-        const bpm = getTrackBpm(tracks[currentIndex] || {});
-        const beat = (t * bpm / 60) % 1;
-        const pulse = Math.sin(beat * Math.PI * 2) * 0.5 + 0.5;
-        bars.forEach((bar, i) => {
-          const sway = 0.16 * Math.sin(t * 3 + i * 0.7);
-          const beatLift = 0.55 + pulse * 0.45;
-          const height = Math.max(0.12, Math.min(1.25, 0.18 + beatLift * 0.55 + sway));
-          bar.style.transform = `scaleY(${height})`;
-          bar.style.opacity = String(0.48 + height * 0.42);
-        });
-        equalizerRaf = requestAnimationFrame(loop);
-      };
-      loop();
-    }
-
     function applyTrack(t) {
       currentTitleEl.textContent = t.title;
       currentSubtitleEl.textContent = t.subtitle || t.genre || 'Playlist officielle';
@@ -437,27 +357,9 @@
       miniCover.src = c;
     }
 
-    function renderLatestRelease() {
-      if (!tracks.length) {
-        latestTitle.textContent = 'Aucune sortie détectée';
-        latestSub.textContent = 'Ajoute des fichiers MP3 dans la racine du dépôt';
-        latestCover.src = CONFIG.fallbackCover;
-        return;
-      }
-      const sorted = [...tracks].sort((a, b) => {
-        const da = a.remoteDate ? new Date(a.remoteDate).getTime() : 0;
-        const db = b.remoteDate ? new Date(b.remoteDate).getTime() : 0;
-        return db - da;
-      });
-      const selected = sorted[0] || tracks[0];
-      latestTitle.textContent = displayTitle(selected.title);
-      latestSub.textContent = selected.subtitle || selected.genre || 'Dernière sortie du dépôt';
-      latestCover.src = resolveCover(selected);
-    }
-
     function renderTop() {
       const top = tracks.slice(0, 6);
-      topGrid.innerHTML = top.map((t, i) => `
+      topGrid.innerHTML = top.length ? top.map((t, i) => `
         <article class="top-card" data-i="${t.index}">
           <img src="${resolveCover(t)}" alt="${displayTitle(t.title)}">
           <div class="shade"></div>
@@ -468,7 +370,7 @@
             <div class="tag">${extractGenre(t)}</div>
           </div>
         </article>
-      `).join('');
+      `).join('') : '<div class="helper">Aucune sortie détectée.</div>';
       topGrid.querySelectorAll('.top-card').forEach(c => c.onclick = () => loadTrack(+c.dataset.i, true));
     }
 
@@ -502,6 +404,11 @@
       return (currentIndex + delta + tracks.length) % tracks.length;
     }
 
+    function pictureLoad(track, tags) {
+      const cover = pictureToDataUrl(tags.picture);
+      if (cover) track.cover = cover;
+    }
+
     function fetchMeta(track) {
       if (!window.jsmediatags || track.loaded || track.loading) return track.metaPromise || Promise.resolve(track);
       track.loading = true;
@@ -518,11 +425,8 @@
                 track.artist = safeText(tags.artist);
                 track.album = safeText(tags.album);
                 track.genre = safeText(tags.genre, track.genre);
-                track.bpm = Number(tags.bpm || tags.BPM || tags.tbpm || tags.TBPM || tags.tempo || track.bpm || 120);
-                const comment = tags.comment;
-                track.comment = Array.isArray(comment) ? safeText(comment[0]?.text || comment[0], '') : safeText(comment?.text || comment, '');
-                const cover = pictureToDataUrl(tags.picture);
-                if (cover) track.cover = cover;
+                track.comment = Array.isArray(tags.comment) ? safeText(tags.comment[0]?.text || tags.comment[0], '') : safeText(tags.comment?.text || tags.comment, '');
+                pictureLoad(track, tags);
                 track.subtitle = track.genre || track.artist || 'Lecture disponible';
                 track.loaded = true;
                 track.loading = false;
@@ -545,17 +449,6 @@
       return track.metaPromise;
     }
 
-    async function fetchCommitDate(track) {
-      try {
-        const r = await fetch(`https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/commits?path=${encodeURIComponent(track.src)}&per_page=1`, { cache: 'no-store' });
-        if (!r.ok) return;
-        const data = await r.json();
-        const first = Array.isArray(data) ? data[0] : null;
-        const date = first?.commit?.committer?.date || first?.commit?.author?.date || null;
-        if (date) track.remoteDate = date;
-      } catch (_) {}
-    }
-
     function updateRenderedTrack(t) {
       const row = playlistEl.querySelector(`.track-btn[data-i="${t.index}"]`);
       if (row) {
@@ -574,7 +467,6 @@
         if (img) img.src = resolveCover(t);
       }
       if (currentIndex === t.index) applyTrack(t);
-      renderLatestRelease();
     }
 
     function loadTrack(i, autoplay = false) {
@@ -592,15 +484,22 @@
       playBtn.textContent = '▶';
       miniPlay.textContent = '▶';
       refreshActive();
-      fetchMeta(t).then(() => { applyTrack(t); buildChips(); renderPlaylist(); renderTop(); renderLatestRelease(); });
+      fetchMeta(t).then(() => { applyTrack(t); buildChips(); renderPlaylist(); renderTop(); });
       if (autoplay) {
         audio.play().then(() => {
           playBtn.textContent = '❚❚';
           miniPlay.textContent = '❚❚';
           isPlaying = true;
-          startEqualizer();
         }).catch(() => {});
       }
+    }
+
+    async function fetchRepoInfo() {
+      const r = await fetch(`https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}`, { cache: 'no-store' });
+      if (!r.ok) throw new Error('Impossible de lire le dépôt GitHub.');
+      const info = await r.json();
+      defaultBranch = info.default_branch || 'principal' || 'main';
+      return info;
     }
 
     async function init() {
@@ -609,18 +508,7 @@
       const r = await fetch(apiUrl(), { cache: 'no-store' });
       if (!r.ok) throw new Error('GitHub API error');
       const items = await r.json();
-      tracks = items
-        .filter(x => x.type === 'file' && x.name.toLowerCase().endsWith('.mp3'))
-        .map((x, i) => ({
-          index:i,
-          src:x.name,
-          title:x.name.replace(/\.mp3$/i,''),
-          subtitle:'Lecture en attente…',
-          genre:'Autre', artist:'', album:'', comment:'', cover:CONFIG.fallbackCover,
-          loaded:false, loading:false, duration:'', bpm:120, remoteDate:null
-        }))
-        .sort((a, b) => a.title.localeCompare(b.title, 'fr', { numeric: true, sensitivity: 'base' }))
-        .map((t, i) => ({ ...t, index:i }));
+      tracks = items.filter(x => x.type === 'file' && x.name.toLowerCase().endsWith('.mp3')).map((x, i) => ({ index:i, src:x.name, title:x.name.replace(/\.mp3$/i,''), subtitle:'Lecture en attente…', genre:'Autre', artist:'', album:'', comment:'', cover:CONFIG.fallbackCover, loaded:false, loading:false })).sort((a, b) => a.title.localeCompare(b.title, 'fr', { numeric: true, sensitivity: 'base' })).map((t, i) => ({ ...t, index:i }));
 
       if (!tracks.length) {
         statusLine.textContent = 'Aucun MP3 trouvé dans la racine du dépôt.';
@@ -628,21 +516,15 @@
         currentSubtitleEl.textContent = 'Ajoute des fichiers .mp3 à la racine du dépôt';
         currentTrackNameEl.textContent = 'Aucun MP3 trouvé';
         currentTrackStyleEl.textContent = 'Ajoute des fichiers .mp3 à la racine du dépôt';
-        latestTitle.textContent = 'Aucune sortie détectée';
-        latestSub.textContent = 'Ajoute des fichiers MP3 dans la racine du dépôt';
-        renderPlaylist(); renderTop(); buildChips(); renderLatestRelease();
+        renderPlaylist(); renderTop(); buildChips();
         return;
       }
 
       buildChips();
       renderTop();
       renderPlaylist();
-      renderLatestRelease();
       loadTrack(0, false);
-      tracks.forEach(track => {
-        fetchMeta(track);
-        fetchCommitDate(track).then(() => renderLatestRelease());
-      });
+      tracks.forEach(fetchMeta);
       statusLine.textContent = `${tracks.length} morceau(x) détecté(s) dans le dépôt.`;
     }
 
@@ -658,14 +540,12 @@
           playBtn.textContent = '❚❚';
           miniPlay.textContent = '❚❚';
           isPlaying = true;
-          startEqualizer();
         }).catch(() => {});
       } else {
         audio.pause();
         isPlaying = false;
         playBtn.textContent = '▶';
         miniPlay.textContent = '▶';
-        stopEqualizer();
       }
     };
     prevBtn.onclick = () => tracks.length && loadTrack(chooseNext(-1), true);
@@ -680,10 +560,10 @@
       progress.style.width = pct + '%';
       currentTimeEl.textContent = formatTime(audio.currentTime);
     };
-    audio.onplay = () => { isPlaying = true; startEqualizer(); };
-    audio.onpause = () => { isPlaying = false; stopEqualizer(); };
-    audio.onended = () => { isPlaying = false; stopEqualizer(); repeatEnabled ? loadTrack(chooseNext(1), true) : (playBtn.textContent = '▶', miniPlay.textContent = '▶'); };
-    audio.onerror = () => { isPlaying = false; stopEqualizer(); playBtn.textContent = '▶'; miniPlay.textContent = '▶'; statusLine.textContent = 'Erreur de lecture sur ce fichier.'; };
+    audio.onplay = () => { isPlaying = true; };
+    audio.onpause = () => { isPlaying = false; };
+    audio.onended = () => { isPlaying = false; repeatEnabled ? loadTrack(chooseNext(1), true) : (playBtn.textContent = '▶', miniPlay.textContent = '▶'); };
+    audio.onerror = () => { isPlaying = false; playBtn.textContent = '▶'; miniPlay.textContent = '▶'; statusLine.textContent = 'Erreur de lecture sur ce fichier.'; };
     volume.oninput = () => audio.volume = parseFloat(volume.value);
     audio.volume = parseFloat(volume.value);
     window.addEventListener('resize', () => { $('miniPlayer').style.display = window.matchMedia('(max-width: 720px)').matches ? 'grid' : 'none'; });
@@ -695,10 +575,7 @@
       currentSubtitleEl.textContent = 'Vérifie la racine du dépôt GitHub';
       currentTrackNameEl.textContent = 'Chargement impossible';
       currentTrackStyleEl.textContent = 'Vérifie la racine du dépôt GitHub';
-      latestTitle.textContent = 'Chargement impossible';
-      latestSub.textContent = 'Vérifie la racine du dépôt GitHub';
       renderTop();
-      renderLatestRelease();
     });
   </script>
 </body>
