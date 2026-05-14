@@ -12,7 +12,6 @@
     :root{
       --bg:#050505;
       --panel:rgba(12,12,14,.92);
-      --panel2:rgba(255,255,255,.04);
       --line:rgba(255,255,255,.08);
       --gold:#d7a73a;
       --gold2:#f1c35d;
@@ -164,39 +163,39 @@
       position:absolute;
       inset:0;
       display:flex;
-      align-items:center;
+      align-items:flex-end;
       gap:3px;
       padding:0 8px;
       z-index:2;
       pointer-events:none;
       overflow:hidden;
-      opacity:.48;
+      opacity:.58;
     }
     .equalizer span{
       flex:1;
       min-width:2px;
-      height:72%;
+      height:92%;
       border-radius:999px;
-      background:linear-gradient(180deg, rgba(255,240,190,.92), rgba(215,167,58,.92));
+      background:linear-gradient(180deg, rgba(255,248,215,.98), rgba(255,192,72,.98) 45%, rgba(255,121,40,.98) 100%);
       transform-origin:center bottom;
-      animation:eq 1.05s ease-in-out infinite;
+      animation:eq 0.95s ease-in-out infinite;
       animation-play-state:paused;
-      box-shadow:0 0 10px rgba(215,167,58,.10);
+      box-shadow:0 0 12px rgba(255,178,58,.16);
     }
     .player.playing .equalizer span{animation-play-state:running}
-    .equalizer span:nth-child(2n){height:46%}
-    .equalizer span:nth-child(3n){height:64%}
-    .equalizer span:nth-child(4n){height:38%}
-    .equalizer span:nth-child(5n){height:56%}
-    .equalizer span:nth-child(7n){height:78%}
-    .equalizer span:nth-child(9n){height:50%}
-    .equalizer span:nth-child(11n){height:68%}
-    .equalizer span:nth-child(13n){height:42%}
-    .equalizer span:nth-child(17n){height:60%}
-    .equalizer span:nth-child(19n){height:52%}
+    .equalizer span:nth-child(2n){height:58%;background:linear-gradient(180deg, rgba(255,241,184,.98), rgba(231,168,43,.98) 48%, rgba(214,117,38,.98) 100%)}
+    .equalizer span:nth-child(3n){height:76%;background:linear-gradient(180deg, rgba(255,230,160,.98), rgba(247,170,58,.98) 48%, rgba(255,96,63,.98) 100%)}
+    .equalizer span:nth-child(4n){height:46%;background:linear-gradient(180deg, rgba(255,248,225,.98), rgba(255,201,88,.98) 48%, rgba(237,120,46,.98) 100%)}
+    .equalizer span:nth-child(5n){height:66%;background:linear-gradient(180deg, rgba(255,239,170,.98), rgba(220,161,42,.98) 50%, rgba(184,90,28,.98) 100%)}
+    .equalizer span:nth-child(7n){height:88%;background:linear-gradient(180deg, rgba(255,246,210,.98), rgba(255,182,56,.98) 48%, rgba(255,130,48,.98) 100%)}
+    .equalizer span:nth-child(9n){height:54%;background:linear-gradient(180deg, rgba(255,240,190,.98), rgba(240,156,49,.98) 48%, rgba(214,104,41,.98) 100%)}
+    .equalizer span:nth-child(11n){height:80%;background:linear-gradient(180deg, rgba(255,249,230,.98), rgba(249,187,66,.98) 48%, rgba(230,103,43,.98) 100%)}
+    .equalizer span:nth-child(13n){height:50%;background:linear-gradient(180deg, rgba(255,234,156,.98), rgba(233,151,43,.98) 48%, rgba(193,86,28,.98) 100%)}
+    .equalizer span:nth-child(17n){height:70%;background:linear-gradient(180deg, rgba(255,245,204,.98), rgba(255,176,53,.98) 48%, rgba(251,103,40,.98) 100%)}
+    .equalizer span:nth-child(19n){height:62%;background:linear-gradient(180deg, rgba(255,241,182,.98), rgba(232,163,48,.98) 48%, rgba(204,95,31,.98) 100%)}
     @keyframes eq{
-      0%,100%{transform:scaleY(.55);opacity:.62}
-      50%{transform:scaleY(1.35);opacity:1}
+      0%,100%{transform:scaleY(.48);opacity:.66}
+      50%{transform:scaleY(1.55);opacity:1}
     }
 
     .time-row{display:flex;justify-content:space-between;gap:12px;color:#cfcfcf;font-size:13px;margin-top:9px}
@@ -462,9 +461,17 @@
 
     const formatTime = (s) => isFinite(s) ? `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}` : '0:00';
     const safeText = (v, f = '') => String(v || '').trim() || f;
-    const normalize = (v) => safeText(v).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[’']/g, "'").replace(/\s+/g, ' ').replace(/[^a-z0-9]+/g, ' ').trim();
-    const extractGenre = (t) => safeText(t.genre || t.subtitle || 'Autre');
-    const displayTitle = (title) => safeText(title).replace(/\s+by\s+boyington(?:\s+remix)?$/i, '').replace(/\s+by\s+boyington$/i, '').replace(/\s+\((original mix|remix|extended mix|mashupremix)\)$/i, '');
+    const cleanLabel = (v) => safeText(v).replace(/^\s*p\s+(?=original\s+(?:mashup|remix|mix)\b)/i, '').replace(/^\s*p\s+/i, '').replace(/\s+/g, ' ').trim();
+    const normalize = (v) => cleanLabel(v).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[’']/g, "'").replace(/\s+/g, ' ').replace(/[^a-z0-9]+/g, ' ').trim();
+    const prettyLabel = (v) => {
+      const s = cleanLabel(v);
+      if (/^original\s+mashup$/i.test(s)) return 'Original Mashup';
+      if (/^original\s+remix$/i.test(s)) return 'Original Remix';
+      if (/^original\s+mix$/i.test(s)) return 'Original Mix';
+      return s;
+    };
+    const extractGenre = (t) => prettyLabel(t.genre || t.subtitle || 'Autre');
+    const displayTitle = (title) => cleanLabel(safeText(title)).replace(/\s+by\s+boyington(?:\s+remix)?$/i, '').replace(/\s+by\s+boyington$/i, '').replace(/\s+\((original mix|remix|extended mix|mashupremix)\)$/i, '');
 
     function asset(path) {
       return encodeURI(path);
@@ -498,7 +505,6 @@
         const g = extractGenre(t);
         if (!genres.includes(g)) genres.push(g);
       });
-
       chipRow.innerHTML = '';
       genres.forEach(g => {
         const b = document.createElement('button');
@@ -621,7 +627,7 @@
                 track.title = safeText(tags.title, track.title);
                 track.artist = safeText(tags.artist);
                 track.album = safeText(tags.album);
-                track.genre = safeText(tags.genre, track.genre);
+                track.genre = prettyLabel(tags.genre || track.genre);
                 track.comment = Array.isArray(tags.comment) ? safeText(tags.comment[0]?.text || tags.comment[0], '') : safeText(tags.comment?.text || tags.comment, '');
                 const cover = pictureToDataUrl(tags.picture);
                 if (cover) track.cover = cover;
