@@ -11,8 +11,7 @@
   <style>
     :root{
       --bg:#050505;
-      --panel:rgba(12,12,14,.90);
-      --panel2:rgba(255,255,255,.04);
+      --panel:rgba(12,12,14,.92);
       --line:rgba(255,255,255,.08);
       --gold:#d7a73a;
       --gold2:#f1c35d;
@@ -34,31 +33,29 @@
         linear-gradient(180deg,#090909 0%,#050505 100%);
       overflow-x:hidden;
     }
-
     body::before{
       content:"";
       position:fixed;
       inset:0;
       background:
-        linear-gradient(90deg, rgba(0,0,0,.88) 0%, rgba(0,0,0,.62) 35%, rgba(0,0,0,.80) 100%),
-        radial-gradient(circle at 78% 20%, rgba(255,195,86,.10), transparent 18%),
+        linear-gradient(90deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.66) 35%, rgba(0,0,0,.84) 100%),
+        radial-gradient(circle at 78% 20%, rgba(255,195,86,.14), transparent 18%),
         radial-gradient(circle at 22% 20%, rgba(255,255,255,.04), transparent 14%),
         url("studio-boyington.png");
       background-size:cover;
       background-position:center;
-      opacity:.18;
+      opacity:.16;
       z-index:-2;
       transform:scale(1.02);
       pointer-events:none;
     }
-
     body::after{
       content:"";
       position:fixed;
       inset:0;
       background:
         radial-gradient(circle at top, rgba(212,175,55,.10), transparent 25%),
-        linear-gradient(180deg, rgba(0,0,0,.30), rgba(0,0,0,.72));
+        linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.74));
       z-index:-1;
       pointer-events:none;
     }
@@ -68,65 +65,22 @@
     audio{display:none}
 
     .page{width:min(1600px,calc(100% - 24px));margin:0 auto}
-
-    .topbar{
-      height:72px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:0 18px;
-      position:sticky;
-      top:0;
-      z-index:30;
-      backdrop-filter:blur(10px);
-      background:rgba(5,5,5,.88);
-      border-bottom:1px solid rgba(255,255,255,.06);
-    }
+    .topbar{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;position:sticky;top:0;z-index:30;backdrop-filter:blur(10px);background:rgba(5,5,5,.88);border-bottom:1px solid rgba(255,255,255,.06)}
     .brand{display:flex;align-items:center;gap:12px;min-width:250px}
-    .logo{
-      width:30px;height:30px;border-radius:8px;
-      display:grid;place-items:center;
-      background:linear-gradient(180deg,#f3c95f,#9a6a10);
-      color:#111;font-weight:900;
-      box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);
-    }
+    .logo{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:linear-gradient(180deg,#f3c95f,#9a6a10);color:#111;font-weight:900;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
     .brand span{font-weight:800;letter-spacing:.08em;color:#d9b15a}
     .nav{display:flex;align-items:center;gap:34px;font-size:14px;text-transform:uppercase;letter-spacing:.06em}
     .nav a{opacity:.86;position:relative}
     .nav a.active{color:var(--gold2);opacity:1}
     .nav a.active::after{content:"";position:absolute;left:0;right:0;bottom:-22px;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);border-radius:999px}
     .icons{display:flex;align-items:center;gap:12px;min-width:250px;justify-content:flex-end}
-    .icon-btn{
-      width:32px;height:32px;border-radius:50%;
-      display:grid;place-items:center;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.03);
-      color:#eee;
-      transition:.18s ease;
-    }
+    .icon-btn{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.03);color:#eee;transition:.18s ease}
     .icon-btn:hover{transform:translateY(-1px);border-color:rgba(215,167,58,.35);background:rgba(215,167,58,.08)}
     .user{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.18);display:grid;place-items:center;color:#ddd;background:#0a0a0a}
 
     .hero{margin-top:18px;display:grid;grid-template-columns:1.12fr .88fr;gap:18px}
-    .panel,.player,.playlist,.hero-left,.hero-right,.info-card{
-      border:1px solid rgba(255,255,255,.06);
-      border-radius:28px;
-      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      position:relative;
-    }
-
-    .hero-left{
-      min-height:430px;
-      padding:34px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      background:
-        radial-gradient(circle at 86% 50%, rgba(215,167,58,.12), transparent 34%),
-        linear-gradient(180deg, rgba(15,15,16,.92), rgba(5,5,5,.96));
-    }
+    .hero-left,.hero-right,.player,.playlist,.latest-release,.top-card{border:1px solid rgba(255,255,255,.06);border-radius:28px;background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));box-shadow:var(--shadow);overflow:hidden;position:relative}
+    .hero-left{min-height:430px;padding:34px;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(circle at 86% 50%, rgba(215,167,58,.12), transparent 34%),linear-gradient(180deg, rgba(15,15,16,.92), rgba(5,5,5,.96))}
     .kicker,.subtitle{letter-spacing:.34em;text-transform:uppercase}
     .kicker{color:#d0d0d0;font-size:12px;margin-bottom:12px}
     h1{margin:0;line-height:.9;font-size:clamp(62px,9vw,110px);letter-spacing:-.06em;text-transform:uppercase}
@@ -135,55 +89,41 @@
     .subtitle{margin-top:16px;font-size:13px;color:#efefef;opacity:.9}
     .lead{margin-top:18px;max-width:650px;color:#d2d2d2;font-size:18px;line-height:1.6}
     .btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
-    .btn{
-      height:48px;padding:0 22px;border-radius:14px;border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.03);color:#f4f4f4;display:inline-flex;align-items:center;gap:10px;
-      text-transform:uppercase;letter-spacing:.08em;font-size:13px;cursor:pointer;transition:.2s ease
-    }
+    .btn{height:48px;padding:0 22px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.03);color:#f4f4f4;display:inline-flex;align-items:center;gap:10px;text-transform:uppercase;letter-spacing:.08em;font-size:13px;cursor:pointer;transition:.2s ease}
     .btn:hover{transform:translateY(-1px)}
     .btn.primary{color:#111;background:linear-gradient(180deg,var(--gold2),var(--gold));font-weight:800;box-shadow:0 8px 24px rgba(215,167,58,.22)}
 
-    .hero-right{
-      min-height:430px;
-      background:
-        linear-gradient(90deg, rgba(5,5,5,1) 0%, rgba(5,5,5,.10) 35%, rgba(5,5,5,0) 62%),
-        radial-gradient(circle at 72% 42%, rgba(255,197,87,.14), transparent 18%),
-        linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
-    }
+    .hero-right{min-height:430px;background:linear-gradient(90deg, rgba(5,5,5,.96) 0%, rgba(5,5,5,.34) 35%, rgba(5,5,5,0) 62%),radial-gradient(circle at 72% 42%, rgba(255,197,87,.24), transparent 18%),url("studio-boyington.png");background-size:cover;background-position:center;background-blend-mode:normal,screen,normal}
     .studio-scene{position:absolute;inset:0;pointer-events:none}
-    .studio-scene .speaker,.studio-scene .speaker2{
-      position:absolute;width:13%;aspect-ratio:1/1.28;border-radius:12px;
-      background:linear-gradient(180deg, rgba(28,28,30,.92), rgba(8,8,8,.94));
-      border:1px solid rgba(255,255,255,.05)
-    }
+    .studio-scene .speaker,.studio-scene .speaker2{position:absolute;width:13%;aspect-ratio:1/1.28;border-radius:12px;background:linear-gradient(180deg, rgba(28,28,30,.92), rgba(8,8,8,.94));border:1px solid rgba(255,255,255,.05)}
     .studio-scene .speaker{left:10%;top:12%}.studio-scene .speaker2{left:26%;top:16%}
     .studio-scene .lamp{position:absolute;right:10%;top:10%;width:14%;height:28%;background:radial-gradient(circle at 50% 32%, rgba(246,193,80,.98), rgba(243,193,80,.2) 30%, transparent 56%);opacity:.86}
     .studio-scene .desk{position:absolute;left:18%;right:0;bottom:4%;height:18%;background:linear-gradient(180deg, rgba(34,24,11,.38), rgba(0,0,0,.68));border-top:1px solid rgba(255,255,255,.06);border-radius:24px 24px 0 0}
-    .studio-scene .glow{position:absolute;right:6%;bottom:10%;width:62%;height:48%;border-radius:50%;background:radial-gradient(circle, rgba(215,167,58,.28), transparent 60%);filter:blur(16px)}
-    .studio-scene .silhouette{position:absolute;right:4%;bottom:0;width:68%;height:92%;border-radius:52% 52% 22% 22% / 30% 30% 18% 18%;background:linear-gradient(180deg, rgba(32,22,14,0) 0%, rgba(32,22,14,.5) 48%, rgba(7,7,7,0) 100%);box-shadow:inset 0 -80px 120px rgba(0,0,0,.6);clip-path:polygon(24% 3%,56% 0,72% 10%,78% 22%,86% 34%,88% 56%,82% 100%,18% 100%,10% 60%,12% 34%,18% 18%)}
+    .studio-scene .glow{position:absolute;right:6%;bottom:10%;width:62%;height:48%;border-radius:50%;background:radial-gradient(circle, rgba(215,167,58,.30), transparent 60%);filter:blur(16px)}
+    .studio-scene .silhouette{position:absolute;right:4%;bottom:0;width:68%;height:92%;border-radius:52% 52% 22% 22% / 30% 30% 18% 18%;background:linear-gradient(180deg, rgba(32,22,14,0) 0%, rgba(32,22,14,.52) 48%, rgba(7,7,7,0) 100%);box-shadow:inset 0 -80px 120px rgba(0,0,0,.62);clip-path:polygon(24% 3%,56% 0,72% 10%,78% 22%,86% 34%,88% 56%,82% 100%,18% 100%,10% 60%,12% 34%,18% 18%)}
     .hero-chip{position:absolute;right:22px;bottom:22px;width:min(330px,48%);border:1px solid rgba(215,167,58,.28);border-radius:18px;background:rgba(10,10,10,.62);padding:16px 18px;backdrop-filter:blur(8px)}
     .hero-chip small{display:block;color:#dcdcdc;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}.hero-chip p{margin:0;color:#cfcfcf;font-size:14px;line-height:1.5}
 
-    .info-row{margin-top:18px;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
-    .info-card{padding:18px;display:flex;gap:14px;align-items:flex-start;min-height:88px;background:rgba(15,15,16,.88)}
-    .iconbox{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(180deg, rgba(215,167,58,.18), rgba(215,167,58,.06));border:1px solid rgba(215,167,58,.26);color:var(--gold2);font-weight:900;flex:0 0 auto}
-    .info-card h3,.panel h4{margin:0 0 4px;font-size:13px;text-transform:uppercase;letter-spacing:.08em}
-    .info-card p,.panel p,.section-title p,.top-releases p,.about p,.footer p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
-
-    .panel-grid{margin-top:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-    .panel{padding:18px;background:rgba(15,15,16,.88);min-height:110px}
-
+    .section-head,.section-title,.top-releases,.about,.quote{scroll-margin-top:90px}
     .section-head,.section-title{width:min(1280px,100%);margin:18px auto 12px;padding:0 8%}
     .section-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
     .section-head h2,.top-releases h2,.section-title h2{margin:0;font-size:clamp(1.7rem,3.5vw,2.8rem);text-transform:uppercase;color:var(--gold2);letter-spacing:.06em}
     .ghost{padding:10px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.02);text-transform:uppercase;font-size:12px;letter-spacing:.08em}
 
-    .releases{display:grid;grid-template-columns:42px 1fr 42px;gap:10px;align-items:center}
+    .top-releases{width:min(1280px,100%);margin:34px auto 0;padding:0 8%}
+    .top-releases h2{display:block;width:100%;text-align:center}
+    .latest-release{max-width:640px;margin:18px auto 0;display:grid;grid-template-columns:92px 1fr;gap:14px;align-items:center;padding:14px 16px;border-radius:22px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);box-shadow:0 8px 26px rgba(0,0,0,.24)}
+    .latest-release img{width:92px;height:92px;border-radius:18px;object-fit:cover;border:1px solid rgba(215,167,58,.25);background:#111}
+    .latest-release .k{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold2);margin-bottom:6px}
+    .latest-release .t{font-size:18px;font-weight:800;line-height:1.2;margin-bottom:4px}
+    .latest-release .s{font-size:13px;color:var(--muted)}
+
+    .releases{display:grid;grid-template-columns:42px 1fr 42px;gap:10px;align-items:center;margin-top:16px}
     .arrow{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:#ddd;font-size:20px;cursor:pointer}
     .carousel{display:grid;grid-template-columns:repeat(8,minmax(160px,1fr));gap:12px;overflow:auto;scrollbar-width:thin;padding-bottom:4px;scroll-snap-type:x proximity}
     .card{min-width:160px;border-radius:18px;border:1px solid rgba(255,255,255,.10);background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));overflow:hidden;box-shadow:0 8px 26px rgba(0,0,0,.34);cursor:pointer;scroll-snap-align:start}
     .cover{height:156px;position:relative;display:flex;align-items:flex-end;padding:12px;background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,0)),linear-gradient(135deg,#182635,#090909 45%,#2a1a05 100%)}
-    .overlay-title{font-size:22px;line-height:.9;font-weight:900;letter-spacing:-.05em;text-transform:uppercase;color:#f5f5f5;text-shadow:0 2px 12px rgba(0,0,0,.65)}
+    .overlay-title{font-size:15px;line-height:1;font-weight:900;letter-spacing:-.04em;text-transform:uppercase;color:#f5f5f5;text-shadow:0 2px 12px rgba(0,0,0,.65);display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
     .overlay-title small{display:block;color:var(--gold2);font-size:14px;letter-spacing:.12em;margin-top:4px}
     .meta{padding:12px 12px 14px}.meta .title{font-size:14px;font-weight:700;margin-bottom:3px}.meta .sub{font-size:12px;color:var(--muted2)}
 
@@ -191,32 +131,30 @@
     .player,.playlist{border:1px solid rgba(255,255,255,.08);border-radius:26px;box-shadow:var(--shadow);background:rgba(12,12,13,.92)}
     .player{padding:18px;display:grid;grid-template-columns:160px 1fr;gap:18px;min-height:260px}
     .player-cover{width:100%;aspect-ratio:1/1;border-radius:18px;overflow:hidden;border:1px solid rgba(215,167,58,.55);background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0)),linear-gradient(135deg,#1a2634,#070707 48%,#1f1406 100%);position:relative}
-    .player-cover::before{content:"BROKEN\AILLUSIONS";white-space:pre;position:absolute;left:14px;bottom:18px;font-size:24px;line-height:.88;font-weight:900;letter-spacing:-.05em;color:var(--gold2);text-shadow:0 2px 12px rgba(0,0,0,.5)}
-    .player-cover::after{content:"BOYINGTON";position:absolute;left:14px;top:12px;font-size:12px;letter-spacing:.2em;color:#fff;opacity:.9}
+    .player-cover::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.86));z-index:1;pointer-events:none}
+    .player-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+    .player-cover::after{content:"BOYINGTON";position:absolute;left:14px;top:12px;z-index:2;font-size:12px;letter-spacing:.2em;color:#fff;opacity:.9}
     .track-title{font-size:28px;font-weight:700;margin:4px 0 5px}.track-sub{color:var(--muted);margin:0 0 6px;line-height:1.45}.track-sub small{display:block;color:#d7d7d7}
     .controls{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:16px 0 12px}
     .round{width:56px;height:56px;border-radius:50%;border:0;background:linear-gradient(180deg,var(--gold2),var(--gold));box-shadow:0 10px 24px rgba(215,167,58,.24);color:#111;font-size:22px;font-weight:900;cursor:pointer}
     .mini{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03);color:#fff;cursor:pointer}
     .bar{height:8px;border-radius:999px;background:#303030;position:relative;overflow:hidden;flex:1;min-width:220px}.bar span{display:block;height:100%;width:62%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:inherit}
     .time-row{display:flex;justify-content:space-between;gap:12px;color:#cfcfcf;font-size:13px}
+    .equalizer{display:flex;align-items:flex-end;gap:5px;height:28px;margin:14px 0 4px}
+    .equalizer span{flex:1;height:8px;border-radius:999px;background:linear-gradient(180deg,var(--gold2),var(--gold));transform-origin:bottom center;transform:scaleY(.25);opacity:.9;transition:transform .08s linear,opacity .08s linear}
     .slider-row{display:flex;align-items:center;gap:10px;margin-top:14px}input[type=range]{width:220px;accent-color:var(--gold2)}
-    .top-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.small-btn{padding:10px 14px;border-radius:12px;border:1px solid rgba(215,167,58,.42);color:#f3f3f3;background:rgba(255,255,255,.02);cursor:pointer;text-transform:uppercase;letter-spacing:.06em;font-size:12px}
 
     .playlist{padding:16px;display:flex;flex-direction:column;min-height:260px}
     .playlist-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
     .playlist-head h3{margin:0;color:var(--gold2);text-transform:uppercase;letter-spacing:.06em;font-size:18px}
     .playlist-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.search,.sort{height:34px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03);color:#eee;padding:0 12px;outline:none;font-size:13px}
     .chips{display:flex;flex-wrap:wrap;gap:10px}.chip{padding:12px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:#eee;cursor:pointer;font-size:12px;letter-spacing:.08em}.chip.active{background:rgba(212,175,55,.15);border-color:rgba(212,175,55,.4);color:#fff}
-    .list{display:flex;flex-direction:column;gap:8px;overflow:auto;max-height:260px;padding-right:4px}.item{display:grid;grid-template-columns:32px 1fr auto;gap:10px;align-items:center;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);border-radius:14px;padding:8px 10px}.thumb{width:32px;height:32px;border-radius:8px;object-fit:cover;background:#111;border:1px solid rgba(215,167,58,.22)}.item strong{display:block;font-size:13px;line-height:1.2}.item span{display:block;font-size:11px;color:#8e8e8e;margin-top:2px}.dur{color:#d8d8d8;font-size:12px}
+    .list{display:flex;flex-direction:column;gap:8px;overflow:auto;max-height:260px;padding-right:4px}.item{display:grid;grid-template-columns:32px 1fr auto;gap:10px;align-items:center;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);border-radius:14px;padding:8px 10px}.thumb{width:32px;height:32px;border-radius:8px;object-fit:cover;background:#111;border:1px solid rgba(215,167,58,.22)}.item strong{display:block;font-size:13px;line-height:1.25;color:#f5f5f5}.item span{display:block;font-size:11px;color:#b8b8b8;margin-top:2px}.dur{color:#e8e8e8;font-size:12px;font-weight:700}
 
-    .top-releases{width:min(1280px,100%);margin:34px auto 0;padding:0 8%}.top-releases p{max-width:760px}
     .top-grid{margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
     .top-card{position:relative;overflow:hidden;border-radius:28px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.05);min-height:320px;cursor:pointer}
     .top-card img{width:100%;height:100%;object-fit:cover;display:block}
-    .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.10),rgba(0,0,0,.80))}.rank{position:absolute;top:16px;left:16px;z-index:2;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(0,0,0,.55);border:1px solid rgba(212,175,55,.35);color:var(--gold);font-weight:800}.content{position:absolute;left:16px;right:16px;bottom:16px;z-index:2}.content h3{font-size:1.35rem;margin:0 0 6px}.content p{color:#e7e7e7;font-size:.95rem;line-height:1.6}.content .tag{margin-top:10px;display:inline-flex;padding:8px 10px;border-radius:999px;background:rgba(212,175,55,.14);border:1px solid rgba(212,175,55,.30);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
-
-    .quote{width:min(1280px,100%);margin:10px auto 0;padding:0 8% 22px;text-align:center}.quote h2{font-size:clamp(1.2rem,2.6vw,1.8rem);font-weight:700;color:#f5f1e6;line-height:1.5}
-    .about{width:min(1280px,100%);margin:0 auto;padding:20px 8% 90px;display:grid;grid-template-columns:1fr 1fr;gap:18px}.box{padding:24px;border-radius:26px;background:rgba(255,255,255,.05);border:1px solid var(--line)}.about h3{margin:0 0 10px;font-size:22px}.badge-line{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px}.badge-pill{padding:10px 12px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:#ececec;font-size:12px}
+    .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.10),rgba(0,0,0,.80))}.rank{position:absolute;top:16px;left:16px;z-index:2;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(0,0,0,.55);border:1px solid rgba(212,175,55,.35);color:var(--gold);font-weight:800}.content{position:absolute;left:16px;right:16px;bottom:16px;z-index:2}.content h3{font-size:1.15rem;margin:0 0 6px;line-height:1.1}.content p{color:#e7e7e7;font-size:.88rem;line-height:1.6}.content .tag{margin-top:10px;display:inline-flex;padding:8px 10px;border-radius:999px;background:rgba(212,175,55,.14);border:1px solid rgba(212,175,55,.30);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
 
     .footer{padding:40px 8% 80px;border-top:1px solid var(--line);text-align:center;background:rgba(0,0,0,.35);backdrop-filter:blur(10px)}
     .footer .links{margin-top:14px;display:flex;justify-content:center;flex-wrap:wrap;gap:16px}.footer .links a{color:#d8d8d8;font-size:13px;letter-spacing:.18em;text-transform:uppercase}.footer .links a:hover{color:var(--gold)}
@@ -224,60 +162,27 @@
     .mini-player img{width:52px;height:52px;border-radius:14px;object-fit:cover;border:1px solid rgba(255,255,255,.08)}.mini-player .mini-title{font-size:13px;font-weight:700}.mini-player .mini-sub{font-size:11px;color:#bbb;margin-top:3px}.mini-player .mini-actions{display:flex;gap:8px}.mini-player button{width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.08);color:#fff;cursor:pointer}.mini-player .mini-play{background:var(--gold);color:#050507;font-weight:800}
     .helper{margin-top:12px;font-size:12px;color:#a8a8a8}
 
-    @media (max-width:1180px){
-      .hero,.player-grid,.about,.top-grid,.panel-grid{grid-template-columns:1fr}
-      .player{grid-template-columns:1fr}
-      .player-content{padding:0}
-      .info-row{grid-template-columns:1fr}
-      .nav{display:none}
-      .brand,.icons{min-width:auto}
-      .hero-right{min-height:360px}
-      .panel-grid{display:grid}
-    }
-    @media (max-width:720px){
-      .topbar{padding:14px 16px;height:66px}
-      .hero{padding-top:10px}
-      .hero-left{padding:24px 18px;min-height:380px}
-      .hero h1{font-size:54px}
-      .lead{font-size:15px}
-      .section-head,.section-title,.top-releases,.playlist-main,.about,.quote,.filters{padding-left:6%;padding-right:6%}
-      .hero-chip{position:relative;right:auto;bottom:auto;margin-top:22px;width:100%}
-      .mini-player{display:grid}
-      .top-grid{grid-template-columns:1fr}
-    }
+    @media (max-width:1180px){.hero,.player-grid,.top-grid{grid-template-columns:1fr}.player{grid-template-columns:1fr}.player-content{padding:0}.nav{display:none}.brand,.icons{min-width:auto}.hero-right{min-height:360px}}
+    @media (max-width:720px){.topbar{padding:14px 16px;height:66px}.hero{padding-top:10px}.hero-left{padding:24px 18px;min-height:380px}.hero h1{font-size:54px}.lead{font-size:15px}.section-head,.section-title,.top-releases{padding-left:6%;padding-right:6%}.hero-chip{position:relative;right:auto;bottom:auto;margin-top:22px;width:100%}.mini-player{display:grid}.top-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
   <audio id="audio"></audio>
 
   <header class="topbar page">
-    <div class="brand">
-      <div class="logo">BR</div>
-      <span>BOYINGTON REMIX</span>
-    </div>
-
+    <div class="brand"><div class="logo">BR</div><span>BOYINGTON REMIX</span></div>
     <nav class="nav" aria-label="Navigation principale">
       <a href="#accueil">Accueil</a>
       <a href="#musique" class="active">Musique</a>
       <a href="#top">Top Releases</a>
       <a href="#playlistSection">Playlist complète</a>
-      <a href="#about">À propos</a>
       <a href="#contact">Contact</a>
     </nav>
-
     <div class="icons" aria-label="Raccourcis sociaux">
-      <a class="icon-btn" href="#" title="Spotify" aria-label="Spotify">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm4.6 14.45a.72.72 0 0 1-1 .22c-2.82-1.72-6.38-2.11-10.56-1.16a.72.72 0 1 1-.32-1.4c4.56-1.04 8.5-.59 11.64 1.33a.72.72 0 0 1 .24 1.01Zm1.31-2.93a.9.9 0 0 1-1.24.3c-3.1-1.9-7.82-2.45-11.47-1.34a.9.9 0 1 1-.53-1.72c4.18-1.28 9.3-.66 12.85 1.52a.9.9 0 0 1 .39 1.24Zm.12-3.1C14.9 8.2 8.53 8 5.09 9.05a1.08 1.08 0 0 1-.64-2.07c3.95-1.2 11.02-.97 15.17 1.51a1.08 1.08 0 1 1-1.18 1.83Z" fill="currentColor"/></svg>
-      </a>
-      <a class="icon-btn" href="#" title="Instagram" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M7.5 2A5.5 5.5 0 0 0 2 7.5v9A5.5 5.5 0 0 0 7.5 22h9a5.5 5.5 0 0 0 5.5-5.5v-9A5.5 5.5 0 0 0 16.5 2h-9Zm0 1.6h9A3.9 3.9 0 0 1 20.4 7.5v9a3.9 3.9 0 0 1-3.9 3.9h-9a3.9 3.9 0 0 1-3.9-3.9v-9A3.9 3.9 0 0 1 7.5 3.6Zm9.85 1.1a1.05 1.05 0 1 0 0 2.1 1.05 1.05 0 0 0 0-2.1ZM12 6.1A5.9 5.9 0 1 0 17.9 12 5.9 5.9 0 0 0 12 6.1Zm0 1.6A4.3 4.3 0 1 1 7.7 12 4.3 4.3 0 0 1 12 7.7Z" fill="currentColor"/></svg>
-      </a>
-      <a class="icon-btn" href="#" title="YouTube" aria-label="YouTube">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M21.7 7.2a3.1 3.1 0 0 0-2.18-2.2C17.6 4.5 12 4.5 12 4.5s-5.6 0-7.52.5A3.1 3.1 0 0 0 2.3 7.2 32.3 32.3 0 0 0 2 12a32.3 32.3 0 0 0 .3 4.8 3.1 3.1 0 0 0 2.18 2.2c1.92.5 7.52.5 7.52.5s5.6 0 7.52-.5a3.1 3.1 0 0 0 2.18-2.2A32.3 32.3 0 0 0 22 12a32.3 32.3 0 0 0-.3-4.8Zm-10.1 7.9V8.9l4.9 3.1-4.9 3.1Z" fill="currentColor"/></svg>
-      </a>
-      <a class="icon-btn" href="#" title="Facebook" aria-label="Facebook">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M14 8.8V7.6c0-.6.4-.7.7-.7h1.9V4H13.8C11.8 4 10 5.5 10 8v.8H8v3h2V20h4v-8.2h2.7l.3-3H14Z" fill="currentColor"/></svg>
-      </a>
+      <a class="icon-btn" href="#" title="Spotify" aria-label="Spotify"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm4.6 14.45a.72.72 0 0 1-1 .22c-2.82-1.72-6.38-2.11-10.56-1.16a.72.72 0 1 1-.32-1.4c4.56-1.04 8.5-.59 11.64 1.33a.72.72 0 0 1 .24 1.01Zm1.31-2.93a.9.9 0 0 1-1.24.3c-3.1-1.9-7.82-2.45-11.47-1.34a.9.9 0 1 1-.53-1.72c4.18-1.28 9.3-.66 12.85 1.52a.9.9 0 0 1 .39 1.24Zm.12-3.1C14.9 8.2 8.53 8 5.09 9.05a1.08 1.08 0 0 1-.64-2.07c3.95-1.2 11.02-.97 15.17 1.51a1.08 1.08 0 1 1-1.18 1.83Z" fill="currentColor"/></svg></a>
+      <a class="icon-btn" href="#" title="Instagram" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M7.5 2A5.5 5.5 0 0 0 2 7.5v9A5.5 5.5 0 0 0 7.5 22h9a5.5 5.5 0 0 0 5.5-5.5v-9A5.5 5.5 0 0 0 16.5 2h-9Zm0 1.6h9A3.9 3.9 0 0 1 20.4 7.5v9a3.9 3.9 0 0 1-3.9 3.9h-9a3.9 3.9 0 0 1-3.9-3.9v-9A3.9 3.9 0 0 1 7.5 3.6Zm9.85 1.1a1.05 1.05 0 1 0 0 2.1 1.05 1.05 0 0 0 0-2.1ZM12 6.1A5.9 5.9 0 1 0 17.9 12 5.9 5.9 0 0 0 12 6.1Zm0 1.6A4.3 4.3 0 1 1 7.7 12 4.3 4.3 0 0 1 12 7.7Z" fill="currentColor"/></svg></a>
+      <a class="icon-btn" href="#" title="YouTube" aria-label="YouTube"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M21.7 7.2a3.1 3.1 0 0 0-2.18-2.2C17.6 4.5 12 4.5 12 4.5s-5.6 0-7.52.5A3.1 3.1 0 0 0 2.3 7.2 32.3 32.3 0 0 0 2 12a32.3 32.3 0 0 0 .3 4.8 3.1 3.1 0 0 0 2.18 2.2c1.92.5 7.52.5 7.52.5s5.6 0 7.52-.5a3.1 3.1 0 0 0 2.18-2.2A32.3 32.3 0 0 0 22 12a32.3 32.3 0 0 0-.3-4.8Zm-10.1 7.9V8.9l4.9 3.1-4.9 3.1Z" fill="currentColor"/></svg></a>
+      <a class="icon-btn" href="#" title="Facebook" aria-label="Facebook"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M14 8.8V7.6c0-.6.4-.7.7-.7h1.9V4H13.8C11.8 4 10 5.5 10 8v.8H8v3h2V20h4v-8.2h2.7l.3-3H14Z" fill="currentColor"/></svg></a>
       <div class="user">⌂</div>
     </div>
   </header>
@@ -288,7 +193,7 @@
         <div class="kicker">Identité électronique premium</div>
         <h1><span class="white">BOYINGTON</span><span class="gold">REMIX</span></h1>
         <div class="subtitle">Son cinématique • Énergie émotionnelle • Signature musicale</div>
-        <p class="lead">Une expérience électronique unique entre émotion, groove et puissance. Le site reprend la direction visuelle du mockup : noir profond, or premium, hero imposant, releases en cartes, lecteur central et playlist à droite.</p>
+        <p class="lead">Une expérience électronique unique entre émotion, groove et puissance. Le site reprend une direction visuelle sombre et luxueuse, avec un player central, une playlist propre et une vitrine orientée releases.</p>
         <div class="btns">
           <button class="btn primary" onclick="document.getElementById('musique').scrollIntoView({behavior:'smooth'})">▶ Écouter maintenant</button>
           <button class="btn" onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'})">Voir les top releases</button>
@@ -307,49 +212,36 @@
       </div>
     </section>
 
-    <section class="info-row" aria-label="Fonctions principales">
-      <article class="info-card"><div class="iconbox">▶</div><div><h3>Lecteur automatique</h3><p>Les MP3 sont chargés depuis la racine du dépôt.</p></div></article>
-      <article class="info-card"><div class="iconbox">▣</div><div><h3>Covers intégrées</h3><p>Pochettes lues directement dans les tags ID3.</p></div></article>
-      <article class="info-card"><div class="iconbox">⌵</div><div><h3>Filtres avancés</h3><p>Recherche et filtrage par style / genre.</p></div></article>
-      <article class="info-card"><div class="iconbox">★</div><div><h3>Style premium</h3><p>Interface noire et or pensée pour les artistes.</p></div></article>
-      <article class="info-card"><div class="iconbox">▤</div><div><h3>100% responsive</h3><p>Expérience optimale sur tous les appareils.</p></div></article>
-    </section>
-
-    <section class="panel-grid">
-      <div class="panel"><h4>Lecteur automatique</h4><p>Lit les morceaux présents à la racine du dépôt GitHub et relie le player au fichier sélectionné.</p></div>
-      <div class="panel"><h4>Tag ID3 / Pochette</h4><p>Récupère le titre, l’artiste, le genre et la pochette si les métadonnées sont intégrées au MP3.</p></div>
-      <div class="panel"><h4>Direction visuelle</h4><p>Un rendu proche du mockup : fond noir, panneaux premium, or doux, blocs nets et ambiance studio luxe.</p></div>
-    </section>
-
     <div class="section-head" id="top">
-      <h2>Top Releases</h2>
+      <h2>Dernières sorties</h2>
       <div class="ghost">Voir tout</div>
     </div>
 
-    <section class="releases">
-      <button class="arrow" id="releasePrev" aria-label="Précédent">‹</button>
-      <div class="carousel" id="releases"></div>
-      <button class="arrow" id="releaseNext" aria-label="Suivant">›</button>
+    <section class="top-releases">
+      <div class="latest-release" id="latestRelease">
+        <img id="latestCover" src="studio-boyington.png" alt="Dernière sortie">
+        <div>
+          <div class="k">Dernière sortie détectée</div>
+          <div class="t" id="latestTitle">Chargement…</div>
+          <div class="s" id="latestSub">Analyse du dépôt GitHub…</div>
+        </div>
+      </div>
+      <div class="top-grid" id="topGrid"></div>
     </section>
 
     <section class="player-grid" id="musique">
       <div class="player">
-        <div class="player-cover">
-          <img id="coverImage" src="studio-boyington.png" alt="Cover Boyington Remix" style="width:100%;height:100%;object-fit:cover">
-        </div>
-
+        <div class="player-cover"><img id="coverImage" src="studio-boyington.png" alt="Cover Boyington Remix"></div>
         <div class="player-content">
           <h3 class="track-title" id="currentTitle">Chargement…</h3>
           <p class="track-sub" id="currentSubtitle">Lecture des fichiers du dépôt GitHub</p>
-
           <div style="margin-bottom:18px;padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
             <div id="currentTrackName" style="font-size:16px;font-weight:700;color:#fff">Chargement…</div>
             <div id="currentTrackStyle" style="margin-top:4px;font-size:13px;color:#b8b8b8">Lecture des fichiers du dépôt GitHub</div>
           </div>
-
           <div class="bar"><span id="progress"></span></div>
           <div class="time-row"><span id="currentTime">0:00</span><span id="duration">0:00</span></div>
-
+          <div class="equalizer" id="equalizer" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
           <div class="controls">
             <button class="mini" id="shuffleBtn" title="Lecture aléatoire">⟲</button>
             <button class="mini" id="prevBtn" title="Titre précédent">⟨</button>
@@ -357,22 +249,12 @@
             <button class="mini" id="nextBtn" title="Titre suivant">⟩</button>
             <button class="mini" id="repeatBtn" title="Répétition">↻</button>
           </div>
-
-          <div class="top-actions">
-            <button class="small-btn" id="openBtn">Ouvrir le fichier</button>
-            <button class="small-btn" id="downloadBtn">Télécharger</button>
-          </div>
-
-          <div class="slider-row">
-            <span>🔊</span>
-            <input type="range" id="volume" min="0" max="1" step="0.01" value="0.8">
-          </div>
-
+          <div class="slider-row"><span>🔊</span><input type="range" id="volume" min="0" max="1" step="0.01" value="0.8"></div>
           <div class="helper" id="statusLine">Chargement de la playlist…</div>
         </div>
       </div>
 
-      <aside class="playlist">
+      <aside class="playlist" id="playlistSection">
         <div class="playlist-head">
           <h3>Playlist complète <span style="color:#8e8e8e;font-size:12px">(détectée automatiquement)</span></h3>
         </div>
@@ -389,33 +271,6 @@
         <div style="height:12px"></div>
         <div class="list" id="playlist"></div>
       </aside>
-    </section>
-
-    <section class="top-releases">
-      <h2>Dernières sorties</h2>
-      <p>Les vignettes ci-dessous restent illustratives. Le lecteur principal, lui, se nourrit automatiquement des fichiers MP3 de ton dépôt.</p>
-      <div class="top-grid" id="topGrid"></div>
-    </section>
-
-    <section class="quote">
-      <h2>✨ “Accepte ce qui est, laisse aller ce qui était, et aie confiance en ce qui sera.” ✨</h2>
-    </section>
-
-    <section class="about" id="about">
-      <div class="box">
-        <h3>Boyington Remix</h3>
-        <p>Un site vitrine musical pensé comme un mini label personnel : identité visuelle sombre et luxueuse, lecture audio automatisée, et lecture des métadonnées directement depuis les MP3.</p>
-        <div class="badge-line">
-          <span class="badge-pill">Noir / Or</span><span class="badge-pill">Beatport Style</span><span class="badge-pill">ID3 Tags</span><span class="badge-pill">Playlist auto</span><span class="badge-pill">Cover embarquée</span>
-        </div>
-      </div>
-      <div class="box">
-        <h3>Ce que le site fait</h3>
-        <p>Il lit les fichiers `.mp3` présents à la racine du dépôt GitHub, affiche leurs noms, récupère la pochette intégrée, et propose une navigation simple avec filtre et recherche.</p>
-        <div class="badge-line">
-          <span class="badge-pill">GitHub Pages</span><span class="badge-pill">HTML / CSS / JS</span><span class="badge-pill">Sans backend</span><span class="badge-pill">Sans covers séparées</span>
-        </div>
-      </div>
     </section>
   </main>
 
@@ -467,9 +322,12 @@
     const miniTitle = $('miniTitle'), miniSub = $('miniSub');
     const statusLine = $('statusLine');
     const searchInput = $('searchInput'), chipRow = $('chipRow'), sortSelect = $('sortSelect');
-    const shuffleBtn = $('shuffleBtn'), repeatBtn = $('repeatBtn'), openBtn = $('openBtn'), downloadBtn = $('downloadBtn');
-    const releasesEl = $('releases'), releasePrev = $('releasePrev'), releaseNext = $('releaseNext');
-    const topGrid = $('topGrid');
+    const shuffleBtn = $('shuffleBtn'), repeatBtn = $('repeatBtn');
+    const releasesEl = $('topGrid');
+    const latestCover = $('latestCover');
+    const latestTitle = $('latestTitle');
+    const latestSub = $('latestSub');
+    const equalizerEl = $('equalizer');
 
     let tracks = [];
     let currentIndex = 0;
@@ -478,11 +336,20 @@
     let shuffleEnabled = false;
     let repeatEnabled = true;
     let sortMode = 'az';
+    let currentBpm = 120;
+    let audioContext = null;
+    let analyser = null;
+    let sourceNode = null;
+    let equalizerRaf = 0;
 
-    const formatTime = (s) => isFinite(s) ? `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}` : '0:00';
-    const safeText = (v, f = '') => String(v || '').trim() || f;
-    const normalize = (v) => safeText(v).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[’']/g, "'").replace(/\s+/g, ' ');
+    const formatTime = (s) => isFinite(s) ? `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}` : '0:00';
+    const safeText = (v, f='') => String(v || '').trim() || f;
+    const normalize = (v) => safeText(v).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[’']/g, "'").replace(/\s+/g, ' ').replace(/[^a-z0-9]+/g, ' ').trim();
     const extractGenre = (t) => safeText(t.genre || t.subtitle || 'Autre');
+    const displayTitle = (title) => safeText(title)
+      .replace(/\s+by\s+boyington(?:\s+remix)?$/i, '')
+      .replace(/\s+by\s+boyington$/i, '')
+      .replace(/\s+\((original mix|remix|extended mix|mashupremix)\)$/i, '');
 
     function pictureToDataUrl(pic) {
       if (!pic || !pic.data) return null;
@@ -500,7 +367,10 @@
 
     function buildChips() {
       const genres = ['Tous'];
-      tracks.forEach(t => { const g = extractGenre(t); if (!genres.includes(g)) genres.push(g); });
+      tracks.forEach(t => {
+        const g = extractGenre(t);
+        if (!genres.includes(g)) genres.push(g);
+      });
       chipRow.innerHTML = '';
       genres.forEach(g => {
         const b = document.createElement('button');
@@ -519,6 +389,63 @@
       }));
     }
 
+    function resolveCover(track) {
+      return track.cover || CONFIG.fallbackCover;
+    }
+
+    function getTrackBpm(track) {
+      const value = Number(track?.bpm ?? track?.BPM ?? track?.tbpm ?? track?.TBPM ?? track?.tempo);
+      return Number.isFinite(value) && value > 0 ? value : 120;
+    }
+
+    function stopEqualizer() {
+      if (equalizerRaf) cancelAnimationFrame(equalizerRaf);
+      equalizerRaf = 0;
+    }
+
+    function startEqualizer() {
+      if (!equalizerEl || !analyser) return;
+      stopEqualizer();
+      const bars = Array.from(equalizerEl.querySelectorAll('span'));
+      const data = new Uint8Array(analyser.frequencyBinCount);
+      const tick = () => {
+        analyser.getByteFrequencyData(data);
+        const energy = data.reduce((a, b) => a + b, 0) / (data.length * 255 || 1);
+        const beatMs = 60000 / Math.max(60, currentBpm);
+        const beatPhase = (performance.now() % beatMs) / beatMs;
+        const pulse = Math.sin(beatPhase * Math.PI * 2) * 0.5 + 0.5;
+        bars.forEach((bar, i) => {
+          const band = data[Math.min(data.length - 1, i * 2)] / 255;
+          const height = 0.18 + (band * 0.82) * (0.55 + pulse * 0.45) + energy * 0.22;
+          bar.style.transform = `scaleY(${Math.max(0.12, Math.min(1.25, height))})`;
+          bar.style.opacity = String(0.55 + band * 0.45);
+        });
+        equalizerRaf = requestAnimationFrame(tick);
+      };
+      tick();
+    }
+
+    function setupAudioAnalysis(track) {
+      currentBpm = getTrackBpm(track);
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return;
+      try {
+        if (!audioContext) audioContext = new Ctx();
+        if (!analyser) {
+          analyser = audioContext.createAnalyser();
+          analyser.fftSize = 64;
+        }
+        if (sourceNode) {
+          try { sourceNode.disconnect(); } catch (_) {}
+        }
+        sourceNode = audioContext.createMediaElementSource(audio);
+        sourceNode.connect(analyser);
+        analyser.connect(audioContext.destination);
+        if (audioContext.state === 'suspended') audioContext.resume().catch(() => {});
+        startEqualizer();
+      } catch (_) {}
+    }
+
     function applyTrack(t) {
       currentTitleEl.textContent = t.title;
       currentSubtitleEl.textContent = t.subtitle || t.genre || 'Playlist officielle';
@@ -526,49 +453,60 @@
       currentTrackStyleEl.textContent = t.subtitle || t.genre || 'Playlist officielle';
       miniTitle.textContent = t.title;
       miniSub.textContent = t.subtitle || t.genre || 'Playlist officielle';
-      const c = t.cover || CONFIG.fallbackCover;
+      const c = resolveCover(t);
       coverImage.src = c;
       miniCover.src = c;
-      openBtn.onclick = () => window.open(encodeURI(t.src), '_blank');
-      downloadBtn.onclick = () => {
-        const a = document.createElement('a');
-        a.href = encodeURI(t.src);
-        a.download = t.src;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-      };
+    }
+
+    function renderLatestRelease() {
+      if (!tracks.length) {
+        latestTitle.textContent = 'Aucune sortie détectée';
+        latestSub.textContent = 'Ajoute des fichiers MP3 dans la racine du dépôt';
+        latestCover.src = CONFIG.fallbackCover;
+        return;
+      }
+      const sorted = [...tracks].sort((a, b) => {
+        const da = a.remoteDate ? new Date(a.remoteDate).getTime() : 0;
+        const db = b.remoteDate ? new Date(b.remoteDate).getTime() : 0;
+        return db - da;
+      });
+      const selected = sorted[0] || tracks[0];
+      latestTitle.textContent = displayTitle(selected.title);
+      latestSub.textContent = selected.subtitle || selected.genre || 'Dernière sortie du dépôt';
+      latestCover.src = resolveCover(selected);
     }
 
     function renderTop() {
-      const top = tracks.slice(0, 8);
+      const top = tracks.slice(0, 6);
       const gradients = [
         'linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,0)), linear-gradient(135deg,#33240f,#080808 45%,#5c431a 100%)',
         'linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,0)), linear-gradient(135deg,#25150b,#090909 45%,#3b240d 100%)',
         'linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,0)), linear-gradient(135deg,#1c1138,#090909 45%,#3a0f48 100%)',
         'linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,0)), linear-gradient(135deg,#1d1735,#090909 45%,#2b1c52 100%)',
         'linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,0)), linear-gradient(135deg,#2a1205,#090909 45%,#5e190a 100%)',
-        'linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,0)), linear-gradient(135deg,#311029,#090909 45%,#541045 100%)',
-        'linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,0)), linear-gradient(135deg,#13203a,#090909 45%,#2b1f56 100%)',
-        'linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,0)), linear-gradient(135deg,#152636,#090909 45%,#2d1b05 100%)'
+        'linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,0)), linear-gradient(135deg,#311029,#090909 45%,#541045 100%)'
       ];
       releasesEl.innerHTML = top.map((t, i) => `
-        <article class="card" data-i="${t.index}">
-          <div class="cover" style="background:${gradients[i % gradients.length]}">
-            <div class="overlay-title">${t.title}<small>${extractGenre(t)}</small></div>
+        <article class="top-card" data-i="${t.index}">
+          <img src="${resolveCover(t)}" alt="${displayTitle(t.title)}">
+          <div class="shade"></div>
+          <div class="rank">${String(i + 1)}</div>
+          <div class="content">
+            <h3>${displayTitle(t.title)}</h3>
+            <p>${t.subtitle || t.genre || 'Boyington Remix'}</p>
+            <div class="tag">${extractGenre(t)}</div>
           </div>
-          <div class="meta"><div class="title">${t.title}</div><div class="sub">${extractGenre(t)}</div></div>
         </article>
       `).join('');
-      releasesEl.querySelectorAll('.card').forEach(c => c.onclick = () => loadTrack(+c.dataset.i, true));
+      releasesEl.querySelectorAll('.top-card').forEach(c => c.onclick = () => loadTrack(+c.dataset.i, true));
     }
 
     function renderPlaylist() {
       const visible = getVisibleTracks();
       playlistEl.innerHTML = visible.length ? visible.map(t => `
         <button class="item track-btn" data-i="${t.index}" style="text-align:left;padding:8px 10px;cursor:pointer;border-radius:14px;${t.index === currentIndex ? 'border-color:rgba(212,175,55,.45);background:rgba(212,175,55,.12)' : ''}">
-          <img class="thumb" src="${t.cover || CONFIG.fallbackCover}" alt="${t.title}">
-          <div><strong>${t.title}</strong><span>${t.subtitle || t.genre || ''}</span></div>
+          <img class="thumb" src="${resolveCover(t)}" alt="${displayTitle(t.title)}">
+          <div><strong>${displayTitle(t.title)}</strong><span>${t.subtitle || t.genre || ''}</span></div>
           <div class="dur">${String(t.index + 1).padStart(2, '0')}</div>
         </button>
       `).join('') : '<div class="helper">Aucun morceau ne correspond à la recherche ou au filtre.</div>';
@@ -593,44 +531,86 @@
       return (currentIndex + delta + tracks.length) % tracks.length;
     }
 
-    function updateMini() {
-      $('miniPlayer').style.display = window.matchMedia('(max-width: 720px)').matches ? 'grid' : 'none';
-    }
-
-    function fetchMeta(t) {
-      if (!window.jsmediatags || t.loaded || t.loading) return t.metaPromise || Promise.resolve(t);
-      t.loading = true;
-      t.metaPromise = new Promise(res => {
-        jsmediatags.read(encodeURI(t.src), {
+    function fetchMeta(track) {
+      if (!window.jsmediatags || track.loaded || track.loading) return track.metaPromise || Promise.resolve(track);
+      track.loading = true;
+      track.metaPromise = new Promise(resolve => {
+        jsmediatags.read(encodeURI(track.src), {
           onSuccess: r => {
             const tags = r.tags || {};
-            t.title = safeText(tags.title, t.title);
-            t.artist = safeText(tags.artist);
-            t.album = safeText(tags.album);
-            t.genre = safeText(tags.genre, t.genre);
+            track.title = safeText(tags.title, track.title);
+            track.artist = safeText(tags.artist);
+            track.album = safeText(tags.album);
+            track.genre = safeText(tags.genre, track.genre);
+            track.bpm = Number(tags.bpm || tags.BPM || tags.tbpm || tags.TBPM || tags.tempo || track.bpm || 120);
             const comment = tags.comment;
-            t.comment = Array.isArray(comment) ? safeText(comment[0]?.text || comment[0], '') : safeText(comment?.text || comment, '');
-            const c = pictureToDataUrl(tags.picture);
-            if (c) t.cover = c;
-            t.subtitle = t.genre || t.artist || 'Lecture disponible';
-            t.loaded = true;
-            t.loading = false;
-            updateRenderedTrack(t);
-            res(t);
+            track.comment = Array.isArray(comment) ? safeText(comment[0]?.text || comment[0], '') : safeText(comment?.text || comment, '');
+            const cover = pictureToDataUrl(tags.picture);
+            if (cover) track.cover = cover;
+            track.subtitle = track.genre || track.artist || 'Lecture disponible';
+            track.loaded = true;
+            track.loading = false;
+            updateRenderedTrack(track);
+            resolve(track);
           },
-          onError: () => { t.loaded = true; t.loading = false; res(t); }
+          onError: () => { track.loaded = true; track.loading = false; resolve(track); }
         });
       });
-      return t.metaPromise;
+      return track.metaPromise;
+    }
+
+    async function fetchCommitDate(track) {
+      try {
+        const url = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/commits?path=${encodeURIComponent(track.src)}&per_page=1`;
+        const r = await fetch(url, { cache: 'no-store' });
+        if (!r.ok) return;
+        const data = await r.json();
+        const first = Array.isArray(data) ? data[0] : null;
+        const date = first?.commit?.committer?.date || first?.commit?.author?.date || null;
+        if (date) track.remoteDate = date;
+      } catch (_) {}
     }
 
     function updateRenderedTrack(t) {
       const row = playlistEl.querySelector(`.track-btn[data-i="${t.index}"]`);
-      if (!row) return;
-      row.querySelector('strong').textContent = t.title;
-      row.querySelector('span').textContent = t.subtitle || t.genre || '';
-      const img = row.querySelector('img');
-      if (img) img.src = t.cover || CONFIG.fallbackCover;
+      if (row) {
+        row.querySelector('strong').textContent = displayTitle(t.title);
+        row.querySelector('span').textContent = t.subtitle || t.genre || '';
+        const img = row.querySelector('img');
+        if (img) img.src = resolveCover(t);
+      }
+      const topCard = releasesEl.querySelector(`.top-card[data-i="${t.index}"]`);
+      if (topCard) {
+        const h3 = topCard.querySelector('.content h3');
+        const p = topCard.querySelector('.content p');
+        const img = topCard.querySelector('img');
+        if (h3) h3.textContent = displayTitle(t.title);
+        if (p) p.textContent = t.subtitle || t.genre || 'Boyington Remix';
+        if (img) img.src = resolveCover(t);
+      }
+      if (currentIndex === t.index) applyTrack(t);
+      renderLatestRelease();
+    }
+
+    function setupAudioAnalysis(track) {
+      currentBpm = getTrackBpm(track);
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return;
+      try {
+        if (!audioContext) audioContext = new Ctx();
+        if (!analyser) {
+          analyser = audioContext.createAnalyser();
+          analyser.fftSize = 64;
+        }
+        if (sourceNode) {
+          try { sourceNode.disconnect(); } catch (_) {}
+        }
+        sourceNode = audioContext.createMediaElementSource(audio);
+        sourceNode.connect(analyser);
+        analyser.connect(audioContext.destination);
+        if (audioContext.state === 'suspended') audioContext.resume().catch(() => {});
+        startEqualizer();
+      } catch (_) {}
     }
 
     function loadTrack(i, autoplay = false) {
@@ -648,8 +628,9 @@
       playBtn.textContent = '▶';
       miniPlay.textContent = '▶';
       refreshActive();
-      fetchMeta(t).then(() => { applyTrack(t); buildChips(); renderPlaylist(); renderTop(); });
-      if (autoplay) audio.play().then(() => { playBtn.textContent = '❚❚'; miniPlay.textContent = '❚❚'; }).catch(() => {});
+      setupAudioAnalysis(t);
+      fetchMeta(t).then(() => { applyTrack(t); buildChips(); renderPlaylist(); renderTop(); renderLatestRelease(); });
+      if (autoplay) audio.play().then(() => { playBtn.textContent = '❚❚'; miniPlay.textContent = '❚❚'; setupAudioAnalysis(t); }).catch(() => {});
     }
 
     async function init() {
@@ -657,22 +638,7 @@
       const r = await fetch(API_URL, { cache: 'no-store' });
       if (!r.ok) throw new Error('GitHub API error');
       const items = await r.json();
-      tracks = items
-        .filter(x => x.type === 'file' && x.name.toLowerCase().endsWith('.mp3'))
-        .map((x, i) => ({
-          index: i,
-          src: x.name,
-          title: x.name.replace(/\.mp3$/i, ''),
-          subtitle: 'Lecture en attente…',
-          genre: 'Autre',
-          artist: '', album: '', comment: '',
-          cover: CONFIG.fallbackCover,
-          loaded: false,
-          loading: false,
-          duration: ''
-        }))
-        .sort((a, b) => a.title.localeCompare(b.title, 'fr', { numeric: true, sensitivity: 'base' }))
-        .map((t, i) => ({ ...t, index: i }));
+      tracks = items.filter(x => x.type === 'file' && x.name.toLowerCase().endsWith('.mp3')).map((x, i) => ({ index:i, src:x.name, title:x.name.replace(/\.mp3$/i,''), subtitle:'Lecture en attente…', genre:'Autre', artist:'', album:'', comment:'', cover:CONFIG.fallbackCover, loaded:false, loading:false, duration:'', bpm:120, remoteDate:null })).sort((a, b) => a.title.localeCompare(b.title, 'fr', { numeric: true, sensitivity: 'base' })).map((t, i) => ({ ...t, index:i }));
 
       if (!tracks.length) {
         statusLine.textContent = 'Aucun MP3 trouvé dans la racine du dépôt.';
@@ -680,12 +646,17 @@
         currentSubtitleEl.textContent = 'Ajoute des fichiers .mp3 à la racine du dépôt';
         currentTrackNameEl.textContent = 'Aucun MP3 trouvé';
         currentTrackStyleEl.textContent = 'Ajoute des fichiers .mp3 à la racine du dépôt';
-        renderPlaylist(); renderTop(); buildChips();
+        latestTitle.textContent = 'Aucune sortie détectée';
+        latestSub.textContent = 'Ajoute des fichiers MP3 dans la racine du dépôt';
+        renderPlaylist(); renderTop(); buildChips(); renderLatestRelease();
         return;
       }
 
-      buildChips(); renderTop(); renderPlaylist(); loadTrack(0, false);
-      tracks.forEach(fetchMeta);
+      buildChips(); renderTop(); renderPlaylist(); renderLatestRelease(); loadTrack(0, false);
+      tracks.forEach(track => {
+        fetchMeta(track);
+        fetchCommitDate(track).then(() => renderLatestRelease());
+      });
       statusLine.textContent = `${tracks.length} morceau(x) détecté(s) dans le dépôt.`;
     }
 
@@ -696,8 +667,8 @@
     playBtn.onclick = () => {
       if (!tracks.length) return;
       if (!audio.src) loadTrack(currentIndex, false);
-      if (audio.paused) audio.play().then(() => { playBtn.textContent = '❚❚'; miniPlay.textContent = '❚❚'; }).catch(() => {});
-      else { audio.pause(); playBtn.textContent = '▶'; miniPlay.textContent = '▶'; }
+      if (audio.paused) audio.play().then(() => { playBtn.textContent = '❚❚'; miniPlay.textContent = '❚❚'; setupAudioAnalysis(tracks[currentIndex]); }).catch(() => {});
+      else { audio.pause(); playBtn.textContent = '▶'; miniPlay.textContent = '▶'; stopEqualizer(); }
     };
     prevBtn.onclick = () => tracks.length && loadTrack(chooseNext(-1), true);
     nextBtn.onclick = () => tracks.length && loadTrack(chooseNext(1), true);
@@ -705,29 +676,29 @@
     miniPrev.onclick = () => prevBtn.click();
     miniNext.onclick = () => nextBtn.click();
 
-    releasePrev.onclick = () => { releasesEl.scrollBy({ left: -420, behavior: 'smooth' }); };
-    releaseNext.onclick = () => { releasesEl.scrollBy({ left: 420, behavior: 'smooth' }); };
-
     audio.onloadedmetadata = () => durationEl.textContent = formatTime(audio.duration);
     audio.ontimeupdate = () => {
       const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
       progress.style.width = pct + '%';
       currentTimeEl.textContent = formatTime(audio.currentTime);
     };
-    audio.onended = () => repeatEnabled ? loadTrack(chooseNext(1), true) : (playBtn.textContent = '▶', miniPlay.textContent = '▶');
-    audio.onerror = () => { playBtn.textContent = '▶'; miniPlay.textContent = '▶'; statusLine.textContent = 'Erreur de lecture sur ce fichier.'; };
+    audio.onended = () => { stopEqualizer(); repeatEnabled ? loadTrack(chooseNext(1), true) : (playBtn.textContent = '▶', miniPlay.textContent = '▶'); };
+    audio.onerror = () => { stopEqualizer(); playBtn.textContent = '▶'; miniPlay.textContent = '▶'; statusLine.textContent = 'Erreur de lecture sur ce fichier.'; };
     volume.oninput = () => audio.volume = parseFloat(volume.value);
     audio.volume = parseFloat(volume.value);
-    window.addEventListener('resize', updateMini);
+    window.addEventListener('resize', () => { $('miniPlayer').style.display = window.matchMedia('(max-width: 720px)').matches ? 'grid' : 'none'; });
 
-    updateMini();
+    $('miniPlayer').style.display = window.matchMedia('(max-width: 720px)').matches ? 'grid' : 'none';
     init().catch(() => {
       statusLine.textContent = 'Impossible de charger la playlist depuis GitHub.';
       currentTitleEl.textContent = 'Chargement impossible';
       currentSubtitleEl.textContent = 'Vérifie la racine du dépôt GitHub';
       currentTrackNameEl.textContent = 'Chargement impossible';
       currentTrackStyleEl.textContent = 'Vérifie la racine du dépôt GitHub';
+      latestTitle.textContent = 'Chargement impossible';
+      latestSub.textContent = 'Vérifie la racine du dépôt GitHub';
       renderTop();
+      renderLatestRelease();
     });
   </script>
 </body>
