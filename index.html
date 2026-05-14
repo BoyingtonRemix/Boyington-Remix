@@ -27,8 +27,8 @@
       font-family:Montserrat,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       color:var(--text);
       background:
-        radial-gradient(circle at 80% 12%, rgba(215,167,58,.13), transparent 18%),
-        radial-gradient(circle at 18% 30%, rgba(120,40,10,.10), transparent 20%),
+        radial-gradient(circle at 80% 12%, rgba(215,167,58,.12), transparent 18%),
+        radial-gradient(circle at 18% 30%, rgba(120,40,10,.08), transparent 20%),
         linear-gradient(180deg,#090909 0%,#050505 100%);
       overflow-x:hidden;
     }
@@ -37,20 +37,16 @@
       position:fixed;
       inset:0;
       background:
-        linear-gradient(90deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.68) 35%, rgba(0,0,0,.86) 100%),
-        url("cover%20principal.jpg");
-      background-size:cover;
-      background-position:center;
-      opacity:.18;
+        radial-gradient(circle at top, rgba(212,175,55,.10), transparent 25%),
+        linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.80));
       z-index:-2;
       pointer-events:none;
-      transform:scale(1.02);
     }
     body::after{
       content:"";
       position:fixed;
       inset:0;
-      background:linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.78));
+      background:linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.62));
       z-index:-1;
       pointer-events:none;
     }
@@ -74,26 +70,31 @@
       background:rgba(5,5,5,.88);
       border-bottom:1px solid rgba(255,255,255,.06);
     }
-    .brand{display:flex;align-items:center;gap:12px;min-width:250px}
-    .logo{
-      width:30px;height:30px;border-radius:8px;display:grid;place-items:center;
-      background:linear-gradient(180deg,#f3c95f,#9a6a10);
-      color:#111;font-weight:900;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:250px;
+    }
+    .brand-logo{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      object-fit:contain;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(215,167,58,.28);
+      box-shadow:0 0 24px rgba(215,167,58,.10);
+      padding:4px;
     }
     .brand span{font-weight:800;letter-spacing:.08em;color:#d9b15a}
+
     .nav{display:flex;align-items:center;gap:34px;font-size:14px;text-transform:uppercase;letter-spacing:.06em}
     .nav a{opacity:.86;position:relative}
     .nav a.active{color:var(--gold2);opacity:1}
-    .nav a.active::after{
-      content:"";position:absolute;left:0;right:0;bottom:-22px;height:3px;
-      background:linear-gradient(90deg,transparent,var(--gold),transparent);border-radius:999px
-    }
+    .nav a.active::after{content:"";position:absolute;left:0;right:0;bottom:-22px;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);border-radius:999px}
+
     .icons{display:flex;align-items:center;gap:12px;min-width:250px;justify-content:flex-end}
-    .icon-btn{
-      width:32px;height:32px;border-radius:50%;display:grid;place-items:center;
-      border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.03);
-      color:#eee;transition:.18s ease
-    }
+    .icon-btn{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.03);color:#eee;transition:.18s ease}
     .icon-btn:hover{transform:translateY(-1px);border-color:rgba(215,167,58,.35);background:rgba(215,167,58,.08)}
     .user{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.18);display:grid;place-items:center;color:#ddd;background:#0a0a0a}
 
@@ -107,8 +108,12 @@
       position:relative;
     }
     .hero-left{
-      min-height:430px;padding:34px;display:flex;flex-direction:column;justify-content:center;
-      background:linear-gradient(180deg, rgba(15,15,16,.92), rgba(5,5,5,.96))
+      min-height:430px;
+      padding:34px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      background:linear-gradient(180deg, rgba(15,15,16,.92), rgba(5,5,5,.96));
     }
     .kicker,.subtitle{letter-spacing:.34em;text-transform:uppercase}
     .kicker{color:#d0d0d0;font-size:12px;margin-bottom:12px}
@@ -119,9 +124,20 @@
     .lead{margin-top:18px;max-width:650px;color:#d2d2d2;font-size:18px;line-height:1.6}
     .btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
     .btn{
-      height:48px;padding:0 22px;border-radius:14px;border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.03);color:#f4f4f4;display:inline-flex;align-items:center;gap:10px;
-      text-transform:uppercase;letter-spacing:.08em;font-size:13px;cursor:pointer;transition:.2s ease
+      height:48px;
+      padding:0 22px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      color:#f4f4f4;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:13px;
+      cursor:pointer;
+      transition:.2s ease;
     }
     .btn:hover{transform:translateY(-1px)}
     .btn.primary{color:#111;background:linear-gradient(180deg,var(--gold2),var(--gold));font-weight:800;box-shadow:0 8px 24px rgba(215,167,58,.22)}
@@ -129,22 +145,37 @@
     .hero-right{
       min-height:430px;
       background:
-        linear-gradient(90deg, rgba(5,5,5,.96) 0%, rgba(5,5,5,.34) 35%, rgba(5,5,5,0) 62%),
-        url("cover%20principal.jpg");
+        linear-gradient(90deg, rgba(5,5,5,.98) 0%, rgba(10,10,10,.82) 45%, rgba(5,5,5,.92) 100%),
+        radial-gradient(circle at 72% 42%, rgba(215,167,58,.12), transparent 18%),
+        linear-gradient(180deg, #0b0b0b 0%, #050505 100%);
       background-size:cover;
       background-position:center;
+      display:flex;
+      align-items:flex-end;
     }
     .hero-chip{
-      position:absolute;right:22px;bottom:22px;width:min(330px,48%);
-      border:1px solid rgba(215,167,58,.28);border-radius:18px;background:rgba(10,10,10,.62);
-      padding:16px 18px;backdrop-filter:blur(8px)
+      position:absolute;
+      right:22px;
+      bottom:22px;
+      width:min(330px,48%);
+      border:1px solid rgba(215,167,58,.28);
+      border-radius:18px;
+      background:rgba(10,10,10,.62);
+      padding:16px 18px;
+      backdrop-filter:blur(8px)
     }
     .hero-chip small{display:block;color:#dcdcdc;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
     .hero-chip p{margin:0;color:#cfcfcf;font-size:14px;line-height:1.5}
 
     .section-head{
-      width:min(1280px,100%);margin:28px auto 12px;padding:0 8%;
-      display:flex;align-items:center;justify-content:space-between;gap:12px;scroll-margin-top:90px
+      width:min(1280px,100%);
+      margin:28px auto 12px;
+      padding:0 8%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      scroll-margin-top:90px;
     }
     .section-head h2{margin:0;font-size:clamp(1.7rem,3.5vw,2.8rem);text-transform:uppercase;color:var(--gold2);letter-spacing:.06em}
     .ghost{padding:10px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.02);text-transform:uppercase;font-size:12px;letter-spacing:.08em}
@@ -154,40 +185,22 @@
     .top-card{min-height:320px;cursor:pointer}
     .top-card img{width:100%;height:100%;object-fit:cover;display:block}
     .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.10),rgba(0,0,0,.80))}
-    .rank{
-      position:absolute;top:16px;left:16px;z-index:2;width:42px;height:42px;border-radius:50%;
-      display:grid;place-items:center;background:rgba(0,0,0,.55);border:1px solid rgba(212,175,55,.35);
-      color:var(--gold);font-weight:800
-    }
+    .rank{position:absolute;top:16px;left:16px;z-index:2;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(0,0,0,.55);border:1px solid rgba(212,175,55,.35);color:var(--gold);font-weight:800}
     .content{position:absolute;left:16px;right:16px;bottom:16px;z-index:2}
     .content h3{font-size:1.15rem;margin:0 0 6px;line-height:1.1}
     .content p{color:#e7e7e7;font-size:.88rem;line-height:1.6;margin:0}
-    .content .tag{
-      margin-top:10px;display:inline-flex;padding:8px 10px;border-radius:999px;
-      background:rgba(212,175,55,.14);border:1px solid rgba(212,175,55,.30);
-      font-size:11px;letter-spacing:.16em;text-transform:uppercase
-    }
+    .content .tag{margin-top:10px;display:inline-flex;padding:8px 10px;border-radius:999px;background:rgba(212,175,55,.14);border:1px solid rgba(212,175,55,.30);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
 
     .player-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;margin-top:24px;padding:0 8% 40px}
     .player,.playlist{border:1px solid rgba(255,255,255,.08);border-radius:26px;box-shadow:var(--shadow);background:rgba(12,12,13,.92)}
     .player{padding:18px;display:grid;grid-template-columns:160px 1fr;gap:18px;min-height:260px}
-    .player-cover{
-      width:100%;aspect-ratio:1/1;border-radius:18px;overflow:hidden;border:1px solid rgba(215,167,58,.55);
-      background:linear-gradient(135deg,#1a2634,#070707 48%,#1f1406 100%);position:relative
-    }
+    .player-cover{width:100%;aspect-ratio:1/1;border-radius:18px;overflow:hidden;border:1px solid rgba(215,167,58,.55);background:linear-gradient(135deg,#1a2634,#070707 48%,#1f1406 100%);position:relative}
     .player-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
     .track-title{font-size:28px;font-weight:700;margin:4px 0 5px}
     .track-sub{color:var(--muted);margin:0 0 6px;line-height:1.45}
     .controls{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:16px 0 12px}
-    .round{
-      width:56px;height:56px;border-radius:50%;border:0;
-      background:linear-gradient(180deg,var(--gold2),var(--gold));
-      box-shadow:0 10px 24px rgba(215,167,58,.24);color:#111;font-size:22px;font-weight:900;cursor:pointer
-    }
-    .mini{
-      width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.09);
-      background:rgba(255,255,255,.03);color:#fff;cursor:pointer
-    }
+    .round{width:56px;height:56px;border-radius:50%;border:0;background:linear-gradient(180deg,var(--gold2),var(--gold));box-shadow:0 10px 24px rgba(215,167,58,.24);color:#111;font-size:22px;font-weight:900;cursor:pointer}
+    .mini{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03);color:#fff;cursor:pointer}
     .bar{height:8px;border-radius:999px;background:#303030;position:relative;overflow:hidden;flex:1;min-width:220px}
     .bar span{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:inherit}
     .time-row{display:flex;justify-content:space-between;gap:12px;color:#cfcfcf;font-size:13px}
@@ -198,40 +211,23 @@
     .playlist-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
     .playlist-head h3{margin:0;color:var(--gold2);text-transform:uppercase;letter-spacing:.06em;font-size:18px}
     .playlist-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-    .search,.sort{
-      height:34px;border-radius:999px;border:1px solid rgba(255,255,255,.09);
-      background:rgba(255,255,255,.03);color:#eee;padding:0 12px;outline:none;font-size:13px
-    }
+    .search,.sort{height:34px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03);color:#eee;padding:0 12px;outline:none;font-size:13px}
     .chips{display:flex;flex-wrap:wrap;gap:10px}
-    .chip{
-      padding:12px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.08);
-      background:rgba(255,255,255,.04);color:#eee;cursor:pointer;font-size:12px;letter-spacing:.08em
-    }
+    .chip{padding:12px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:#eee;cursor:pointer;font-size:12px;letter-spacing:.08em}
     .chip.active{background:rgba(212,175,55,.15);border-color:rgba(212,175,55,.4);color:#fff}
     .list{display:flex;flex-direction:column;gap:8px;overflow:auto;max-height:260px;padding-right:4px}
-    .item{
-      display:grid;grid-template-columns:32px 1fr auto;gap:10px;align-items:center;
-      border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);
-      border-radius:14px;padding:8px 10px
-    }
+    .item{display:grid;grid-template-columns:32px 1fr auto;gap:10px;align-items:center;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);border-radius:14px;padding:8px 10px}
     .thumb{width:32px;height:32px;border-radius:8px;object-fit:cover;background:#111;border:1px solid rgba(215,167,58,.22)}
     .item strong{display:block;font-size:13px;line-height:1.25;color:#f5f5f5}
     .item span{display:block;font-size:11px;color:#b8b8b8;margin-top:2px}
     .dur{color:#e8e8e8;font-size:12px;font-weight:700}
 
-    .footer{
-      padding:40px 8% 80px;border-top:1px solid var(--line);text-align:center;background:rgba(0,0,0,.35);backdrop-filter:blur(10px)
-    }
+    .footer{padding:40px 8% 80px;border-top:1px solid var(--line);text-align:center;background:rgba(0,0,0,.35);backdrop-filter:blur(10px)}
     .footer .links{margin-top:14px;display:flex;justify-content:center;flex-wrap:wrap;gap:16px}
     .footer .links a{color:#d8d8d8;font-size:13px;letter-spacing:.18em;text-transform:uppercase}
     .footer .links a:hover{color:var(--gold)}
 
-    .mini-player{
-      position:fixed;left:50%;transform:translateX(-50%);bottom:14px;width:min(980px,calc(100% - 24px));z-index:110;
-      display:none;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:12px 14px;
-      background:rgba(10,10,12,.84);border:1px solid rgba(255,255,255,.10);border-radius:20px;
-      backdrop-filter:blur(16px);box-shadow:0 18px 40px rgba(0,0,0,.30)
-    }
+    .mini-player{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;width:min(980px,calc(100% - 24px));z-index:110;display:none;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:12px 14px;background:rgba(10,10,12,.84);border:1px solid rgba(255,255,255,.10);border-radius:20px;backdrop-filter:blur(16px);box-shadow:0 18px 40px rgba(0,0,0,.30)}
     .mini-player img{width:52px;height:52px;border-radius:14px;object-fit:cover;border:1px solid rgba(255,255,255,.08)}
     .mini-player .mini-title{font-size:13px;font-weight:700}
     .mini-player .mini-sub{font-size:11px;color:#bbb;margin-top:3px}
@@ -265,7 +261,7 @@
 
   <header class="topbar page">
     <div class="brand">
-      <div class="logo">BR</div>
+      <img class="brand-logo" src="boyington-official-logo.png" alt="Logo officiel Boyington Remix">
       <span>BOYINGTON REMIX</span>
     </div>
 
@@ -278,18 +274,10 @@
     </nav>
 
     <div class="icons" aria-label="Raccourcis sociaux">
-      <a class="icon-btn" href="#" title="Spotify" aria-label="Spotify">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm4.6 14.45a.72.72 0 0 1-1 .22c-2.82-1.72-6.38-2.11-10.56-1.16a.72.72 0 1 1-.32-1.4c4.56-1.04 8.5-.59 11.64 1.33a.72.72 0 0 1 .24 1.01Zm1.31-2.93a.9.9 0 0 1-1.24.3c-3.1-1.9-7.82-2.45-11.47-1.34a.9.9 0 1 1-.53-1.72c4.18-1.28 9.3-.66 12.85 1.52a.9.9 0 0 1 .39 1.24Zm.12-3.1C14.9 8.2 8.53 8 5.09 9.05a1.08 1.08 0 0 1-.64-2.07c3.95-1.2 11.02-.97 15.17 1.51a1.08 1.08 0 1 1-1.18 1.83Z" fill="currentColor"/></svg>
-      </a>
-      <a class="icon-btn" href="#" title="Instagram" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M7.5 2A5.5 5.5 0 0 0 2 7.5v9A5.5 5.5 0 0 0 7.5 22h9a5.5 5.5 0 0 0 5.5-5.5v-9A5.5 5.5 0 0 0 16.5 2h-9Zm0 1.6h9A3.9 3.9 0 0 1 20.4 7.5v9a3.9 3.9 0 0 1-3.9 3.9h-9a3.9 3.9 0 0 1-3.9-3.9v-9A3.9 3.9 0 0 1 7.5 3.6Zm9.85 1.1a1.05 1.05 0 1 0 0 2.1 1.05 1.05 0 0 0 0-2.1ZM12 6.1A5.9 5.9 0 1 0 17.9 12 5.9 5.9 0 0 0 12 6.1Zm0 1.6A4.3 4.3 0 1 1 7.7 12 4.3 4.3 0 0 1 12 7.7Z" fill="currentColor"/></svg>
-      </a>
-      <a class="icon-btn" href="#" title="YouTube" aria-label="YouTube">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M21.7 7.2a3.1 3.1 0 0 0-2.18-2.2C17.6 4.5 12 4.5 12 4.5s-5.6 0-7.52.5A3.1 3.1 0 0 0 2.3 7.2 32.3 32.3 0 0 0 2 12a32.3 32.3 0 0 0 .3 4.8 3.1 3.1 0 0 0 2.18 2.2c1.92.5 7.52.5 7.52.5s5.6 0 7.52-.5a3.1 3.1 0 0 0 2.18-2.2A32.3 32.3 0 0 0 22 12a32.3 32.3 0 0 0-.3-4.8Zm-10.1 7.9V8.9l4.9 3.1-4.9 3.1Z" fill="currentColor"/></svg>
-      </a>
-      <a class="icon-btn" href="#" title="Facebook" aria-label="Facebook">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M14 8.8V7.6c0-.6.4-.7.7-.7h1.9V4H13.8C11.8 4 10 5.5 10 8v.8H8v3h2V20h4v-8.2h2.7l.3-3H14Z" fill="currentColor"/></svg>
-      </a>
+      <a class="icon-btn" href="#" title="Spotify" aria-label="Spotify"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm4.6 14.45a.72.72 0 0 1-1 .22c-2.82-1.72-6.38-2.11-10.56-1.16a.72.72 0 1 1-.32-1.4c4.56-1.04 8.5-.59 11.64 1.33a.72.72 0 0 1 .24 1.01Zm1.31-2.93a.9.9 0 0 1-1.24.3c-3.1-1.9-7.82-2.45-11.47-1.34a.9.9 0 1 1-.53-1.72c4.18-1.28 9.3-.66 12.85 1.52a.9.9 0 0 1 .39 1.24Zm.12-3.1C14.9 8.2 8.53 8 5.09 9.05a1.08 1.08 0 0 1-.64-2.07c3.95-1.2 11.02-.97 15.17 1.51a1.08 1.08 0 1 1-1.18 1.83Z" fill="currentColor"/></svg></a>
+      <a class="icon-btn" href="#" title="Instagram" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M7.5 2A5.5 5.5 0 0 0 2 7.5v9A5.5 5.5 0 0 0 7.5 22h9a5.5 5.5 0 0 0 5.5-5.5v-9A5.5 5.5 0 0 0 16.5 2h-9Zm0 1.6h9A3.9 3.9 0 0 1 20.4 7.5v9a3.9 3.9 0 0 1-3.9 3.9h-9a3.9 3.9 0 0 1-3.9-3.9v-9A3.9 3.9 0 0 1 7.5 3.6Zm9.85 1.1a1.05 1.05 0 1 0 0 2.1 1.05 1.05 0 0 0 0-2.1ZM12 6.1A5.9 5.9 0 1 0 17.9 12 5.9 5.9 0 0 0 12 6.1Zm0 1.6A4.3 4.3 0 1 1 7.7 12 4.3 4.3 0 0 1 12 7.7Z" fill="currentColor"/></svg></a>
+      <a class="icon-btn" href="#" title="YouTube" aria-label="YouTube"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M21.7 7.2a3.1 3.1 0 0 0-2.18-2.2C17.6 4.5 12 4.5 12 4.5s-5.6 0-7.52.5A3.1 3.1 0 0 0 2.3 7.2 32.3 32.3 0 0 0 2 12a32.3 32.3 0 0 0 .3 4.8 3.1 3.1 0 0 0 2.18 2.2c1.92.5 7.52.5 7.52.5s5.6 0 7.52-.5a3.1 3.1 0 0 0 2.18-2.2A32.3 32.3 0 0 0 22 12a32.3 32.3 0 0 0-.3-4.8Zm-10.1 7.9V8.9l4.9 3.1-4.9 3.1Z" fill="currentColor"/></svg></a>
+      <a class="icon-btn" href="#" title="Facebook" aria-label="Facebook"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M14 8.8V7.6c0-.6.4-.7.7-.7h1.9V4H13.8C11.8 4 10 5.5 10 8v.8H8v3h2V20h4v-8.2h2.7l.3-3H14Z" fill="currentColor"/></svg></a>
       <div class="user">⌂</div>
     </div>
   </header>
@@ -326,22 +314,16 @@
 
     <section class="player-grid" id="musique">
       <div class="player">
-        <div class="player-cover">
-          <img id="coverImage" src="cover%20principal.jpg" alt="Cover Boyington Remix">
-        </div>
-
+        <div class="player-cover"><img id="coverImage" src="cover%20principal.jpg" alt="Cover Boyington Remix"></div>
         <div class="player-content">
           <h3 class="track-title" id="currentTitle">Chargement…</h3>
           <p class="track-sub" id="currentSubtitle">Lecture des fichiers du dépôt GitHub</p>
-
           <div style="margin-bottom:18px;padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
             <div id="currentTrackName" style="font-size:16px;font-weight:700;color:#fff">Chargement…</div>
             <div id="currentTrackStyle" style="margin-top:4px;font-size:13px;color:#b8b8b8">Lecture des fichiers du dépôt GitHub</div>
           </div>
-
           <div class="bar"><span id="progress"></span></div>
           <div class="time-row"><span id="currentTime">0:00</span><span id="duration">0:00</span></div>
-
           <div class="controls">
             <button class="mini" id="shuffleBtn" title="Lecture aléatoire">⟲</button>
             <button class="mini" id="prevBtn" title="Titre précédent">⟨</button>
@@ -349,12 +331,7 @@
             <button class="mini" id="nextBtn" title="Titre suivant">⟩</button>
             <button class="mini" id="repeatBtn" title="Répétition">↻</button>
           </div>
-
-          <div class="slider-row">
-            <span>🔊</span>
-            <input type="range" id="volume" min="0" max="1" step="0.01" value="0.8">
-          </div>
-
+          <div class="slider-row"><span>🔊</span><input type="range" id="volume" min="0" max="1" step="0.01" value="0.8"></div>
           <div class="helper" id="statusLine">Chargement de la playlist…</div>
         </div>
       </div>
@@ -409,38 +386,25 @@
     const CONFIG = {
       owner: 'boyingtonremix',
       repo: 'Boyington-Remix',
-      defaultCover: 'cover principal.jpg'
+      defaultCover: 'boyington-official-logo.png'
     };
 
     const BRANCH_CANDIDATES = ['principal', 'main', 'master'];
     const $ = (id) => document.getElementById(id);
 
     const audio = $('audio');
-    const playBtn = $('playBtn');
-    const prevBtn = $('prevBtn');
-    const nextBtn = $('nextBtn');
-    const miniPlay = $('miniPlay');
-    const miniPrev = $('miniPrev');
-    const miniNext = $('miniNext');
-    const progress = $('progress');
-    const volume = $('volume');
-    const currentTimeEl = $('currentTime');
-    const durationEl = $('duration');
+    const playBtn = $('playBtn'), prevBtn = $('prevBtn'), nextBtn = $('nextBtn');
+    const miniPlay = $('miniPlay'), miniPrev = $('miniPrev'), miniNext = $('miniNext');
+    const progress = $('progress'), volume = $('volume');
+    const currentTimeEl = $('currentTime'), durationEl = $('duration');
     const playlistEl = $('playlist');
-    const currentTitleEl = $('currentTitle');
-    const currentSubtitleEl = $('currentSubtitle');
-    const currentTrackNameEl = $('currentTrackName');
-    const currentTrackStyleEl = $('currentTrackStyle');
-    const coverImage = $('coverImage');
-    const miniCover = $('miniCover');
-    const miniTitle = $('miniTitle');
-    const miniSub = $('miniSub');
+    const currentTitleEl = $('currentTitle'), currentSubtitleEl = $('currentSubtitle');
+    const currentTrackNameEl = $('currentTrackName'), currentTrackStyleEl = $('currentTrackStyle');
+    const coverImage = $('coverImage'), miniCover = $('miniCover');
+    const miniTitle = $('miniTitle'), miniSub = $('miniSub');
     const statusLine = $('statusLine');
-    const searchInput = $('searchInput');
-    const chipRow = $('chipRow');
-    const sortSelect = $('sortSelect');
-    const shuffleBtn = $('shuffleBtn');
-    const repeatBtn = $('repeatBtn');
+    const searchInput = $('searchInput'), chipRow = $('chipRow'), sortSelect = $('sortSelect');
+    const shuffleBtn = $('shuffleBtn'), repeatBtn = $('repeatBtn');
     const topGrid = $('topGrid');
     const miniPlayer = $('miniPlayer');
 
@@ -522,8 +486,8 @@
       }));
     }
 
-    function resolveCover() {
-      return asset(CONFIG.defaultCover);
+    function resolveCover(track) {
+      return asset((track && track.cover) ? track.cover : CONFIG.defaultCover);
     }
 
     function applyTrack(t) {
@@ -533,7 +497,6 @@
       currentTrackStyleEl.textContent = t.subtitle || t.genre || 'Playlist officielle';
       miniTitle.textContent = t.title;
       miniSub.textContent = t.subtitle || t.genre || 'Playlist officielle';
-
       const c = resolveCover(t);
       coverImage.src = c;
       miniCover.src = c;
@@ -553,7 +516,6 @@
           </div>
         </article>
       `).join('') : '<div class="helper">Aucune sortie détectée.</div>';
-
       topGrid.querySelectorAll('.top-card').forEach(card => {
         card.onclick = () => loadTrack(+card.dataset.i, true);
       });
@@ -571,7 +533,6 @@
           <div class="dur">${String(t.index + 1).padStart(2, '0')}</div>
         </button>
       `).join('') : '<div class="helper">Aucun morceau ne correspond à la recherche ou au filtre.</div>';
-
       playlistEl.querySelectorAll('.track-btn').forEach(b => {
         b.onclick = () => loadTrack(+b.dataset.i, true);
       });
@@ -598,14 +559,12 @@
 
     function fetchMeta(track) {
       if (!window.jsmediatags || track.loaded || track.loading) return track.metaPromise || Promise.resolve(track);
-
       track.loading = true;
       track.metaPromise = (async () => {
         try {
           const response = await fetch(encodeURI(track.src), { cache: 'no-store' });
           if (!response.ok) throw new Error('fetch failed');
           const blob = await response.blob();
-
           await new Promise(resolve => {
             jsmediatags.read(blob, {
               onSuccess: r => {
@@ -614,20 +573,16 @@
                 track.artist = safeText(tags.artist);
                 track.album = safeText(tags.album);
                 track.genre = safeText(tags.genre, track.genre);
-                track.comment = Array.isArray(tags.comment)
-                  ? safeText(tags.comment[0]?.text || tags.comment[0], '')
-                  : safeText(tags.comment?.text || tags.comment, '');
+                track.comment = Array.isArray(tags.comment) ? safeText(tags.comment[0]?.text || tags.comment[0], '') : safeText(tags.comment?.text || tags.comment, '');
+                const cover = pictureToDataUrl(tags.picture);
+                if (cover) track.cover = cover;
                 track.subtitle = track.genre || track.artist || 'Lecture disponible';
                 track.loaded = true;
                 track.loading = false;
                 updateRenderedTrack(track);
                 resolve(track);
               },
-              onError: () => {
-                track.loaded = true;
-                track.loading = false;
-                resolve(track);
-              }
+              onError: () => { track.loaded = true; track.loading = false; resolve(track); }
             });
           });
         } catch (_) {
@@ -636,7 +591,6 @@
         }
         return track;
       })();
-
       return track.metaPromise;
     }
 
@@ -645,29 +599,28 @@
       if (row) {
         row.querySelector('strong').textContent = displayTitle(t.title);
         row.querySelector('span').textContent = t.subtitle || t.genre || '';
+        const img = row.querySelector('img');
+        if (img) img.src = resolveCover(t);
       }
-
       const topCard = topGrid.querySelector(`.top-card[data-i="${t.index}"]`);
       if (topCard) {
         const h3 = topCard.querySelector('.content h3');
         const p = topCard.querySelector('.content p');
+        const img = topCard.querySelector('img');
         if (h3) h3.textContent = displayTitle(t.title);
         if (p) p.textContent = t.subtitle || t.genre || 'Boyington Remix';
+        if (img) img.src = resolveCover(t);
       }
-
       if (currentIndex === t.index) applyTrack(t);
     }
 
     function loadTrack(i, autoplay = false) {
       if (!tracks.length) return;
-
       currentIndex = (i + tracks.length) % tracks.length;
       const t = tracks[currentIndex];
-
       audio.pause();
       audio.src = encodeURI(t.src);
       audio.load();
-
       applyTrack(t);
       statusLine.textContent = `Lecture : ${t.title}`;
       currentTimeEl.textContent = '0:00';
@@ -676,14 +629,7 @@
       playBtn.textContent = '▶';
       miniPlay.textContent = '▶';
       refreshActive();
-
-      fetchMeta(t).then(() => {
-        applyTrack(t);
-        buildChips();
-        renderPlaylist();
-        renderTop();
-      });
-
+      fetchMeta(t).then(() => { applyTrack(t); buildChips(); renderPlaylist(); renderTop(); });
       if (autoplay) {
         audio.play().then(() => {
           playBtn.textContent = '❚❚';
@@ -697,34 +643,21 @@
       const r = await fetch(apiUrl('', branch), { cache: 'no-store' });
       if (!r.ok) throw new Error(`API error on ${branch}`);
       const items = await r.json();
-
-      return items
-        .filter(x => x.type === 'file' && x.name.toLowerCase().endsWith('.mp3'))
-        .map((x, i) => ({
-          index: i,
-          src: x.name,
-          title: x.name.replace(/\.mp3$/i, ''),
-          subtitle: 'Lecture en attente…',
-          genre: 'Autre',
-          artist: '',
-          album: '',
-          comment: '',
-          loaded: false,
-          loading: false
-        }))
+      return items.filter(x => x.type === 'file' && x.name.toLowerCase().endsWith('.mp3'))
+        .map((x, i) => ({ index:i, src:x.name, title:x.name.replace(/\.mp3$/i,''), subtitle:'Lecture en attente…', genre:'Autre', artist:'', album:'', comment:'', cover:CONFIG.defaultCover, loaded:false, loading:false }))
         .sort((a, b) => a.title.localeCompare(b.title, 'fr', { numeric: true, sensitivity: 'base' }))
-        .map((t, i) => ({ ...t, index: i }));
+        .map((t, i) => ({ ...t, index:i }));
     }
 
     async function init() {
       statusLine.textContent = 'Lecture de la racine du dépôt GitHub…';
-
-      tracks = [];
       for (const branch of BRANCH_CANDIDATES) {
         try {
           tracks = await tryLoadTracksFromBranch(branch);
           if (tracks.length) break;
-        } catch (_) {}
+        } catch (_) {
+          tracks = [];
+        }
       }
 
       if (!tracks.length) {
@@ -746,30 +679,13 @@
       statusLine.textContent = `${tracks.length} morceau(x) détecté(s) dans le dépôt (${activeBranch}).`;
     }
 
-    searchInput.oninput = () => {
-      searchTerm = searchInput.value || '';
-      renderPlaylist();
-    };
-
-    sortSelect.onchange = () => {
-      sortMode = sortSelect.value;
-      renderPlaylist();
-    };
-
-    shuffleBtn.onclick = () => {
-      shuffleEnabled = !shuffleEnabled;
-      statusLine.textContent = shuffleEnabled ? 'Lecture aléatoire activée.' : 'Lecture aléatoire désactivée.';
-    };
-
-    repeatBtn.onclick = () => {
-      repeatEnabled = !repeatEnabled;
-      statusLine.textContent = repeatEnabled ? 'Lecture continue activée.' : 'Lecture continue désactivée.';
-    };
-
+    searchInput.oninput = () => { searchTerm = searchInput.value || ''; renderPlaylist(); };
+    sortSelect.onchange = () => { sortMode = sortSelect.value; renderPlaylist(); };
+    shuffleBtn.onclick = () => { shuffleEnabled = !shuffleEnabled; statusLine.textContent = shuffleEnabled ? 'Lecture aléatoire activée.' : 'Lecture aléatoire désactivée.'; };
+    repeatBtn.onclick = () => { repeatEnabled = !repeatEnabled; statusLine.textContent = repeatEnabled ? 'Lecture continue activée.' : 'Lecture continue désactivée.'; };
     playBtn.onclick = () => {
       if (!tracks.length) return;
       if (!audio.src) loadTrack(currentIndex, false);
-
       if (audio.paused) {
         audio.play().then(() => {
           playBtn.textContent = '❚❚';
@@ -781,46 +697,20 @@
         miniPlay.textContent = '▶';
       }
     };
-
     prevBtn.onclick = () => tracks.length && loadTrack(chooseNext(-1), true);
     nextBtn.onclick = () => tracks.length && loadTrack(chooseNext(1), true);
     miniPlay.onclick = () => playBtn.click();
     miniPrev.onclick = () => prevBtn.click();
     miniNext.onclick = () => nextBtn.click();
 
-    audio.onloadedmetadata = () => {
-      durationEl.textContent = formatTime(audio.duration);
-    };
-
-    audio.ontimeupdate = () => {
-      const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
-      progress.style.width = pct + '%';
-      currentTimeEl.textContent = formatTime(audio.currentTime);
-    };
-
-    audio.onended = () => {
-      if (repeatEnabled) {
-        loadTrack(chooseNext(1), true);
-      } else {
-        playBtn.textContent = '▶';
-        miniPlay.textContent = '▶';
-      }
-    };
-
-    audio.onerror = () => {
-      playBtn.textContent = '▶';
-      miniPlay.textContent = '▶';
-      statusLine.textContent = 'Erreur de lecture sur ce fichier.';
-    };
-
+    audio.onloadedmetadata = () => durationEl.textContent = formatTime(audio.duration);
+    audio.ontimeupdate = () => { const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0; progress.style.width = pct + '%'; currentTimeEl.textContent = formatTime(audio.currentTime); };
+    audio.onended = () => { repeatEnabled ? loadTrack(chooseNext(1), true) : (playBtn.textContent = '▶', miniPlay.textContent = '▶'); };
+    audio.onerror = () => { playBtn.textContent = '▶'; miniPlay.textContent = '▶'; statusLine.textContent = 'Erreur de lecture sur ce fichier.'; };
     volume.oninput = () => audio.volume = parseFloat(volume.value);
     audio.volume = parseFloat(volume.value);
-
-    function syncMiniPlayer() {
-      miniPlayer.style.display = window.matchMedia('(max-width: 720px)').matches ? 'grid' : 'none';
-    }
-    window.addEventListener('resize', syncMiniPlayer);
-    syncMiniPlayer();
+    window.addEventListener('resize', () => { $('miniPlayer').style.display = window.matchMedia('(max-width: 720px)').matches ? 'grid' : 'none'; });
+    $('miniPlayer').style.display = window.matchMedia('(max-width: 720px)').matches ? 'grid' : 'none';
 
     init().catch(() => {
       statusLine.textContent = 'Impossible de charger la playlist depuis GitHub.';
