@@ -1,143 +1,636 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Boyington Remix</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/jsmediatags@3.9.7/dist/jsmediatags.min.js"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#050507;
+  --panel:rgba(16,16,18,.86);
+  --panel2:rgba(255,255,255,.05);
+  --line:rgba(255,255,255,.08);
+  --text:#f5f5f5;
+  --muted:#b9b9b9;
+  --gold:#d4af37;
+  --gold2:#f0c96b;
+  --violet:#7b2cbf;
+  --bordeaux:#6b1c2e;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Montserrat',sans-serif;background:#050507;color:#fff;overflow-x:hidden;position:relative}
-body::before{content:'';position:fixed;inset:0;background-image:url('studio-boyington.png');background-size:cover;background-position:center;background-repeat:no-repeat;opacity:0.22;z-index:-3;transform:scale(1.03)}
-body::after{content:'';position:fixed;inset:0;background:radial-gradient(circle at top, rgba(212,175,55,0.18), transparent 28%),radial-gradient(circle at bottom, rgba(75,0,130,0.18), transparent 34%),linear-gradient(180deg, rgba(0,0,0,0.72), rgba(0,0,0,0.84));z-index:-2}
-header{position:fixed;top:0;left:0;width:100%;padding:20px 60px;display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,0.35);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);z-index:100}
-.logo{font-size:24px;font-weight:800;letter-spacing:4px;color:#d4af37;text-shadow:0 0 20px rgba(212,175,55,0.35)}
-nav{display:flex;gap:26px;flex-wrap:wrap}
-nav a{text-decoration:none;color:#d0d0d0;transition:0.3s;font-size:13px;text-transform:uppercase;letter-spacing:2px}
-nav a:hover{color:#d4af37}
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:160px 8% 90px}
-.hero-content{max-width:980px;text-align:center}
-.badge{display:inline-block;padding:12px 22px;border-radius:999px;background:rgba(255,255,255,0.06);border:1px solid rgba(212,175,55,0.24);font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#d4af37;margin-bottom:28px;backdrop-filter:blur(10px)}
-.hero h1{font-size:96px;line-height:0.92;margin-bottom:28px;font-weight:800;letter-spacing:3px}
-.hero h1 span{color:#d4af37;text-shadow:0 0 25px rgba(212,175,55,0.3)}
-.hero p{font-size:19px;line-height:1.9;color:#d7d7d7;max-width:820px;margin:auto}
-.buttons{margin-top:42px;display:flex;justify-content:center;gap:18px;flex-wrap:wrap}
-.btn{padding:18px 34px;border-radius:999px;border:none;cursor:pointer;font-weight:700;font-size:15px;transition:0.3s;letter-spacing:1px}
-.btn-gold{background:#d4af37;color:#050507;box-shadow:0 0 25px rgba(212,175,55,0.22)}
-.btn-dark{background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(10px)}
-.btn:hover{transform:translateY(-4px)}
-.player-section{padding:40px 8% 80px}
-.player{max-width:1280px;margin:auto;display:grid;grid-template-columns:minmax(320px,420px) 1fr;background:rgba(16,16,18,0.82);border:1px solid rgba(255,255,255,0.08);border-radius:36px;overflow:hidden;backdrop-filter:blur(14px);box-shadow:0 0 60px rgba(0,0,0,0.5)}
-.player-cover{position:relative;padding:22px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01))}
-.player-cover img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:28px;box-shadow:0 25px 60px rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.08)}
-.cover-label{position:absolute;top:34px;left:34px;z-index:2;padding:8px 12px;border-radius:999px;background:rgba(0,0,0,0.55);backdrop-filter:blur(10px);border:1px solid rgba(212,175,55,0.25);color:#d4af37;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700}
-.player-content{padding:44px 48px 40px 18px}
-.player-content h2{font-size:40px;margin-bottom:10px}
-.player-content p{color:#aaa;margin-bottom:18px}
-.track-info{margin-bottom:20px;padding:14px 16px;border-radius:18px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08)}
-.track-info .main{font-size:16px;color:#fff;font-weight:700}
+body{
+  font-family:'Montserrat',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+  position:relative;
+}
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:url('studio-boyington.png');
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  opacity:.20;
+  z-index:-3;
+  transform:scale(1.03);
+}
+body::after{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at top, rgba(212,175,55,.18), transparent 28%),
+    radial-gradient(circle at 80% 20%, rgba(107,28,46,.16), transparent 24%),
+    radial-gradient(circle at bottom, rgba(75,0,130,.14), transparent 34%),
+    linear-gradient(180deg, rgba(0,0,0,.70), rgba(0,0,0,.84));
+  z-index:-2;
+}
+
+a{color:inherit}
+button,input{font:inherit}
+
+.topbar{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:100;
+  padding:18px 28px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(0,0,0,.40);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.brand-badge{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(180deg, rgba(212,175,55,.18), rgba(255,255,255,.02));
+  border:1px solid rgba(212,175,55,.35);
+  box-shadow:0 0 24px rgba(212,175,55,.16);
+  color:var(--gold);
+  font-weight:800;
+}
+.brand-text{line-height:1.1}
+.brand-text .kicker{
+  display:block;
+  color:var(--gold);
+  font-size:11px;
+  letter-spacing:.34em;
+  text-transform:uppercase;
+  margin-bottom:3px;
+}
+.brand-text strong{
+  font-size:14px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+.nav{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.nav a{
+  text-decoration:none;
+  color:#d7d7d7;
+  font-size:12px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+}
+.nav a:hover{color:var(--gold)}
+
+.hero{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:140px 8% 60px;
+}
+.hero-inner{
+  width:min(1280px,100%);
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:28px;
+  align-items:center;
+}
+.hero-copy{padding:22px 4px}
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 18px;
+  border-radius:999px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(212,175,55,.22);
+  color:var(--gold);
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  font-size:11px;
+  margin-bottom:18px;
+  backdrop-filter:blur(10px);
+}
+.hero h1{
+  font-size:clamp(3rem,7vw,6rem);
+  line-height:.92;
+  letter-spacing:.08em;
+  font-weight:800;
+  margin-bottom:18px;
+}
+.hero h1 span{color:var(--gold);text-shadow:0 0 24px rgba(212,175,55,.30)}
+.hero p{
+  max-width:760px;
+  color:#dedede;
+  line-height:1.9;
+  font-size:clamp(1rem,1.5vw,1.1rem);
+}
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-top:28px;
+}
+.btn{
+  border:0;
+  cursor:pointer;
+  padding:16px 24px;
+  border-radius:999px;
+  font-weight:700;
+  letter-spacing:.08em;
+  transition:.25s ease;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-gold{background:linear-gradient(180deg,var(--gold2),var(--gold));color:#090909;box-shadow:0 12px 34px rgba(212,175,55,.16)}
+.btn-dark{background:rgba(255,255,255,.06);color:var(--text);border:1px solid rgba(255,255,255,.08)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid rgba(212,175,55,.22)}
+
+.hero-card{
+  position:relative;
+  border-radius:34px;
+  overflow:hidden;
+  background:rgba(16,16,18,.72);
+  border:1px solid var(--line);
+  box-shadow:0 22px 60px rgba(0,0,0,.45);
+}
+.hero-card img{
+  width:100%;
+  display:block;
+  aspect-ratio:1/1;
+  object-fit:cover;
+}
+.hero-card .overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.74))}
+.hero-card .label{
+  position:absolute;
+  top:18px;
+  left:18px;
+  z-index:2;
+  padding:8px 12px;
+  border-radius:999px;
+  background:rgba(0,0,0,.55);
+  color:var(--gold);
+  border:1px solid rgba(212,175,55,.25);
+  font-size:11px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  backdrop-filter:blur(10px);
+}
+.hero-card .caption{
+  position:absolute;
+  left:20px;
+  right:20px;
+  bottom:20px;
+  z-index:2;
+}
+.hero-card .caption h2{font-size:1.8rem;margin-bottom:6px}
+.hero-card .caption p{color:#e5e5e5;font-size:.92rem;line-height:1.6}
+
+.stats{
+  width:min(1280px,100%);
+  margin:16px auto 0;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  padding:0 8%;
+}
+.stat{
+  padding:18px;
+  border-radius:22px;
+  background:rgba(255,255,255,.05);
+  border:1px solid var(--line);
+  backdrop-filter:blur(10px);
+}
+.stat strong{display:block;font-size:1rem;margin-bottom:4px}
+.stat span{color:var(--muted);font-size:.92rem}
+
+.section-title{
+  width:min(1280px,100%);
+  margin:0 auto 18px;
+  padding:0 8%;
+}
+.section-title h2{
+  font-size:clamp(2rem,4vw,3.25rem);
+  letter-spacing:.04em;
+  margin-bottom:8px;
+}
+.section-title p{
+  color:var(--muted);
+  line-height:1.8;
+  max-width:820px;
+}
+
+.player-wrap{width:min(1280px,100%);margin:0 auto;padding:0 8% 60px}
+.player{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:minmax(320px,420px) 1fr;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:36px;
+  overflow:hidden;
+  box-shadow:0 0 60px rgba(0,0,0,.5);
+  backdrop-filter:blur(14px);
+}
+.player-cover{position:relative;padding:22px;background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01))}
+.player-cover img{
+  display:block;
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  border-radius:28px;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 25px 60px rgba(0,0,0,.55);
+}
+.cover-label{
+  position:absolute;
+  top:34px;
+  left:34px;
+  z-index:2;
+  padding:8px 12px;
+  border-radius:999px;
+  background:rgba(0,0,0,.56);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(212,175,55,.25);
+  color:var(--gold);
+  font-size:11px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  font-weight:700;
+}
+.player-content{padding:38px 40px 38px 8px}
+.player-content h3{font-size:clamp(1.7rem,2.8vw,2.6rem);margin-bottom:8px}
+.player-content .subtitle{color:#bcbcbc;margin-bottom:16px}
+.track-info{margin-bottom:18px;padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}
+.track-info .main{font-size:16px;font-weight:700;color:#fff}
 .track-info .sub{margin-top:4px;font-size:13px;color:#b8b8b8}
-.progress{height:10px;background:rgba(255,255,255,0.08);border-radius:999px;overflow:hidden;margin-bottom:18px}
-.progress-bar{height:100%;width:0%;background:linear-gradient(90deg,#d4af37,#7b2cbf)}
-.time-row{display:flex;justify-content:space-between;font-size:12px;color:#a8a8a8;margin-bottom:20px}
+.progress{height:10px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden;margin-bottom:14px}
+.progress-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--gold),var(--violet))}
+.time-row{display:flex;justify-content:space-between;gap:12px;color:#9f9f9f;font-size:12px;margin-bottom:18px}
 .controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.play-btn,.skip-btn{border:none;cursor:pointer;transition:0.3s}
-.play-btn{width:72px;height:72px;border-radius:50%;background:#d4af37;font-size:24px;font-weight:700;color:#050507}
-.skip-btn{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.07);color:#fff;border:1px solid rgba(255,255,255,0.08);font-size:18px}
+.play-btn,.skip-btn{border:0;cursor:pointer;transition:.25s ease}
+.play-btn{width:72px;height:72px;border-radius:50%;background:var(--gold);color:#050507;font-size:24px;font-weight:800}
+.skip-btn{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.07);color:#fff;border:1px solid rgba(255,255,255,.08);font-size:18px}
 .play-btn:hover,.skip-btn:hover{transform:scale(1.05)}
-.volume{margin-top:28px}
-.volume label{display:block;margin-bottom:10px;color:#cfcfcf;font-size:14px}
-.volume input{width:100%;accent-color:#d4af37}
-.playlist{margin-top:24px;display:grid;gap:12px;max-height:520px;overflow:auto;padding-right:4px}
-.playlist-title{margin-top:8px;margin-bottom:4px;font-size:14px;color:#d4af37;letter-spacing:2px;text-transform:uppercase}
-.track-btn{width:100%;text-align:left;padding:14px 16px;border-radius:16px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);color:#fff;cursor:pointer;transition:0.3s}
-.track-btn:hover{background:rgba(255,255,255,0.07);border-color:rgba(212,175,55,0.28)}
-.track-btn.active{background:rgba(212,175,55,0.14);border-color:rgba(212,175,55,0.45)}
-.track-top{display:flex;justify-content:space-between;gap:12px}
-.track-title{font-weight:700;line-height:1.4}
-.track-sub{margin-top:5px;color:#b6b6b6;font-size:12px;line-height:1.4}
-.section{padding:100px 8%}
-.section-title{font-size:52px;text-align:center;margin-bottom:20px;letter-spacing:1px}
-.section-sub{text-align:center;color:#b9b9b9;max-width:760px;margin:0 auto 60px;line-height:1.8;font-size:16px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px}
-.card{background:rgba(255,255,255,0.05);border-radius:30px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);transition:0.35s;backdrop-filter:blur(10px)}
-.card:hover{transform:translateY(-10px);border-color:rgba(212,175,55,0.38);box-shadow:0 0 40px rgba(212,175,55,0.12)}
-.card img{width:100%;height:320px;object-fit:cover}
-.card-content{padding:25px}
-.card-content h3{font-size:24px;margin-bottom:10px}
-.card-content p{color:#b0b0b0;line-height:1.7}
-.quote{padding:120px 8%;text-align:center}
-.quote h2{font-size:40px;line-height:1.8;max-width:1000px;margin:auto;font-weight:300;color:#f0f0f0}
-footer{padding:50px 8%;border-top:1px solid rgba(255,255,255,0.08);text-align:center;color:#8a8a8a;line-height:2;background:rgba(0,0,0,0.35);backdrop-filter:blur(10px)}
+
+.top-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.top-actions .mini{padding:12px 16px;border-radius:999px;font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+.volume{margin-top:24px}
+.volume label{display:block;margin-bottom:10px;color:#d0d0d0;font-size:14px}
+.volume input{width:100%;accent-color:var(--gold)}
+
+.playlist-head{width:min(1280px,100%);margin:30px auto 14px;padding:0 8%;display:flex;justify-content:space-between;gap:12px;align-items:flex-end}
+.playlist-head h2{font-size:clamp(1.7rem,3.5vw,2.8rem)}
+.playlist-head p{color:var(--muted);max-width:760px;line-height:1.7}
+
+.filters{width:min(1280px,100%);margin:22px auto 0;padding:0 8%;display:flex;gap:12px;flex-wrap:wrap}
+.search{
+  flex:1 1 280px;
+  min-width:220px;
+  padding:14px 16px;
+  border-radius:16px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);
+  color:var(--text);
+  outline:none;
+}
+.search::placeholder{color:#9d9d9d}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{
+  padding:12px 14px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.04);
+  color:#eee;
+  cursor:pointer;
+  font-size:12px;
+  letter-spacing:.08em;
+  transition:.2s;
+}
+.chip.active{background:rgba(212,175,55,.15);border-color:rgba(212,175,55,.4);color:#fff}
+.sort-select{
+  min-width:180px;
+  padding:14px 16px;
+  border-radius:16px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);
+  color:var(--text);
+  outline:none;
+}
+
+.top-releases{
+  width:min(1280px,100%);
+  margin:34px auto 0;
+  padding:0 8%;
+}
+.top-releases h2{font-size:clamp(1.7rem,3.5vw,2.8rem);margin-bottom:10px}
+.top-releases p{color:var(--muted);line-height:1.7;max-width:760px}
+.top-grid{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+.top-card{
+  position:relative;
+  overflow:hidden;
+  border-radius:28px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.05);
+  backdrop-filter:blur(10px);
+  min-height:320px;
+}
+.top-card img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.05)}
+.top-card .shade{position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.80))}
+.top-card .rank{
+  position:absolute;top:16px;left:16px;z-index:2;
+  width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(10px);
+  border:1px solid rgba(212,175,55,.35);color:var(--gold);font-weight:800;
+}
+.top-card .content{
+  position:absolute;left:16px;right:16px;bottom:16px;z-index:2;
+}
+.top-card .content h3{font-size:1.35rem;margin-bottom:6px}
+.top-card .content p{color:#e7e7e7;font-size:.95rem;line-height:1.6}
+.top-card .content .tag{margin-top:10px;display:inline-flex;padding:8px 10px;border-radius:999px;background:rgba(212,175,55,.14);border:1px solid rgba(212,175,55,.30);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+
+.playlist{width:min(1280px,100%);margin:0 auto;padding:0 8% 60px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.track-btn{
+  position:relative;
+  text-align:left;
+  padding:16px;
+  border-radius:22px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.05);
+  color:#fff;
+  cursor:pointer;
+  transition:.25s ease;
+  overflow:hidden;
+}
+.track-btn:hover{transform:translateY(-3px);border-color:rgba(212,175,55,.35);box-shadow:0 12px 30px rgba(0,0,0,.25)}
+.track-btn.active{background:rgba(212,175,55,.14);border-color:rgba(212,175,55,.45)}
+.track-btn .thumb{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:16px;margin-bottom:14px;border:1px solid rgba(255,255,255,.08);background:#111}
+.track-btn .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.track-btn .title{font-size:14px;font-weight:800;line-height:1.4}
+.track-btn .sub{margin-top:6px;color:#bbb;font-size:12px;line-height:1.4}
+.track-btn .meta{display:flex;justify-content:space-between;gap:10px;margin-top:14px;color:var(--gold);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+
+.about{
+  width:min(1280px,100%);
+  margin:0 auto;
+  padding:20px 8% 90px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+.about .box{padding:24px;border-radius:26px;background:rgba(255,255,255,.05);border:1px solid var(--line);backdrop-filter:blur(12px)}
+.about h3{margin-bottom:10px;font-size:22px}
+.about p{color:#d3d3d3;line-height:1.8}
+.badge-line{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px}
+.badge-pill{padding:10px 12px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:#ececec;font-size:12px}
+
+.footer{padding:40px 8% 70px;border-top:1px solid var(--line);text-align:center;background:rgba(0,0,0,.35);backdrop-filter:blur(10px)}
+.footer .links{margin-top:14px;display:flex;justify-content:center;flex-wrap:wrap;gap:16px}
+.footer .links a{text-decoration:none;color:#d8d8d8;font-size:13px;letter-spacing:.18em;text-transform:uppercase}
+.footer .links a:hover{color:var(--gold)}
+
 .helper{margin-top:12px;font-size:12px;color:#a8a8a8}
-@media(max-width:980px){header{padding:18px 20px}nav{display:none}.hero h1{font-size:58px}.hero p{font-size:16px}.player{grid-template-columns:1fr}.player-content{padding:30px 24px 34px}.section-title{font-size:38px}.quote h2{font-size:30px}}
-@media(max-width:560px){.logo{font-size:18px;letter-spacing:2px}.hero{padding:140px 6% 80px}.hero h1{font-size:46px}.btn{width:100%;text-align:center}.buttons{flex-direction:column}.player-content h2{font-size:30px}.player-cover{padding:16px}.cover-label{top:24px;left:24px}}
+.mini-player{
+  position:fixed;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:14px;
+  width:min(980px,calc(100% - 24px));
+  z-index:110;
+  display:none;
+  grid-template-columns:auto 1fr auto;
+  gap:12px;
+  align-items:center;
+  padding:12px 14px;
+  background:rgba(10,10,12,.84);
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:20px;
+  backdrop-filter:blur(16px);
+  box-shadow:0 18px 40px rgba(0,0,0,.30);
+}
+.mini-player img{width:52px;height:52px;border-radius:14px;object-fit:cover;border:1px solid rgba(255,255,255,.08)}
+.mini-player .mini-title{font-size:13px;font-weight:700}
+.mini-player .mini-sub{font-size:11px;color:#bbb;margin-top:3px}
+.mini-player .mini-actions{display:flex;gap:8px}
+.mini-player button{width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.08);color:#fff;cursor:pointer}
+.mini-player .mini-play{background:var(--gold);color:#050507;font-weight:800}
+
+@media (max-width: 1080px){
+  .hero-inner,.player,.about,.top-grid{grid-template-columns:1fr}
+  .player-content{padding:30px 24px 34px}
+  .stats{grid-template-columns:1fr}
+}
+@media (max-width: 720px){
+  .topbar{padding:14px 16px}
+  .nav{display:none}
+  .hero{padding:120px 6% 36px}
+  .hero h1{font-size:3rem}
+  .filters,.playlist-head,.playlist,.section-title,.player-wrap,.about,.top-releases{padding-left:6%;padding-right:6%}
+  .player-cover{padding:16px}
+  .cover-label{top:24px;left:24px}
+  .mini-player{display:grid}
+}
 </style>
 </head>
 <body>
-<header>
-  <div class="logo">BOYINGTON REMIX</div>
-  <nav>
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-badge">B</div>
+    <div class="brand-text">
+      <span class="kicker">Boyington Remix</span>
+      <strong>Official Music Site</strong>
+    </div>
+  </div>
+  <nav class="nav">
     <a href="#accueil">Accueil</a>
     <a href="#musique">Musique</a>
+    <a href="#top">Top</a>
     <a href="#sorties">Sorties</a>
     <a href="#contact">Contact</a>
   </nav>
 </header>
+
 <section class="hero" id="accueil">
-  <div class="hero-content">
-    <div class="badge">Identité Électronique Premium</div>
-    <h1>BOYINGTON <span>REMIX</span></h1>
-    <p>
-      Son cinématique • Énergie émotionnelle • Signature musicale
-      <br><br>
-      Une identité DJ premium avec des atmosphères électroniques immersives,
-      des visuels luxueux et des productions prêtes pour le club.
-    </p>
-    <div class="buttons">
-      <button class="btn btn-gold" onclick="document.getElementById('musique').scrollIntoView({behavior:'smooth'})">▶ Écouter</button>
-      <button class="btn btn-dark" onclick="document.getElementById('sorties').scrollIntoView({behavior:'smooth'})">Découvrir les Mixes</button>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <div class="badge">Identité Électronique Premium</div>
+      <h1>BOYINGTON <span>REMIX</span></h1>
+      <p>
+        Son cinématique • Énergie émotionnelle • Signature musicale.
+        <br><br>
+        Ce site charge automatiquement tous les morceaux présents à la racine du dépôt GitHub,
+        lit les pochettes et les infos depuis les tags ID3, et te propose une expérience
+        élégante, rapide et totalement personnalisée.
+      </p>
+      <div class="hero-actions">
+        <button class="btn btn-gold" onclick="document.getElementById('musique').scrollIntoView({behavior:'smooth'})">Écouter</button>
+        <button class="btn btn-dark" onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'})">Top releases</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('playlistSection').scrollIntoView({behavior:'smooth'})">Playlist complète</button>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="label">Beatport Ready</div>
+      <img id="heroCover" src="studio-boyington.png" alt="Boyington Remix">
+      <div class="overlay"></div>
+      <div class="caption">
+        <h2 id="heroTitle">Boyington Remix</h2>
+        <p id="heroSubtitle">Playlist officielle • Cover depuis tags ID3</p>
+      </div>
     </div>
   </div>
 </section>
-<section class="player-section" id="musique">
+
+<div class="stats">
+  <div class="stat"><strong>Lecteur automatique</strong><span>Les MP3 sont chargés depuis la racine du dépôt sans réécriture manuelle.</span></div>
+  <div class="stat"><strong>Covers intégrées</strong><span>Les pochettes sont lues directement dans les tags ID3 si elles existent.</span></div>
+  <div class="stat"><strong>Style premium</strong><span>Interface noire, or, violette, pensée pour un rendu artiste / label.</span></div>
+</div>
+
+<section class="top-releases" id="top">
+  <h2>Top Releases</h2>
+  <p>Une vitrine premium pour mettre en avant automatiquement les premiers morceaux détectés dans le dépôt, avec visuels, tags et style plus luxueux.</p>
+  <div class="top-grid" id="topGrid"></div>
+</section>
+
+<section class="player-wrap" id="musique">
+  <div class="section-title">
+    <h2>Lecteur principal</h2>
+    <p>Choisis un morceau, lance la lecture, et laisse le site reprendre automatiquement le titre, la pochette et les informations du fichier.</p>
+  </div>
+
   <div class="player">
     <div class="player-cover">
-      <div class="cover-label">Cover depuis tags ID3</div>
+      <div class="cover-label">Tags ID3 / MP3</div>
       <img id="coverImage" src="studio-boyington.png" alt="Cover Boyington Remix">
     </div>
+
     <div class="player-content">
-      <h2 id="currentTitle">Boyington Remix</h2>
-      <p id="currentSubtitle">Playlist officielle</p>
+      <h3 id="currentTitle">Chargement…</h3>
+      <p id="currentSubtitle">Lecture des fichiers du dépôt GitHub</p>
+
       <div class="track-info">
-        <div class="main" id="currentTrackName">Boyington Remix</div>
-        <div class="sub" id="currentTrackStyle">Playlist officielle</div>
+        <div class="main" id="currentTrackName">Chargement…</div>
+        <div class="sub" id="currentTrackStyle">Lecture des fichiers du dépôt GitHub</div>
       </div>
+
       <div class="progress"><div class="progress-bar" id="progress"></div></div>
       <div class="time-row"><span id="currentTime">0:00</span><span id="duration">0:00</span></div>
+
       <div class="controls">
         <button class="skip-btn" id="prevBtn" title="Titre précédent">⟨</button>
         <button class="play-btn" id="playBtn">▶</button>
         <button class="skip-btn" id="nextBtn" title="Titre suivant">⟩</button>
       </div>
+
+      <div class="top-actions">
+        <button class="btn btn-dark mini" id="shuffleBtn">Lecture aléatoire</button>
+        <button class="btn btn-dark mini" id="repeatBtn">Lecture continue</button>
+        <button class="btn btn-dark mini" id="openBtn">Ouvrir le fichier</button>
+        <button class="btn btn-dark mini" id="downloadBtn">Télécharger</button>
+      </div>
+
       <div class="volume">
         <label for="volume">Volume</label>
         <input type="range" id="volume" min="0" max="1" step="0.01" value="0.8">
       </div>
-      <div class="playlist-title">Playlist</div>
-      <div class="playlist" id="playlist"></div>
-      <div class="helper">Les titres et pochettes sont lus depuis les tags ID3 des fichiers MP3.</div>
-      <audio id="audio" preload="metadata"></audio>
+
+      <div class="helper" id="statusLine">Chargement de la playlist…</div>
     </div>
   </div>
 </section>
+
+<section id="playlistSection" class="playlist-head">
+  <div>
+    <h2>Playlist complète</h2>
+    <p>Recherche par titre, filtrage par style, lecture directe, et récupération automatique des pochettes si elles sont intégrées dans les fichiers MP3.</p>
+  </div>
+</section>
+
+<div class="filters">
+  <input class="search" id="searchInput" type="search" placeholder="Rechercher un titre, un style, un mot-clé…" />
+  <select class="sort-select" id="sortSelect">
+    <option value="az">Tri A → Z</option>
+    <option value="za">Tri Z → A</option>
+    <option value="recent">Ordre du dépôt</option>
+  </select>
+  <div class="chips" id="chipRow"></div>
+</div>
+
+<div class="playlist" id="playlist"></div>
+
+<section class="about">
+  <div class="box">
+    <h3>Boyington Remix</h3>
+    <p>
+      Un site vitrine musical pensé comme un mini label personnel : identité visuelle sombre et luxueuse, lecture audio automatisée,
+      et lecture des métadonnées directement depuis les MP3.
+    </p>
+    <div class="badge-line">
+      <span class="badge-pill">Noir / Or</span>
+      <span class="badge-pill">Beatport Style</span>
+      <span class="badge-pill">ID3 Tags</span>
+      <span class="badge-pill">Playlist auto</span>
+      <span class="badge-pill">Cover embarquée</span>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>Ce que le site fait</h3>
+    <p>
+      Il lit les fichiers `.mp3` présents à la racine du dépôt GitHub, affiche leurs noms, récupère la pochette intégrée,
+      et propose une navigation simple avec filtre et recherche.
+    </p>
+    <div class="badge-line">
+      <span class="badge-pill">GitHub Pages</span>
+      <span class="badge-pill">HTML / CSS / JS</span>
+      <span class="badge-pill">Sans backend</span>
+      <span class="badge-pill">Sans covers séparées</span>
+    </div>
+  </div>
+</section>
+
 <section class="section" id="sorties">
-  <h2 class="section-title">Dernières Sorties</h2>
-  <p class="section-sub">Une identité électronique premium entre émotion, groove et énergie cinématique.</p>
+  <div class="section-title">
+    <h2>Dernières sorties</h2>
+    <p>Les vignettes ci-dessous restent illustratives. Le lecteur principal, lui, se nourrit automatiquement des fichiers MP3 de ton dépôt.</p>
+  </div>
+
   <div class="grid">
     <div class="card">
       <img src="studio-boyington.png" alt="Broken Illusions">
@@ -153,33 +646,54 @@ footer{padding:50px 8%;border-top:1px solid rgba(255,255,255,0.08);text-align:ce
     </div>
   </div>
 </section>
+
 <section class="quote">
   <h2>✨ “Accepte ce qui est, laisse aller ce qui était, et aie confiance en ce qui sera.” ✨</h2>
 </section>
-<footer id="contact">
-  © BOYINGTON REMIX — Tous droits réservés<br>
-  Alias Péppino
+
+<footer class="footer" id="contact">
+  <div>© BOYINGTON REMIX — Tous droits réservés</div>
+  <div>Alias Péppino</div>
+  <div class="links">
+    <a href="#" target="_blank" rel="noopener">SoundCloud</a>
+    <a href="#" target="_blank" rel="noopener">Spotify</a>
+    <a href="#" target="_blank" rel="noopener">Beatport</a>
+    <a href="#" target="_blank" rel="noopener">YouTube</a>
+    <a href="#" target="_blank" rel="noopener">Instagram</a>
+    <a href="#" target="_blank" rel="noopener">Facebook</a>
+  </div>
 </footer>
+
+<div class="mini-player" id="miniPlayer">
+  <img id="miniCover" src="studio-boyington.png" alt="Mini cover">
+  <div>
+    <div class="mini-title" id="miniTitle">Boyington Remix</div>
+    <div class="mini-sub" id="miniSub">Playlist officielle</div>
+  </div>
+  <div class="mini-actions">
+    <button id="miniPrev">⟨</button>
+    <button class="mini-play" id="miniPlay">▶</button>
+    <button id="miniNext">⟩</button>
+  </div>
+</div>
+
 <script>
-const trackFiles = __TRACK_FILES_JSON__;
-const tracks = trackFiles.map((src) => {
-  const base = src.replace(/\.mp3$/i, '');
-  return {
-    src,
-    title: base,
-    subtitle: 'Lecture en attente…',
-    cover: 'studio-boyington.png',
-    loaded: false,
-    loading: false,
-    button: null,
-    titleEl: null,
-    subEl: null
-  };
-});
+const CONFIG = {
+  owner: 'boyingtonremix',
+  repo: 'Boyington-Remix',
+  branch: 'main',
+  fallbackCover: 'studio-boyington.png'
+};
+
+const API_URL = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/?ref=${CONFIG.branch}`;
+
 const audio = document.getElementById('audio');
 const playBtn = document.getElementById('playBtn');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
+const miniPlay = document.getElementById('miniPlay');
+const miniPrev = document.getElementById('miniPrev');
+const miniNext = document.getElementById('miniNext');
 const progress = document.getElementById('progress');
 const volume = document.getElementById('volume');
 const currentTimeEl = document.getElementById('currentTime');
@@ -190,47 +704,165 @@ const currentSubtitleEl = document.getElementById('currentSubtitle');
 const currentTrackNameEl = document.getElementById('currentTrackName');
 const currentTrackStyleEl = document.getElementById('currentTrackStyle');
 const coverImage = document.getElementById('coverImage');
+const heroCover = document.getElementById('heroCover');
+const heroTitle = document.getElementById('heroTitle');
+const heroSubtitle = document.getElementById('heroSubtitle');
+const miniPlayer = document.getElementById('miniPlayer');
+const miniCover = document.getElementById('miniCover');
+const miniTitle = document.getElementById('miniTitle');
+const miniSub = document.getElementById('miniSub');
+const statusLine = document.getElementById('statusLine');
+const searchInput = document.getElementById('searchInput');
+const chipRow = document.getElementById('chipRow');
+const sortSelect = document.getElementById('sortSelect');
+const shuffleBtn = document.getElementById('shuffleBtn');
+const repeatBtn = document.getElementById('repeatBtn');
+const openBtn = document.getElementById('openBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+const topGrid = document.getElementById('topGrid');
+
+let allTracks = [];
+let tracks = [];
 let currentIndex = 0;
+let currentFilter = 'Tous';
+let searchTerm = '';
+let shuffleEnabled = false;
+let repeatEnabled = true;
+let sortMode = 'az';
+
 function formatTime(seconds) {
   if (!isFinite(seconds)) return '0:00';
   const m = Math.floor(seconds / 60);
   const s = Math.floor(seconds % 60).toString().padStart(2, '0');
   return `${m}:${s}`;
 }
+
 function pictureToDataUrl(picture) {
   if (!picture || !picture.data) return null;
   let binary = '';
   const data = picture.data;
-  for (let i = 0; i < data.length; i++) {
-    binary += String.fromCharCode(data[i]);
-  }
+  for (let i = 0; i < data.length; i++) binary += String.fromCharCode(data[i]);
   const base64 = btoa(binary);
   return `data:${picture.format || 'image/jpeg'};base64,${base64}`;
 }
-function refreshActiveButton() {
-  document.querySelectorAll('.track-btn').forEach((btn, i) => {
-    btn.classList.toggle('active', i === currentIndex);
+
+function safeText(value, fallback = '') {
+  const txt = String(value || '').trim();
+  return txt || fallback;
+}
+
+function normalize(value) {
+  return safeText(value).toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[’']/g, "'")
+    .replace(/\s+/g, ' ');
+}
+
+function extractGenre(track) {
+  return safeText(track.genre || track.subtitle || 'Autre');
+}
+
+function sortTracks(list) {
+  const copy = [...list];
+  if (sortMode === 'za') {
+    copy.sort((a, b) => b.title.localeCompare(a.title, 'fr', { numeric: true, sensitivity: 'base' }));
+  } else if (sortMode === 'az') {
+    copy.sort((a, b) => a.title.localeCompare(b.title, 'fr', { numeric: true, sensitivity: 'base' }));
+  }
+  return copy;
+}
+
+function buildChips() {
+  const genres = ['Tous'];
+  tracks.forEach(track => {
+    const genre = extractGenre(track);
+    if (!genres.includes(genre)) genres.push(genre);
+  });
+
+  chipRow.innerHTML = '';
+  genres.forEach(genre => {
+    const btn = document.createElement('button');
+    btn.className = 'chip' + (genre === currentFilter ? ' active' : '');
+    btn.textContent = genre;
+    btn.addEventListener('click', () => {
+      currentFilter = genre;
+      buildChips();
+      renderPlaylist();
+    });
+    chipRow.appendChild(btn);
   });
 }
+
+function getVisibleTracks() {
+  const q = normalize(searchTerm);
+  let list = tracks.filter(track => {
+    const hay = normalize([
+      track.title,
+      track.subtitle,
+      track.genre,
+      track.artist,
+      track.album,
+      track.comment
+    ].join(' '));
+
+    const matchSearch = !q || hay.includes(q);
+    const matchFilter = currentFilter === 'Tous' || extractGenre(track) === currentFilter;
+    return matchSearch && matchFilter;
+  });
+  return sortTracks(list);
+}
+
+function refreshActiveButton() {
+  document.querySelectorAll('.track-btn').forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.index === String(currentIndex));
+  });
+}
+
 function applyTrackToPlayer(track) {
   currentTitleEl.textContent = track.title;
-  currentSubtitleEl.textContent = track.subtitle;
+  currentSubtitleEl.textContent = track.subtitle || track.genre || 'Playlist officielle';
   currentTrackNameEl.textContent = track.title;
-  currentTrackStyleEl.textContent = track.subtitle;
-  if (track.cover) {
-    coverImage.src = track.cover;
-  }
+  currentTrackStyleEl.textContent = track.subtitle || track.genre || 'Playlist officielle';
+  heroTitle.textContent = track.title;
+  heroSubtitle.textContent = track.subtitle || track.genre || 'Cover depuis tags ID3';
+  miniTitle.textContent = track.title;
+  miniSub.textContent = track.subtitle || track.genre || 'Playlist officielle';
+
+  const cover = track.cover || CONFIG.fallbackCover;
+  coverImage.src = cover;
+  heroCover.src = cover;
+  miniCover.src = cover;
+
   coverImage.alt = track.title;
+  heroCover.alt = track.title;
+  miniCover.alt = track.title;
+
+  openBtn.onclick = () => window.open(encodeURI(track.src), '_blank');
+  downloadBtn.onclick = () => {
+    const a = document.createElement('a');
+    a.href = encodeURI(track.src);
+    a.download = track.src;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  };
 }
-function updatePlaylistButton(index) {
-  const track = tracks[index];
+
+function updateStatus(message) {
+  statusLine.textContent = message;
+}
+
+function updatePlaylistButton(track) {
   if (!track || !track.button) return;
   if (track.titleEl) track.titleEl.textContent = track.title;
-  if (track.subEl) track.subEl.textContent = track.subtitle;
+  if (track.subEl) track.subEl.textContent = track.subtitle || track.genre || '';
+  if (track.genreEl) track.genreEl.textContent = extractGenre(track);
+  if (track.thumbEl) track.thumbEl.src = track.cover || CONFIG.fallbackCover;
 }
-function fetchTrackMetadata(index) {
-  const track = tracks[index];
+
+function fetchTrackMetadata(track) {
   if (!track || track.loaded || track.loading) return track?.metaPromise || Promise.resolve(track);
+
   track.loading = true;
   track.metaPromise = new Promise((resolve) => {
     if (!window.jsmediatags) {
@@ -239,27 +871,32 @@ function fetchTrackMetadata(index) {
       resolve(track);
       return;
     }
+
     jsmediatags.read(encodeURI(track.src), {
       onSuccess: function(tag) {
         const tags = tag && tag.tags ? tag.tags : {};
-        if (tags.title && String(tags.title).trim()) {
-          track.title = String(tags.title).trim();
+
+        if (tags.title) track.title = safeText(tags.title, track.title);
+        if (tags.artist) track.artist = safeText(tags.artist);
+        if (tags.album) track.album = safeText(tags.album);
+        if (tags.genre) track.genre = safeText(tags.genre, track.genre);
+        if (tags.comment) {
+          if (Array.isArray(tags.comment)) {
+            track.comment = safeText(tags.comment[0]?.text || tags.comment[0], '');
+          } else {
+            track.comment = safeText(tags.comment.text || tags.comment, '');
+          }
         }
-        if (tags.genre && String(tags.genre).trim()) {
-          track.subtitle = String(tags.genre).trim();
-        } else if (tags.artist && String(tags.artist).trim()) {
-          track.subtitle = String(tags.artist).trim();
-        }
+
         const cover = pictureToDataUrl(tags.picture);
-        if (cover) {
-          track.cover = cover;
-        }
+        if (cover) track.cover = cover;
+
+        track.subtitle = track.genre || track.artist || track.subtitle || 'Lecture disponible';
         track.loaded = true;
         track.loading = false;
-        updatePlaylistButton(index);
-        if (index === currentIndex) {
-          applyTrackToPlayer(track);
-        }
+
+        updatePlaylistButton(track);
+        if (track.index === currentIndex) applyTrackToPlayer(track);
         resolve(track);
       },
       onError: function() {
@@ -269,96 +906,347 @@ function fetchTrackMetadata(index) {
       }
     });
   });
+
   return track.metaPromise;
 }
+
 function loadTrack(index, autoplay = false) {
+  if (!tracks.length) return;
+
   currentIndex = (index + tracks.length) % tracks.length;
   const track = tracks[currentIndex];
+
   audio.pause();
   audio.src = encodeURI(track.src);
   audio.load();
+
   applyTrackToPlayer(track);
-  refreshActiveButton();
+  updateStatus(`Lecture : ${track.title}`);
   currentTimeEl.textContent = '0:00';
   durationEl.textContent = '0:00';
   progress.style.width = '0%';
   playBtn.textContent = '▶';
-  fetchTrackMetadata(currentIndex);
+  miniPlay.textContent = '▶';
+
+  refreshActiveButton();
+
+  fetchTrackMetadata(track).then(() => {
+    applyTrackToPlayer(track);
+    buildChips();
+    renderPlaylist();
+    renderTopReleases();
+  });
+
   if (autoplay) {
     audio.play().then(() => {
       playBtn.textContent = '❚❚';
+      miniPlay.textContent = '❚❚';
     }).catch(() => {});
   }
 }
+
 function renderPlaylist() {
+  const visible = getVisibleTracks();
   playlistEl.innerHTML = '';
-  tracks.forEach((track, index) => {
+
+  if (!visible.length) {
+    playlistEl.innerHTML = '<div class="helper">Aucun morceau ne correspond à la recherche ou au filtre.</div>';
+    return;
+  }
+
+  visible.forEach((track) => {
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'track-btn' + (index === 0 ? ' active' : '');
-    track.button = btn;
+    btn.className = 'track-btn' + (track.index === currentIndex ? ' active' : '');
+    btn.dataset.index = String(track.index);
+
+    const thumb = document.createElement('img');
+    thumb.className = 'thumb';
+    thumb.src = track.cover || CONFIG.fallbackCover;
+    thumb.alt = track.title || 'Cover';
+
     const top = document.createElement('div');
-    top.className = 'track-top';
+    top.className = 'top';
+
     const left = document.createElement('div');
     const titleEl = document.createElement('div');
-    titleEl.className = 'track-title';
+    titleEl.className = 'title';
     titleEl.textContent = track.title;
     const subEl = document.createElement('div');
-    subEl.className = 'track-sub';
-    subEl.textContent = track.subtitle;
+    subEl.className = 'sub';
+    subEl.textContent = track.subtitle || track.genre || '';
+
     left.appendChild(titleEl);
     left.appendChild(subEl);
+
     const num = document.createElement('div');
-    num.style.color = '#d4af37';
+    num.style.color = 'var(--gold)';
     num.style.fontSize = '12px';
-    num.style.fontWeight = '700';
-    num.textContent = String(index + 1).padStart(2, '0');
+    num.style.fontWeight = '800';
+    num.textContent = String(track.index + 1).padStart(2, '0');
+
     top.appendChild(left);
     top.appendChild(num);
+
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    const genreSpan = document.createElement('span');
+    genreSpan.textContent = extractGenre(track);
+    const lenSpan = document.createElement('span');
+    lenSpan.textContent = track.duration || 'MP3';
+    meta.appendChild(genreSpan);
+    meta.appendChild(lenSpan);
+
+    btn.appendChild(thumb);
     btn.appendChild(top);
-    btn.addEventListener('click', () => loadTrack(index, true));
+    btn.appendChild(meta);
+
+    btn.addEventListener('click', () => loadTrack(track.index, true));
+
     playlistEl.appendChild(btn);
+
+    track.button = btn;
+    track.thumbEl = thumb;
     track.titleEl = titleEl;
     track.subEl = subEl;
+    track.genreEl = genreSpan;
+  });
+
+  refreshActiveButton();
+}
+
+function renderTopReleases() {
+  const top = tracks.slice(0, 3);
+  topGrid.innerHTML = '';
+
+  if (!top.length) {
+    topGrid.innerHTML = '<div class="helper">Aucune release détectée.</div>';
+    return;
+  }
+
+  top.forEach((track, idx) => {
+    const card = document.createElement('article');
+    card.className = 'top-card';
+
+    const img = document.createElement('img');
+    img.src = track.cover || CONFIG.fallbackCover;
+    img.alt = track.title;
+
+    const shade = document.createElement('div');
+    shade.className = 'shade';
+
+    const rank = document.createElement('div');
+    rank.className = 'rank';
+    rank.textContent = String(idx + 1);
+
+    const content = document.createElement('div');
+    content.className = 'content';
+    const h3 = document.createElement('h3');
+    h3.textContent = track.title;
+    const p = document.createElement('p');
+    p.textContent = track.subtitle || track.genre || 'Boyington Remix';
+    const tag = document.createElement('div');
+    tag.className = 'tag';
+    tag.textContent = extractGenre(track);
+
+    content.appendChild(h3);
+    content.appendChild(p);
+    content.appendChild(tag);
+
+    card.appendChild(img);
+    card.appendChild(shade);
+    card.appendChild(rank);
+    card.appendChild(content);
+
+    card.addEventListener('click', () => loadTrack(track.index, true));
+    topGrid.appendChild(card);
   });
 }
+
+function chooseNextIndex(delta = 1) {
+  if (!tracks.length) return 0;
+  if (shuffleEnabled) {
+    if (tracks.length === 1) return currentIndex;
+    let idx = currentIndex;
+    while (idx === currentIndex) idx = Math.floor(Math.random() * tracks.length);
+    return idx;
+  }
+  return (currentIndex + delta + tracks.length) % tracks.length;
+}
+
+function setupMiniPlayerVisibility() {
+  const isMobile = window.matchMedia('(max-width: 720px)').matches;
+  miniPlayer.style.display = isMobile ? 'grid' : 'none';
+}
+
+async function buildPlaylistFromGitHub() {
+  updateStatus('Lecture de la racine du dépôt GitHub…');
+
+  const response = await fetch(API_URL, { cache: 'no-store' });
+  if (!response.ok) throw new Error('Impossible de lire le dépôt GitHub.');
+
+  const items = await response.json();
+
+  const mp3Files = items
+    .filter(item => item.type === 'file' && item.name.toLowerCase().endsWith('.mp3'))
+    .map((item, index) => ({
+      index,
+      src: item.name,
+      title: item.name.replace(/\.mp3$/i, ''),
+      subtitle: 'Lecture en attente…',
+      genre: 'Autre',
+      artist: '',
+      album: '',
+      comment: '',
+      cover: CONFIG.fallbackCover,
+      loaded: false,
+      loading: false,
+      metaPromise: null,
+      button: null,
+      thumbEl: null,
+      titleEl: null,
+      subEl: null,
+      genreEl: null,
+      duration: ''
+    }))
+    .sort((a, b) => a.title.localeCompare(b.title, 'fr', { numeric: true, sensitivity: 'base' }))
+    .map((track, idx) => ({ ...track, index: idx }));
+
+  tracks = mp3Files;
+  allTracks = mp3Files.slice();
+
+  if (!tracks.length) {
+    updateStatus('Aucun MP3 trouvé dans la racine du dépôt.');
+    currentTitleEl.textContent = 'Aucun MP3 trouvé';
+    currentSubtitleEl.textContent = 'Ajoute des fichiers .mp3 à la racine du dépôt';
+    currentTrackNameEl.textContent = 'Aucun MP3 trouvé';
+    currentTrackStyleEl.textContent = 'Ajoute des fichiers .mp3 à la racine du dépôt';
+    heroTitle.textContent = 'Boyington Remix';
+    heroSubtitle.textContent = 'Playlist officielle • Cover depuis tags ID3';
+    renderPlaylist();
+    renderTopReleases();
+    buildChips();
+    return;
+  }
+
+  buildChips();
+  renderTopReleases();
+  renderPlaylist();
+  loadTrack(0, false);
+
+  tracks.forEach(track => {
+    fetchTrackMetadata(track).then(() => {
+      updatePlaylistButton(track);
+      renderTopReleases();
+      buildChips();
+      renderPlaylist();
+    });
+  });
+
+  updateStatus(`${tracks.length} morceau(x) détecté(s) dans le dépôt.`);
+}
+
+searchInput.addEventListener('input', () => {
+  searchTerm = searchInput.value || '';
+  renderPlaylist();
+});
+
+sortSelect.addEventListener('change', () => {
+  sortMode = sortSelect.value;
+  renderPlaylist();
+});
+
+shuffleBtn.addEventListener('click', () => {
+  shuffleEnabled = !shuffleEnabled;
+  shuffleBtn.style.borderColor = shuffleEnabled ? 'rgba(212,175,55,.45)' : 'rgba(255,255,255,.08)';
+  shuffleBtn.style.background = shuffleEnabled ? 'rgba(212,175,55,.14)' : 'rgba(255,255,255,.04)';
+  updateStatus(shuffleEnabled ? 'Lecture aléatoire activée.' : 'Lecture aléatoire désactivée.');
+});
+
+repeatBtn.addEventListener('click', () => {
+  repeatEnabled = !repeatEnabled;
+  repeatBtn.style.borderColor = repeatEnabled ? 'rgba(212,175,55,.45)' : 'rgba(255,255,255,.08)';
+  repeatBtn.style.background = repeatEnabled ? 'rgba(212,175,55,.14)' : 'rgba(255,255,255,.04)';
+  updateStatus(repeatEnabled ? 'Lecture continue activée.' : 'Lecture continue désactivée.');
+});
+
 playBtn.addEventListener('click', () => {
+  if (!tracks.length) return;
   if (!audio.src) loadTrack(currentIndex, false);
+
   if (audio.paused) {
     audio.play().then(() => {
       playBtn.textContent = '❚❚';
+      miniPlay.textContent = '❚❚';
     }).catch(() => {});
   } else {
     audio.pause();
     playBtn.textContent = '▶';
+    miniPlay.textContent = '▶';
   }
 });
-prevBtn.addEventListener('click', () => loadTrack(currentIndex - 1, true));
-nextBtn.addEventListener('click', () => loadTrack(currentIndex + 1, true));
+
+prevBtn.addEventListener('click', () => {
+  if (!tracks.length) return;
+  loadTrack(chooseNextIndex(-1), true);
+});
+
+nextBtn.addEventListener('click', () => {
+  if (!tracks.length) return;
+  loadTrack(chooseNextIndex(1), true);
+});
+
+miniPlay?.addEventListener('click', () => playBtn.click());
+miniPrev?.addEventListener('click', () => prevBtn.click());
+miniNext?.addEventListener('click', () => nextBtn.click());
+
 audio.addEventListener('loadedmetadata', () => {
   durationEl.textContent = formatTime(audio.duration);
 });
+
 audio.addEventListener('timeupdate', () => {
   const percent = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
   progress.style.width = percent + '%';
   currentTimeEl.textContent = formatTime(audio.currentTime);
 });
+
 audio.addEventListener('ended', () => {
-  playBtn.textContent = '▶';
-  loadTrack(currentIndex + 1, true);
+  if (repeatEnabled) {
+    loadTrack(chooseNextIndex(1), true);
+  } else {
+    playBtn.textContent = '▶';
+    miniPlay.textContent = '▶';
+  }
 });
+
 audio.addEventListener('error', () => {
   playBtn.textContent = '▶';
+  miniPlay.textContent = '▶';
+  updateStatus('Erreur de lecture sur ce fichier.');
 });
+
 volume.addEventListener('input', () => {
   audio.volume = parseFloat(volume.value);
 });
 audio.volume = parseFloat(volume.value);
-renderPlaylist();
-loadTrack(0, false);
-tracks.forEach((_, index) => {
-  fetchTrackMetadata(index);
-});
+window.addEventListener('resize', setupMiniPlayerVisibility);
+
+buildPlaylistFromGitHub()
+  .then(() => {
+    setupMiniPlayerVisibility();
+    tracks.forEach(track => fetchTrackMetadata(track));
+  })
+  .catch((err) => {
+    console.error(err);
+    updateStatus('Impossible de charger la playlist depuis GitHub.');
+    currentTitleEl.textContent = 'Chargement impossible';
+    currentSubtitleEl.textContent = 'Vérifie la racine du dépôt GitHub';
+    currentTrackNameEl.textContent = 'Chargement impossible';
+    currentTrackStyleEl.textContent = 'Vérifie la racine du dépôt GitHub';
+    heroTitle.textContent = 'Boyington Remix';
+    heroSubtitle.textContent = 'Chargement impossible';
+    renderTopReleases();
+  });
 </script>
 </body>
 </html>
