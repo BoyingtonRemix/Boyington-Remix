@@ -11,13 +11,12 @@
   <style>
     :root{
       --bg:#050505;
-      --panel:rgba(12,12,14,.92);
+      --panel:rgba(14,14,16,.92);
       --line:rgba(255,255,255,.08);
       --gold:#d7a73a;
       --gold2:#f1c35d;
       --text:#f5f5f5;
       --muted:#b9b9b9;
-      --muted2:#8e8e8e;
       --shadow:0 18px 50px rgba(0,0,0,.55);
     }
 
@@ -28,7 +27,7 @@
       font-family:Montserrat,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       color:var(--text);
       background:
-        radial-gradient(circle at 80% 12%, rgba(215,167,58,.13), transparent 18%),
+        radial-gradient(circle at 78% 12%, rgba(215,167,58,.13), transparent 18%),
         radial-gradient(circle at 18% 30%, rgba(120,40,10,.10), transparent 20%),
         linear-gradient(180deg,#090909 0%,#050505 100%);
       overflow-x:hidden;
@@ -38,24 +37,19 @@
       position:fixed;
       inset:0;
       background:
-        linear-gradient(90deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.66) 35%, rgba(0,0,0,.84) 100%),
-        radial-gradient(circle at 78% 20%, rgba(255,195,86,.14), transparent 18%),
-        radial-gradient(circle at 22% 20%, rgba(255,255,255,.04), transparent 14%),
+        linear-gradient(90deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.70) 35%, rgba(0,0,0,.84) 100%),
         url("studio-boyington.png");
       background-size:cover;
       background-position:center;
       opacity:.16;
       z-index:-2;
-      transform:scale(1.02);
       pointer-events:none;
     }
     body::after{
       content:"";
       position:fixed;
       inset:0;
-      background:
-        radial-gradient(circle at top, rgba(212,175,55,.10), transparent 25%),
-        linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.74));
+      background:linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.78));
       z-index:-1;
       pointer-events:none;
     }
@@ -65,7 +59,12 @@
     audio{display:none}
 
     .page{width:min(1600px,calc(100% - 24px));margin:0 auto}
-    .topbar{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;position:sticky;top:0;z-index:30;backdrop-filter:blur(10px);background:rgba(5,5,5,.88);border-bottom:1px solid rgba(255,255,255,.06)}
+
+    .topbar{
+      height:72px;display:flex;align-items:center;justify-content:space-between;
+      padding:0 18px;position:sticky;top:0;z-index:30;
+      backdrop-filter:blur(10px);background:rgba(5,5,5,.88);border-bottom:1px solid rgba(255,255,255,.06)
+    }
     .brand{display:flex;align-items:center;gap:12px;min-width:250px}
     .logo{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:linear-gradient(180deg,#f3c95f,#9a6a10);color:#111;font-weight:900;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
     .brand span{font-weight:800;letter-spacing:.08em;color:#d9b15a}
@@ -80,7 +79,7 @@
 
     .hero{margin-top:18px;display:grid;grid-template-columns:1.12fr .88fr;gap:18px}
     .hero-left,.hero-right,.player,.playlist,.latest-release,.top-card{border:1px solid rgba(255,255,255,.06);border-radius:28px;background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));box-shadow:var(--shadow);overflow:hidden;position:relative}
-    .hero-left{min-height:430px;padding:34px;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(circle at 86% 50%, rgba(215,167,58,.12), transparent 34%),linear-gradient(180deg, rgba(15,15,16,.92), rgba(5,5,5,.96))}
+    .hero-left{min-height:430px;padding:34px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(180deg, rgba(15,15,16,.92), rgba(5,5,5,.96))}
     .kicker,.subtitle{letter-spacing:.34em;text-transform:uppercase}
     .kicker{color:#d0d0d0;font-size:12px;margin-bottom:12px}
     h1{margin:0;line-height:.9;font-size:clamp(62px,9vw,110px);letter-spacing:-.06em;text-transform:uppercase}
@@ -93,55 +92,44 @@
     .btn:hover{transform:translateY(-1px)}
     .btn.primary{color:#111;background:linear-gradient(180deg,var(--gold2),var(--gold));font-weight:800;box-shadow:0 8px 24px rgba(215,167,58,.22)}
 
-    .hero-right{min-height:430px;background:linear-gradient(90deg, rgba(5,5,5,.96) 0%, rgba(5,5,5,.34) 35%, rgba(5,5,5,0) 62%),radial-gradient(circle at 72% 42%, rgba(255,197,87,.24), transparent 18%),url("studio-boyington.png");background-size:cover;background-position:center;background-blend-mode:normal,screen,normal}
-    .studio-scene{position:absolute;inset:0;pointer-events:none}
-    .studio-scene .speaker,.studio-scene .speaker2{position:absolute;width:13%;aspect-ratio:1/1.28;border-radius:12px;background:linear-gradient(180deg, rgba(28,28,30,.92), rgba(8,8,8,.94));border:1px solid rgba(255,255,255,.05)}
-    .studio-scene .speaker{left:10%;top:12%}.studio-scene .speaker2{left:26%;top:16%}
-    .studio-scene .lamp{position:absolute;right:10%;top:10%;width:14%;height:28%;background:radial-gradient(circle at 50% 32%, rgba(246,193,80,.98), rgba(243,193,80,.2) 30%, transparent 56%);opacity:.86}
-    .studio-scene .desk{position:absolute;left:18%;right:0;bottom:4%;height:18%;background:linear-gradient(180deg, rgba(34,24,11,.38), rgba(0,0,0,.68));border-top:1px solid rgba(255,255,255,.06);border-radius:24px 24px 0 0}
-    .studio-scene .glow{position:absolute;right:6%;bottom:10%;width:62%;height:48%;border-radius:50%;background:radial-gradient(circle, rgba(215,167,58,.30), transparent 60%);filter:blur(16px)}
-    .studio-scene .silhouette{position:absolute;right:4%;bottom:0;width:68%;height:92%;border-radius:52% 52% 22% 22% / 30% 30% 18% 18%;background:linear-gradient(180deg, rgba(32,22,14,0) 0%, rgba(32,22,14,.52) 48%, rgba(7,7,7,0) 100%);box-shadow:inset 0 -80px 120px rgba(0,0,0,.62);clip-path:polygon(24% 3%,56% 0,72% 10%,78% 22%,86% 34%,88% 56%,82% 100%,18% 100%,10% 60%,12% 34%,18% 18%)}
+    .hero-right{min-height:430px;background:linear-gradient(90deg, rgba(5,5,5,.96) 0%, rgba(5,5,5,.34) 35%, rgba(5,5,5,0) 62%),url("studio-boyington.png");background-size:cover;background-position:center}
     .hero-chip{position:absolute;right:22px;bottom:22px;width:min(330px,48%);border:1px solid rgba(215,167,58,.28);border-radius:18px;background:rgba(10,10,10,.62);padding:16px 18px;backdrop-filter:blur(8px)}
     .hero-chip small{display:block;color:#dcdcdc;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}.hero-chip p{margin:0;color:#cfcfcf;font-size:14px;line-height:1.5}
 
-    .section-head,.section-title,.top-releases,.about,.quote{scroll-margin-top:90px}
-    .section-head,.section-title{width:min(1280px,100%);margin:18px auto 12px;padding:0 8%}
-    .section-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .section-head h2,.top-releases h2,.section-title h2{margin:0;font-size:clamp(1.7rem,3.5vw,2.8rem);text-transform:uppercase;color:var(--gold2);letter-spacing:.06em}
+    .section-head{width:min(1280px,100%);margin:28px auto 12px;padding:0 8%;display:flex;align-items:center;justify-content:space-between;gap:12px;scroll-margin-top:90px}
+    .section-head h2{margin:0;font-size:clamp(1.7rem,3.5vw,2.8rem);text-transform:uppercase;color:var(--gold2);letter-spacing:.06em}
     .ghost{padding:10px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.02);text-transform:uppercase;font-size:12px;letter-spacing:.08em}
 
-    .top-releases{width:min(1280px,100%);margin:34px auto 0;padding:0 8%}
-    .top-releases h2{display:block;width:100%;text-align:center}
+    .top-releases{width:min(1280px,100%);margin:0 auto;padding:0 8%}
     .latest-release{max-width:640px;margin:18px auto 0;display:grid;grid-template-columns:92px 1fr;gap:14px;align-items:center;padding:14px 16px;border-radius:22px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);box-shadow:0 8px 26px rgba(0,0,0,.24)}
     .latest-release img{width:92px;height:92px;border-radius:18px;object-fit:cover;border:1px solid rgba(215,167,58,.25);background:#111}
     .latest-release .k{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold2);margin-bottom:6px}
     .latest-release .t{font-size:18px;font-weight:800;line-height:1.2;margin-bottom:4px}
     .latest-release .s{font-size:13px;color:var(--muted)}
 
-    .releases{display:grid;grid-template-columns:42px 1fr 42px;gap:10px;align-items:center;margin-top:16px}
-    .arrow{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:#ddd;font-size:20px;cursor:pointer}
-    .carousel{display:grid;grid-template-columns:repeat(8,minmax(160px,1fr));gap:12px;overflow:auto;scrollbar-width:thin;padding-bottom:4px;scroll-snap-type:x proximity}
-    .card{min-width:160px;border-radius:18px;border:1px solid rgba(255,255,255,.10);background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));overflow:hidden;box-shadow:0 8px 26px rgba(0,0,0,.34);cursor:pointer;scroll-snap-align:start}
-    .cover{height:156px;position:relative;display:flex;align-items:flex-end;padding:12px;background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,0)),linear-gradient(135deg,#182635,#090909 45%,#2a1a05 100%)}
-    .overlay-title{font-size:15px;line-height:1;font-weight:900;letter-spacing:-.04em;text-transform:uppercase;color:#f5f5f5;text-shadow:0 2px 12px rgba(0,0,0,.65);display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
-    .overlay-title small{display:block;color:var(--gold2);font-size:14px;letter-spacing:.12em;margin-top:4px}
-    .meta{padding:12px 12px 14px}.meta .title{font-size:14px;font-weight:700;margin-bottom:3px}.meta .sub{font-size:12px;color:var(--muted2)}
+    .top-grid{margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .top-card{min-height:320px;cursor:pointer}
+    .top-card img{width:100%;height:100%;object-fit:cover;display:block}
+    .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.10),rgba(0,0,0,.80))}
+    .rank{position:absolute;top:16px;left:16px;z-index:2;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(0,0,0,.55);border:1px solid rgba(212,175,55,.35);color:var(--gold);font-weight:800}
+    .content{position:absolute;left:16px;right:16px;bottom:16px;z-index:2}
+    .content h3{font-size:1.15rem;margin:0 0 6px;line-height:1.1}
+    .content p{color:#e7e7e7;font-size:.88rem;line-height:1.6;margin:0}
+    .content .tag{margin-top:10px;display:inline-flex;padding:8px 10px;border-radius:999px;background:rgba(212,175,55,.14);border:1px solid rgba(212,175,55,.30);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
 
-    .player-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;margin-top:16px}
+    .player-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;margin-top:24px;padding:0 8% 40px}
     .player,.playlist{border:1px solid rgba(255,255,255,.08);border-radius:26px;box-shadow:var(--shadow);background:rgba(12,12,13,.92)}
     .player{padding:18px;display:grid;grid-template-columns:160px 1fr;gap:18px;min-height:260px}
-    .player-cover{width:100%;aspect-ratio:1/1;border-radius:18px;overflow:hidden;border:1px solid rgba(215,167,58,.55);background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0)),linear-gradient(135deg,#1a2634,#070707 48%,#1f1406 100%);position:relative}
-    .player-cover::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.86));z-index:1;pointer-events:none}
-    .player-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
-    .player-cover::after{content:"BOYINGTON";position:absolute;left:14px;top:12px;z-index:2;font-size:12px;letter-spacing:.2em;color:#fff;opacity:.9}
-    .track-title{font-size:28px;font-weight:700;margin:4px 0 5px}.track-sub{color:var(--muted);margin:0 0 6px;line-height:1.45}.track-sub small{display:block;color:#d7d7d7}
+    .player-cover{width:100%;aspect-ratio:1/1;border-radius:18px;overflow:hidden;border:1px solid rgba(215,167,58,.55);background:linear-gradient(135deg,#1a2634,#070707 48%,#1f1406 100%);position:relative}
+    .player-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .track-title{font-size:28px;font-weight:700;margin:4px 0 5px}.track-sub{color:var(--muted);margin:0 0 6px;line-height:1.45}
     .controls{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:16px 0 12px}
     .round{width:56px;height:56px;border-radius:50%;border:0;background:linear-gradient(180deg,var(--gold2),var(--gold));box-shadow:0 10px 24px rgba(215,167,58,.24);color:#111;font-size:22px;font-weight:900;cursor:pointer}
     .mini{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03);color:#fff;cursor:pointer}
-    .bar{height:8px;border-radius:999px;background:#303030;position:relative;overflow:hidden;flex:1;min-width:220px}.bar span{display:block;height:100%;width:62%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:inherit}
+    .bar{height:8px;border-radius:999px;background:#303030;position:relative;overflow:hidden;flex:1;min-width:220px}.bar span{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:inherit}
     .time-row{display:flex;justify-content:space-between;gap:12px;color:#cfcfcf;font-size:13px}
-    .equalizer{display:flex;align-items:flex-end;gap:5px;height:34px;margin:14px 0 4px;padding:7px 8px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(215,167,58,.18);box-shadow:inset 0 0 0 1px rgba(255,255,255,.02)}
-    .equalizer span{flex:1;height:8px;border-radius:999px;background:linear-gradient(180deg,var(--gold2),var(--gold));transform-origin:bottom center;transform:scaleY(.25);opacity:.88;transition:transform .08s linear,opacity .08s linear,background .2s ease}
+    .equalizer{display:flex;align-items:flex-end;gap:5px;height:34px;margin:14px 0 4px;padding:7px 8px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(215,167,58,.18)}
+    .equalizer span{flex:1;height:8px;border-radius:999px;background:linear-gradient(180deg,var(--gold2),var(--gold));transform-origin:bottom center;transform:scaleY(.25);opacity:.88}
     .slider-row{display:flex;align-items:center;gap:10px;margin-top:14px}input[type=range]{width:220px;accent-color:var(--gold2)}
 
     .playlist{padding:16px;display:flex;flex-direction:column;min-height:260px}
@@ -151,23 +139,18 @@
     .chips{display:flex;flex-wrap:wrap;gap:10px}.chip{padding:12px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:#eee;cursor:pointer;font-size:12px;letter-spacing:.08em}.chip.active{background:rgba(212,175,55,.15);border-color:rgba(212,175,55,.4);color:#fff}
     .list{display:flex;flex-direction:column;gap:8px;overflow:auto;max-height:260px;padding-right:4px}.item{display:grid;grid-template-columns:32px 1fr auto;gap:10px;align-items:center;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);border-radius:14px;padding:8px 10px}.thumb{width:32px;height:32px;border-radius:8px;object-fit:cover;background:#111;border:1px solid rgba(215,167,58,.22)}.item strong{display:block;font-size:13px;line-height:1.25;color:#f5f5f5}.item span{display:block;font-size:11px;color:#b8b8b8;margin-top:2px}.dur{color:#e8e8e8;font-size:12px;font-weight:700}
 
-    .top-grid{margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .top-card{position:relative;overflow:hidden;border-radius:28px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.05);min-height:320px;cursor:pointer}
-    .top-card img{width:100%;height:100%;object-fit:cover;display:block}
-    .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.10),rgba(0,0,0,.80))}.rank{position:absolute;top:16px;left:16px;z-index:2;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(0,0,0,.55);border:1px solid rgba(212,175,55,.35);color:var(--gold);font-weight:800}.content{position:absolute;left:16px;right:16px;bottom:16px;z-index:2}.content h3{font-size:1.15rem;margin:0 0 6px;line-height:1.1}.content p{color:#e7e7e7;font-size:.88rem;line-height:1.6}.content .tag{margin-top:10px;display:inline-flex;padding:8px 10px;border-radius:999px;background:rgba(212,175,55,.14);border:1px solid rgba(212,175,55,.30);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
-
     .footer{padding:40px 8% 80px;border-top:1px solid var(--line);text-align:center;background:rgba(0,0,0,.35);backdrop-filter:blur(10px)}
     .footer .links{margin-top:14px;display:flex;justify-content:center;flex-wrap:wrap;gap:16px}.footer .links a{color:#d8d8d8;font-size:13px;letter-spacing:.18em;text-transform:uppercase}.footer .links a:hover{color:var(--gold)}
     .mini-player{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;width:min(980px,calc(100% - 24px));z-index:110;display:none;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:12px 14px;background:rgba(10,10,12,.84);border:1px solid rgba(255,255,255,.10);border-radius:20px;backdrop-filter:blur(16px);box-shadow:0 18px 40px rgba(0,0,0,.30)}
     .mini-player img{width:52px;height:52px;border-radius:14px;object-fit:cover;border:1px solid rgba(255,255,255,.08)}.mini-player .mini-title{font-size:13px;font-weight:700}.mini-player .mini-sub{font-size:11px;color:#bbb;margin-top:3px}.mini-player .mini-actions{display:flex;gap:8px}.mini-player button{width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.08);color:#fff;cursor:pointer}.mini-player .mini-play{background:var(--gold);color:#050507;font-weight:800}
     .helper{margin-top:12px;font-size:12px;color:#a8a8a8}
 
-    @media (max-width:1180px){.hero,.player-grid,.top-grid{grid-template-columns:1fr}.player{grid-template-columns:1fr}.player-content{padding:0}.nav{display:none}.brand,.icons{min-width:auto}.hero-right{min-height:360px}}
-    @media (max-width:720px){.topbar{padding:14px 16px;height:66px}.hero{padding-top:10px}.hero-left{padding:24px 18px;min-height:380px}.hero h1{font-size:54px}.lead{font-size:15px}.section-head,.section-title,.top-releases{padding-left:6%;padding-right:6%}.hero-chip{position:relative;right:auto;bottom:auto;margin-top:22px;width:100%}.mini-player{display:grid}.top-grid{grid-template-columns:1fr}}
+    @media (max-width:1180px){.hero,.player-grid,.top-grid{grid-template-columns:1fr}.player{grid-template-columns:1fr}.nav{display:none}.brand,.icons{min-width:auto}.hero-right{min-height:360px}}
+    @media (max-width:720px){.topbar{padding:14px 16px;height:66px}.hero{padding-top:10px}.hero-left{padding:24px 18px;min-height:380px}.hero h1{font-size:54px}.lead{font-size:15px}.section-head,.top-releases,.player-grid{padding-left:6%;padding-right:6%}.hero-chip{position:relative;right:auto;bottom:auto;margin-top:22px;width:100%}.mini-player{display:grid}.top-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
-  <audio id="audio"></audio>
+  <audio id="audio" preload="metadata"></audio>
 
   <header class="topbar page">
     <div class="brand"><div class="logo">BR</div><span>BOYINGTON REMIX</span></div>
@@ -196,15 +179,11 @@
         <p class="lead">Une expérience électronique unique entre émotion, groove et puissance. Le site reprend une direction visuelle sombre et luxueuse, avec un player central, une playlist propre et une vitrine orientée releases.</p>
         <div class="btns">
           <button class="btn primary" onclick="document.getElementById('musique').scrollIntoView({behavior:'smooth'})">▶ Écouter maintenant</button>
-          <button class="btn" onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'})">Voir les top releases</button>
+          <button class="btn" onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'})">Voir les dernières sorties</button>
           <button class="btn" onclick="document.getElementById('playlistSection').scrollIntoView({behavior:'smooth'})">Playlist complète</button>
         </div>
       </div>
-
       <div class="hero-right">
-        <div class="studio-scene" aria-hidden="true">
-          <div class="speaker"></div><div class="speaker2"></div><div class="lamp"></div><div class="desk"></div><div class="glow"></div><div class="silhouette"></div>
-        </div>
         <div class="hero-chip">
           <small>Playlist officielle</small>
           <p>Covers depuis tags ID3<br/>Chargement automatique des MP3</p>
@@ -304,10 +283,9 @@
     const CONFIG = {
       owner: 'boyingtonremix',
       repo: 'Boyington-Remix',
-      branch: 'main',
+      branch: null,
       fallbackCover: 'studio-boyington.png'
     };
-    const API_URL = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/?ref=${CONFIG.branch}`;
 
     const $ = (id) => document.getElementById(id);
     const audio = $('audio');
@@ -323,10 +301,10 @@
     const statusLine = $('statusLine');
     const searchInput = $('searchInput'), chipRow = $('chipRow'), sortSelect = $('sortSelect');
     const shuffleBtn = $('shuffleBtn'), repeatBtn = $('repeatBtn');
-    const releasesEl = $('topGrid');
     const latestCover = $('latestCover');
     const latestTitle = $('latestTitle');
     const latestSub = $('latestSub');
+    const topGrid = $('topGrid');
     const equalizerEl = $('equalizer');
 
     let tracks = [];
@@ -339,6 +317,7 @@
     let currentBpm = 120;
     let equalizerRaf = 0;
     let isPlaying = false;
+    let defaultBranch = null;
 
     const formatTime = (s) => isFinite(s) ? `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}` : '0:00';
     const safeText = (v, f='') => String(v || '').trim() || f;
@@ -356,6 +335,24 @@
       return `data:${pic.format || 'image/jpeg'};base64,${btoa(b)}`;
     }
 
+    function resolveBranch() {
+      return CONFIG.branch || defaultBranch || 'main';
+    }
+
+    function apiUrl(path = '') {
+      const branch = resolveBranch();
+      const clean = path ? `/${path}` : '';
+      return `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents${clean}?ref=${encodeURIComponent(branch)}`;
+    }
+
+    async function fetchRepoInfo() {
+      const r = await fetch(`https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}`, { cache: 'no-store' });
+      if (!r.ok) throw new Error('Impossible de lire le dépôt GitHub.');
+      const info = await r.json();
+      defaultBranch = info.default_branch || 'main';
+      return info;
+    }
+
     function sortTracks(list) {
       const c = [...list];
       if (sortMode === 'za') c.sort((a, b) => b.title.localeCompare(a.title, 'fr', { numeric: true, sensitivity: 'base' }));
@@ -365,10 +362,7 @@
 
     function buildChips() {
       const genres = ['Tous'];
-      tracks.forEach(t => {
-        const g = extractGenre(t);
-        if (!genres.includes(g)) genres.push(g);
-      });
+      tracks.forEach(t => { const g = extractGenre(t); if (!genres.includes(g)) genres.push(g); });
       chipRow.innerHTML = '';
       genres.forEach(g => {
         const b = document.createElement('button');
@@ -431,11 +425,6 @@
       loop();
     }
 
-    function setupAudioAnalysis(track) {
-      currentBpm = getTrackBpm(track);
-      startEqualizer();
-    }
-
     function applyTrack(t) {
       currentTitleEl.textContent = t.title;
       currentSubtitleEl.textContent = t.subtitle || t.genre || 'Playlist officielle';
@@ -468,15 +457,7 @@
 
     function renderTop() {
       const top = tracks.slice(0, 6);
-      const gradients = [
-        'linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,0)), linear-gradient(135deg,#33240f,#080808 45%,#5c431a 100%)',
-        'linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,0)), linear-gradient(135deg,#25150b,#090909 45%,#3b240d 100%)',
-        'linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,0)), linear-gradient(135deg,#1c1138,#090909 45%,#3a0f48 100%)',
-        'linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,0)), linear-gradient(135deg,#1d1735,#090909 45%,#2b1c52 100%)',
-        'linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,0)), linear-gradient(135deg,#2a1205,#090909 45%,#5e190a 100%)',
-        'linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,0)), linear-gradient(135deg,#311029,#090909 45%,#541045 100%)'
-      ];
-      releasesEl.innerHTML = top.map((t, i) => `
+      topGrid.innerHTML = top.map((t, i) => `
         <article class="top-card" data-i="${t.index}">
           <img src="${resolveCover(t)}" alt="${displayTitle(t.title)}">
           <div class="shade"></div>
@@ -488,7 +469,7 @@
           </div>
         </article>
       `).join('');
-      releasesEl.querySelectorAll('.top-card').forEach(c => c.onclick = () => loadTrack(+c.dataset.i, true));
+      topGrid.querySelectorAll('.top-card').forEach(c => c.onclick = () => loadTrack(+c.dataset.i, true));
     }
 
     function renderPlaylist() {
@@ -566,8 +547,7 @@
 
     async function fetchCommitDate(track) {
       try {
-        const url = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/commits?path=${encodeURIComponent(track.src)}&per_page=1`;
-        const r = await fetch(url, { cache: 'no-store' });
+        const r = await fetch(`https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/commits?path=${encodeURIComponent(track.src)}&per_page=1`, { cache: 'no-store' });
         if (!r.ok) return;
         const data = await r.json();
         const first = Array.isArray(data) ? data[0] : null;
@@ -584,7 +564,7 @@
         const img = row.querySelector('img');
         if (img) img.src = resolveCover(t);
       }
-      const topCard = releasesEl.querySelector(`.top-card[data-i="${t.index}"]`);
+      const topCard = topGrid.querySelector(`.top-card[data-i="${t.index}"]`);
       if (topCard) {
         const h3 = topCard.querySelector('.content h3');
         const p = topCard.querySelector('.content p');
@@ -595,11 +575,6 @@
       }
       if (currentIndex === t.index) applyTrack(t);
       renderLatestRelease();
-    }
-
-    function setupAudioAnalysis(track) {
-      currentBpm = getTrackBpm(track);
-      startEqualizer();
     }
 
     function loadTrack(i, autoplay = false) {
@@ -617,17 +592,35 @@
       playBtn.textContent = '▶';
       miniPlay.textContent = '▶';
       refreshActive();
-      setupAudioAnalysis(t);
       fetchMeta(t).then(() => { applyTrack(t); buildChips(); renderPlaylist(); renderTop(); renderLatestRelease(); });
-      if (autoplay) audio.play().then(() => { playBtn.textContent = '❚❚'; miniPlay.textContent = '❚❚'; isPlaying = true; setupAudioAnalysis(t); }).catch(() => {});
+      if (autoplay) {
+        audio.play().then(() => {
+          playBtn.textContent = '❚❚';
+          miniPlay.textContent = '❚❚';
+          isPlaying = true;
+          startEqualizer();
+        }).catch(() => {});
+      }
     }
 
     async function init() {
       statusLine.textContent = 'Lecture de la racine du dépôt GitHub…';
-      const r = await fetch(API_URL, { cache: 'no-store' });
+      await fetchRepoInfo();
+      const r = await fetch(apiUrl(), { cache: 'no-store' });
       if (!r.ok) throw new Error('GitHub API error');
       const items = await r.json();
-      tracks = items.filter(x => x.type === 'file' && x.name.toLowerCase().endsWith('.mp3')).map((x, i) => ({ index:i, src:x.name, title:x.name.replace(/\.mp3$/i,''), subtitle:'Lecture en attente…', genre:'Autre', artist:'', album:'', comment:'', cover:CONFIG.fallbackCover, loaded:false, loading:false, duration:'', bpm:120, remoteDate:null })).sort((a, b) => a.title.localeCompare(b.title, 'fr', { numeric: true, sensitivity: 'base' })).map((t, i) => ({ ...t, index:i }));
+      tracks = items
+        .filter(x => x.type === 'file' && x.name.toLowerCase().endsWith('.mp3'))
+        .map((x, i) => ({
+          index:i,
+          src:x.name,
+          title:x.name.replace(/\.mp3$/i,''),
+          subtitle:'Lecture en attente…',
+          genre:'Autre', artist:'', album:'', comment:'', cover:CONFIG.fallbackCover,
+          loaded:false, loading:false, duration:'', bpm:120, remoteDate:null
+        }))
+        .sort((a, b) => a.title.localeCompare(b.title, 'fr', { numeric: true, sensitivity: 'base' }))
+        .map((t, i) => ({ ...t, index:i }));
 
       if (!tracks.length) {
         statusLine.textContent = 'Aucun MP3 trouvé dans la racine du dépôt.';
@@ -641,7 +634,11 @@
         return;
       }
 
-      buildChips(); renderTop(); renderPlaylist(); renderLatestRelease(); loadTrack(0, false);
+      buildChips();
+      renderTop();
+      renderPlaylist();
+      renderLatestRelease();
+      loadTrack(0, false);
       tracks.forEach(track => {
         fetchMeta(track);
         fetchCommitDate(track).then(() => renderLatestRelease());
@@ -656,8 +653,20 @@
     playBtn.onclick = () => {
       if (!tracks.length) return;
       if (!audio.src) loadTrack(currentIndex, false);
-      if (audio.paused) audio.play().then(() => { playBtn.textContent = '❚❚'; miniPlay.textContent = '❚❚'; isPlaying = true; setupAudioAnalysis(tracks[currentIndex]); }).catch(() => {});
-      else { audio.pause(); isPlaying = false; playBtn.textContent = '▶'; miniPlay.textContent = '▶'; stopEqualizer(); }
+      if (audio.paused) {
+        audio.play().then(() => {
+          playBtn.textContent = '❚❚';
+          miniPlay.textContent = '❚❚';
+          isPlaying = true;
+          startEqualizer();
+        }).catch(() => {});
+      } else {
+        audio.pause();
+        isPlaying = false;
+        playBtn.textContent = '▶';
+        miniPlay.textContent = '▶';
+        stopEqualizer();
+      }
     };
     prevBtn.onclick = () => tracks.length && loadTrack(chooseNext(-1), true);
     nextBtn.onclick = () => tracks.length && loadTrack(chooseNext(1), true);
@@ -671,13 +680,15 @@
       progress.style.width = pct + '%';
       currentTimeEl.textContent = formatTime(audio.currentTime);
     };
+    audio.onplay = () => { isPlaying = true; startEqualizer(); };
+    audio.onpause = () => { isPlaying = false; stopEqualizer(); };
     audio.onended = () => { isPlaying = false; stopEqualizer(); repeatEnabled ? loadTrack(chooseNext(1), true) : (playBtn.textContent = '▶', miniPlay.textContent = '▶'); };
     audio.onerror = () => { isPlaying = false; stopEqualizer(); playBtn.textContent = '▶'; miniPlay.textContent = '▶'; statusLine.textContent = 'Erreur de lecture sur ce fichier.'; };
     volume.oninput = () => audio.volume = parseFloat(volume.value);
     audio.volume = parseFloat(volume.value);
     window.addEventListener('resize', () => { $('miniPlayer').style.display = window.matchMedia('(max-width: 720px)').matches ? 'grid' : 'none'; });
-
     $('miniPlayer').style.display = window.matchMedia('(max-width: 720px)').matches ? 'grid' : 'none';
+
     init().catch(() => {
       statusLine.textContent = 'Impossible de charger la playlist depuis GitHub.';
       currentTitleEl.textContent = 'Chargement impossible';
