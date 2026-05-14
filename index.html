@@ -161,47 +161,41 @@
       inset:0;
       display:flex;
       align-items:center;
-      gap:2px;
-      padding:0 10px;
+      gap:3px;
+      padding:0 8px;
       z-index:2;
       pointer-events:none;
-      opacity:.92;
+      overflow:hidden;
+      opacity:.48;
     }
     .equalizer span{
       flex:1;
-      min-width:3px;
-      height:28%;
+      min-width:2px;
+      height:72%;
       border-radius:999px;
-      background:linear-gradient(180deg, rgba(255,240,190,.96), rgba(215,167,58,.96));
+      background:linear-gradient(180deg, rgba(255,240,190,.92), rgba(215,167,58,.92));
       transform-origin:center bottom;
       animation:eq 1.05s ease-in-out infinite;
       animation-play-state:paused;
-      box-shadow:0 0 14px rgba(215,167,58,.12);
+      box-shadow:0 0 10px rgba(215,167,58,.10);
     }
     .player.playing .equalizer span{animation-play-state:running}
-    .equalizer span:nth-child(2n){height:42%}
-    .equalizer span:nth-child(3n){height:60%}
-    .equalizer span:nth-child(4n){height:34%}
-    .equalizer span:nth-child(5n){height:52%}
-    .equalizer span:nth-child(7n){height:72%}
-    .equalizer span:nth-child(9n){height:46%}
-    .equalizer span:nth-child(11n){height:64%}
-    .equalizer span:nth-child(13n){height:38%}
-    .equalizer span:nth-child(17n){height:58%}
-    .equalizer span:nth-child(19n){height:48%}
+    .equalizer span:nth-child(2n){height:46%}
+    .equalizer span:nth-child(3n){height:64%}
+    .equalizer span:nth-child(4n){height:38%}
+    .equalizer span:nth-child(5n){height:56%}
+    .equalizer span:nth-child(7n){height:78%}
+    .equalizer span:nth-child(9n){height:50%}
+    .equalizer span:nth-child(11n){height:68%}
+    .equalizer span:nth-child(13n){height:42%}
+    .equalizer span:nth-child(17n){height:60%}
+    .equalizer span:nth-child(19n){height:52%}
     @keyframes eq{
       0%,100%{transform:scaleY(.55);opacity:.62}
       50%{transform:scaleY(1.35);opacity:1}
-    }
-      50%{transform:scaleY(1.35);opacity:1}
-    }
-
-    .bar{height:9px;border-radius:999px;background:#303030;position:relative;overflow:hidden;flex:1;min-width:220px}
-    .bar span{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:inherit}
-    .time-row{display:flex;justify-content:space-between;gap:12px;color:#cfcfcf;font-size:13px;margin-top:9px}
-    .controls{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:16px 0 12px}
+    }x-wrap:wrap;margin:16px 0 12px}
     .round{width:62px;height:62px;border-radius:50%;border:0;background:linear-gradient(180deg,var(--gold2),var(--gold));box-shadow:0 10px 24px rgba(215,167,58,.24);color:#111;font-size:24px;font-weight:900;cursor:pointer}
-    .mini{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03);color:#fff;cursor:pointer}
+    .mini{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03);color:#fff;cursor:pointer;transition:.18s ease}.mini.active{background:rgba(215,167,58,.16);border-color:rgba(215,167,58,.45);color:#fff;box-shadow:0 0 0 1px rgba(215,167,58,.12) inset}
     .slider-row{display:flex;align-items:center;gap:10px;margin-top:12px}
     input[type=range]{width:220px;accent-color:var(--gold2)}
     .action-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
@@ -453,6 +447,8 @@
     const repeatBtn = $('repeatBtn');
     const topGrid = $('topGrid');
     const miniPlayer = $('miniPlayer');
+    const btnShuffle = $('shuffleBtn');
+    const btnRepeat = $('repeatBtn');
     const playerCard = $('playerCard');
     const openBtn = $('openBtn');
 
@@ -604,6 +600,13 @@
       miniPlay.textContent = isPlaying ? '❚❚' : '▶';
     }
 
+    function updateModeButtons() {
+      btnShuffle.classList.toggle('active', shuffleEnabled);
+      btnRepeat.classList.toggle('active', repeatEnabled);
+      btnShuffle.setAttribute('aria-pressed', String(shuffleEnabled));
+      btnRepeat.setAttribute('aria-pressed', String(repeatEnabled));
+    }
+
     function fetchMeta(track) {
       if (!window.jsmediatags || track.loaded || track.loading) return track.metaPromise || Promise.resolve(track);
       track.loading = true;
@@ -724,8 +727,16 @@
 
     searchInput.oninput = () => { searchTerm = searchInput.value || ''; renderPlaylist(); };
     sortSelect.onchange = () => { sortMode = sortSelect.value; renderPlaylist(); };
-    shuffleBtn.onclick = () => { shuffleEnabled = !shuffleEnabled; statusLine.textContent = shuffleEnabled ? 'Lecture aléatoire activée.' : 'Lecture aléatoire désactivée.'; };
-    repeatBtn.onclick = () => { repeatEnabled = !repeatEnabled; statusLine.textContent = repeatEnabled ? 'Lecture continue activée.' : 'Lecture continue désactivée.'; };
+    btnShuffle.addEventListener('click', () => {
+      shuffleEnabled = !shuffleEnabled;
+      updateModeButtons();
+      statusLine.textContent = shuffleEnabled ? 'Lecture aléatoire activée.' : 'Lecture aléatoire désactivée.';
+    });
+    btnRepeat.addEventListener('click', () => {
+      repeatEnabled = !repeatEnabled;
+      updateModeButtons();
+      statusLine.textContent = repeatEnabled ? 'Lecture continue activée.' : 'Lecture continue désactivée.';
+    });
     playBtn.onclick = () => {
       if (!tracks.length) return;
       if (!audio.src) loadTrack(currentIndex, false);
@@ -744,11 +755,18 @@
 
     audio.onloadedmetadata = () => durationEl.textContent = formatTime(audio.duration);
     audio.ontimeupdate = () => { const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0; progress.style.width = pct + '%'; currentTimeEl.textContent = formatTime(audio.currentTime); };
-    audio.onended = () => { repeatEnabled ? loadTrack(chooseNext(1), true) : setPlayingState(false); };
+    audio.onended = () => {
+      if (repeatEnabled) {
+        loadTrack(chooseNext(1), true);
+      } else {
+        setPlayingState(false);
+      }
+    };
     audio.onerror = () => { setPlayingState(false); statusLine.textContent = 'Erreur de lecture sur ce fichier.'; };
     volume.oninput = () => audio.volume = parseFloat(volume.value);
     audio.volume = parseFloat(volume.value);
-    window.addEventListener('resize', () => { miniPlayer.style.display = window.matchMedia('(max-width: 720px)').matches ? 'grid' : 'none'; });
+    window.addEventListener('resize', () => { miniPlayer.style.display = window.matchMedia('(max-width: 720px)').matches ? 'grid' : 'none';
+    updateModeButtons(); });
     miniPlayer.style.display = window.matchMedia('(max-width: 720px)').matches ? 'grid' : 'none';
 
     init().catch(() => {
