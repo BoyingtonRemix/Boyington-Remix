@@ -1,9 +1,0 @@
-{
-  "name": "Boyington Remix",
-  "short_name": "Boyington",
-  "start_url": "./",
-  "display": "standalone",
-  "background_color": "#07070a",
-  "theme_color": "#07070a",
-  "description": "Boyington Remix — player premium, playlist automatique et visuels."
-}
