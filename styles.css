@@ -251,17 +251,10 @@ h1{
 }
 
 .player-section, .content-grid{margin-top:18px}
-.section-head{
-  margin-bottom:14px;
-}
-.section-head h2{
-  font-size:1.4rem;
-  letter-spacing:-.03em;
-}
+.section-head{margin-bottom:14px}
+.section-head h2{font-size:1.4rem;letter-spacing:-.03em}
 
-.player-card{
-  padding:18px;
-}
+.player-card{padding:18px}
 .now-playing{
   display:flex;
   flex-direction:column;
@@ -302,9 +295,7 @@ audio{
   align-items:start;
 }
 
-.panel{
-  padding:18px;
-}
+.panel{padding:18px}
 
 .track-list{
   display:flex;
@@ -410,6 +401,6 @@ audio{
   .topnav{display:none}
   .hero-copy{padding:20px}
   .stats-row{grid-template-columns:1fr}
-  .track-item{grid-template-columns:auto 1fr; }
+  .track-item{grid-template-columns:auto 1fr}
   .track-controls{grid-column:1 / -1; justify-content:flex-start}
 }

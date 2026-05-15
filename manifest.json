@@ -5,5 +5,5 @@
   "display": "standalone",
   "background_color": "#09090c",
   "theme_color": "#0b0b0f",
-  "description": "Site Boyington Remix avec player, playlist et dernières sorties."
+  "description": "Site Boyington Remix avec player, playlist automatique et dernières sorties."
 }

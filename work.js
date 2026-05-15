@@ -94,12 +94,8 @@
     return labels[index % labels.length];
   }
 
-  function displayPath(path) {
-    return path.replace(/^\.\/+/, "").replace(/^\/+/, "");
-  }
-
   function audioUrlFromPath(path) {
-    return encodeURI(displayPath(path));
+    return encodeURI(path.replace(/^\.\/+/, "").replace(/^\/+/, ""));
   }
 
   function isMp3(filePath) {
@@ -117,11 +113,10 @@
     if (host.endsWith("github.io")) {
       const owner = host.replace(/\.github\.io$/i, "");
       const repo = parts.length > 0 ? parts[0] : owner;
-      const rootPrefix = parts.length > 0 ? `/${parts[0]}` : "";
-      return { owner, repo, rootPrefix };
+      return { owner, repo };
     }
 
-    return { owner: "", repo: "", rootPrefix: "" };
+    return { owner: "", repo: "" };
   }
 
   async function fetchRepoTree(owner, repo) {
