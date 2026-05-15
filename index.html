@@ -439,8 +439,10 @@
     </section>
 
     <footer id="contact" class="footer">
-      <p>Boyington Remix — site premium responsive pour PC et smartphone.</p>
-      <p>La playlist, les likes et les lectures sont mémorisés localement dans le navigateur.</p>
+      <p>🎧 Créations/remixes DJ non commerciales et non officielles</p>
+      <p>⚠️ Tous les droits sur les œuvres originales appartiennent à leurs propriétaires respectifs.</p>
+      <p>🎶 Soutenez toujours les artistes et labels officiels.</p>
+      <p>📀 Licence : Creative Commons (CC BY-NC)<br>Utilisation non commerciale autorisée avec mention de l'auteur.</p>
     </footer>
   </div>
 
@@ -972,8 +974,14 @@
         repeatBtn.classList.toggle("active", repeatMode);
       });
 
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("service-worker.js").catch(() => {});
+        });
+      }
+
       function installFallbackMessage() {
-        showToast("Ouvre ce site depuis Chrome/Edge sur GitHub Pages, puis réessaie le bouton Télécharger l'application.");
+        showToast("Ouvre ce site dans Chrome ou Edge sur GitHub Pages, puis réessaie le bouton Télécharger l'application. Si l'invite n'apparaît pas, utilise le menu du navigateur > Installer l'application.");
       }
 
       if (installBtn) {
@@ -1000,11 +1008,14 @@
       window.addEventListener("beforeinstallprompt", (event) => {
         event.preventDefault();
         deferredInstallPrompt = event;
+        showToast("Installation disponible : appuie sur le bouton Télécharger l'application.", 4500);
       });
 
       window.addEventListener("appinstalled", () => {
         showToast("Boyington Remix est maintenant installé.");
         deferredInstallPrompt = null;
+        installBtn.textContent = "Application installée";
+        installBtn.disabled = true;
       });
 
       if ("serviceWorker" in navigator) {
