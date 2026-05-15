@@ -3,123 +3,1336 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b0b0f" />
-  <meta name="description" content="Boyington Remix — site officiel, player audio, playlist automatique et dernières sorties." />
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="theme-color" content="#07070a" />
+  <meta name="description" content="Boyington Remix — player premium, playlist automatique, versions PC et smartphone cohérentes." />
   <title>Boyington Remix</title>
+  <style>
+    :root{
+      --bg:#07070a;
+      --bg2:#0e0f13;
+      --panel:#111116;
+      --panel2:#15151c;
+      --line:rgba(216,177,90,.18);
+      --line2:rgba(255,255,255,.06);
+      --text:#f5f1e8;
+      --muted:#b9b2a2;
+      --gold:#d8b15a;
+      --gold2:#8f6b22;
+      --shadow:0 24px 70px rgba(0,0,0,.42);
+      --radius:28px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(216,177,90,.14), transparent 25%),
+        radial-gradient(circle at 85% 10%, rgba(88,120,255,.08), transparent 22%),
+        linear-gradient(180deg, #040406 0%, #09090c 40%, #060608 100%);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    }
+
+    a{color:inherit;text-decoration:none}
+    button,input,select{font:inherit}
+
+    .app{
+      width:min(1540px, calc(100% - 24px));
+      margin:0 auto;
+      padding:18px 0 40px;
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:40;
+      display:flex;
+      align-items:center;
+      gap:18px;
+      padding:14px 18px;
+      border:1px solid var(--line);
+      border-radius:26px;
+      background:rgba(7,7,10,.86);
+      backdrop-filter:blur(16px);
+      box-shadow:var(--shadow);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      min-width:0;
+    }
+    .brand-logo{
+      width:54px;
+      height:54px;
+      border-radius:18px;
+      display:block;
+      object-fit:cover;
+      box-shadow:0 10px 30px rgba(216,177,90,.18);
+      background:#111116;
+    }
+    .brand-text{display:flex;flex-direction:column;min-width:0}
+    .brand-name{
+      font-weight:800;
+      letter-spacing:.12em;
+      font-size:.92rem;
+      white-space:nowrap;
+    }
+    .brand-sub{
+      color:var(--muted);
+      letter-spacing:.26em;
+      font-size:.72rem;
+      margin-top:4px;
+      white-space:nowrap;
+    }
+
+    .nav{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      justify-content:center;
+      flex:1;
+      overflow:auto;
+      scrollbar-width:none;
+    }
+    .nav::-webkit-scrollbar{display:none}
+    .nav a{
+      padding:10px 8px;
+      color:#d7d0c4;
+      font-size:.88rem;
+      letter-spacing:.06em;
+      white-space:nowrap;
+      position:relative;
+    }
+    .nav a::after{
+      content:"";
+      position:absolute;
+      left:8px;
+      right:8px;
+      bottom:2px;
+      height:2px;
+      border-radius:999px;
+      transform:scaleX(0);
+      transform-origin:center;
+      background:linear-gradient(90deg, transparent, var(--gold), transparent);
+      transition:transform .25s ease;
+    }
+    .nav a:hover::after,
+    .nav a:focus-visible::after{transform:scaleX(1)}
+
+    .socials{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .socials a{
+      width:36px;
+      height:36px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--line2);
+      color:#e8e2d6;
+      font-size:.76rem;
+    }
+
+    .hero{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:18px;
+      align-items:stretch;
+    }
+
+    .hero-copy,
+    .hero-visual,
+    .panel,
+    .releases,
+    .footer{
+      border:1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)),
+        rgba(10,10,14,.9);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .hero-copy{
+      padding:34px 30px 28px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(216,177,90,.10), transparent 32%),
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+    }
+    .eyebrow{
+      margin:0 0 14px;
+      color:var(--gold);
+      letter-spacing:.28em;
+      font-size:.78rem;
+    }
+    h1,h2,h3,p{margin:0}
+    h1{
+      font-size:clamp(3.2rem, 5.5vw, 6.4rem);
+      line-height:.9;
+      letter-spacing:-.06em;
+      text-transform:uppercase;
+    }
+    h1 span{color:var(--gold)}
+    .subline{
+      margin-top:16px;
+      color:#d8ccaa;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      font-size:.82rem;
+    }
+    .lead{
+      margin-top:18px;
+      color:var(--muted);
+      max-width:65ch;
+      line-height:1.7;
+      font-size:1.02rem;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:24px;
+    }
+    .btn{
+      min-height:46px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:0 16px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      font-weight:700;
+      letter-spacing:.03em;
+      cursor:pointer;
+    }
+    .btn.primary{
+      background:linear-gradient(135deg, var(--gold), #e6c56b);
+      color:#111;
+    }
+    .btn.highlight{
+      background:linear-gradient(135deg, #f0c55c, #d8b15a);
+      color:#111;
+      border-color:rgba(255,208,110,.8);
+      box-shadow:0 14px 28px rgba(216,177,90,.18);
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:12px;
+      margin-top:26px;
+    }
+    .stat{
+      padding:18px 16px;
+      border-radius:20px;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line2);
+    }
+    .stat strong{
+      display:block;
+      font-size:1.9rem;
+      line-height:1;
+    }
+    .stat span{
+      display:block;
+      margin-top:8px;
+      color:var(--muted);
+      font-size:.92rem;
+    }
+
+    .hero-visual{overflow:hidden}
+    .hero-panel{
+      position:relative;
+      height:100%;
+      min-height:520px;
+      border-radius:calc(var(--radius) - 2px);
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 50% 25%, rgba(216,177,90,.16), transparent 30%),
+        linear-gradient(135deg, #050508 20%, #0e0f14 100%);
+    }
+    .hero-panel-media{
+      position:absolute;
+      inset:0;
+    }
+    .hero-panel-media img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      opacity:.98;
+    }
+    .hero-panel-overlay{
+      position:absolute;
+      left:22px;
+      bottom:22px;
+      width:min(52%, 420px);
+      padding:18px 18px 16px;
+      border-radius:18px;
+      background:linear-gradient(180deg, rgba(7,7,10,.58), rgba(7,7,10,.88));
+      border:1px solid rgba(255,255,255,.06);
+      backdrop-filter:blur(10px);
+    }
+    .pill{
+      display:inline-flex;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(216,177,90,.14);
+      border:1px solid rgba(216,177,90,.2);
+      color:#f4dfaa;
+      letter-spacing:.12em;
+      font-size:.74rem;
+    }
+    .hero-panel-overlay h2{
+      margin-top:14px;
+      font-size:clamp(1.4rem, 2vw, 2.4rem);
+      line-height:1.02;
+    }
+    .hero-panel-overlay p{
+      margin-top:12px;
+      color:var(--muted);
+      line-height:1.6;
+    }
+
+    .section-grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:1.04fr .96fr;
+      gap:18px;
+    }
+    .panel{
+      padding:18px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)),
+        rgba(10,10,14,.92);
+    }
+    .section-head{margin-bottom:16px}
+    .section-head h2{
+      margin-top:4px;
+      font-size:1.45rem;
+      letter-spacing:-.03em;
+    }
+
+    .now-playing{
+      display:grid;
+      grid-template-columns:240px 1fr;
+      gap:18px;
+      align-items:center;
+    }
+    .now-art{
+      width:100%;
+      aspect-ratio:1 / 1;
+      object-fit:cover;
+      border-radius:22px;
+      border:1px solid var(--line2);
+      background:#0b0b0f;
+    }
+    .now-meta{min-width:0}
+    .now-badge{
+      display:inline-block;
+      margin-bottom:12px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      color:#f3deb2;
+      background:rgba(216,177,90,.08);
+      font-size:.76rem;
+      letter-spacing:.18em;
+    }
+    #nowTitle{
+      font-size:clamp(1.4rem, 2vw, 2.4rem);
+      line-height:1.04;
+    }
+    #nowInfo{
+      margin-top:10px;
+      color:var(--muted);
+      line-height:1.6;
+    }
+
+    .timeline{
+      display:grid;
+      grid-template-columns:auto 1fr auto;
+      gap:12px;
+      align-items:center;
+      margin-top:16px;
+      color:#d9d2c1;
+    }
+    .timeline input[type="range"]{
+      width:100%;
+      accent-color:var(--gold);
+    }
+
+    .controls{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:10px;
+      margin-top:18px;
+    }
+    .icon-btn,.play-btn{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      cursor:pointer;
+    }
+    .play-btn{
+      width:72px;
+      border-radius:22px;
+      background:linear-gradient(135deg, var(--gold), #dfbe67);
+      color:#111;
+      font-weight:800;
+    }
+    .volume{
+      margin-left:auto;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:min(260px, 100%);
+      color:var(--muted);
+    }
+    .volume input[type="range"]{
+      width:100%;
+      accent-color:var(--gold);
+    }
+
+    .playlist-tools{
+      display:grid;
+      grid-template-columns:1fr 160px;
+      gap:12px;
+      margin-bottom:14px;
+    }
+    .playlist-tools input,
+    .playlist-tools select{
+      width:100%;
+      min-height:44px;
+      padding:0 14px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:#0c0c10;
+      color:var(--text);
+      outline:none;
+    }
+    .filters{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+    .filter-chip{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      border-radius:999px;
+      padding:8px 12px;
+      cursor:pointer;
+      font-size:.84rem;
+    }
+    .filter-chip.active{
+      background:linear-gradient(135deg, var(--gold), #dfbe67);
+      color:#111;
+    }
+
+    .track-list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      max-height:560px;
+      overflow:auto;
+      padding-right:4px;
+    }
+    .track-list::-webkit-scrollbar{width:8px}
+    .track-list::-webkit-scrollbar-thumb{
+      background:rgba(216,177,90,.26);
+      border-radius:999px;
+    }
+    .track-item{
+      display:grid;
+      grid-template-columns:54px 56px 1fr auto;
+      gap:14px;
+      align-items:center;
+      padding:10px;
+      border-radius:18px;
+      border:1px solid var(--line2);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)),
+        rgba(8,8,10,.7);
+    }
+    .track-item.active{
+      background:linear-gradient(135deg, rgba(216,177,90,.28), rgba(255,255,255,.03));
+      border-color:rgba(216,177,90,.4);
+    }
+    .track-index{
+      width:54px;
+      height:54px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      background:rgba(216,177,90,.12);
+      color:#f6e6b8;
+      font-weight:900;
+      font-size:1.05rem;
+    }
+    .track-thumb{
+      width:56px;
+      height:56px;
+      border-radius:14px;
+      object-fit:cover;
+      border:1px solid rgba(255,255,255,.05);
+    }
+    .track-main{min-width:0}
+    .track-title{
+      font-weight:800;
+      font-size:1.02rem;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .track-meta{
+      margin-top:5px;
+      color:var(--muted);
+      font-size:.87rem;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .track-actions{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .track-actions .small-btn{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      border-radius:12px;
+      padding:8px 10px;
+      cursor:pointer;
+      font-weight:700;
+    }
+    .track-actions .fav.active{background:rgba(216,177,90,.18)}
+    .track-actions .dislike.active{background:rgba(130,60,70,.18)}
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:999px;
+      padding:8px 12px;
+      background:rgba(255,255,255,.05);
+      color:#fff;
+      font-weight:700;
+      white-space:nowrap;
+    }
+
+    .releases{
+      margin-top:18px;
+      padding:18px;
+    }
+    .release-grid{
+      display:grid;
+      grid-template-columns:repeat(6, minmax(0, 1fr));
+      gap:12px;
+    }
+    .release-card{
+      padding:10px;
+      border-radius:18px;
+      border:1px solid var(--line2);
+      background:rgba(255,255,255,.03);
+    }
+    .release-cover{
+      width:100%;
+      aspect-ratio:1/1;
+      border-radius:14px;
+      object-fit:cover;
+      display:block;
+      border:1px solid rgba(255,255,255,.04);
+    }
+    .release-body{padding:12px 2px 4px}
+    .release-num{
+      display:inline-flex;
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      align-items:center;
+      justify-content:center;
+      background:var(--gold);
+      color:#111;
+      font-weight:900;
+      font-size:.85rem;
+      position:relative;
+      top:-20px;
+      left:6px;
+      box-shadow:0 8px 20px rgba(216,177,90,.22);
+    }
+    .release-title{
+      font-weight:800;
+      line-height:1.2;
+      min-height:40px;
+    }
+    .release-genre{
+      margin-top:8px;
+      color:var(--muted);
+      font-size:.84rem;
+    }
+    .release-btn{
+      display:inline-flex;
+      margin-top:12px;
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      font-weight:700;
+      font-size:.84rem;
+      cursor:pointer;
+    }
+
+    .footer{
+      margin-top:18px;
+      padding:18px;
+      color:var(--muted);
+      line-height:1.7;
+      text-align:center;
+    }
+
+    @media (max-width: 1180px){
+      .release-grid{grid-template-columns:repeat(3, minmax(0, 1fr))}
+    }
+
+    @media (max-width: 980px){
+      .topbar{flex-wrap:wrap}
+      .nav{order:3; width:100%; justify-content:flex-start}
+      .socials{margin-left:auto}
+      .hero,
+      .section-grid{
+        grid-template-columns:1fr;
+      }
+      .hero-panel{min-height:440px}
+      .release-grid{grid-template-columns:repeat(2, minmax(0, 1fr))}
+    }
+
+    @media (max-width: 720px){
+      .app{width:min(100% - 14px, 1540px); padding-top:10px}
+      .topbar{
+        gap:10px;
+        padding:12px;
+        border-radius:20px;
+      }
+      .brand-logo{width:44px;height:44px;border-radius:14px}
+      .brand-name{font-size:.84rem}
+      .brand-sub{font-size:.66rem}
+      .nav{gap:10px;font-size:.82rem}
+      .socials{display:none}
+      .hero-copy{padding:22px 18px 20px}
+      h1{font-size:clamp(2.5rem, 16vw, 4.9rem)}
+      .subline{font-size:.72rem; letter-spacing:.12em}
+      .hero-actions{display:grid; grid-template-columns:1fr}
+      .btn{width:100%}
+      .stats{grid-template-columns:1fr; gap:10px}
+      .hero-panel{min-height:340px}
+      .hero-panel-overlay{
+        width:calc(100% - 20px);
+        left:10px;
+        right:10px;
+        bottom:10px;
+      }
+      .panel,.releases,.footer{padding:14px}
+      .now-playing{grid-template-columns:1fr}
+      .now-art{max-width:280px; margin:0 auto}
+      .playlist-tools{grid-template-columns:1fr}
+      .track-list{max-height:none}
+      .track-item{
+        grid-template-columns:52px 1fr;
+        align-items:start;
+      }
+      .track-index{width:52px; height:52px}
+      .track-thumb{display:none}
+      .track-actions{
+        grid-column:1 / -1;
+        justify-content:flex-start;
+        margin-left:66px;
+        margin-top:4px;
+      }
+      .release-grid{grid-template-columns:1fr 1fr}
+      .release-title{min-height:auto}
+      .volume{min-width:0; width:100%; margin-left:0}
+    }
+
+    @media (max-width: 520px){
+      .release-grid{grid-template-columns:1fr}
+      .nav a{padding:8px 6px}
+    }
+  </style>
 </head>
 <body>
-  <div class="page-shell">
+  <div class="app" id="top">
     <header class="topbar">
       <a class="brand" href="#top" aria-label="Boyington Remix">
-        <img src="assets/favicon.svg" alt="" class="brand-icon" />
-        <div>
-          <div class="brand-name">BOYINGTON REMIX</div>
-          <div class="brand-sub">DJ / PRODUCER</div>
+        <img class="brand-logo" src="assets/favicon.svg" alt="" />
+        <div class="brand-text">
+          <span class="brand-name">BOYINGTON REMIX</span>
+          <span class="brand-sub">DJ / PRODUCER</span>
         </div>
       </a>
-      <nav class="topnav">
-        <a href="#player">Player</a>
-        <a href="#playlist">Playlist</a>
-        <a href="#releases">Sorties</a>
+
+      <nav class="nav" aria-label="Navigation principale">
+        <a href="#top">ACCUEIL</a>
+        <a href="#music">MUSIQUE</a>
+        <a href="#releases">TOP RELEASES</a>
+        <a href="#playlist">PLAYLIST COMPLÈTE</a>
+        <a href="#contact">CONTACT</a>
       </nav>
+
+      <div class="socials" aria-label="Réseaux">
+        <a href="#" aria-label="Spotify">S</a>
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="YouTube">▶</a>
+        <a href="#" aria-label="Facebook">f</a>
+      </div>
     </header>
 
-    <main class="hero-grid" id="top">
+    <main class="hero">
       <section class="hero-copy">
-        <p class="eyebrow">Official Music Hub</p>
-        <h1>Boyington Remix</h1>
+        <p class="eyebrow">IDENTITÉ ÉLECTRONIQUE PREMIUM</p>
+        <h1>BOYINGTON<br><span>REMIX</span></h1>
+        <p class="subline">SON CINÉMATIQUE · ÉNERGIE ÉMOTIONNELLE · SIGNATURE MUSICALE</p>
         <p class="lead">
-          Un espace premium pour lancer les morceaux, afficher automatiquement tous les MP3 du dépôt,
-          suivre la playlist et mettre en avant les dernières sorties.
+          Une expérience électronique unique entre émotion, groove et puissance.
+          Le site garde un visuel sombre et luxueux, avec un player premium, une playlist propre
+          et des sorties en vitrine, sur PC comme sur smartphone.
         </p>
 
-        <div class="quote-box">
-          <p>✨ Accepte ce qui est, laisse aller ce qui était, et aie confiance en ce qui sera.</p>
-          <p>✨ Vivre éternellement au rythme du rythme</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#player">▶ ÉCOUTER MAINTENANT</a>
+          <a class="btn" href="#releases">VOIR LES DERNIÈRES SORTIES</a>
+          <a class="btn" href="#playlist">PLAYLIST COMPLÈTE</a>
+          <button class="btn highlight" id="installBtn" hidden>TÉLÉCHARGER L'APPLICATION</button>
         </div>
 
-        <div class="action-row">
-          <a class="btn primary" href="#player">Écouter maintenant</a>
-          <a class="btn ghost" href="#playlist">Voir la playlist</a>
-        </div>
-
-        <div class="stats-row">
-          <div class="stat">
-            <span class="stat-value" id="totalTracks">0</span>
-            <span class="stat-label">MP3 détectés</span>
-          </div>
-          <div class="stat">
-            <span class="stat-value" id="totalPlays">0</span>
-            <span class="stat-label">Lectures</span>
-          </div>
-          <div class="stat">
-            <span class="stat-value" id="totalLikes">0</span>
-            <span class="stat-label">Likes</span>
-          </div>
+        <div class="stats" aria-label="Statistiques">
+          <div class="stat"><strong id="totalTracks">0</strong><span>MP3 détectés</span></div>
+          <div class="stat"><strong id="totalPlays">0</strong><span>Lectures</span></div>
+          <div class="stat"><strong id="totalLikes">0</strong><span>Likes</span></div>
         </div>
       </section>
 
-      <section class="hero-visual" aria-label="Pochette visuelle">
-        <div class="visual-frame">
-          <div class="visual-split">
-            <div class="visual-left">
-              <div class="mini-badge">Latest Drop</div>
-              <h2 id="featuredTitle">Chargement…</h2>
-              <p id="featuredMeta">La playlist se construit automatiquement à partir des MP3 présents dans le dépôt.</p>
-            </div>
-            <div class="visual-right">
-              <img src="assets/cover.svg" alt="Boyington Remix Cover" class="cover-image" />
-            </div>
+      <section class="hero-visual" aria-label="Cover principale">
+        <div class="hero-panel">
+          <div class="hero-panel-media">
+            <img id="heroCover" src="assets/hero-cover.svg" alt="Boyington Remix Cover" />
+          </div>
+          <div class="hero-panel-overlay">
+            <span class="pill">LATEST DROP</span>
+            <h2 id="featuredTitle">Chargement…</h2>
+            <p id="featuredMeta">La playlist se construit automatiquement à partir des fichiers du dépôt.</p>
           </div>
         </div>
       </section>
     </main>
 
-    <section class="player-section" id="player">
-      <div class="section-head">
-        <p class="eyebrow">Audio Player</p>
-        <h2>Lecture principale</h2>
-      </div>
+    <section id="music" class="section-grid">
+      <section id="player" class="panel player-panel">
+        <div class="section-head">
+          <p class="eyebrow">AUDIO PLAYER</p>
+          <h2>Lecture principale</h2>
+        </div>
 
-      <div class="player-card">
         <div class="now-playing">
-          <span class="now-label">En cours</span>
-          <h3 id="nowTitle">Aucun titre sélectionné</h3>
-          <p id="nowMeta">Ajoute des MP3 à la racine du dépôt pour les voir apparaître automatiquement.</p>
+          <img id="nowArt" class="now-art" src="assets/hero-cover.svg" alt="" />
+          <div class="now-meta">
+            <span class="now-badge">LECTURE EN COURS</span>
+            <h3 id="nowTitle">Aucun titre sélectionné</h3>
+            <p id="nowInfo">Ajoute des MP3 dans le dépôt GitHub pour les voir apparaître automatiquement.</p>
+
+            <div class="timeline">
+              <span id="currentTime">0:00</span>
+              <input id="seekBar" type="range" min="0" max="100" value="0" aria-label="Progression" />
+              <span id="totalTime">0:00</span>
+            </div>
+
+            <div class="controls">
+              <button id="shuffleBtn" class="icon-btn" type="button" aria-label="Mélanger">⟲</button>
+              <button id="prevBtn" class="icon-btn" type="button" aria-label="Précédent">⏮</button>
+              <button id="playPauseBtn" class="play-btn" type="button" aria-label="Lecture">⏯</button>
+              <button id="nextBtn" class="icon-btn" type="button" aria-label="Suivant">⏭</button>
+              <button id="repeatBtn" class="icon-btn" type="button" aria-label="Répéter">↻</button>
+              <label class="volume" aria-label="Volume">
+                <span>🔊</span>
+                <input id="volumeBar" type="range" min="0" max="1" step="0.01" value="0.9" />
+              </label>
+            </div>
+          </div>
         </div>
 
-        <audio id="audioPlayer" controls preload="metadata"></audio>
+        <audio id="audioPlayer" preload="metadata"></audio>
+      </section>
 
-        <div class="player-actions">
-          <button class="mini-btn" id="prevBtn">⟵ Précédent</button>
-          <button class="mini-btn" id="playPauseBtn">Lecture / Pause</button>
-          <button class="mini-btn" id="nextBtn">Suivant ⟶</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="content-grid">
-      <section class="panel" id="playlist">
+      <aside id="playlist" class="panel playlist-panel">
         <div class="section-head">
-          <p class="eyebrow">Playlist complète</p>
-          <h2>MP3 détectés automatiquement</h2>
+          <p class="eyebrow">PLAYLIST COMPLÈTE</p>
+          <h2>Les morceaux détectés</h2>
         </div>
+
+        <div class="playlist-tools">
+          <input id="searchInput" type="search" placeholder="Rechercher un titre, un style, un mot-clé…" />
+          <select id="sortSelect" aria-label="Tri">
+            <option value="az">Tri A → Z</option>
+            <option value="za">Tri Z → A</option>
+            <option value="popular">Les plus écoutés</option>
+          </select>
+        </div>
+
+        <div id="filters" class="filters"></div>
         <div id="trackList" class="track-list"></div>
-      </section>
-
-      <section class="panel" id="releases">
-        <div class="section-head">
-          <p class="eyebrow">Dernières sorties</p>
-          <h2>À mettre en avant</h2>
-        </div>
-        <div id="releaseGrid" class="release-grid"></div>
-      </section>
+      </aside>
     </section>
+
+    <section id="releases" class="releases">
+      <div class="section-head">
+        <p class="eyebrow">DERNIÈRES SORTIES</p>
+        <h2>Top releases</h2>
+      </div>
+      <div id="releaseGrid" class="release-grid"></div>
+    </section>
+
+    <footer id="contact" class="footer">
+      <p>Boyington Remix — site premium responsive pour PC et smartphone.</p>
+      <p>La playlist, les likes et les lectures sont mémorisés localement dans le navigateur.</p>
+    </footer>
   </div>
 
-  <script src="work.js"></script>
+  <script>
+    (() => {
+      const stateKey = "boyington-player-state-v4";
+      const installBtn = document.getElementById("installBtn");
+      const audio = document.getElementById("audioPlayer");
+      const trackList = document.getElementById("trackList");
+      const releaseGrid = document.getElementById("releaseGrid");
+      const filtersEl = document.getElementById("filters");
+      const searchInput = document.getElementById("searchInput");
+      const sortSelect = document.getElementById("sortSelect");
+      const nowTitle = document.getElementById("nowTitle");
+      const nowInfo = document.getElementById("nowInfo");
+      const featuredTitle = document.getElementById("featuredTitle");
+      const featuredMeta = document.getElementById("featuredMeta");
+      const nowArt = document.getElementById("nowArt");
+      const heroCover = document.getElementById("heroCover");
+      const totalTracks = document.getElementById("totalTracks");
+      const totalPlays = document.getElementById("totalPlays");
+      const totalLikes = document.getElementById("totalLikes");
+      const currentTime = document.getElementById("currentTime");
+      const totalTime = document.getElementById("totalTime");
+      const seekBar = document.getElementById("seekBar");
+      const volumeBar = document.getElementById("volumeBar");
+      const shuffleBtn = document.getElementById("shuffleBtn");
+      const repeatBtn = document.getElementById("repeatBtn");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      const playPauseBtn = document.getElementById("playPauseBtn");
+
+      const thumbPaths = [
+        "assets/track-1.svg",
+        "assets/track-2.svg",
+        "assets/track-3.svg",
+        "assets/track-4.svg",
+        "assets/track-5.svg",
+        "assets/track-6.svg"
+      ];
+
+      const releaseLabels = [
+        "Featured release",
+        "New entry",
+        "Latest groove",
+        "Signature mood",
+        "Fresh upload",
+        "Automatic update"
+      ];
+
+      let deferredInstallPrompt = null;
+      let tracks = [];
+      let filteredTracks = [];
+      let activeFilter = "all";
+      let currentIndex = 0;
+      let repeatMode = false;
+      let isShuffled = false;
+      let state = loadState();
+
+      function loadState() {
+        try {
+          return JSON.parse(localStorage.getItem(stateKey)) || {};
+        } catch {
+          return {};
+        }
+      }
+
+      function saveState() {
+        localStorage.setItem(stateKey, JSON.stringify(state));
+      }
+
+      function getTrackState(id) {
+        if (!state[id]) {
+          state[id] = { plays: 0, likes: 0, dislikes: 0, userLike: 0, duration: "" };
+        }
+        return state[id];
+      }
+
+      function normalizeTitleFromFilename(filename) {
+        const base = filename.replace(/\.[^.]+$/, "");
+        return base.replace(/[_-]+/g, " ").replace(/\s+/g, " ").trim().replace(/\b\w/g, (c) => c.toUpperCase());
+      }
+
+      function inferGenre(title) {
+        const t = title.toLowerCase();
+        if (t.includes("melodic")) return "Melodic Techno";
+        if (t.includes("tech house")) return "Tech House";
+        if (t.includes("deep")) return "Deep House";
+        if (t.includes("trance")) return "Trance";
+        if (t.includes("techno")) return "Melodic Techno";
+        if (t.includes("house")) return "House";
+        if (t.includes("funk")) return "Funk Mix";
+        if (t.includes("emotional")) return "Emotional Mix";
+        if (t.includes("eurodance")) return "Eurodance";
+        if (t.includes("remix")) return "Remix";
+        return "Original Mix";
+      }
+
+      function inferMood(track) {
+        const t = track.title.toLowerCase();
+        if (t.includes("night") || t.includes("midnight")) return "Night Drive";
+        if (t.includes("love") || t.includes("heart")) return "Emotion";
+        if (t.includes("viva") || t.includes("vivo")) return "Latin Energy";
+        if (t.includes("shadow")) return "Cinematic";
+        if (t.includes("gold")) return "Luxury Groove";
+        return "Premium Cut";
+      }
+
+      function inferBpm(title) {
+        const t = title.toLowerCase();
+        if (t.includes("trance")) return "138 BPM";
+        if (t.includes("techno")) return "126 BPM";
+        if (t.includes("melodic")) return "124 BPM";
+        if (t.includes("house")) return "123 BPM";
+        if (t.includes("deep")) return "122 BPM";
+        if (t.includes("funk")) return "118 BPM";
+        return "124 BPM";
+      }
+
+      function formatDuration(seconds) {
+        if (!Number.isFinite(seconds) || seconds <= 0) return "0:00";
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60).toString().padStart(2, "0");
+        return `${mins}:${secs}`;
+      }
+
+      function escapeHtml(str) {
+        return String(str)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;");
+      }
+
+      function encodePath(path) {
+        return encodeURI(path.replace(/^\.\/+/, "").replace(/^\/+/, ""));
+      }
+
+      function repoInfoFromLocation() {
+        const host = location.hostname;
+        const pathParts = location.pathname.split("/").filter(Boolean);
+        if (!host.endsWith("github.io")) return { owner: "", repo: "" };
+        const owner = host.replace(/\.github\.io$/i, "");
+        const repo = pathParts.length > 0 ? pathParts[0] : owner;
+        return { owner, repo };
+      }
+
+      async function fetchJson(url) {
+        const response = await fetch(url, { cache: "no-store" });
+        if (!response.ok) throw new Error(`${url} -> ${response.status}`);
+        return response.json();
+      }
+
+      async function discoverTracks() {
+        const { owner, repo } = repoInfoFromLocation();
+        if (!owner || !repo) return [];
+        const treeUrl = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/git/trees/HEAD?recursive=1`;
+        const data = await fetchJson(treeUrl);
+        const entries = Array.isArray(data.tree) ? data.tree : [];
+        return entries
+          .filter((entry) => entry.type === "blob" && /\.mp3$/i.test(entry.path))
+          .map((entry, index) => {
+            const filename = entry.path.split("/").pop() || entry.path;
+            const title = normalizeTitleFromFilename(filename);
+            return {
+              id: `track-${index + 1}-${entry.path}`,
+              title,
+              artist: "Boyington Remix",
+              genre: inferGenre(title),
+              mood: inferMood({ title }),
+              bpm: inferBpm(title),
+              file: encodePath(entry.path),
+              path: entry.path,
+              thumb: thumbPaths[index % thumbPaths.length],
+              release: releaseLabels[index % releaseLabels.length]
+            };
+          })
+          .sort((a, b) => a.title.localeCompare(b.title, "fr"));
+      }
+
+      function getTrackStats(track) {
+        return getTrackState(track.id);
+      }
+
+      function buildFilters(list) {
+        const genres = Array.from(new Set(list.map((t) => t.genre))).sort((a, b) => a.localeCompare(b, "fr"));
+        const buttons = [
+          `<button class="filter-chip active" data-filter="all" type="button">TOUS</button>`,
+          ...genres.map((genre) => `<button class="filter-chip" data-filter="${escapeHtml(genre)}" type="button">${escapeHtml(genre)}</button>`)
+        ];
+        filtersEl.innerHTML = buttons.join("");
+        filtersEl.querySelectorAll("[data-filter]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            activeFilter = btn.dataset.filter || "all";
+            filtersEl.querySelectorAll(".filter-chip").forEach((chip) => chip.classList.remove("active"));
+            btn.classList.add("active");
+            renderPlaylist();
+            renderReleases();
+          });
+        });
+      }
+
+      function applySearchSort(list) {
+        const q = searchInput.value.trim().toLowerCase();
+        let out = [...list];
+        if (activeFilter !== "all") out = out.filter((track) => track.genre === activeFilter);
+        if (q) {
+          out = out.filter((track) => {
+            const hay = `${track.title} ${track.artist} ${track.genre} ${track.mood} ${track.bpm}`.toLowerCase();
+            return hay.includes(q);
+          });
+        }
+        const sort = sortSelect.value;
+        if (sort === "za") out.sort((a, b) => b.title.localeCompare(a.title, "fr"));
+        else if (sort === "popular") out.sort((a, b) => (getTrackStats(b).plays || 0) - (getTrackStats(a).plays || 0));
+        else out.sort((a, b) => a.title.localeCompare(b.title, "fr"));
+        return out;
+      }
+
+      function setTotals() {
+        totalTracks.textContent = String(tracks.length);
+        const totals = tracks.reduce((acc, track) => {
+          const s = getTrackStats(track);
+          acc.plays += s.plays || 0;
+          acc.likes += s.likes || 0;
+          return acc;
+        }, { plays: 0, likes: 0 });
+        totalPlays.textContent = String(totals.plays);
+        totalLikes.textContent = String(totals.likes);
+      }
+
+      function updateNowPlaying(track) {
+        if (!track) return;
+        nowTitle.textContent = track.title;
+        nowInfo.textContent = `${track.artist} · ${track.genre} · ${track.mood} · ${track.bpm}`;
+        featuredTitle.textContent = track.title;
+        featuredMeta.textContent = `${track.genre} · ${track.bpm}`;
+        nowArt.src = track.thumb;
+        heroCover.src = track.thumb;
+      }
+
+      function markActiveTrack() {
+        const rows = trackList.querySelectorAll(".track-item");
+        rows.forEach((row, index) => row.classList.toggle("active", index === currentIndex));
+      }
+
+      function updatePlayButton() {
+        playPauseBtn.textContent = audio.paused ? "⏯" : "⏸";
+      }
+
+      function setAudioSource(track, autoplay = true) {
+        if (!track) return;
+        audio.src = track.file;
+        updateNowPlaying(track);
+        const s = getTrackStats(track);
+        s.plays = (s.plays || 0) + 1;
+        saveState();
+        renderCounters();
+        renderPlaylist();
+        if (autoplay) audio.play().catch(() => {});
+      }
+
+      function playTrack(index, autoplay = true) {
+        if (!filteredTracks.length) return;
+        currentIndex = (index + filteredTracks.length) % filteredTracks.length;
+        setAudioSource(filteredTracks[currentIndex], autoplay);
+        markActiveTrack();
+      }
+
+      function nextTrack() {
+        if (!filteredTracks.length) return;
+        if (isShuffled && filteredTracks.length > 1) {
+          currentIndex = Math.floor(Math.random() * filteredTracks.length);
+          setAudioSource(filteredTracks[currentIndex], true);
+          markActiveTrack();
+          return;
+        }
+        playTrack(currentIndex + 1, true);
+      }
+
+      function prevTrack() {
+        if (!filteredTracks.length) return;
+        playTrack(currentIndex - 1, true);
+      }
+
+      function toggleLike(trackId, value) {
+        const s = getTrackState(trackId);
+        if (value === 1) {
+          if (s.userLike === 1) {
+            s.likes = Math.max(0, (s.likes || 0) - 1);
+            s.userLike = 0;
+          } else {
+            if (s.userLike === -1) s.dislikes = Math.max(0, (s.dislikes || 0) - 1);
+            s.likes = (s.likes || 0) + 1;
+            s.userLike = 1;
+          }
+        } else {
+          if (s.userLike === -1) {
+            s.dislikes = Math.max(0, (s.dislikes || 0) - 1);
+            s.userLike = 0;
+          } else {
+            if (s.userLike === 1) s.likes = Math.max(0, (s.likes || 0) - 1);
+            s.dislikes = (s.dislikes || 0) + 1;
+            s.userLike = -1;
+          }
+        }
+        saveState();
+        renderCounters();
+        renderPlaylist();
+        renderReleases();
+      }
+
+      function renderCounters() {
+        setTotals();
+      }
+
+      function renderPlaylist() {
+        filteredTracks = applySearchSort(tracks);
+        if (!filteredTracks.length) {
+          trackList.innerHTML = `
+            <div class="track-item">
+              <div class="track-index">--</div>
+              <div class="track-main">
+                <div class="track-title">Aucun morceau détecté</div>
+                <div class="track-meta">Ajoute des fichiers .mp3 dans le dépôt GitHub.</div>
+              </div>
+              <div class="track-actions"><span class="badge">Playlist vide</span></div>
+            </div>`;
+          markActiveTrack();
+          return;
+        }
+
+        trackList.innerHTML = filteredTracks.map((track, index) => {
+          const s = getTrackStats(track);
+          const active = index === currentIndex ? "active" : "";
+          const likeClass = s.userLike === 1 ? "active" : "";
+          const dislikeClass = s.userLike === -1 ? "active" : "";
+          const duration = s.duration || "0:00";
+          return `
+            <article class="track-item ${active}" data-track-id="${escapeHtml(track.id)}">
+              <div class="track-index">${String(index + 1).padStart(2, "0")}</div>
+              <img class="track-thumb" src="${escapeHtml(track.thumb)}" alt="" />
+              <div class="track-main">
+                <div class="track-title">${escapeHtml(track.title)}</div>
+                <div class="track-meta">${escapeHtml(track.artist)} · ${escapeHtml(track.genre)} · ${escapeHtml(track.bpm)} · ${escapeHtml(duration)} · ${s.plays || 0} lectures</div>
+              </div>
+              <div class="track-actions">
+                <button class="small-btn" data-play="${index}" type="button">Play</button>
+                <button class="small-btn fav ${likeClass}" data-like="${escapeHtml(track.id)}" type="button">👍 ${s.likes || 0}</button>
+                <button class="small-btn dislike ${dislikeClass}" data-dislike="${escapeHtml(track.id)}" type="button">👎 ${s.dislikes || 0}</button>
+                <span class="badge">${escapeHtml(track.release)}</span>
+              </div>
+            </article>`;
+        }).join("");
+
+        trackList.querySelectorAll("[data-play]").forEach((btn) => {
+          btn.addEventListener("click", () => playTrack(Number(btn.dataset.play), true));
+        });
+        trackList.querySelectorAll("[data-like]").forEach((btn) => {
+          btn.addEventListener("click", () => toggleLike(btn.dataset.like, 1));
+        });
+        trackList.querySelectorAll("[data-dislike]").forEach((btn) => {
+          btn.addEventListener("click", () => toggleLike(btn.dataset.dislike, -1));
+        });
+        markActiveTrack();
+      }
+
+      function renderReleases() {
+        const items = filteredTracks.slice(0, 6);
+        releaseGrid.innerHTML = items.map((track, idx) => `
+          <article class="release-card">
+            <img class="release-cover" src="${escapeHtml(track.thumb)}" alt="" />
+            <div class="release-num">${idx + 1}</div>
+            <div class="release-body">
+              <div class="release-title">${escapeHtml(track.title)}</div>
+              <div class="release-genre">${escapeHtml(track.genre)} · ${escapeHtml(track.bpm)}</div>
+              <button class="release-btn" type="button" data-release-play="${idx}">ÉCOUTER</button>
+            </div>
+          </article>
+        `).join("");
+
+        releaseGrid.querySelectorAll("[data-release-play]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const idx = Number(btn.dataset.releasePlay);
+            const track = filteredTracks[idx];
+            if (!track) return;
+            const realIndex = filteredTracks.findIndex((t) => t.id === track.id);
+            if (realIndex >= 0) playTrack(realIndex, true);
+          });
+        });
+      }
+
+      function refreshAll() {
+        renderCounters();
+        buildFilters(tracks);
+        renderPlaylist();
+        renderReleases();
+        if (filteredTracks[currentIndex]) updateNowPlaying(filteredTracks[currentIndex]);
+      }
+
+      audio.addEventListener("loadedmetadata", () => {
+        const track = filteredTracks[currentIndex];
+        if (!track) return;
+        const s = getTrackStats(track);
+        s.duration = formatDuration(audio.duration);
+        totalTime.textContent = formatDuration(audio.duration);
+        saveState();
+        renderPlaylist();
+      });
+
+      audio.addEventListener("timeupdate", () => {
+        if (!Number.isFinite(audio.duration) || audio.duration <= 0) return;
+        const pct = Math.max(0, Math.min(100, (audio.currentTime / audio.duration) * 100));
+        seekBar.value = String(pct);
+        currentTime.textContent = formatDuration(audio.currentTime);
+      });
+
+      audio.addEventListener("play", updatePlayButton);
+      audio.addEventListener("pause", updatePlayButton);
+      audio.addEventListener("ended", () => {
+        if (repeatMode) {
+          audio.currentTime = 0;
+          audio.play().catch(() => {});
+          return;
+        }
+        nextTrack();
+      });
+
+      seekBar.addEventListener("input", () => {
+        if (!Number.isFinite(audio.duration) || audio.duration <= 0) return;
+        const pct = Number(seekBar.value) / 100;
+        audio.currentTime = pct * audio.duration;
+      });
+
+      volumeBar.addEventListener("input", () => {
+        audio.volume = Number(volumeBar.value);
+      });
+
+      searchInput.addEventListener("input", () => {
+        renderPlaylist();
+        renderReleases();
+      });
+
+      sortSelect.addEventListener("change", () => {
+        renderPlaylist();
+        renderReleases();
+      });
+
+      prevBtn.addEventListener("click", prevTrack);
+      nextBtn.addEventListener("click", nextTrack);
+      playPauseBtn.addEventListener("click", () => {
+        if (!audio.src && filteredTracks.length) {
+          playTrack(currentIndex, true);
+          return;
+        }
+        if (audio.paused) audio.play().catch(() => {});
+        else audio.pause();
+      });
+
+      shuffleBtn.addEventListener("click", () => {
+        isShuffled = !isShuffled;
+        shuffleBtn.classList.toggle("active", isShuffled);
+      });
+
+      repeatBtn.addEventListener("click", () => {
+        repeatMode = !repeatMode;
+        repeatBtn.classList.toggle("active", repeatMode);
+      });
+
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("service-worker.js").catch(() => {});
+        });
+      }
+
+      window.addEventListener("beforeinstallprompt", (event) => {
+        event.preventDefault();
+        deferredInstallPrompt = event;
+        if (installBtn) installBtn.hidden = false;
+      });
+
+      if (installBtn) {
+        installBtn.addEventListener("click", async () => {
+          if (!deferredInstallPrompt) return;
+          deferredInstallPrompt.prompt();
+          await deferredInstallPrompt.userChoice.catch(() => null);
+          deferredInstallPrompt = null;
+          installBtn.hidden = true;
+        });
+      }
+
+      async function init() {
+        audio.volume = Number(volumeBar.value || 0.9);
+        currentTime.textContent = "0:00";
+        totalTime.textContent = "0:00";
+        try {
+          tracks = await discoverTracks();
+        } catch (error) {
+          console.error("Auto discovery failed:", error);
+          tracks = [];
+        }
+        filteredTracks = [...tracks];
+        refreshAll();
+        if (tracks.length > 0) {
+          currentIndex = 0;
+          updateNowPlaying(filteredTracks[0]);
+          audio.src = filteredTracks[0].file;
+          saveState();
+          renderPlaylist();
+          renderReleases();
+        } else {
+          nowTitle.textContent = "Aucun titre sélectionné";
+          nowInfo.textContent = "Ajoute des MP3 dans le dépôt GitHub.";
+          featuredTitle.textContent = "Playlist automatique";
+          featuredMeta.textContent = "Ajoute un MP3 pour le voir apparaître.";
+          currentTime.textContent = "0:00";
+          totalTime.textContent = "0:00";
+        }
+      }
+
+      init();
+    })();
+  </script>
 </body>
 </html>
