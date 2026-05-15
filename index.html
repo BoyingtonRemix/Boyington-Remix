@@ -315,6 +315,7 @@
           <button class="btn primary" onclick="document.getElementById('musique').scrollIntoView({behavior:'smooth'})">▶ Écouter maintenant</button>
           <button class="btn" onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'})">Voir les dernières sorties</button>
           <button class="btn" onclick="document.getElementById('playlistSection').scrollIntoView({behavior:'smooth'})">Playlist complète</button>
+          <button class="btn primary" id="installAppBtn" hidden>📱 Télécharger l'application Boyington Remix</button>
         </div>
       </div>
       <div class="hero-right">
@@ -847,6 +848,43 @@
       currentTrackNameEl.textContent = 'Chargement impossible';
       currentTrackStyleEl.textContent = 'Vérifie la racine du dépôt GitHub';
       topGrid.innerHTML = '<div class="helper">Aucune sortie détectée.</div>';
+    });
+  </script>
+
+  <script>
+    let deferredPrompt = null;
+    const installBtn = document.getElementById('installAppBtn');
+
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isStandalone =
+      window.matchMedia('(display-mode: standalone)').matches ||
+      window.navigator.standalone === true;
+
+    if (isStandalone) {
+      installBtn.hidden = true;
+    } else if (isIOS) {
+      installBtn.hidden = false;
+      installBtn.textContent = "📱 Sur iPhone : Partager → Sur l'écran d'accueil";
+      installBtn.addEventListener('click', () => {
+        alert("Sur iPhone, ouvre Safari puis touche Partager → Sur l’écran d’accueil.");
+      });
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.hidden = false;
+      installBtn.textContent = "📱 Télécharger l'application Boyington Remix";
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        installBtn.hidden = true;
+      }
+      deferredPrompt = null;
     });
   </script>
 
