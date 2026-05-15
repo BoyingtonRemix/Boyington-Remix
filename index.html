@@ -1,991 +1,130 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b0b0f" />
+  <meta name="description" content="Boyington Remix — site officiel, player audio, playlist, dernières sorties." />
   <link rel="manifest" href="manifest.json" />
-  <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+  <link rel="stylesheet" href="styles.css" />
   <title>Boyington Remix</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/jsmediatags@3.9.7/dist/jsmediatags.min.js"></script>
-
-  <style>
-    :root{
-      --bg:#050505;
-      --panel:#0b0b0c;
-      --panel2:#111112;
-      --panel3:#161617;
-      --line:rgba(255,255,255,.08);
-      --gold:#d4a33d;
-      --gold2:#f0c35d;
-      --gold3:#f6d78a;
-      --text:#f5f5f5;
-      --muted:#bdbdbd;
-      --muted2:#8f8f8f;
-      --shadow:0 20px 55px rgba(0,0,0,.60);
-      --radius:28px;
-      --radius-sm:20px;
-      --radius-xs:14px;
-    }
-
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:Montserrat,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(circle at 10% 12%, rgba(212,163,61,.12), transparent 18%),
-        radial-gradient(circle at 80% 18%, rgba(212,163,61,.07), transparent 16%),
-        linear-gradient(180deg,#0a0a0a 0%,#040404 100%);
-      overflow-x:hidden;
-    }
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      background:
-        linear-gradient(90deg, rgba(0,0,0,.10), rgba(0,0,0,.35)),
-        radial-gradient(circle at top, rgba(212,175,55,.07), transparent 25%);
-      pointer-events:none;
-      z-index:-2;
-    }
-    body::after{
-      content:"";
-      position:fixed;
-      inset:0;
-      background:linear-gradient(180deg, rgba(0,0,0,.06), rgba(0,0,0,.52));
-      pointer-events:none;
-      z-index:-1;
-    }
-
-    a{color:inherit;text-decoration:none}
-    button,input,select{font:inherit}
-    audio{display:none}
-
-    .page{width:min(1600px,calc(100% - 24px));margin:0 auto}
-
-    .topbar{
-      height:62px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      position:sticky;
-      top:0;
-      z-index:40;
-      backdrop-filter:blur(12px);
-      background:rgba(5,5,5,.88);
-      border-bottom:1px solid rgba(255,255,255,.06);
-      box-shadow:0 10px 30px rgba(0,0,0,.16);
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:280px;
-    }
-    .brand-logo{
-      width:42px;height:42px;
-      border-radius:50%;
-      object-fit:contain;
-      background:rgba(255,255,255,.03);
-      border:1px solid rgba(212,163,61,.24);
-      box-shadow:0 0 24px rgba(212,163,61,.12);
-      padding:4px;
-    }
-    .brand span{
-      font-weight:800;
-      letter-spacing:.10em;
-      color:var(--gold3);
-      font-size:14px;
-      white-space:nowrap;
-    }
-    .nav{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:34px;
-      font-size:14px;
-      text-transform:uppercase;
-      letter-spacing:.06em;
-      flex:1;
-    }
-    .nav a{opacity:.82;position:relative;padding:20px 0}
-    .nav a.active{opacity:1;color:var(--gold2)}
-    .nav a.active::after{
-      content:"";
-      position:absolute;
-      left:0;right:0;bottom:-1px;
-      height:3px;
-      background:linear-gradient(90deg,transparent,var(--gold2),transparent);
-      border-radius:999px;
-    }
-    .icons{
-      display:flex;align-items:center;gap:12px;min-width:280px;justify-content:flex-end;
-    }
-    .icon-btn{
-      width:32px;height:32px;border-radius:50%;
-      display:grid;place-items:center;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.03);
-      color:#eee;transition:.18s ease;
-    }
-    .icon-btn:hover{transform:translateY(-1px);border-color:rgba(212,163,61,.40);background:rgba(212,163,61,.08)}
-    .user{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.18);display:grid;place-items:center;color:#ddd;background:#0a0a0a}
-
-    .hero{
-      margin-top:18px;
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      min-height:420px;
-      border:1px solid rgba(255,255,255,.06);
-      border-radius:32px;
-      overflow:hidden;
-      box-shadow:var(--shadow);
-      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00));
-    }
-    .hero-left{
-      position:relative;
-      padding:42px 42px 34px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      background:
-        radial-gradient(circle at 78% 8%, rgba(212,163,61,.12), transparent 18%),
-        linear-gradient(180deg, rgba(11,11,12,.96), rgba(5,5,5,.98));
-    }
-    .kicker,.subtitle{letter-spacing:.32em;text-transform:uppercase}
-    .kicker{font-size:12px;color:#d5c084;margin-bottom:12px}
-    h1{
-      margin:0;
-      line-height:.86;
-      text-transform:uppercase;
-      font-size:clamp(58px,7vw,116px);
-      letter-spacing:-.06em;
-    }
-    h1 .white{display:block;font-weight:900;color:#fff}
-    h1 .gold{display:block;font-weight:900;color:var(--gold2)}
-    .subtitle{margin-top:16px;font-size:13px;color:#e9d59c;font-weight:600}
-    .lead{max-width:640px;margin:18px 0 0;color:#d0d0d0;line-height:1.62;font-size:18px}
-
-    .btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;align-items:center}
-    .btn{
-      height:44px;
-      padding:0 18px;
-      border-radius:12px;
-      border:1px solid rgba(212,163,61,.55);
-      background:rgba(255,255,255,.02);
-      color:#f2f2f2;
-      display:inline-flex;align-items:center;gap:10px;
-      text-transform:uppercase;
-      letter-spacing:.06em;
-      font-size:12px;
-      cursor:pointer;
-      transition:.18s ease;
-      white-space:nowrap;
-    }
-    .btn:hover{transform:translateY(-1px);border-color:rgba(212,163,61,.80);background:rgba(212,163,61,.08)}
-    .btn.primary{
-      color:#111;
-      background:linear-gradient(180deg,var(--gold2),var(--gold));
-      border-color:transparent;
-      font-weight:800;
-      box-shadow:0 8px 24px rgba(212,163,61,.22);
-    }
-    .install-btn[hidden]{display:none !important}
-
-    .hero-right{
-      position:relative;
-      overflow:hidden;
-      background:
-        linear-gradient(90deg, rgba(5,5,5,.98) 0%, rgba(5,5,5,.86) 15%, rgba(5,5,5,.25) 100%),
-        radial-gradient(circle at 20% 50%, rgba(212,163,61,.10), transparent 18%),
-        linear-gradient(180deg,#090909 0%,#050505 100%);
-      min-height:420px;
-    }
-    .hero-right img{
-      width:100%;height:100%;display:block;object-fit:cover;
-      object-position:center center;
-      filter:saturate(1.05) contrast(1.05);
-    }
-    .hero-right::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(90deg, rgba(0,0,0,.00) 0%, rgba(0,0,0,.12) 34%, rgba(0,0,0,.40) 100%);
-      pointer-events:none;
-    }
-
-    .section-head{
-      width:min(1280px,100%);
-      margin:26px auto 12px;
-      padding:0 8%;
-      display:flex;align-items:center;justify-content:space-between;gap:12px;
-      scroll-margin-top:88px;
-    }
-    .section-head h2{
-      margin:0;
-      font-size:clamp(1.4rem,2.8vw,2.2rem);
-      text-transform:uppercase;
-      color:var(--gold2);
-      letter-spacing:.06em;
-    }
-    .ghost{
-      padding:9px 14px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.02);
-      text-transform:uppercase;font-size:12px;letter-spacing:.08em;color:#d8d8d8;
-    }
-
-    .player-grid{
-      display:grid;
-      grid-template-columns:1.04fr .96fr;
-      gap:16px;
-      margin-top:22px;
-      padding:0 8% 8px;
-    }
-    .player,.playlist,.top-card,.promo-card{
-      border:1px solid rgba(255,255,255,.07);
-      border-radius:28px;
-      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      position:relative;
-    }
-
-    .player{
-      padding:22px;
-      display:grid;
-      grid-template-columns:220px 1fr;
-      gap:18px;
-      min-height:330px;
-      background:linear-gradient(180deg, rgba(14,14,15,.95), rgba(8,8,8,.96));
-    }
-    .player-cover{
-      width:100%;aspect-ratio:1/1;border-radius:22px;overflow:hidden;
-      border:1px solid rgba(212,163,61,.45);
-      background:linear-gradient(135deg,#1a1a1a,#090909 48%,#201506 100%);
-      position:relative;
-    }
-    .player-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-    .player-meta{padding-top:2px}
-    .track-title{font-size:clamp(1.8rem,2.8vw,3rem);font-weight:800;margin:2px 0 8px;line-height:1.02}
-    .track-sub{color:var(--muted);margin:0 0 12px;line-height:1.45}
-    .nowplaying{
-      margin:14px 0 16px;
-      padding:16px 18px;
-      border-radius:20px;
-      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      border:1px solid rgba(255,255,255,.07);
-    }
-    .nowplaying .main{font-size:16px;font-weight:700;color:#fff}
-    .nowplaying .sub{margin-top:4px;font-size:13px;color:#b8b8b8}
-
-    .bar{height:9px;border-radius:999px;background:#2f2f2f;position:relative;overflow:hidden;flex:1;min-width:220px}
-    .bar span.progress{display:block;position:absolute;inset:0 auto 0 0;height:100%;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:inherit;z-index:1}
-    .equalizer{position:absolute;inset:0;display:flex;align-items:flex-end;gap:3px;padding:0 8px;z-index:2;pointer-events:none;overflow:hidden;opacity:.55}
-    .equalizer span{
-      flex:1;min-width:2px;height:92%;border-radius:999px;
-      background:linear-gradient(180deg, rgba(255,248,215,.98), rgba(255,192,72,.98) 45%, rgba(255,121,40,.98) 100%);
-      transform-origin:center bottom;
-      animation:eq .95s ease-in-out infinite;
-      animation-play-state:paused;
-      box-shadow:0 0 12px rgba(255,178,58,.16);
-    }
-    .player.playing .equalizer span{animation-play-state:running}
-    .equalizer span:nth-child(2n){height:58%}
-    .equalizer span:nth-child(3n){height:76%}
-    .equalizer span:nth-child(4n){height:46%}
-    .equalizer span:nth-child(5n){height:66%}
-    .equalizer span:nth-child(7n){height:88%}
-    .equalizer span:nth-child(9n){height:54%}
-    .equalizer span:nth-child(11n){height:80%}
-    .equalizer span:nth-child(13n){height:50%}
-    .equalizer span:nth-child(17n){height:70%}
-    .equalizer span:nth-child(19n){height:62%}
-    @keyframes eq{0%,100%{transform:scaleY(.48);opacity:.66}50%{transform:scaleY(1.55);opacity:1}}
-
-    .time-row{display:flex;justify-content:space-between;gap:12px;color:#cfcfcf;font-size:13px;margin-top:9px}
-    .controls{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:16px 0 12px}
-    .round{width:62px;height:62px;border-radius:50%;border:0;background:linear-gradient(180deg,var(--gold2),var(--gold));box-shadow:0 10px 24px rgba(212,163,61,.24);color:#111;font-size:24px;font-weight:900;cursor:pointer}
-    .mini{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03);color:#fff;cursor:pointer;transition:.18s ease}
-    .mini.active{background:rgba(212,163,61,.16);border-color:rgba(212,163,61,.45);color:#fff;box-shadow:0 0 0 1px rgba(212,163,61,.12) inset}
-    .slider-row{display:flex;align-items:center;gap:10px;margin-top:12px}
-    input[type=range]{width:220px;accent-color:var(--gold2)}
-    .action-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-    .small-btn{padding:11px 14px;border-radius:12px;border:1px solid rgba(212,163,61,.42);color:#f3f3f3;background:rgba(255,255,255,.02);cursor:pointer;text-transform:uppercase;letter-spacing:.06em;font-size:12px}
-
-    .playlist{
-      padding:18px;
-      display:flex;
-      flex-direction:column;
-      min-height:260px;
-      background:linear-gradient(180deg, rgba(14,14,15,.95), rgba(8,8,8,.96));
-    }
-    .playlist-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-    .playlist-head h3{margin:0;color:var(--gold2);text-transform:uppercase;letter-spacing:.06em;font-size:18px}
-    .playlist-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-    .search,.sort{height:34px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03);color:#eee;padding:0 12px;outline:none;font-size:13px}
-    .chips{display:flex;flex-wrap:wrap;gap:10px}
-    .chip{padding:11px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:#eee;cursor:pointer;font-size:12px;letter-spacing:.08em}
-    .chip.active{background:rgba(212,175,55,.15);border-color:rgba(212,175,55,.42);color:#fff}
-    .list{display:flex;flex-direction:column;gap:8px;overflow:auto;max-height:285px;padding-right:4px}
-    .item{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);border-radius:14px;padding:8px 10px;transition:.18s ease}
-    .item.active{border-color:rgba(212,175,55,.45);background:rgba(212,175,55,.12)}
-    .thumb{width:32px;height:32px;border-radius:8px;object-fit:cover;background:#111;border:1px solid rgba(212,163,61,.22)}
-    .item strong{display:block;font-size:13px;line-height:1.25;color:#f5f5f5}
-    .item span{display:block;font-size:11px;color:#b8b8b8;margin-top:2px}
-    .track-main{display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:center;background:transparent;border:0;color:inherit;padding:0;cursor:pointer;text-align:left;width:100%}
-    .track-main:focus-visible{outline:2px solid rgba(241,195,93,.55);outline-offset:2px;border-radius:12px}
-    .dur{display:flex;flex-direction:column;align-items:flex-end;gap:8px;min-width:118px;color:#e8e8e8;font-size:12px;font-weight:700}
-    .dur .track-num{font-size:12px;font-weight:800;color:#fff;opacity:.85}
-    .vote-stack{display:flex;gap:8px;align-items:center}
-    .vote-btn{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;border-radius:999px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03);color:#eee;font-size:11px;cursor:pointer;transition:.18s ease}
-    .vote-btn:hover{transform:translateY(-1px);border-color:rgba(212,163,61,.35);background:rgba(212,163,61,.08)}
-    .vote-btn span{font-weight:800;color:#fff}
-    .vote-btn.up{border-color:rgba(120,200,120,.22)}
-    .vote-btn.down{border-color:rgba(230,120,120,.22)}
-
-    .promo-section{width:min(1280px,100%);margin:22px auto 0;padding:0 8%}
-    .promo-card{display:block;border-radius:28px;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow);background:rgba(255,255,255,.02)}
-    .promo-card img{display:block;width:100%;height:auto}
-
-    .top-releases{width:min(1280px,100%);margin:0 auto;padding:0 8%}
-    .top-grid{margin-top:18px;display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
-    .top-card{min-height:204px;cursor:pointer;background:linear-gradient(180deg, rgba(20,20,20,.95), rgba(11,11,11,.98))}
-    .top-card .coverwrap{position:relative;height:120px;overflow:hidden}
-    .top-card img{width:100%;height:100%;object-fit:cover;display:block}
-    .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.78))}
-    .rank{position:absolute;top:10px;left:10px;z-index:2;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:rgba(212,175,55,.95);color:#111;font-weight:800;font-size:12px;box-shadow:0 6px 16px rgba(0,0,0,.24)}
-    .top-content{padding:12px 12px 14px}
-    .top-content h3{font-size:.9rem;margin:0 0 4px;line-height:1.14}
-    .top-content p{color:#cfcfcf;font-size:.76rem;line-height:1.4;margin:0 0 10px;min-height:32px}
-    .top-content .btn-mini{display:inline-flex;align-items:center;justify-content:center;min-height:32px;padding:0 12px;border-radius:10px;border:1px solid rgba(212,163,61,.35);font-size:11px;letter-spacing:.10em;text-transform:uppercase;background:rgba(255,255,255,.02);color:#f2f2f2}
-
-    .footer{padding:40px 8% 80px;border-top:1px solid var(--line);text-align:center;background:rgba(0,0,0,.35);backdrop-filter:blur(10px);margin-top:24px}
-    .footer .links{margin-top:14px;display:flex;justify-content:center;flex-wrap:wrap;gap:16px}
-    .footer .links a{color:#d8d8d8;font-size:13px;letter-spacing:.18em;text-transform:uppercase}
-    .footer .links a:hover{color:var(--gold)}
-
-    .mini-player{
-      position:fixed;
-      left:50%;transform:translateX(-50%);
-      bottom:14px;
-      width:min(980px,calc(100% - 24px));
-      z-index:110;
-      display:none;
-      grid-template-columns:auto 1fr auto;
-      gap:12px;
-      align-items:center;
-      padding:12px 14px;
-      background:rgba(10,10,12,.84);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:20px;
-      backdrop-filter:blur(16px);
-      box-shadow:0 18px 40px rgba(0,0,0,.30)
-    }
-    .mini-player img{width:52px;height:52px;border-radius:14px;object-fit:cover;border:1px solid rgba(255,255,255,.08)}
-    .mini-player .mini-title{font-size:13px;font-weight:700}
-    .mini-player .mini-sub{font-size:11px;color:#bbb;margin-top:3px}
-    .mini-player .mini-actions{display:flex;gap:8px}
-    .mini-player button{width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.08);color:#fff;cursor:pointer}
-    .mini-player .mini-play{background:var(--gold);color:#050507;font-weight:800}
-    .helper{margin-top:12px;font-size:12px;color:#a8a8a8}
-
-    @media (max-width:1280px){
-      .top-grid{grid-template-columns:repeat(3,1fr)}
-    }
-    @media (max-width:1180px){
-      .hero,.player-grid{grid-template-columns:1fr}
-      .player{grid-template-columns:1fr}
-      .nav{display:none}
-      .brand,.icons{min-width:auto}
-      .hero-right{min-height:360px}
-    }
-    @media (max-width:860px){
-      .top-grid{grid-template-columns:repeat(2,1fr)}
-    }
-    @media (max-width:720px){
-      .topbar{padding:10px 12px;height:60px}
-      .hero{margin-top:12px}
-      .hero-left{padding:24px 18px;min-height:360px}
-      .hero h1{font-size:54px}
-      .lead{font-size:15px}
-      .section-head,.top-releases,.player-grid,.promo-section{padding-left:6%;padding-right:6%}
-      .mini-player{display:grid}
-      .top-grid{grid-template-columns:1fr}
-      .player,.playlist{padding:16px}
-      .playlist{border-radius:24px}
-    }
-  </style>
 </head>
 <body>
-  <audio id="audio" preload="metadata"></audio>
-
-  <header class="topbar page">
-    <div class="brand">
-      <img class="brand-logo" src="boyington-official-logo.png" alt="Logo officiel Boyington Remix">
-      <span>BOYINGTON REMIX</span>
-    </div>
-
-    <nav class="nav" aria-label="Navigation principale">
-      <a href="#accueil" class="active">Accueil</a>
-      <a href="#musique">Musique</a>
-      <a href="#top">Top Releases</a>
-      <a href="#playlistSection">Playlist complète</a>
-      <a href="#contact">Contact</a>
-    </nav>
-
-    <div class="icons" aria-label="Raccourcis sociaux">
-      <a class="icon-btn" href="#" title="Spotify" aria-label="Spotify"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm4.6 14.45a.72.72 0 0 1-1 .22c-2.82-1.72-6.38-2.11-10.56-1.16a.72.72 0 1 1-.32-1.4c4.56-1.04 8.5-.59 11.64 1.33a.72.72 0 0 1 .24 1.01Zm1.31-2.93a.9.9 0 0 1-1.24.3c-3.1-1.9-7.82-2.45-11.47-1.34a.9.9 0 1 1-.53-1.72c4.18-1.28 9.3-.66 12.85 1.52a.9.9 0 0 1 .39 1.24Zm.12-3.1C14.9 8.2 8.53 8 5.09 9.05a1.08 1.08 0 0 1-.64-2.07c3.95-1.2 11.02-.97 15.17 1.51a1.08 1.08 0 1 1-1.18 1.83Z" fill="currentColor"/></svg></a>
-      <a class="icon-btn" href="#" title="Instagram" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M7.5 2A5.5 5.5 0 0 0 2 7.5v9A5.5 5.5 0 0 0 7.5 22h9a5.5 5.5 0 0 0 5.5-5.5v-9A5.5 5.5 0 0 0 16.5 2h-9Zm0 1.6h9A3.9 3.9 0 0 1 20.4 7.5v9a3.9 3.9 0 0 1-3.9 3.9h-9a3.9 3.9 0 0 1-3.9-3.9v-9A3.9 3.9 0 0 1 7.5 3.6Zm9.85 1.1a1.05 1.05 0 1 0 0 2.1 1.05 1.05 0 0 0 0-2.1ZM12 6.1A5.9 5.9 0 1 0 17.9 12 5.9 5.9 0 0 0 12 6.1Zm0 1.6A4.3 4.3 0 1 1 7.7 12 4.3 4.3 0 0 1 12 7.7Z" fill="currentColor"/></svg></a>
-      <a class="icon-btn" href="#" title="YouTube" aria-label="YouTube"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M21.7 7.2a3.1 3.1 0 0 0-2.18-2.2C17.6 4.5 12 4.5 12 4.5s-5.6 0-7.52.5A3.1 3.1 0 0 0 2.3 7.2 32.3 32.3 0 0 0 2 12a32.3 32.3 0 0 0 .3 4.8 3.1 3.1 0 0 0 2.18 2.2c1.92.5 7.52.5 7.52.5s5.6 0 7.52-.5a3.1 3.1 0 0 0 2.18-2.2A32.3 32.3 0 0 0 22 12a32.3 32.3 0 0 0-.3-4.8Zm-10.1 7.9V8.9l4.9 3.1-4.9 3.1Z" fill="currentColor"/></svg></a>
-      <a class="icon-btn" href="#" title="Facebook" aria-label="Facebook"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M14 8.8V7.6c0-.6.4-.7.7-.7h1.9V4H13.8C11.8 4 10 5.5 10 8v.8H8v3h2V20h4v-8.2h2.7l.3-3H14Z" fill="currentColor"/></svg></a>
-      <div class="user">⌂</div>
-    </div>
-  </header>
-
-  <main class="page">
-    <section class="hero" id="accueil">
-      <div class="hero-left">
-        <div class="kicker">Identité électronique premium</div>
-        <h1><span class="white">BOYINGTON</span><span class="gold">REMIX</span></h1>
-        <div class="subtitle">Son cinématique • Énergie émotionnelle • Signature musicale</div>
-        <p class="lead">Une expérience électronique unique entre émotion, groove et puissance. Le site adopte une direction visuelle sombre et luxueuse, avec un player premium, une playlist claire et des sorties en vitrine.</p>
-        <div class="btns">
-          <button class="btn primary" onclick="document.getElementById('musique').scrollIntoView({behavior:'smooth'})">▶ Écouter maintenant</button>
-          <button class="btn" onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'})">Voir les dernières sorties</button>
-          <button class="btn" onclick="document.getElementById('playlistSection').scrollIntoView({behavior:'smooth'})">Playlist complète</button>
-          <button class="btn primary install-btn" id="installAppBtn" hidden>📱 Télécharger l'application Boyington Remix</button>
+  <div class="page-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">B</div>
+        <div>
+          <div class="brand-name">BOYINGTON REMIX</div>
+          <div class="brand-sub">DJ / PRODUCER</div>
         </div>
       </div>
-      <div class="hero-right">
-        <img src="Studio_Boyington.png" alt="Studio Boyington Remix">
-      </div>
-    </section>
+      <nav class="topnav">
+        <a href="#player">Player</a>
+        <a href="#playlist">Playlist</a>
+        <a href="#releases">Sorties</a>
+      </nav>
+    </header>
 
-    <section class="player-grid" id="musique">
-      <div class="player" id="playerCard">
-        <div class="player-cover"><img id="coverImage" src="cover%20principal.jpg" alt="Cover Boyington Remix"></div>
-        <div class="player-meta">
-          <h3 class="track-title" id="currentTitle">Chargement…</h3>
-          <p class="track-sub" id="currentSubtitle">Lecture des fichiers du dépôt GitHub</p>
-          <div class="nowplaying">
-            <div class="main" id="currentTrackName">Chargement…</div>
-            <div class="sub" id="currentTrackStyle">Lecture des fichiers du dépôt GitHub</div>
+    <main class="hero-grid">
+      <section class="hero-copy">
+        <p class="eyebrow">Official Music Hub</p>
+        <h1>Boyington Remix</h1>
+        <p class="lead">
+          Un espace simple, mobile et premium pour présenter les morceaux, lancer le player,
+          suivre la playlist et mettre en avant les dernières sorties.
+        </p>
+
+        <div class="quote-box">
+          <p>✨ Accepte ce qui est, laisse aller ce qui était, et aie confiance en ce qui sera.</p>
+          <p>✨ Vivre éternellement au rythme du rythme</p>
+        </div>
+
+        <div class="action-row">
+          <a class="btn primary" href="#player">Écouter maintenant</a>
+          <a class="btn ghost" href="#playlist">Voir la playlist</a>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat">
+            <span class="stat-value" id="totalTracks">0</span>
+            <span class="stat-label">MP3 détectés</span>
           </div>
-          <div class="bar" aria-hidden="true">
-            <span class="progress" id="progress"></span>
-            <div class="equalizer" id="equalizer">
-              <span></span><span></span><span></span><span></span><span></span>
-              <span></span><span></span><span></span><span></span><span></span>
-              <span></span><span></span><span></span><span></span><span></span>
-              <span></span><span></span><span></span><span></span><span></span>
-              <span></span><span></span><span></span><span></span>
+          <div class="stat">
+            <span class="stat-value" id="totalPlays">0</span>
+            <span class="stat-label">Lectures</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value" id="totalLikes">0</span>
+            <span class="stat-label">Likes</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="hero-visual">
+        <div class="visual-frame">
+          <div class="visual-split">
+            <div class="visual-left">
+              <div class="mini-badge">Latest Drop</div>
+              <h2 id="featuredTitle">Select a track</h2>
+              <p id="featuredMeta">Playlist interactive et lecture en un clic.</p>
+            </div>
+            <div class="visual-right" aria-hidden="true">
+              <div class="portrait-card">
+                <div class="portrait-glow"></div>
+                <div class="portrait-text">
+                  <span>BOYINGTON</span>
+                  <span>REMIX</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="time-row"><span id="currentTime">0:00</span><span id="duration">0:00</span></div>
-          <div class="controls">
-            <button class="mini" id="shuffleBtn" title="Lecture aléatoire">⟲</button>
-            <button class="mini" id="prevBtn" title="Titre précédent">⟨</button>
-            <button class="round" id="playBtn">▶</button>
-            <button class="mini" id="nextBtn" title="Titre suivant">⟩</button>
-            <button class="mini" id="repeatBtn" title="Répétition">↻</button>
-          </div>
-          <div class="slider-row"><span>🔊</span><input type="range" id="volume" min="0" max="1" step="0.01" value="0.8"></div>
-          <div class="action-row"><button class="small-btn" id="openBtn">Ouvrir le fichier</button></div>
-          <div class="helper" id="statusLine">Chargement de la playlist…</div>
         </div>
+      </section>
+    </main>
+
+    <section class="player-section" id="player">
+      <div class="section-head">
+        <p class="eyebrow">Audio Player</p>
+        <h2>Lecture principale</h2>
       </div>
 
-      <aside class="playlist" id="playlistSection">
-        <div class="playlist-head">
-          <h3>Playlist complète <span style="color:#8e8e8e;font-size:12px">(détectée automatiquement)</span></h3>
+      <div class="player-card">
+        <div class="now-playing">
+          <span class="now-label">En cours</span>
+          <h3 id="nowTitle">Aucun titre sélectionné</h3>
+          <p id="nowMeta">Choisis un morceau dans la playlist.</p>
         </div>
-        <div class="playlist-tools">
-          <input class="search" id="searchInput" type="search" placeholder="Rechercher un titre, un style, un mot-clé…">
-          <select class="sort" id="sortSelect">
-            <option value="az">Tri A → Z</option>
-            <option value="za">Tri Z → A</option>
-            <option value="recent">Ordre du dépôt</option>
-          </select>
+
+        <audio id="audioPlayer" controls preload="metadata"></audio>
+
+        <div class="player-actions">
+          <button class="mini-btn" id="prevBtn">⟵ Précédent</button>
+          <button class="mini-btn" id="playPauseBtn">Lecture / Pause</button>
+          <button class="mini-btn" id="nextBtn">Suivant ⟶</button>
         </div>
-        <div style="height:10px"></div>
-        <div class="chips" id="chipRow"></div>
-        <div style="height:12px"></div>
-        <div class="list" id="playlist"></div>
-      </aside>
+      </div>
     </section>
 
-    <section class="promo-section">
-      <a class="promo-card" href="https://soundcloud.com/boyingtonremix" target="_blank" rel="noopener">
-        <img src="Promo_SoundCloud.png" alt="Promotion SoundCloud Boyington Remix">
-      </a>
+    <section class="content-grid">
+      <section class="panel" id="playlist">
+        <div class="section-head">
+          <p class="eyebrow">Playlist complète</p>
+          <h2>MP3 détectés</h2>
+        </div>
+        <div id="trackList" class="track-list"></div>
+      </section>
+
+      <section class="panel" id="releases">
+        <div class="section-head">
+          <p class="eyebrow">Dernières sorties</p>
+          <h2>À mettre en avant</h2>
+        </div>
+        <div id="releaseGrid" class="release-grid"></div>
+      </section>
     </section>
-
-    <div class="section-head" id="top">
-      <h2>Dernières sorties</h2>
-      <div class="ghost">Voir tout</div>
-    </div>
-
-    <section class="top-releases">
-      <div class="top-grid" id="topGrid"></div>
-    </section>
-  </main>
-
-  <footer class="footer" id="contact">
-    <div>© BOYINGTON REMIX — Tous droits réservés</div>
-    <div>Alias Péppino</div>
-    <div class="links">
-      <a href="https://soundcloud.com/boyingtonremix" target="_blank" rel="noopener">SoundCloud</a>
-      <a href="#" target="_blank" rel="noopener">Spotify</a>
-      <a href="#" target="_blank" rel="noopener">Beatport</a>
-      <a href="#" target="_blank" rel="noopener">YouTube</a>
-      <a href="#" target="_blank" rel="noopener">Instagram</a>
-      <a href="#" target="_blank" rel="noopener">Facebook</a>
-    </div>
-  </footer>
-
-  <div class="mini-player" id="miniPlayer">
-    <img id="miniCover" src="cover%20principal.jpg" alt="Mini cover">
-    <div>
-      <div class="mini-title" id="miniTitle">Boyington Remix</div>
-      <div class="mini-sub" id="miniSub">Playlist officielle</div>
-    </div>
-    <div class="mini-actions">
-      <button id="miniPrev">⟨</button>
-      <button class="mini-play" id="miniPlay">▶</button>
-      <button id="miniNext">⟩</button>
-    </div>
   </div>
 
-  <script>
-    const CONFIG = {
-      owner: 'BoyingtonRemix',
-      repo: 'Boyington-Remix',
-      defaultCover: 'cover principal.jpg'
-    };
-
-    const BRANCH_CANDIDATES = ['principal', 'main', 'master'];
-    const $ = (id) => document.getElementById(id);
-
-    const audio = $('audio');
-    const playBtn = $('playBtn');
-    const prevBtn = $('prevBtn');
-    const nextBtn = $('nextBtn');
-    const miniPlay = $('miniPlay');
-    const miniPrev = $('miniPrev');
-    const miniNext = $('miniNext');
-    const progress = $('progress');
-    const volume = $('volume');
-    const currentTimeEl = $('currentTime');
-    const durationEl = $('duration');
-    const playlistEl = $('playlist');
-    const currentTitleEl = $('currentTitle');
-    const currentSubtitleEl = $('currentSubtitle');
-    const currentTrackNameEl = $('currentTrackName');
-    const currentTrackStyleEl = $('currentTrackStyle');
-    const coverImage = $('coverImage');
-    const miniCover = $('miniCover');
-    const miniTitle = $('miniTitle');
-    const miniSub = $('miniSub');
-    const statusLine = $('statusLine');
-    const searchInput = $('searchInput');
-    const chipRow = $('chipRow');
-    const sortSelect = $('sortSelect');
-    const topGrid = $('topGrid');
-    const miniPlayer = $('miniPlayer');
-    const btnShuffle = $('shuffleBtn');
-    const btnRepeat = $('repeatBtn');
-    const playerCard = $('playerCard');
-    const openBtn = $('openBtn');
-    const installBtn = $('installAppBtn');
-
-    let tracks = [];
-    let currentIndex = 0;
-    let currentFilter = 'Tous';
-    let searchTerm = '';
-    let shuffleEnabled = false;
-    let repeatEnabled = true;
-    let sortMode = 'az';
-    let activeBranch = BRANCH_CANDIDATES[0];
-    const LIKE_KEY = 'boyington_like_counts_v1';
-    let likeCounts = loadLikeCounts();
-    let deferredPrompt = null;
-
-    function loadLikeCounts() {
-      try {
-        const raw = localStorage.getItem(LIKE_KEY);
-        return raw ? JSON.parse(raw) : {};
-      } catch (_) {
-        return {};
-      }
-    }
-    function saveLikeCounts() {
-      try { localStorage.setItem(LIKE_KEY, JSON.stringify(likeCounts)); } catch (_) {}
-    }
-    function trackLikeKey(track) { return String(track?.src || track?.title || ''); }
-    function getLikeStats(track) {
-      const key = trackLikeKey(track);
-      return likeCounts[key] || { up: 0, down: 0 };
-    }
-    function bumpLike(track, direction) {
-      const key = trackLikeKey(track);
-      if (!key) return;
-      const current = likeCounts[key] || { up: 0, down: 0 };
-      current[direction] = Number(current[direction] || 0) + 1;
-      likeCounts[key] = current;
-      saveLikeCounts();
-      renderPlaylist();
-    }
-
-    const formatTime = (s) => isFinite(s) ? `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}` : '0:00';
-    const safeText = (v, f = '') => String(v || '').trim() || f;
-    const cleanLabel = (v) => safeText(v).replace(/^\s*p\s+(?=original\s+(?:mashup|remix|mix)\b)/i, '').replace(/^\s*p\s+/i, '').replace(/\s+/g, ' ').trim();
-    const normalize = (v) => cleanLabel(v).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[’']/g, "'").replace(/\s+/g, ' ').replace(/[^a-z0-9]+/g, ' ').trim();
-    const prettyLabel = (v) => {
-      const s = cleanLabel(v);
-      if (/^original\s+mashup$/i.test(s)) return 'Original Mashup';
-      if (/^original\s+remix$/i.test(s)) return 'Original Remix';
-      if (/^original\s+mix$/i.test(s)) return 'Original Mix';
-      return s;
-    };
-    const extractGenre = (t) => prettyLabel(t.genre || t.subtitle || 'Autre');
-    const displayTitle = (title) => cleanLabel(safeText(title)).replace(/\s+by\s+boyington(?:\s+remix)?$/i, '').replace(/\s+by\s+boyington$/i, '').replace(/\s+\((original mix|remix|extended mix|mashupremix)\)$/i, '');
-    function asset(path) { return encodeURI(path); }
-    function pictureToDataUrl(pic) {
-      if (!pic || !pic.data) return null;
-      let binary = '';
-      for (let i = 0; i < pic.data.length; i++) binary += String.fromCharCode(pic.data[i]);
-      return `data:${pic.format || 'image/jpeg'};base64,${btoa(binary)}`;
-    }
-    function apiUrl(path = '', branch = activeBranch) {
-      const clean = path ? `/${path}` : '';
-      return `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents${clean}?ref=${encodeURIComponent(branch)}`;
-    }
-    function sortTracks(list) {
-      const copy = [...list];
-      if (sortMode === 'za') copy.sort((a, b) => b.title.localeCompare(a.title, 'fr', { numeric: true, sensitivity: 'base' }));
-      else if (sortMode === 'az') copy.sort((a, b) => a.title.localeCompare(b.title, 'fr', { numeric: true, sensitivity: 'base' }));
-      return copy;
-    }
-    function buildChips() {
-      const genres = ['Tous'];
-      tracks.forEach(t => {
-        const g = extractGenre(t);
-        if (!genres.includes(g)) genres.push(g);
-      });
-      chipRow.innerHTML = '';
-      genres.forEach(g => {
-        const b = document.createElement('button');
-        b.className = 'chip' + (g === currentFilter ? ' active' : '');
-        b.textContent = g;
-        b.onclick = () => {
-          currentFilter = g;
-          buildChips();
-          renderPlaylist();
-        };
-        chipRow.appendChild(b);
-      });
-    }
-    function getVisibleTracks() {
-      const q = normalize(searchTerm);
-      return sortTracks(tracks.filter(t => {
-        const hay = normalize([t.title, t.subtitle, t.genre, t.artist, t.album, t.comment].join(' '));
-        return (!q || hay.includes(q)) && (currentFilter === 'Tous' || extractGenre(t) === currentFilter);
-      }));
-    }
-    function resolveCover(track) { return asset(track && track.cover ? track.cover : CONFIG.defaultCover); }
-    function applyTrack(t) {
-      currentTitleEl.textContent = t.title;
-      currentSubtitleEl.textContent = t.subtitle || t.genre || 'Playlist officielle';
-      currentTrackNameEl.textContent = t.title;
-      currentTrackStyleEl.textContent = t.subtitle || t.genre || 'Playlist officielle';
-      miniTitle.textContent = t.title;
-      miniSub.textContent = t.subtitle || t.genre || 'Playlist officielle';
-      const c = resolveCover(t);
-      coverImage.src = c;
-      miniCover.src = c;
-      openBtn.onclick = () => window.open(encodeURI(t.src), '_blank', 'noopener');
-    }
-    function renderTop() {
-      const top = tracks.slice(0, 6);
-      topGrid.innerHTML = top.length ? top.map((t, i) => `
-        <article class="top-card" data-i="${t.index}">
-          <div class="coverwrap">
-            <img src="${resolveCover(t)}" alt="${displayTitle(t.title)}">
-            <div class="shade"></div>
-            <div class="rank">${String(i + 1)}</div>
-          </div>
-          <div class="top-content">
-            <h3>${displayTitle(t.title)}</h3>
-            <p>${t.subtitle || t.genre || 'Boyington Remix'}</p>
-            <div class="btn-mini">Écouter</div>
-          </div>
-        </article>
-      `).join('') : '<div class="helper">Aucune sortie détectée.</div>';
-      topGrid.querySelectorAll('.top-card').forEach(card => card.onclick = () => loadTrack(+card.dataset.i, true));
-    }
-    function renderPlaylist() {
-      const visible = getVisibleTracks();
-      playlistEl.innerHTML = visible.length ? visible.map(t => {
-        const likes = getLikeStats(t);
-        return `
-        <div class="item track-btn${t.index === currentIndex ? ' active' : ''}" data-i="${t.index}">
-          <button type="button" class="track-main" data-i="${t.index}">
-            <img class="thumb" src="${resolveCover(t)}" alt="${displayTitle(t.title)}">
-            <div>
-              <strong>${displayTitle(t.title)}</strong>
-              <span>${t.subtitle || t.genre || ''}</span>
-            </div>
-          </button>
-          <div class="dur">
-            <div class="track-num">${String(t.index + 1).padStart(2, '0')}</div>
-            <div class="vote-stack">
-              <button type="button" class="vote-btn up" data-dir="up" data-i="${t.index}" title="J'aime">👍 <span>${likes.up}</span></button>
-              <button type="button" class="vote-btn down" data-dir="down" data-i="${t.index}" title="Je n'aime pas">👎 <span>${likes.down}</span></button>
-            </div>
-          </div>
-        </div>`;
-      }).join('') : '<div class="helper">Aucun morceau ne correspond à la recherche ou au filtre.</div>';
-      playlistEl.querySelectorAll('.track-main').forEach(b => b.onclick = () => loadTrack(+b.dataset.i, true));
-      playlistEl.querySelectorAll('.vote-btn').forEach(b => {
-        b.onclick = (e) => {
-          e.stopPropagation();
-          bumpLike(tracks[+b.dataset.i], b.dataset.dir);
-        };
-      });
-      refreshActive();
-    }
-    function refreshActive() {
-      document.querySelectorAll('.track-btn').forEach(b => {
-        const active = b.dataset.i === String(currentIndex);
-        b.style.borderColor = active ? 'rgba(212,175,55,.45)' : 'rgba(255,255,255,.06)';
-        b.style.background = active ? 'rgba(212,175,55,.12)' : 'rgba(255,255,255,.02)';
-      });
-    }
-    function chooseNext(delta = 1) {
-      if (!tracks.length) return 0;
-      if (shuffleEnabled) {
-        if (tracks.length === 1) return currentIndex;
-        let i = currentIndex;
-        while (i === currentIndex) i = Math.floor(Math.random() * tracks.length);
-        return i;
-      }
-      return (currentIndex + delta + tracks.length) % tracks.length;
-    }
-    function setPlayingState(isPlaying) {
-      playerCard.classList.toggle('playing', isPlaying);
-      playBtn.textContent = isPlaying ? '❚❚' : '▶';
-      miniPlay.textContent = isPlaying ? '❚❚' : '▶';
-    }
-    function updateModeButtons() {
-      btnShuffle.classList.toggle('active', shuffleEnabled);
-      btnRepeat.classList.toggle('active', repeatEnabled);
-      btnShuffle.setAttribute('aria-pressed', String(shuffleEnabled));
-      btnRepeat.setAttribute('aria-pressed', String(repeatEnabled));
-    }
-    function fetchMeta(track) {
-      if (!window.jsmediatags || track.loaded || track.loading) return track.metaPromise || Promise.resolve(track);
-      track.loading = true;
-      track.metaPromise = (async () => {
-        try {
-          const response = await fetch(encodeURI(track.src), { cache: 'no-store' });
-          if (!response.ok) throw new Error('fetch failed');
-          const blob = await response.blob();
-          await new Promise(resolve => {
-            jsmediatags.read(blob, {
-              onSuccess: r => {
-                const tags = r.tags || {};
-                track.title = safeText(tags.title, track.title);
-                track.artist = safeText(tags.artist);
-                track.album = safeText(tags.album);
-                track.genre = prettyLabel(tags.genre || track.genre);
-                track.comment = Array.isArray(tags.comment) ? safeText(tags.comment[0]?.text || tags.comment[0], '') : safeText(tags.comment?.text || tags.comment, '');
-                const cover = pictureToDataUrl(tags.picture);
-                if (cover) track.cover = cover;
-                track.subtitle = track.genre || track.artist || 'Lecture disponible';
-                track.loaded = true;
-                track.loading = false;
-                updateRenderedTrack(track);
-                resolve(track);
-              },
-              onError: () => { track.loaded = true; track.loading = false; resolve(track); }
-            });
-          });
-        } catch (_) {
-          track.loaded = true;
-          track.loading = false;
-        }
-        return track;
-      })();
-      return track.metaPromise;
-    }
-    function updateRenderedTrack(t) {
-      const row = playlistEl.querySelector(`.track-btn[data-i="${t.index}"]`);
-      if (row) {
-        row.querySelector('strong').textContent = displayTitle(t.title);
-        row.querySelector('span').textContent = t.subtitle || t.genre || '';
-        const img = row.querySelector('img');
-        if (img) img.src = resolveCover(t);
-      }
-      const topCard = topGrid.querySelector(`.top-card[data-i="${t.index}"]`);
-      if (topCard) {
-        const h3 = topCard.querySelector('.top-content h3');
-        const p = topCard.querySelector('.top-content p');
-        const img = topCard.querySelector('img');
-        if (h3) h3.textContent = displayTitle(t.title);
-        if (p) p.textContent = t.subtitle || t.genre || 'Boyington Remix';
-        if (img) img.src = resolveCover(t);
-      }
-      if (currentIndex === t.index) applyTrack(t);
-    }
-    function loadTrack(i, autoplay = false) {
-      if (!tracks.length) return;
-      currentIndex = (i + tracks.length) % tracks.length;
-      const t = tracks[currentIndex];
-      audio.pause();
-      audio.src = encodeURI(t.src);
-      audio.load();
-      applyTrack(t);
-      statusLine.textContent = `Lecture : ${t.title}`;
-      currentTimeEl.textContent = '0:00';
-      durationEl.textContent = '0:00';
-      progress.style.width = '0%';
-      setPlayingState(false);
-      refreshActive();
-      fetchMeta(t).then(() => { applyTrack(t); buildChips(); renderPlaylist(); renderTop(); });
-      if (autoplay) audio.play().then(() => setPlayingState(true)).catch(() => {});
-    }
-    async function tryLoadTracksFromBranch(branch) {
-      activeBranch = branch;
-      const r = await fetch(apiUrl('', branch), { cache: 'no-store' });
-      if (!r.ok) throw new Error(`API error on ${branch}`);
-      const items = await r.json();
-      return items.filter(x => x.type === 'file' && x.name.toLowerCase().endsWith('.mp3'))
-        .map((x, i) => ({ index:i, src:x.name, title:x.name.replace(/\.mp3$/i,''), subtitle:'Lecture en attente…', genre:'Autre', artist:'', album:'', comment:'', cover:CONFIG.defaultCover, loaded:false, loading:false }))
-        .sort((a, b) => a.title.localeCompare(b.title, 'fr', { numeric: true, sensitivity: 'base' }))
-        .map((t, i) => ({ ...t, index:i }));
-    }
-    async function init() {
-      statusLine.textContent = 'Lecture de la racine du dépôt GitHub…';
-      for (const branch of BRANCH_CANDIDATES) {
-        try {
-          tracks = await tryLoadTracksFromBranch(branch);
-          if (tracks.length) break;
-        } catch (_) {
-          tracks = [];
-        }
-      }
-      if (!tracks.length) {
-        statusLine.textContent = 'Impossible de charger la playlist depuis GitHub.';
-        currentTitleEl.textContent = 'Chargement impossible';
-        currentSubtitleEl.textContent = 'Vérifie la racine du dépôt GitHub';
-        currentTrackNameEl.textContent = 'Chargement impossible';
-        currentTrackStyleEl.textContent = 'Vérifie la racine du dépôt GitHub';
-        playlistEl.innerHTML = '<div class="helper">Aucun morceau ne peut être chargé depuis le dépôt.</div>';
-        topGrid.innerHTML = '<div class="helper">Aucune sortie détectée.</div>';
-        return;
-      }
-      buildChips();
-      renderTop();
-      renderPlaylist();
-      loadTrack(0, false);
-      tracks.forEach(fetchMeta);
-      updateModeButtons();
-      statusLine.textContent = `${tracks.length} morceau(x) détecté(s) dans le dépôt (${activeBranch}).`;
-    }
-
-    searchInput.oninput = () => { searchTerm = searchInput.value || ''; renderPlaylist(); };
-    sortSelect.onchange = () => { sortMode = sortSelect.value; renderPlaylist(); };
-    btnShuffle.addEventListener('click', () => {
-      shuffleEnabled = !shuffleEnabled;
-      updateModeButtons();
-      statusLine.textContent = shuffleEnabled ? 'Lecture aléatoire activée.' : 'Lecture aléatoire désactivée.';
-    });
-    btnRepeat.addEventListener('click', () => {
-      repeatEnabled = !repeatEnabled;
-      updateModeButtons();
-      statusLine.textContent = repeatEnabled ? 'Lecture continue activée.' : 'Lecture continue désactivée.';
-    });
-    playBtn.onclick = () => {
-      if (!tracks.length) return;
-      if (!audio.src) loadTrack(currentIndex, false);
-      if (audio.paused) audio.play().then(() => setPlayingState(true)).catch(() => {});
-      else { audio.pause(); setPlayingState(false); }
-    };
-    prevBtn.onclick = () => tracks.length && loadTrack(chooseNext(-1), true);
-    nextBtn.onclick = () => tracks.length && loadTrack(chooseNext(1), true);
-    miniPlay.onclick = () => playBtn.click();
-    miniPrev.onclick = () => prevBtn.click();
-    miniNext.onclick = () => nextBtn.click();
-
-    audio.onloadedmetadata = () => durationEl.textContent = formatTime(audio.duration);
-    audio.ontimeupdate = () => {
-      const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
-      progress.style.width = pct + '%';
-      currentTimeEl.textContent = formatTime(audio.currentTime);
-    };
-    audio.onended = () => {
-      if (repeatEnabled) loadTrack(chooseNext(1), true);
-      else setPlayingState(false);
-    };
-    audio.onerror = () => { setPlayingState(false); statusLine.textContent = 'Erreur de lecture sur ce fichier.'; };
-    volume.oninput = () => audio.volume = parseFloat(volume.value);
-    audio.volume = parseFloat(volume.value);
-    window.addEventListener('resize', () => { miniPlayer.style.display = window.matchMedia('(max-width: 720px)').matches ? 'grid' : 'none'; });
-    miniPlayer.style.display = window.matchMedia('(max-width: 720px)').matches ? 'grid' : 'none';
-
-    init().catch(() => {
-      statusLine.textContent = 'Impossible de charger la playlist depuis GitHub.';
-      currentTitleEl.textContent = 'Chargement impossible';
-      currentSubtitleEl.textContent = 'Vérifie la racine du dépôt GitHub';
-      currentTrackNameEl.textContent = 'Chargement impossible';
-      currentTrackStyleEl.textContent = 'Vérifie la racine du dépôt GitHub';
-      topGrid.innerHTML = '<div class="helper">Aucune sortie détectée.</div>';
-    });
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      installBtn.hidden = false;
-    });
-
-    installBtn.addEventListener('click', async () => {
-      if (!deferredPrompt) {
-        alert("Sur iPhone, ouvre Safari puis touche Partager → Sur l’écran d’accueil.");
-        return;
-      }
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted') installBtn.hidden = true;
-      deferredPrompt = null;
-    });
-
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    if (isStandalone) installBtn.hidden = true;
-    else if (isIOS) {
-      installBtn.hidden = false;
-      installBtn.textContent = "📱 Sur iPhone : Partager → Sur l’écran d’accueil";
-    }
-  </script>
-
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./service-worker.js').catch(() => {});
-      });
-    }
-  </script>
+  <script src="work.js"></script>
 </body>
 </html>

@@ -1,22 +1,9 @@
 {
   "name": "Boyington Remix",
   "short_name": "Boyington",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "./",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#000000",
-  "orientation": "portrait",
-  "icons": [
-    {
-      "src": "images/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "images/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+  "background_color": "#09090c",
+  "theme_color": "#0b0b0f",
+  "description": "Site Boyington Remix avec player, playlist et dernières sorties."
 }
