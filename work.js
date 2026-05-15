@@ -1,4 +1,3 @@
-
 const tracks = [
   {
     id: "track-1",
@@ -83,18 +82,30 @@ function saveState() {
 }
 
 function getTrackState(id) {
-  if (!state[id]) state[id] = { plays: 0, likes: 0, dislikes: 0, userLike: 0 };
+  if (!state[id]) {
+    state[id] = {
+      plays: 0,
+      likes: 0,
+      dislikes: 0,
+      userLike: 0
+    };
+  }
   return state[id];
 }
 
 function setTotals() {
   totalTracks.textContent = String(tracks.length);
-  const totals = tracks.reduce((acc, t) => {
-    const s = getTrackState(t.id);
-    acc.plays += s.plays || 0;
-    acc.likes += s.likes || 0;
-    return acc;
-  }, { plays: 0, likes: 0 });
+
+  const totals = tracks.reduce(
+    (acc, t) => {
+      const s = getTrackState(t.id);
+      acc.plays += s.plays || 0;
+      acc.likes += s.likes || 0;
+      return acc;
+    },
+    { plays: 0, likes: 0 }
+  );
+
   totalPlays.textContent = String(totals.plays);
   totalLikes.textContent = String(totals.likes);
 }
@@ -112,8 +123,11 @@ function updateNowPlaying(track) {
 
 function playTrack(index, autoplay = true) {
   currentIndex = (index + tracks.length) % tracks.length;
+
   const track = tracks[currentIndex];
+
   updateNowPlaying(track);
+
   audio.src = track.file;
 
   if (autoplay) {
@@ -121,8 +135,11 @@ function playTrack(index, autoplay = true) {
   }
 
   const s = getTrackState(track.id);
+
   s.plays += 1;
+
   saveState();
+
   render();
 }
 
@@ -134,7 +151,10 @@ function toggleLike(trackId, value) {
       s.likes = Math.max(0, s.likes - 1);
       s.userLike = 0;
     } else {
-      if (s.userLike === -1) s.dislikes = Math.max(0, s.dislikes - 1);
+      if (s.userLike === -1) {
+        s.dislikes = Math.max(0, s.dislikes - 1);
+      }
+
       s.likes += 1;
       s.userLike = 1;
     }
@@ -145,59 +165,114 @@ function toggleLike(trackId, value) {
       s.dislikes = Math.max(0, s.dislikes - 1);
       s.userLike = 0;
     } else {
-      if (s.userLike === 1) s.likes = Math.max(0, s.likes - 1);
+      if (s.userLike === 1) {
+        s.likes = Math.max(0, s.likes - 1);
+      }
+
       s.dislikes += 1;
       s.userLike = -1;
     }
   }
 
   saveState();
+
   render();
 }
 
 function renderTracks() {
-  trackList.innerHTML = tracks.map((track, index) => {
-    const s = getTrackState(track.id);
-    const likeClass = s.userLike === 1 ? "active-like" : "";
-    const dislikeClass = s.userLike === -1 ? "active-dislike" : "";
-    return `
-      <article class="track-item">
-        <div class="track-index">${String(index + 1).padStart(2, "0")}</div>
-        <div class="track-main">
-          <div class="track-title">${track.title}</div>
-          <div class="track-meta">${formatTrackMeta(track)} • ${s.plays || 0} lectures</div>
-        </div>
-        <div class="track-controls">
-          <button class="icon-btn" data-play="${index}">Play</button>
-          <button class="icon-btn ${likeClass}" data-like="${track.id}">👍 ${s.likes || 0}</button>
-          <button class="icon-btn ${dislikeClass}" data-dislike="${track.id}">👎 ${s.dislikes || 0}</button>
-          <span class="count-pill">${track.release}</span>
-        </div>
-      </article>
-    `;
-  }).join("");
+  trackList.innerHTML = tracks
+    .map((track, index) => {
+      const s = getTrackState(track.id);
 
-  trackList.querySelectorAll("[data-play]").forEach(btn => {
-    btn.addEventListener("click", () => playTrack(Number(btn.dataset.play)));
-  });
+      const likeClass =
+        s.userLike === 1 ? "active-like" : "";
 
-  trackList.querySelectorAll("[data-like]").forEach(btn => {
-    btn.addEventListener("click", () => toggleLike(btn.dataset.like, 1));
-  });
+      const dislikeClass =
+        s.userLike === -1 ? "active-dislike" : "";
 
-  trackList.querySelectorAll("[data-dislike]").forEach(btn => {
-    btn.addEventListener("click", () => toggleLike(btn.dataset.dislike, -1));
-  });
+      return `
+        <article class="track-item">
+          <div class="track-index">
+            ${String(index + 1).padStart(2, "0")}
+          </div>
+
+          <div class="track-main">
+            <div class="track-title">
+              ${track.title}
+            </div>
+
+            <div class="track-meta">
+              ${formatTrackMeta(track)} • ${s.plays || 0} lectures
+            </div>
+          </div>
+
+          <div class="track-controls">
+            <button class="icon-btn" data-play="${index}">
+              Play
+            </button>
+
+            <button class="icon-btn ${likeClass}" data-like="${track.id}">
+              👍 ${s.likes || 0}
+            </button>
+
+            <button class="icon-btn ${dislikeClass}" data-dislike="${track.id}">
+              👎 ${s.dislikes || 0}
+            </button>
+
+            <span class="count-pill">
+              ${track.release}
+            </span>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+
+  trackList
+    .querySelectorAll("[data-play]")
+    .forEach(btn => {
+      btn.addEventListener("click", () => {
+        playTrack(Number(btn.dataset.play));
+      });
+    });
+
+  trackList
+    .querySelectorAll("[data-like]")
+    .forEach(btn => {
+      btn.addEventListener("click", () => {
+        toggleLike(btn.dataset.like, 1);
+      });
+    });
+
+  trackList
+    .querySelectorAll("[data-dislike]")
+    .forEach(btn => {
+      btn.addEventListener("click", () => {
+        toggleLike(btn.dataset.dislike, -1);
+      });
+    });
 }
 
 function renderReleases() {
-  releaseGrid.innerHTML = releases.map(item => `
-    <article class="release-card">
-      <div class="release-title">${item.title}</div>
-      <div class="release-meta">${item.meta}</div>
-      <a class="release-link" href="${item.link}">Ouvrir</a>
-    </article>
-  `).join("");
+  releaseGrid.innerHTML = releases
+    .map(item => {
+      return `
+        <article class="release-card">
+          <div class="release-title">
+            ${item.title}
+          </div>
+
+          <div class="release-meta">
+            ${item.meta}
+          </div>
+
+          <a class="release-link" href="${item.link}">
+            Ouvrir
+          </a>
+        </article>
+      `;
+    })
+    .join("");
 }
 
 function render() {
@@ -206,20 +281,40 @@ function render() {
   setTotals();
 }
 
-document.getElementById("prevBtn").addEventListener("click", () => playTrack(currentIndex - 1));
-document.getElementById("nextBtn").addEventListener("click", () => playTrack(currentIndex + 1));
-document.getElementById("playPauseBtn").addEventListener("click", () => {
-  if (!audio.src) {
-    playTrack(currentIndex);
-    return;
-  }
-  if (audio.paused) audio.play().catch(() => {});
-  else audio.pause();
+document
+  .getElementById("prevBtn")
+  .addEventListener("click", () => {
+    playTrack(currentIndex - 1);
+  });
+
+document
+  .getElementById("nextBtn")
+  .addEventListener("click", () => {
+    playTrack(currentIndex + 1);
+  });
+
+document
+  .getElementById("playPauseBtn")
+  .addEventListener("click", () => {
+    if (!audio.src) {
+      playTrack(currentIndex);
+      return;
+    }
+
+    if (audio.paused) {
+      audio.play().catch(() => {});
+    } else {
+      audio.pause();
+    }
+  });
+
+audio.addEventListener("ended", () => {
+  playTrack(currentIndex + 1);
 });
 
-audio.addEventListener("ended", () => playTrack(currentIndex + 1));
 audio.addEventListener("play", () => {
   const track = tracks[currentIndex];
+
   if (track) {
     nowTitle.textContent = track.title;
     nowMeta.textContent = formatTrackMeta(track);
@@ -228,7 +323,9 @@ audio.addEventListener("play", () => {
 
 if (tracks.length > 0) {
   const first = tracks[0];
+
   updateNowPlaying(first);
+
   audio.src = first.file;
 }
 
