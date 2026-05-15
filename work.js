@@ -6,8 +6,8 @@ const tracks = [
     artist: "Boyington Remix",
     duration: "04:12",
     genre: "Emotional Mix",
-    file: "audio/Truly-Remix-Emotional.mp3",
-    release: "Featured release"
+    release: "Featured release",
+    file: "Truly-Remix-Emotional.mp3"
   },
   {
     id: "track-2",
@@ -15,8 +15,8 @@ const tracks = [
     artist: "Boyington Remix",
     duration: "03:58",
     genre: "Original Mix",
-    file: "audio/Chasing-Paradise-Original-Mix.mp3",
-    release: "New entry"
+    release: "New entry",
+    file: "Chasing-Paradise-Original-Mix.mp3"
   },
   {
     id: "track-3",
@@ -24,8 +24,8 @@ const tracks = [
     artist: "Boyington Remix",
     duration: "04:25",
     genre: "Funk Original Mix",
-    file: "audio/Only-My-Love-Funk-Original-Mix.mp3",
-    release: "Latest groove"
+    release: "Latest groove",
+    file: "Only-My-Love-Funk-Original-Mix.mp3"
   },
   {
     id: "track-4",
@@ -33,8 +33,8 @@ const tracks = [
     artist: "Boyington Remix",
     duration: "04:18",
     genre: "Original Mix",
-    file: "audio/A-Travers-Ton-Regard-Original-Mix.mp3",
-    release: "Signature mood"
+    release: "Signature mood",
+    file: "A-Travers-Ton-Regard-Original-Mix.mp3"
   }
 ];
 
@@ -115,9 +115,11 @@ function playTrack(index, autoplay = true) {
   const track = tracks[currentIndex];
   updateNowPlaying(track);
   audio.src = track.file;
+
   if (autoplay) {
     audio.play().catch(() => {});
   }
+
   const s = getTrackState(track.id);
   s.plays += 1;
   saveState();
@@ -126,6 +128,7 @@ function playTrack(index, autoplay = true) {
 
 function toggleLike(trackId, value) {
   const s = getTrackState(trackId);
+
   if (value === 1) {
     if (s.userLike === 1) {
       s.likes = Math.max(0, s.likes - 1);
@@ -136,6 +139,7 @@ function toggleLike(trackId, value) {
       s.userLike = 1;
     }
   }
+
   if (value === -1) {
     if (s.userLike === -1) {
       s.dislikes = Math.max(0, s.dislikes - 1);
@@ -146,6 +150,7 @@ function toggleLike(trackId, value) {
       s.userLike = -1;
     }
   }
+
   saveState();
   render();
 }
