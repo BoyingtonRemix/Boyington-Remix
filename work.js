@@ -1,7 +1,5 @@
-
 (() => {
-  const stateKey = "boyington-player-state-v2";
-
+  const stateKey = "boyington-player-state-v3";
   const audio = document.getElementById("audioPlayer");
   const trackList = document.getElementById("trackList");
   const releaseGrid = document.getElementById("releaseGrid");
@@ -71,7 +69,7 @@
       .replace(/[_-]+/g, " ")
       .replace(/\s+/g, " ")
       .trim()
-      .replace(/\b\w/g, (c) => c.toUpperCase());
+      .replace(/\w/g, (c) => c.toUpperCase());
   }
 
   function inferGenre(title) {
@@ -94,7 +92,7 @@
     return labels[index % labels.length];
   }
 
-  function audioUrlFromPath(path) {
+  function encodePath(path) {
     return encodeURI(path.replace(/^\.\/+/, "").replace(/^\/+/, ""));
   }
 
@@ -102,61 +100,71 @@
     return /\.mp3$/i.test(filePath);
   }
 
-  function isRepositoryPagesUrl() {
-    return location.hostname.endsWith("github.io");
-  }
-
-  function deriveRepoInfo() {
+  function repoInfoFromLocation() {
     const host = location.hostname;
     const parts = location.pathname.split("/").filter(Boolean);
 
-    if (host.endsWith("github.io")) {
-      const owner = host.replace(/\.github\.io$/i, "");
-      const repo = parts.length > 0 ? parts[0] : owner;
-      return { owner, repo };
+    if (!host.endsWith("github.io")) {
+      return { owner: "", repo: "" };
     }
 
-    return { owner: "", repo: "" };
+    const owner = host.replace(/\.github\.io$/i, "");
+    const repo = parts.length > 0 ? parts[0] : owner;
+    return { owner, repo };
   }
 
-  async function fetchRepoTree(owner, repo) {
-    const endpoint = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/git/trees/HEAD?recursive=1`;
-    const response = await fetch(endpoint, { cache: "no-store" });
-
-    if (!response.ok) {
-      throw new Error(`GitHub API error: ${response.status}`);
-    }
-
+  async function fetchJson(url) {
+    const response = await fetch(url, { cache: "no-store" });
+    if (!response.ok) throw new Error(`${url} -> ${response.status}`);
     return response.json();
   }
 
-  async function discoverTracks() {
-    const { owner, repo } = deriveRepoInfo();
+  async function walkContents(owner, repo, path = "") {
+    const url = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/${path}`;
+    const data = await fetchJson(url);
 
-    if (!owner || !repo || !isRepositoryPagesUrl()) {
-      return [];
+    const list = Array.isArray(data) ? data : [data];
+    const out = [];
+
+    for (const entry of list) {
+      if (entry.type === "file" && isMp3(entry.path)) {
+        out.push(entry.path);
+      } else if (entry.type === "dir") {
+        const nested = await walkContents(owner, repo, entry.path);
+        out.push(...nested);
+      }
     }
 
-    const tree = await fetchRepoTree(owner, repo);
-    const blobs = Array.isArray(tree.tree) ? tree.tree : [];
+    return out;
+  }
 
-    return blobs
-      .filter((entry) => entry.type === "blob" && isMp3(entry.path))
-      .map((entry, index) => {
-        const filename = entry.path.split("/").pop() || entry.path;
-        const title = cleanTitleFromFilename(filename);
-        return {
-          id: `track-${index + 1}-${entry.path}`,
-          title,
-          artist: "Boyington Remix",
-          duration: "",
-          genre: inferGenre(title),
-          release: inferReleaseLabel(index),
-          path: entry.path,
-          file: audioUrlFromPath(entry.path)
-        };
-      })
-      .sort((a, b) => a.title.localeCompare(b.title, "fr"));
+  async function discoverTracks() {
+    const { owner, repo } = repoInfoFromLocation();
+    if (!owner || !repo) return [];
+
+    try {
+      const paths = await walkContents(owner, repo, "");
+      return paths
+        .filter(isMp3)
+        .map((path, index) => {
+          const filename = path.split("/").pop() || path;
+          const title = cleanTitleFromFilename(filename);
+          return {
+            id: `track-${index + 1}-${path}`,
+            title,
+            artist: "Boyington Remix",
+            duration: "",
+            genre: inferGenre(title),
+            release: inferReleaseLabel(index),
+            path,
+            file: encodePath(path)
+          };
+        })
+        .sort((a, b) => a.title.localeCompare(b.title, "fr"));
+    } catch (error) {
+      console.error("Auto-discovery failed:", error);
+      return [];
+    }
   }
 
   function renderReleases() {
@@ -168,7 +176,7 @@
       },
       {
         title: "Aucune retouche",
-        meta: "Ajoute simplement un nouveau MP3 à la racine, puis attends la mise à jour Pages.",
+        meta: "Ajoute simplement un nouveau MP3 au dépôt, puis recharge la page.",
         link: "#player"
       },
       {
@@ -192,7 +200,7 @@
       trackList.innerHTML = `
         <article class="release-card">
           <div class="release-title">Aucun MP3 détecté</div>
-          <div class="release-meta">Ajoute tes MP3 à la racine du dépôt GitHub. La playlist se générera automatiquement.</div>
+          <div class="release-meta">Ajoute tes MP3 dans le dépôt GitHub. La playlist se générera automatiquement.</div>
         </article>
       `;
       setTotals();
@@ -296,13 +304,7 @@
     renderReleases();
     setTotals();
 
-    try {
-      tracks = await discoverTracks();
-    } catch (error) {
-      console.error(error);
-      tracks = [];
-    }
-
+    tracks = await discoverTracks();
     renderAll();
 
     if (tracks.length > 0) {
@@ -311,7 +313,7 @@
       audio.src = tracks[0].file;
     } else {
       nowTitle.textContent = "Aucun titre sélectionné";
-      nowMeta.textContent = "Ajoute des MP3 à la racine du dépôt GitHub.";
+      nowMeta.textContent = "Ajoute des MP3 dans le dépôt GitHub.";
       featuredTitle.textContent = "Playlist automatique";
       featuredMeta.textContent = "Ajoute un MP3 pour le voir apparaître.";
     }
@@ -333,9 +335,7 @@
   });
 
   audio.addEventListener("play", () => {
-    if (tracks[currentIndex]) {
-      updateNowPlaying(tracks[currentIndex]);
-    }
+    if (tracks[currentIndex]) updateNowPlaying(tracks[currentIndex]);
   });
 
   init();

@@ -1,26 +1,24 @@
-# Boyington Remix — site GitHub
+# Boyington Remix — pack complet
 
-Fichiers inclus :
+Fichiers à déposer à la racine du dépôt GitHub :
 - `index.html`
 - `styles.css`
 - `work.js`
 - `manifest.json`
 
-## À modifier
-Dans `work.js` :
-- remplace les chemins `audio/...mp3` par tes vrais fichiers MP3,
-- adapte les titres, durées et métadonnées,
-- ajoute ou retire des morceaux dans le tableau `tracks`.
+Dossier d’assets :
+- `assets/favicon.svg`
+- `assets/cover.svg`
 
-## Mise en ligne GitHub Pages
-1. Dépose les fichiers à la racine du dépôt.
-2. Vérifie que `index.html` est bien à la racine.
-3. Active GitHub Pages sur la branche principale.
-4. Ouvre le site sur mobile et desktop pour valider l'affichage.
+## Fonctionnement
+Le `work.js` lit automatiquement tous les fichiers `.mp3` présents dans le dépôt GitHub via l’API GitHub et construit la playlist.
 
-## Structure attendue
-- `audio/` pour les MP3
-- `index.html`
-- `styles.css`
-- `work.js`
-- `manifest.json`
+## Déploiement
+1. Dépose tous les fichiers dans le dépôt.
+2. Garde les MP3 dans le dépôt.
+3. Vérifie que GitHub Pages pointe bien sur la branche principale et le dossier racine.
+4. Recharge la page du site.
+
+## Important
+Le titre des morceaux est généré à partir du nom du fichier.
+Exemple : `Truly-Remix-Emotional.mp3` devient `Truly Remix Emotional`.

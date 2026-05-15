@@ -4,21 +4,22 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0b0b0f" />
-  <meta name="description" content="Boyington Remix — site officiel, player audio, playlist automatique, dernières sorties." />
+  <meta name="description" content="Boyington Remix — site officiel, player audio, playlist automatique et dernières sorties." />
   <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles.css" />
   <title>Boyington Remix</title>
 </head>
 <body>
   <div class="page-shell">
     <header class="topbar">
-      <div class="brand">
-        <div class="brand-mark">B</div>
+      <a class="brand" href="#top" aria-label="Boyington Remix">
+        <img src="assets/favicon.svg" alt="" class="brand-icon" />
         <div>
           <div class="brand-name">BOYINGTON REMIX</div>
           <div class="brand-sub">DJ / PRODUCER</div>
         </div>
-      </div>
+      </a>
       <nav class="topnav">
         <a href="#player">Player</a>
         <a href="#playlist">Playlist</a>
@@ -26,12 +27,12 @@
       </nav>
     </header>
 
-    <main class="hero-grid">
+    <main class="hero-grid" id="top">
       <section class="hero-copy">
         <p class="eyebrow">Official Music Hub</p>
         <h1>Boyington Remix</h1>
         <p class="lead">
-          Un espace simple, mobile et premium pour présenter les morceaux, lancer le player,
+          Un espace premium pour lancer les morceaux, afficher automatiquement tous les MP3 du dépôt,
           suivre la playlist et mettre en avant les dernières sorties.
         </p>
 
@@ -61,22 +62,16 @@
         </div>
       </section>
 
-      <section class="hero-visual">
+      <section class="hero-visual" aria-label="Pochette visuelle">
         <div class="visual-frame">
           <div class="visual-split">
             <div class="visual-left">
               <div class="mini-badge">Latest Drop</div>
-              <h2 id="featuredTitle">Select a track</h2>
-              <p id="featuredMeta">Playlist automatique et lecture en un clic.</p>
+              <h2 id="featuredTitle">Chargement…</h2>
+              <p id="featuredMeta">La playlist se construit automatiquement à partir des MP3 présents dans le dépôt.</p>
             </div>
-            <div class="visual-right" aria-hidden="true">
-              <div class="portrait-card">
-                <div class="portrait-glow"></div>
-                <div class="portrait-text">
-                  <span>BOYINGTON</span>
-                  <span>REMIX</span>
-                </div>
-              </div>
+            <div class="visual-right">
+              <img src="assets/cover.svg" alt="Boyington Remix Cover" class="cover-image" />
             </div>
           </div>
         </div>
@@ -93,7 +88,7 @@
         <div class="now-playing">
           <span class="now-label">En cours</span>
           <h3 id="nowTitle">Aucun titre sélectionné</h3>
-          <p id="nowMeta">Choisis un morceau dans la playlist.</p>
+          <p id="nowMeta">Ajoute des MP3 à la racine du dépôt pour les voir apparaître automatiquement.</p>
         </div>
 
         <audio id="audioPlayer" controls preload="metadata"></audio>
