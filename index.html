@@ -338,90 +338,7 @@
       margin-top:24px;
     }
 
-    .feature-panel,
-    .support-panel{
-      background:rgba(255,255,255,0.03);
-      border:1px solid rgba(255,255,255,0.06);
-      border-radius:20px;
-      padding:18px;
-    }
-
-    .feature-panel h2,
-    .support-panel h2{
-      font-size:1.2rem;
-      margin-bottom:12px;
-      color:#fff;
-    }
-
-    .feature-panel p,
-    .support-panel p,
-    .notes,
-    footer{
-      color:var(--muted);
-      line-height:1.85;
-    }
-
-    .support-list{
-      list-style:none;
-      display:grid;
-      gap:12px;
-      margin-top:14px;
-    }
-
-    .support-list a{
-      text-decoration:none;
-      color:var(--text);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:14px 16px;
-      border-radius:16px;
-      background:rgba(255,255,255,0.035);
-      border:1px solid rgba(255,255,255,0.06);
-      transition:transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-    }
-
-    .support-list a:hover{
-      transform:translateY(-2px);
-      border-color:rgba(212,175,55,0.24);
-      background:rgba(212,175,55,0.08);
-    }
-
-    .support-list span{
-      color:var(--gold);
-      font-weight:700;
-    }
-
-    .cover-image{
-      aspect-ratio:16 / 9;
-      margin-top:16px;
-    }
-
-    .notes{
-      margin-top:24px;
-      text-align:center;
-      font-size:0.96rem;
-    }
-
-    .footer-wrap{
-      margin-top:34px;
-      text-align:center;
-    }
-
-    .footer-brand{
-      color:var(--gold);
-      margin-bottom:8px;
-      letter-spacing:0.08em;
-      text-transform:uppercase;
-    }
-
-    footer{
-      font-size:0.88rem;
-      line-height:1.9;
-    }
-
-    @media (max-width: 1080px){
+    @media (max-width:1080px){
       .hero,
       .quick-grid,
       .bottom-grid{
@@ -429,278 +346,147 @@
       }
 
       .social-grid{
-        grid-template-columns:repeat(2, 1fr);
-      }
-
-      iframe{
-        height:540px;
-        min-height:540px;
+        grid-template-columns:repeat(2,1fr);
       }
     }
 
-    @media (max-width: 700px){
-      body{
-        padding:18px 10px 28px;
-      }
-
-      .hero-main,
-      .hero-side,
-      .card,
-      .quick-card{
-        padding:16px;
-        border-radius:18px;
+    @media (max-width:700px){
+      .social-grid,
+      .bottom-grid,
+      .quick-grid,
+      .info-grid{
+        grid-template-columns:1fr;
       }
 
       .brand-row{
         flex-direction:column;
         align-items:flex-start;
       }
-
-      .info-grid,
-      .bottom-grid,
-      .social-grid{
-        grid-template-columns:1fr;
-      }
-
-      .promo-image{
-        max-height:none;
-      }
-
-      iframe{
-        height:620px;
-        min-height:620px;
-      }
-
-      .latest-copy{
-        flex-direction:column;
-      }
     }
+
   </style>
 </head>
 
 <body>
-  <div class="container">
 
-    <section class="hero">
-      <div class="panel hero-main">
+<div class="container">
 
-        <div class="brand-row">
-          <img class="logo" src="logo-boyington.png" alt="Boyington Remix" />
+  <!-- HERO -->
+  <section class="hero">
 
-          <div>
-            <h1>BOYINGTON<br>REMIX</h1>
+    <div class="panel hero-main">
 
-            <div class="subtitle">
-              Univers premium noir et or, identité cinématique élégante, remixes émotionnels et énergie SoundCloud centralisée dans une présentation plus moderne, équilibrée et immersive.
-            </div>
+      <div class="brand-row">
+
+        <img class="logo" src="logo-boyington.png" alt="Boyington Remix" />
+
+        <div>
+          <h1>BOYINGTON<br>REMIX</h1>
+
+          <div class="subtitle">
+            Univers premium noir et or, identité cinématique élégante, remixes émotionnels et énergie SoundCloud centralisée dans une présentation plus moderne, équilibrée et immersive.
           </div>
         </div>
 
-        <div class="info-grid">
-          <div class="info">
-            <span>Profil</span>
-            <strong>Publications automatiques SoundCloud</strong>
-          </div>
-
-          <div class="info">
-            <span>Direction artistique</span>
-            <strong>Luxe sombre, studio et ambiance premium</strong>
-          </div>
-
-          <div class="info">
-            <span>Plateforme officielle</span>
-            <strong>Boyington Remix SoundCloud</strong>
-          </div>
-        </div>
       </div>
 
-      <aside class="panel hero-side">
-        <div>
-          <div class="mini-title">
-            Compte SoundCloud Boyington Remix<br>(Clique, écoute, partage)
-          </div>
+      <div class="info-grid">
 
-          <a href="https://soundcloud.com/boyingtonremix" target="_blank" rel="noopener noreferrer">
-            <img class="promo-image" src="cover-principal.jpg" alt="Compte SoundCloud Boyington Remix" />
-          </a>
+        <div class="info">
+          <span>Profil</span>
+          <strong>Publications automatiques SoundCloud</strong>
         </div>
 
-        <div>
-          <div class="mini-title">Studio Boyington Remix</div>
-          <img class="studio-image" src="Studio Console.png" alt="Studio Boyington Remix" />
+        <div class="info">
+          <span>Direction artistique</span>
+          <strong>Luxe sombre, studio et ambiance premium</strong>
         </div>
-      </aside>
-    </section>
 
-    <section class="quick-grid" aria-label="Accès rapides">
+        <div class="info">
+          <span>Plateforme officielle</span>
+          <strong>Boyington Remix SoundCloud</strong>
+        </div>
 
-      <div class="card quick-card">
-        <h2 class="section-title">Dernier titre uploadé</h2>
+      </div>
 
-        <a class="latest-release" href="#player" aria-label="Aller au lecteur SoundCloud">
+    </div>
 
-          <div class="latest-frame">
-            <img class="cover-image" src="cover-principal.jpg" alt="Dernier titre Boyington Remix" />
-          </div>
+    <aside class="panel hero-side">
 
-          <div class="latest-copy">
-            <div>
-              <strong>Dernier titre publié</strong>
-              Clique sur la pochette pour aller directement au player SoundCloud.
-            </div>
+      <div>
 
-            <span>▶ Ouvrir</span>
-          </div>
+        <div class="mini-title">
+          Compte SoundCloud Boyington Remix<br>(Clique, écoute, partage)
+        </div>
+
+        <a href="https://soundcloud.com/boyingtonremix" target="_blank">
+
+          <img class="promo-image"
+               src="cover-principal.jpg"
+               alt="Compte SoundCloud Boyington Remix" />
+
         </a>
+
       </div>
 
-      <div class="card quick-card">
-        <h2 class="section-title">Réseaux & liens</h2>
+      <div>
 
-        <div class="social-grid">
-
-          <a class="social-link"
-             href="https://soundcloud.com/boyingtonremix"
-             target="_blank">
-            <span>SC</span> SoundCloud
-          </a>
-
-          <a class="social-link"
-             href="https://www.facebook.com/LoranBoyington/"
-             target="_blank">
-            <span>f</span> Facebook
-          </a>
-
-          <a class="social-link"
-             href="https://www.tiktok.com/@boyingtonremixofficiel"
-             target="_blank">
-            <span>TT</span> TikTok
-          </a>
-
-          <a class="social-link"
-             href="https://www.youtube.com/@BoyingtonCollection"
-             target="_blank">
-            <span>YT</span> YouTube
-          </a>
-
-          <a class="social-link"
-             href="https://www.facebook.com/groups/DjsSetMusicForPeople"
-             target="_blank">
-            <span>DJ</span> Groupe Facebook DJ
-          </a>
-
+        <div class="mini-title">
+          Studio Boyington Remix
         </div>
-      </div>
-    </section>
 
-    <section class="card player-section" id="player">
+        <img class="studio-image"
+             src="Studio Console.png"
+             alt="Studio Boyington Remix" />
+
+      </div>
+
+    </aside>
+
+  </section>
+
+  <!-- PLAYER REMONTÉ -->
+  <section class="card player-section" id="player">
+
+    <h2 class="section-title">
+      Dernières sorties SoundCloud
+    </h2>
+
+    <div class="player-wrap">
+
+      <iframe
+        title="Boyington Remix SoundCloud Profile"
+        scrolling="no"
+        allow="autoplay"
+        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/boyingtonremix&color=%23d4af37&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true">
+      </iframe>
+
+    </div>
+
+  </section>
+
+  <!-- QUICK GRID -->
+  <section class="quick-grid">
+
+    <div class="card quick-card">
 
       <h2 class="section-title">
-        Dernières sorties SoundCloud
+        Dernier titre uploadé
       </h2>
 
-      <div class="player-wrap">
-
-        <iframe
-          title="Boyington Remix SoundCloud Profile"
-          scrolling="no"
-          allow="autoplay"
-          src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/boyingtonremix&color=%23d4af37&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true">
-        </iframe>
-
-      </div>
-    </section>
-
-    <section class="bottom-grid">
-
-      <div class="card">
-
-        <h2 class="section-title">
-          Boyington Remix Project
-        </h2>
-
-        <div class="feature-panel">
-
-          <h2 style="font-size:1.55rem; color:var(--gold); margin-bottom:18px; line-height:1.5;">
-            🎧 𝐁𝐨𝐲𝐢𝐧𝐠𝐭𝐨𝐧 𝐑𝐞𝐦𝐢𝐱 🎧
-          </h2>
-
-          <p style="font-size:0.98rem; line-height:1.95; color:#d2d2d2;">
-            ✨ <strong>𝐀 𝐒𝐭𝐨𝐫𝐲 𝐁𝐨𝐫𝐧 𝐅𝐫𝐨𝐦 𝐏𝐚𝐬𝐬𝐢𝐨𝐧</strong><br><br>
-
-            <strong>𝐁𝐨𝐲𝐢𝐧𝐠𝐭𝐨𝐧 𝐑𝐞𝐦𝐢𝐱</strong> was not born from strategy or a desire for fame.
-            It is a project born from pure passion.
-          </p>
-
-        </div>
-      </div>
-
-      <div class="card">
-
-        <h2 class="section-title">
-          Support the Project
-        </h2>
-
-        <div class="support-panel">
-
-          <h2>Support the Project</h2>
-
-          <p>
-            Aide le projet à grandir et reste connecté à l’univers Boyington Remix.
-          </p>
-
-          <ul class="support-list">
-
-            <li>
-              <a href="https://soundcloud.com/boyingtonremix" target="_blank">
-                <span>01</span> Follow on SoundCloud
-              </a>
-            </li>
-
-            <li>
-              <a href="https://www.facebook.com/LoranBoyington/" target="_blank">
-                <span>02</span> Share the music
-              </a>
-            </li>
-
-            <li>
-              <a href="https://www.facebook.com/groups/DjsSetMusicForPeople" target="_blank">
-                <span>03</span> Join the Facebook community
-              </a>
-            </li>
-
-          </ul>
-
-        </div>
-      </div>
-    </section>
-
-    <div class="notes">
-      Ajoute tes nouveaux tracks sur ton profil SoundCloud en public pour qu'ils remontent automatiquement dans le lecteur.
     </div>
 
-    <div class="footer-wrap">
+    <div class="card quick-card">
 
-      <div class="footer-brand">
-        Boyington Remix
-      </div>
-
-      <footer style="text-align:center; max-width:900px; margin:0 auto;">
-
-        🎧 Créations/Remixes DJ non commerciales et non Officiel<br />
-        🎶 Soutenez toujours les artistes et labels officiels.<br />
-        📀 Licence : Creative Commons (CC BY-NC)<br />
-        Utilisation non commerciale autorisée avec crédit.<br /><br />
-
-        ⚠️ Tous les droits sur les œuvres originales appartiennent à leurs propriétaires respectifs.<br /><br />
-
-        @BoyingtonRemixOfficial All Rights Reserved<br />
-        Alias Péppino
-
-      </footer>
+      <h2 class="section-title">
+        Réseaux & liens
+      </h2>
 
     </div>
 
-  </div>
+  </section>
+
+</div>
+
 </body>
 </html>
