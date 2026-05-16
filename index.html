@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -320,34 +319,19 @@
         <div class="kicker">Identité électronique premium</div>
         <h1><span class="white">BOYINGTON</span><span class="gold">REMIX</span></h1>
         <div class="subtitle">Son cinématique • Énergie émotionnelle • Signature musicale</div>
-        <div class="manifesto">
-          <p>🎧 𝐁𝐨𝐲𝐢𝐧𝐠𝐭𝐨𝐧 𝐑𝐞𝐦𝐢𝐱 🎧</p>
-          <p>✨ 𝐀 𝐒𝐭𝐨𝐫𝐲 𝐁𝐨𝐫𝐧 𝐅𝐫𝐨𝐦 𝐏𝐚𝐬𝐬𝐢𝐨𝐧</p>
-          <p>𝐁𝐨𝐲𝐢𝐧𝐠𝐭𝐨𝐧 𝐑𝐞𝐦𝐢𝐱 was not born from strategy or a desire for fame.</p>
-          <p>It is a project born from pure passion — the kind that wakes you up in the middle of the night searching for the right sound 🎹,
-            the perfect drop 🔥, the right emotion ❤️.</p>
-          <p>🎶 𝐒𝐢𝐧𝐜𝐞𝐫𝐞 𝐌𝐮𝐬𝐢𝐜</p>
-          <p>Here, every sound is genuine.</p>
-          <p>Every Remix or Original Mix tells something real 🌌.</p>
-          <p>Because music only has meaning when it is shared 🤝🎵.</p>
-          <p>✅ Just authentic music, created with soul and shared without limits ✨</p>
-          <p>🌙 𝐀 𝐃𝐢𝐟𝐟𝐞𝐫𝐞𝐧𝐭 𝐕𝐢𝐬𝐢𝐨𝐧</p>
-          <p>Boyington Remix was born differently — in the silence of a passionate creator 🎧, guided by one single belief:</p>
-          <p>💭 𝐌𝐮𝐬𝐢𝐜 𝐬𝐡𝐨𝐮𝐥𝐝 𝐭𝐨𝐮𝐜𝐡 𝐩𝐞𝐨𝐩𝐥𝐞 𝐛𝐞𝐟𝐨𝐫𝐞 𝐢𝐭 𝐭𝐫𝐢𝐞𝐬 𝐭𝐨 𝐩𝐥𝐞𝐚𝐬𝐞.</p>
-          <p>❤️ 𝐄𝐯𝐞𝐫𝐲 𝐑𝐞𝐦𝐢𝐱 𝐈𝐬 𝐀 𝐉𝐨𝐮𝐫𝐧𝐞𝐲</p>
-          <p>🎵 Every track is a confession</p>
-          <p>🌍 Every remix is a journey</p>
-          <p>🔥 Nothing here is calculated. Everything is felt.</p>
-          <p>Just one man, his sounds, and the sincere desire to share something beautiful ✨</p>
-          <p>👑 𝐁𝐨𝐲𝐢𝐧𝐠𝐭𝐨𝐧 𝐑𝐞𝐦𝐢𝐱</p>
-          <p>🎼 𝐁𝐨𝐫𝐧 𝐅𝐫𝐨𝐦 𝐏𝐚𝐬𝐬𝐢𝐨𝐧 𝐀𝐧𝐝 𝐒𝐡𝐚𝐫𝐢𝐧𝐠 🎼</p>
-        </div>
+        <p class="lead">Une expérience électronique unique entre émotion, groove et puissance. Le site reprend une direction visuelle sombre et luxueuse, avec un player central et une playlist propre.</p>
         <div class="btns">
           <button class="btn primary" onclick="document.getElementById('musique').scrollIntoView({behavior:'smooth'})">▶ Écouter maintenant</button>
           <button class="btn" onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'})">Voir les dernières sorties</button>
           <button class="btn" onclick="document.getElementById('playlistSection').scrollIntoView({behavior:'smooth'})">Playlist complète</button>
         </div>
-  
+      </div>
+      <div class="hero-right">
+        <img class="hero-studio" src="Studio_Boyington.png" alt="Boyington Studio">
+        <div class="hero-chip">
+          <small>Playlist officielle</small>
+          <p>Covers depuis tags ID3<br/>Chargement automatique des MP3</p>
+        </div>
       </div>
     </section>    <section class="player-grid" id="musique">
       <div class="player">
@@ -370,10 +354,6 @@
           </div>
           <div class="slider-row"><span>🔊</span><input type="range" id="volume" min="0" max="1" step="0.01" value="0.8"></div>
           <div class="helper" id="statusLine">Chargement de la playlist…</div>
-
-          <div class="official-logo-box" style="margin-top:18px;padding:22px 18px;display:flex;justify-content:center;align-items:center;border:1px solid rgba(255,255,255,.08);border-radius:22px;background:rgba(255,255,255,.03);box-shadow:0 18px 50px rgba(0,0,0,.25);">
-            <img src="boyington-official-logo.png" alt="Logo officiel Boyington Remix" style="width:min(420px,90%);height:auto;display:block;object-fit:contain;filter:drop-shadow(0 18px 28px rgba(0,0,0,.45));">
-          </div>
         </div>
       </div>
 
@@ -413,10 +393,16 @@
   </main>
 
   <footer class="footer" id="contact">
-    <p>🎧 Créations/remixes DJ non commerciales et non officielles</p>
-    <p>⚠️ Tous les droits sur les œuvres originales appartiennent à leurs propriétaires respectifs.</p>
-    <p>🎶 Soutenez toujours les artistes et labels officiels.</p>
-    <p>📀 Licence : Creative Commons (CC BY-NC)<br>Utilisation non commerciale autorisée avec mention de l'auteur.</p>
+    <div>© BOYINGTON REMIX — Tous droits réservés</div>
+    <div>Alias Péppino</div>
+    <div class="links">
+      <a href="#" target="_blank" rel="noopener">SoundCloud</a>
+      <a href="#" target="_blank" rel="noopener">Spotify</a>
+      <a href="#" target="_blank" rel="noopener">Beatport</a>
+      <a href="#" target="_blank" rel="noopener">YouTube</a>
+      <a href="#" target="_blank" rel="noopener">Instagram</a>
+      <a href="#" target="_blank" rel="noopener">Facebook</a>
+    </div>
   </footer>
 
   <div class="mini-player" id="miniPlayer">
