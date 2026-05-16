@@ -1,749 +1,700 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Boyington Remix</title>
-
-  <style>
-    :root{
-      --bg:#050505;
-      --panel:rgba(10,10,10,0.94);
-      --panel-2:rgba(14,14,14,0.98);
-      --gold:#d4af37;
-      --gold-2:#f0c95a;
-      --gold-soft:rgba(212,175,55,0.10);
-      --text:#f3f3f3;
-      --muted:#c8c8c8;
-      --border:rgba(212,175,55,0.18);
-      --border-soft:rgba(212,175,55,0.10);
-      --shadow:0 18px 60px rgba(0,0,0,0.48);
-      --radius:22px;
-    }
-
-    *{
-      box-sizing:border-box;
-      margin:0;
-      padding:0;
-    }
-
-    html{
-      scroll-behavior:smooth;
-    }
-
-    body{
-      font-family:Arial, Helvetica, sans-serif;
-      color:var(--text);
-      min-height:100vh;
-      padding:22px 16px 40px;
-      background:
-        radial-gradient(circle at 50% 8%, rgba(212,175,55,0.12), transparent 18%),
-        radial-gradient(circle at 15% 30%, rgba(212,175,55,0.08), transparent 20%),
-        radial-gradient(circle at 88% 74%, rgba(212,175,55,0.06), transparent 18%),
-        linear-gradient(180deg, rgba(5,5,5,0.86), rgba(5,5,5,0.94)),
-        url('background-boyington-remix.jpg') center/cover fixed no-repeat,
-        linear-gradient(180deg, #070707 0%, #0d0d0d 100%);
-      overflow-x:hidden;
-    }
-
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      background:
-        linear-gradient(90deg, transparent 0%, rgba(212,175,55,0.02) 50%, transparent 100%),
-        radial-gradient(circle at 10% 14%, rgba(212,175,55,0.10), transparent 18%),
-        radial-gradient(circle at 90% 12%, rgba(212,175,55,0.08), transparent 16%);
-      z-index:0;
-    }
-
-    .container{
-      max-width:1360px;
-      margin:0 auto;
-      position:relative;
-      z-index:1;
-    }
-
-    .panel,
-    .card{
-      background:linear-gradient(180deg, rgba(12,12,12,0.96), rgba(7,7,7,0.96));
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(10px);
-    }
-
-    .hero{
-      display:grid;
-      grid-template-columns:1.7fr 0.9fr;
-      gap:20px;
-      margin-bottom:18px;
-      align-items:stretch;
-    }
-
-    .hero-main{
-      min-height:520px;
-      padding:30px 28px 28px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      position:relative;
-      overflow:hidden;
-      text-align:center;
-      background:
-        radial-gradient(circle at 50% 36%, rgba(212,175,55,0.14), transparent 18%),
-        radial-gradient(circle at 50% 72%, rgba(212,175,55,0.08), transparent 26%),
-        linear-gradient(180deg, rgba(10,10,10,0.98), rgba(5,5,5,0.98));
-    }
-
-    .hero-main::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(90deg, transparent 0%, rgba(212,175,55,0.05) 14%, transparent 28%, transparent 72%, rgba(212,175,55,0.05) 86%, transparent 100%);
-      opacity:0.35;
-      pointer-events:none;
-    }
-
-    .hero-main::after{
-      content:"";
-      position:absolute;
-      left:50%;
-      bottom:38px;
-      transform:translateX(-50%);
-      width:340px;
-      height:1px;
-      background:linear-gradient(90deg, transparent, rgba(212,175,55,0.88), transparent);
-      box-shadow:0 0 12px rgba(212,175,55,0.45);
-      pointer-events:none;
-    }
-
-    .brand-stack{
-      position:relative;
-      z-index:1;
-      width:100%;
-      max-width:900px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:20px;
-    }
-
-    .logo{
-      width:150px;
-      height:150px;
-      object-fit:contain;
-      display:block;
-      border-radius:999px;
-      background:#090909;
-      border:1px solid rgba(212,175,55,0.22);
-      box-shadow:0 0 30px rgba(212,175,55,0.18);
-    }
-
-    h1{
-      color:var(--gold);
-      font-size:clamp(3rem, 6.6vw, 6rem);
-      line-height:0.92;
-      letter-spacing:0.22em;
-      text-transform:uppercase;
-      margin:0;
-      text-align:center;
-      text-shadow:0 0 22px rgba(212,175,55,0.10);
-    }
-
-    .hero-divider{
-      width:min(560px, 88%);
-      height:34px;
-      position:relative;
-      margin-top:8px;
-    }
-
-    .hero-divider::before,
-    .hero-divider::after{
-      content:"";
-      position:absolute;
-      top:50%;
-      width:calc(50% - 26px);
-      height:1px;
-      background:linear-gradient(90deg, transparent, rgba(212,175,55,0.84), transparent);
-      transform:translateY(-50%);
-    }
-
-    .hero-divider::before{
-      left:0;
-    }
-
-    .hero-divider::after{
-      right:0;
-    }
-
-    .hero-divider span{
-      position:absolute;
-      left:50%;
-      top:50%;
-      width:28px;
-      height:28px;
-      transform:translate(-50%,-50%) rotate(45deg);
-      border:1px solid rgba(212,175,55,0.72);
-      background:rgba(212,175,55,0.06);
-      box-shadow:0 0 18px rgba(212,175,55,0.14);
-    }
-
-    .hero-side{
-      padding:18px;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      gap:16px;
-      min-height:520px;
-    }
-
-    .mini-panel{
-      border:1px solid rgba(212,175,55,0.22);
-      border-radius:18px;
-      background:linear-gradient(180deg, rgba(8,8,8,0.92), rgba(12,12,12,0.98));
-      padding:12px;
-      box-shadow:inset 0 0 0 1px rgba(255,255,255,0.01);
-    }
-
-    .mini-title{
-      color:var(--gold-2);
-      text-transform:uppercase;
-      letter-spacing:0.08em;
-      font-size:0.95rem;
-      line-height:1.45;
-      text-align:center;
-      margin-bottom:10px;
-    }
-
-    .mini-title span{
-      color:#d7d7d7;
-      font-size:0.88rem;
-      display:block;
-      margin-top:2px;
-      text-transform:none;
-      letter-spacing:0.05em;
-    }
-
-    .promo-image,
-    .cover-image,
-    .studio-image{
-      width:100%;
-      object-fit:cover;
-      border-radius:14px;
-      border:1px solid rgba(212,175,55,0.16);
-      box-shadow:0 12px 28px rgba(0,0,0,0.34);
-      transition:transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
-      display:block;
-      background:#0a0a0a;
-    }
-
-    .promo-image{
-      aspect-ratio:1.10 / 1;
-    }
-
-    .studio-image{
-      aspect-ratio:16 / 8;
-    }
-
-    a:hover .promo-image,
-    a:hover .cover-image,
-    a:hover .studio-image{
-      transform:scale(1.015);
-      box-shadow:0 16px 36px rgba(0,0,0,0.42);
-      filter:saturate(1.04);
-    }
-
-    .player-section{
-      margin-bottom:20px;
-      padding:18px;
-    }
-
-    .section-title{
-      color:var(--gold-2);
-      text-transform:uppercase;
-      letter-spacing:0.08em;
-      margin-bottom:14px;
-      font-size:1.08rem;
-    }
-
-    .player-wrap{
-      width:100%;
-      overflow:hidden;
-      border-radius:18px;
-      border:1px solid rgba(212,175,55,0.14);
-      background:#0a0a0a;
-    }
-
-    iframe{
-      width:100%;
-      border:0;
-      display:block;
-      border-radius:18px;
-      height:460px;
-      min-height:460px;
-      background:#0a0a0a;
-    }
-
-    .quick-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:20px;
-      margin-bottom:20px;
-    }
-
-    .quick-card{
-      padding:18px;
-    }
-
-    .latest-release{
-      display:block;
-      text-decoration:none;
-      color:inherit;
-    }
-
-    .latest-frame{
-      overflow:hidden;
-      border-radius:18px;
-      border:1px solid rgba(212,175,55,0.16);
-      background:#0a0a0a;
-    }
-
-    .latest-copy{
-      margin-top:12px;
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      align-items:flex-start;
-      color:var(--muted);
-      line-height:1.72;
-    }
-
-    .latest-copy strong{
-      display:block;
-      color:#fff;
-      margin-bottom:4px;
-      font-size:1rem;
-    }
-
-    .social-grid{
-      display:grid;
-      grid-template-columns:repeat(4, 1fr);
-      gap:12px;
-    }
-
-    .social-link{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      min-height:64px;
-      text-decoration:none;
-      color:var(--text);
-      border-radius:16px;
-      background:rgba(255,255,255,0.03);
-      border:1px solid rgba(255,255,255,0.07);
-      transition:transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-      font-size:0.95rem;
-      font-weight:700;
-      text-align:center;
-      padding:0 12px;
-    }
-
-    .social-link span{
-      width:28px;
-      height:28px;
-      border-radius:999px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      background:rgba(212,175,55,0.14);
-      color:var(--gold);
-      font-size:0.9rem;
-      flex:0 0 auto;
-    }
-
-    .social-link:hover{
-      transform:translateY(-2px);
-      border-color:rgba(212,175,55,0.24);
-      background:rgba(212,175,55,0.08);
-    }
-
-    .bottom-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:20px;
-      margin-top:20px;
-    }
-
-    .feature-panel,
-    .support-panel{
-      background:rgba(255,255,255,0.025);
-      border:1px solid rgba(255,255,255,0.06);
-      border-radius:18px;
-      padding:18px;
-    }
-
-    .feature-panel h2,
-    .support-panel h2{
-      font-size:1.18rem;
-      margin-bottom:12px;
-      color:#fff;
-    }
-
-    .feature-panel p,
-    .support-panel p,
-    .notes,
-    footer{
-      color:var(--muted);
-      line-height:1.85;
-    }
-
-    .support-list{
-      list-style:none;
-      display:grid;
-      gap:12px;
-      margin-top:14px;
-    }
-
-    .support-list a{
-      text-decoration:none;
-      color:var(--text);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:14px 16px;
-      border-radius:16px;
-      background:rgba(255,255,255,0.03);
-      border:1px solid rgba(255,255,255,0.06);
-      transition:transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-    }
-
-    .support-list a:hover{
-      transform:translateY(-2px);
-      border-color:rgba(212,175,55,0.24);
-      background:rgba(212,175,55,0.08);
-    }
-
-    .support-list span{
-      color:var(--gold);
-      font-weight:700;
-    }
-
-    .cover-image{
-      aspect-ratio:16 / 9;
-      margin-top:16px;
-    }
-
-    .notes{
-      margin-top:22px;
-      text-align:center;
-      font-size:0.96rem;
-      padding:0 8px;
-    }
-
-    .footer-wrap{
-      margin-top:30px;
-      text-align:center;
-    }
-
-    .footer-brand{
-      color:var(--gold);
-      margin-bottom:10px;
-      letter-spacing:0.08em;
-      text-transform:uppercase;
-      font-weight:700;
-    }
-
-    footer{
-      font-size:0.88rem;
-      line-height:1.9;
-      max-width:900px;
-      margin:0 auto;
-    }
-
-    @media (max-width: 1180px){
-      .hero,
-      .quick-grid,
-      .bottom-grid{
-        grid-template-columns:1fr;
-      }
-
-      .hero-main,
-      .hero-side{
-        min-height:auto;
-      }
-
-      .hero-main{
-        padding:26px 18px 32px;
-      }
-
-      .hero-side{
-        gap:14px;
-      }
-
-      iframe{
-        height:520px;
-        min-height:520px;
-      }
-
-      .social-grid{
-        grid-template-columns:repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 720px){
-      body{
-        padding:14px 10px 28px;
-      }
-
-      .player-section,
-      .quick-card{
-        padding:14px;
-      }
-
-      .hero-main{
-        padding:22px 14px 26px;
-      }
-
-      .brand-stack{
-        gap:16px;
-      }
-
-      .logo{
-        width:118px;
-        height:118px;
-      }
-
-      h1{
-        font-size:clamp(2.4rem, 13vw, 4rem);
-        letter-spacing:0.14em;
-      }
-
-      .hero-divider{
-        width:min(420px, 90%);
-      }
-
-      .mini-panel,
-      .card,
-      .panel{
-        border-radius:18px;
-      }
-
-      .social-grid,
-      .bottom-grid,
-      .quick-grid{
-        grid-template-columns:1fr;
-      }
-
-      iframe{
-        height:620px;
-        min-height:620px;
-      }
-
-      .latest-copy{
-        flex-direction:column;
-      }
-
-      .footer-wrap{
-        margin-top:24px;
-      }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Boyington Remix</title>
+
+<style>
+
+:root{
+  --gold:#d4af37;
+  --gold-light:#f1cd63;
+  --bg:#050505;
+  --panel:#0b0b0b;
+  --panel-2:#101010;
+  --text:#f3f3f3;
+  --muted:#bdbdbd;
+  --border:rgba(212,175,55,0.18);
+  --shadow:0 18px 60px rgba(0,0,0,0.55);
+  --radius:22px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:Arial, Helvetica, sans-serif;
+  color:var(--text);
+  background:
+    linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.92)),
+    url('background-boyington-remix.jpg') center/cover fixed no-repeat;
+  min-height:100vh;
+  overflow-x:hidden;
+  padding:18px;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at top, rgba(212,175,55,0.08), transparent 22%),
+    radial-gradient(circle at bottom right, rgba(212,175,55,0.06), transparent 20%);
+  z-index:0;
+}
+
+.container{
+  position:relative;
+  z-index:1;
+  max-width:1400px;
+  margin:auto;
+}
+
+.panel,
+.card{
+  background:linear-gradient(180deg, rgba(10,10,10,0.95), rgba(5,5,5,0.96));
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+
+.hero{
+  display:grid;
+  grid-template-columns:1.8fr 0.8fr;
+  gap:20px;
+  margin-bottom:18px;
+}
+
+.hero-main{
+  position:relative;
+  min-height:560px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:40px;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.72));
+}
+
+.hero-main::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(90deg,
+      transparent 0%,
+      rgba(212,175,55,0.05) 18%,
+      transparent 36%,
+      transparent 64%,
+      rgba(212,175,55,0.05) 82%,
+      transparent 100%);
+  pointer-events:none;
+}
+
+.hero-center{
+  position:relative;
+  z-index:2;
+  width:100%;
+  max-width:900px;
+}
+
+.logo{
+  width:170px;
+  height:170px;
+  object-fit:contain;
+  margin:0 auto 24px;
+  display:block;
+  filter:drop-shadow(0 0 18px rgba(212,175,55,0.20));
+}
+
+h1{
+  color:var(--gold);
+  font-size:clamp(3rem, 7vw, 6.4rem);
+  line-height:0.95;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  text-align:center;
+  text-shadow:0 0 18px rgba(212,175,55,0.14);
+}
+
+.hero-divider{
+  width:420px;
+  max-width:85%;
+  height:34px;
+  margin:26px auto 0;
+  position:relative;
+}
+
+.hero-divider::before,
+.hero-divider::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  width:42%;
+  height:1px;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.hero-divider::before{
+  left:0;
+}
+
+.hero-divider::after{
+  right:0;
+}
+
+.hero-divider span{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:24px;
+  height:24px;
+  transform:translate(-50%, -50%) rotate(45deg);
+  border:1px solid rgba(212,175,55,0.7);
+  background:rgba(212,175,55,0.08);
+}
+
+.hero-side{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  padding:16px;
+}
+
+.side-box{
+  background:rgba(8,8,8,0.92);
+  border:1px solid rgba(212,175,55,0.18);
+  border-radius:18px;
+  padding:12px;
+}
+
+.side-title{
+  color:var(--gold-light);
+  text-transform:uppercase;
+  text-align:center;
+  line-height:1.6;
+  font-size:0.95rem;
+  margin-bottom:10px;
+}
+
+.side-title span{
+  color:#d8d8d8;
+  display:block;
+  font-size:0.82rem;
+}
+
+.promo-image,
+.studio-image,
+.cover-image{
+  width:100%;
+  border-radius:14px;
+  border:1px solid rgba(212,175,55,0.14);
+  display:block;
+  object-fit:cover;
+}
+
+.promo-image{
+  aspect-ratio:1/1;
+}
+
+.studio-image{
+  aspect-ratio:16/8;
+}
+
+.player-section{
+  padding:18px;
+  margin-bottom:20px;
+}
+
+.section-title{
+  color:var(--gold-light);
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  margin-bottom:14px;
+  font-size:1.08rem;
+}
+
+.player-wrap{
+  border-radius:18px;
+  overflow:hidden;
+  border:1px solid rgba(212,175,55,0.14);
+}
+
+iframe{
+  width:100%;
+  height:460px;
+  border:0;
+  display:block;
+}
+
+.quick-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  margin-bottom:20px;
+}
+
+.quick-card{
+  padding:18px;
+}
+
+.latest-release{
+  text-decoration:none;
+  color:inherit;
+  display:block;
+}
+
+.latest-frame{
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid rgba(212,175,55,0.14);
+}
+
+.latest-copy{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+  margin-top:14px;
+  line-height:1.7;
+  color:var(--muted);
+}
+
+.latest-copy strong{
+  display:block;
+  color:#fff;
+  margin-bottom:4px;
+}
+
+.open-btn{
+  border:1px solid rgba(212,175,55,0.22);
+  color:var(--gold);
+  padding:12px 18px;
+  border-radius:12px;
+  text-transform:uppercase;
+  font-weight:bold;
+  letter-spacing:0.08em;
+}
+
+.social-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.social-link{
+  min-height:66px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  border-radius:14px;
+  border:1px solid rgba(212,175,55,0.14);
+  background:rgba(255,255,255,0.02);
+  color:#fff;
+  text-decoration:none;
+  font-weight:bold;
+  transition:0.2s ease;
+}
+
+.social-link:hover{
+  background:rgba(212,175,55,0.08);
+  transform:translateY(-2px);
+}
+
+.bottom-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.feature-panel,
+.support-panel{
+  background:rgba(255,255,255,0.02);
+  border:1px solid rgba(255,255,255,0.05);
+  border-radius:18px;
+  padding:18px;
+}
+
+.feature-panel p,
+.support-panel p{
+  color:var(--muted);
+  line-height:1.9;
+}
+
+.support-list{
+  list-style:none;
+  margin-top:16px;
+  display:grid;
+  gap:12px;
+}
+
+.support-list a{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  text-decoration:none;
+  color:#fff;
+  padding:14px 16px;
+  border-radius:14px;
+  border:1px solid rgba(212,175,55,0.14);
+  background:rgba(255,255,255,0.02);
+}
+
+.support-list span{
+  color:var(--gold);
+  font-weight:bold;
+}
+
+.notes{
+  margin-top:22px;
+  text-align:center;
+  color:var(--muted);
+  line-height:1.8;
+}
+
+.footer-wrap{
+  margin-top:28px;
+  text-align:center;
+}
+
+.footer-brand{
+  color:var(--gold);
+  margin-bottom:10px;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  font-weight:bold;
+}
+
+footer{
+  color:var(--muted);
+  line-height:1.9;
+  font-size:0.9rem;
+}
+
+@media(max-width:1100px){
+
+.hero,
+.quick-grid,
+.bottom-grid{
+  grid-template-columns:1fr;
+}
+
+.social-grid{
+  grid-template-columns:repeat(2,1fr);
+}
+
+.hero-main{
+  min-height:auto;
+}
+
+}
+
+@media(max-width:700px){
+
+body{
+  padding:10px;
+}
+
+.logo{
+  width:120px;
+  height:120px;
+}
+
+h1{
+  font-size:clamp(2.4rem, 13vw, 4rem);
+  letter-spacing:0.14em;
+}
+
+.social-grid{
+  grid-template-columns:1fr;
+}
+
+.quick-grid,
+.bottom-grid{
+  grid-template-columns:1fr;
+}
+
+.latest-copy{
+  flex-direction:column;
+}
+
+iframe{
+  height:620px;
+}
+
+}
+
+</style>
 </head>
 
 <body>
-  <div class="container">
 
-    <section class="hero">
-      <div class="panel hero-main">
-        <div class="brand-stack">
-          <img class="logo" src="logo-boyington.png" alt="Boyington Remix" />
+<div class="container">
 
-          <div>
-            <h1>BOYINGTON<br>REMIX</h1>
-            <div class="hero-divider"><span></span></div>
-          </div>
-        </div>
-      </div>
+<section class="hero">
 
-      <aside class="panel hero-side">
-        <div class="mini-panel">
-          <div class="mini-title">
-            Compte SoundCloud Boyington Remix
-            <span>(Clique, écoute, partage)</span>
-          </div>
-          <a href="https://soundcloud.com/boyingtonremix" target="_blank" rel="noopener noreferrer">
-            <img class="promo-image" src="cover-principal.jpg" alt="Compte SoundCloud Boyington Remix" />
-          </a>
-        </div>
+<div class="panel hero-main">
 
-        <div class="mini-panel">
-          <div class="mini-title">Studio Boyington Remix</div>
-          <img class="studio-image" src="Studio Console.png" alt="Studio Boyington Remix" />
-        </div>
-      </aside>
-    </section>
+<div class="hero-center">
 
-    <section class="card player-section" id="player">
-      <h2 class="section-title">
-        Dernières sorties SoundCloud
-      </h2>
+<img class="logo"
+src="logo-boyington.jpg"
+alt="Boyington Remix">
 
-      <div class="player-wrap">
-        <iframe
-          title="Boyington Remix SoundCloud Profile"
-          scrolling="no"
-          allow="autoplay"
-          src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/boyingtonremix&color=%23d4af37&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true">
-        </iframe>
-      </div>
-    </section>
+<h1>
+BOYINGTON<br>
+REMIX
+</h1>
 
-    <section class="quick-grid" aria-label="Accès rapides">
+<div class="hero-divider">
+<span></span>
+</div>
 
-      <div class="card quick-card">
-        <h2 class="section-title">Dernier titre uploadé</h2>
+</div>
 
-        <a class="latest-release" href="#player" aria-label="Aller au lecteur SoundCloud">
-          <div class="latest-frame">
-            <img class="cover-image" src="cover-principal.jpg" alt="Dernier titre Boyington Remix" />
-          </div>
+</div>
 
-          <div class="latest-copy">
-            <div>
-              <strong>Dernier titre publié</strong>
-              Clique sur la pochette pour aller directement au player SoundCloud.
-            </div>
+<aside class="panel hero-side">
 
-            <span>▶ Ouvrir</span>
-          </div>
-        </a>
-      </div>
+<div class="side-box">
 
-      <div class="card quick-card">
-        <h2 class="section-title">Réseaux & liens</h2>
+<div class="side-title">
+Compte SoundCloud Boyington Remix
+<span>(Clique, écoute, partage)</span>
+</div>
 
-        <div class="social-grid">
-          <a class="social-link"
-             href="https://soundcloud.com/boyingtonremix"
-             target="_blank"
-             rel="noopener noreferrer">
-            <span>SC</span> SoundCloud
-          </a>
+<a href="https://soundcloud.com/boyingtonremix" target="_blank">
 
-          <a class="social-link"
-             href="https://www.facebook.com/LoranBoyington/"
-             target="_blank"
-             rel="noopener noreferrer">
-            <span>f</span> Facebook
-          </a>
+<img class="promo-image"
+src="cover-principal.jpg"
+alt="Boyington Remix">
 
-          <a class="social-link"
-             href="https://www.tiktok.com/@boyingtonremixofficiel"
-             target="_blank"
-             rel="noopener noreferrer">
-            <span>TT</span> TikTok
-          </a>
+</a>
 
-          <a class="social-link"
-             href="https://www.youtube.com/@BoyingtonCollection"
-             target="_blank"
-             rel="noopener noreferrer">
-            <span>YT</span> YouTube
-          </a>
+</div>
 
-          <a class="social-link"
-             href="https://www.facebook.com/groups/DjsSetMusicForPeople"
-             target="_blank"
-             rel="noopener noreferrer">
-            <span>DJ</span> Groupe Facebook DJ
-          </a>
-        </div>
-      </div>
-    </section>
+<div class="side-box">
 
-    <section class="bottom-grid">
-      <div class="card">
-        <h2 class="section-title">
-          Boyington Remix Project
-        </h2>
+<div class="side-title">
+Studio Boyington Remix
+</div>
 
-        <div class="feature-panel">
-          <h2 style="font-size:1.55rem; color:var(--gold); margin-bottom:18px; line-height:1.5;">
-            🎧 𝐁𝐨𝐲𝐢𝐧𝐠𝐭𝐨𝐧 𝐑𝐞𝐦𝐢𝐱 🎧
-          </h2>
+<img class="studio-image"
+src="Studio-Console.jpg"
+alt="Studio Boyington Remix">
 
-          <p style="font-size:0.98rem; line-height:1.95; color:#d2d2d2;">
-            ✨ <strong>𝐀 𝐒𝐭𝐨𝐫𝐲 𝐁𝐨𝐫𝐧 𝐅𝐫𝐨𝐦 𝐏𝐚𝐬𝐬𝐢𝐨𝐧</strong><br><br>
+</div>
 
-            <strong>𝐁𝐨𝐲𝐢𝐧𝐠𝐭𝐨𝐧 𝐑𝐞𝐦𝐢𝐱</strong> was not born from strategy or a desire for fame.
-            It is a project born from pure passion.
-          </p>
-        </div>
-      </div>
+</aside>
 
-      <div class="card">
-        <h2 class="section-title">
-          Support the Project
-        </h2>
+</section>
 
-        <div class="support-panel">
-          <h2>Support the Project</h2>
+<section class="card player-section" id="player">
 
-          <p>
-            Aide le projet à grandir et reste connecté à l’univers Boyington Remix.
-          </p>
+<h2 class="section-title">
+Dernières sorties SoundCloud
+</h2>
 
-          <ul class="support-list">
-            <li>
-              <a href="https://soundcloud.com/boyingtonremix" target="_blank" rel="noopener noreferrer">
-                <span>01</span> Follow on SoundCloud
-              </a>
-            </li>
+<div class="player-wrap">
 
-            <li>
-              <a href="https://www.facebook.com/LoranBoyington/" target="_blank" rel="noopener noreferrer">
-                <span>02</span> Share the music
-              </a>
-            </li>
+<iframe
+title="Boyington Remix SoundCloud Profile"
+scrolling="no"
+allow="autoplay"
+src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/boyingtonremix&color=%23d4af37&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true">
+</iframe>
 
-            <li>
-              <a href="https://www.facebook.com/groups/DjsSetMusicForPeople" target="_blank" rel="noopener noreferrer">
-                <span>03</span> Join the Facebook community
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
+</div>
 
-    <div class="notes">
-      Ajoute tes nouveaux tracks sur ton profil SoundCloud en public pour qu'ils remontent automatiquement dans le lecteur.
-    </div>
+</section>
 
-    <div class="footer-wrap">
-      <div class="footer-brand">
-        Boyington Remix
-      </div>
+<section class="quick-grid">
 
-      <footer>
-        🎧 Créations/Remixes DJ non commerciales et non Officiel<br />
-        🎶 Soutenez toujours les artistes et labels officiels.<br />
-        📀 Licence : Creative Commons (CC BY-NC)<br />
-        Utilisation non commerciale autorisée avec crédit.<br /><br />
+<div class="card quick-card">
 
-        ⚠️ Tous les droits sur les œuvres originales appartiennent à leurs propriétaires respectifs.<br /><br />
+<h2 class="section-title">
+Dernier titre uploadé
+</h2>
 
-        @BoyingtonRemixOfficial All Rights Reserved<br />
-        Alias Péppino
-      </footer>
-    </div>
+<a class="latest-release" href="#player">
 
-  </div>
+<div class="latest-frame">
+
+<img class="cover-image"
+src="cover-principal.jpg"
+alt="Boyington Remix">
+
+</div>
+
+<div class="latest-copy">
+
+<div>
+<strong>Dernier titre publié</strong>
+Clique sur la pochette pour aller directement au player SoundCloud.
+</div>
+
+<div class="open-btn">
+▶ Ouvrir
+</div>
+
+</div>
+
+</a>
+
+</div>
+
+<div class="card quick-card">
+
+<h2 class="section-title">
+Réseaux & liens
+</h2>
+
+<div class="social-grid">
+
+<a class="social-link"
+href="https://soundcloud.com/boyingtonremix"
+target="_blank">
+SoundCloud
+</a>
+
+<a class="social-link"
+href="https://www.facebook.com/LoranBoyington/"
+target="_blank">
+Facebook
+</a>
+
+<a class="social-link"
+href="https://www.tiktok.com/@boyingtonremixofficiel"
+target="_blank">
+TikTok
+</a>
+
+<a class="social-link"
+href="https://www.youtube.com/@BoyingtonCollection"
+target="_blank">
+YouTube
+</a>
+
+<a class="social-link"
+href="https://www.facebook.com/groups/DjsSetMusicForPeople"
+target="_blank"
+style="grid-column:1/-1;">
+Groupe Facebook DJ
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="bottom-grid">
+
+<div class="card quick-card">
+
+<h2 class="section-title">
+Boyington Remix Project
+</h2>
+
+<div class="feature-panel">
+
+<p>
+🎧 <strong>Boyington Remix</strong><br><br>
+
+A Story Born From Passion.<br><br>
+
+Boyington Remix was not born from strategy or a desire for fame.
+It is a project born from pure passion.
+</p>
+
+</div>
+
+</div>
+
+<div class="card quick-card">
+
+<h2 class="section-title">
+Support The Project
+</h2>
+
+<div class="support-panel">
+
+<p>
+Aide le projet à grandir et reste connecté à l’univers Boyington Remix.
+</p>
+
+<ul class="support-list">
+
+<li>
+<a href="https://soundcloud.com/boyingtonremix" target="_blank">
+<span>01</span>
+Follow on SoundCloud
+</a>
+</li>
+
+<li>
+<a href="https://www.facebook.com/LoranBoyington/" target="_blank">
+<span>02</span>
+Share the music
+</a>
+</li>
+
+<li>
+<a href="https://www.facebook.com/groups/DjsSetMusicForPeople" target="_blank">
+<span>03</span>
+Join the Facebook community
+</a>
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="notes">
+Ajoute tes nouveaux tracks sur ton profil SoundCloud en public pour qu'ils remontent automatiquement dans le lecteur.
+</div>
+
+<div class="footer-wrap">
+
+<div class="footer-brand">
+Boyington Remix
+</div>
+
+<footer>
+
+🎧 Créations/Remixes DJ non commerciales et non Officiel<br>
+🎶 Soutenez toujours les artistes et labels officiels.<br>
+📀 Licence : Creative Commons (CC BY-NC)<br>
+Utilisation non commerciale autorisée avec crédit.<br><br>
+
+⚠️ Tous les droits sur les œuvres originales appartiennent à leurs propriétaires respectifs.<br><br>
+
+@BoyingtonRemixOfficial All Rights Reserved<br>
+Alias Péppino
+
+</footer>
+
+</div>
+
+</div>
+
 </body>
 </html>
