@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boyington Remix</title>
+
+<style>
+:root{
+--gold:#f4c542;
+--gold2:#ffd76a;
+--text:rgba(255,255,255,.90);
+--muted:rgba(255,255,255,.68);
+--panel:rgba(14,14,14,.90);
+--line:rgba(255,215,0,.14);
+--shadow:0 24px 60px rgba(0,0,0,.45);
+--radius:26px;
+--max:1180px;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+
+body{
+min-height:100vh;
+font-family:Inter,Arial,sans-serif;
+color:var(--text);
+background:
+linear-gradient(rgba(0,0,0,.82),rgba(0,0,0,.90)),
+url("background-boyington-remix.jpg") center/cover fixed no-repeat;
+overflow-x:hidden;
+}
+
+.wrap{
+width:min(calc(100% - 32px),var(--max));
+margin:auto;
+padding:28px 0 56px;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:16px;
+padding:14px 18px;
+margin-bottom:22px;
+border:1px solid var(--line);
+border-radius:999px;
+background:rgba(0,0,0,.36);
+backdrop-filter:blur(10px);
+box-shadow:var(--shadow);
+}
+
+.brand{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.brand img{
+width:52px;
+height:52px;
+object-fit:contain;
+}
+
+.brand-text strong{
+display:block;
+color:var(--gold);
+letter-spacing:.12em;
+text-transform:uppercase;
+font-size:.82rem;
+}
+
+.brand-text span{
+color:var(--muted);
+font-size:.92rem;
+}
+
+.badge{
+padding:10px 14px;
+border-radius:999px;
+border:1px solid var(--line);
+background:rgba(255,255,255,.03);
+color:var(--gold2);
+}
+
+.panel{
+border:1px solid var(--line);
+border-radius:var(--radius);
+background:var(--panel);
+box-shadow:var(--shadow);
+overflow:hidden;
+}
+
+.hero-grid{
+display:grid;
+grid-template-columns:1.06fr .94fr;
+gap:22px;
+margin-bottom:22px;
+}
+
+.hero-copy{
+padding:34px;
+}
+
+.eyebrow{
+display:inline-flex;
+padding:8px 12px;
+border-radius:999px;
+border:1px solid var(--line);
+background:rgba(255,255,255,.03);
+color:var(--gold2);
+margin-bottom:18px;
+}
+
+h1{
+margin:0 0 16px;
+font-size:clamp(2rem,4vw,4rem);
+line-height:1.05;
+color:white;
+}
+
+.lead{
+line-height:1.8;
+color:var(--muted);
+}
+
+.hero-visual img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;
+}
+
+.manifesto{
+display:grid;
+grid-template-columns:360px 1fr;
+gap:24px;
+padding:22px;
+margin-bottom:22px;
+border-radius:var(--radius);
+border:1px solid var(--line);
+background:var(--panel);
+box-shadow:var(--shadow);
+}
+
+.manifesto-image{
+overflow:hidden;
+border-radius:22px;
+}
+
+.manifesto-image img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.manifesto-content h2,
+.manifesto-content h3{
+color:var(--gold);
+}
+
+.manifesto-content p,
+.manifesto-content li{
+line-height:1.9;
+color:var(--text);
+}
+
+.highlight{
+padding:14px;
+border-radius:16px;
+border:1px solid rgba(255,215,0,.16);
+background:rgba(255,255,255,.03);
+color:var(--gold2);
+margin:16px 0;
+}
+
+blockquote{
+margin:16px 0;
+padding:14px 16px;
+border-left:4px solid var(--gold);
+background:rgba(255,255,255,.03);
+border-radius:0 14px 14px 0;
+}
+
+.features{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:14px;
+margin-bottom:22px;
+}
+
+.feature-card{
+padding:22px;
+border-radius:22px;
+border:1px solid rgba(255,215,0,.12);
+background:rgba(10,10,10,.82);
+}
+
+.feature-card h3{
+color:var(--gold2);
+}
+
+.feature-card p{
+color:var(--muted);
+line-height:1.7;
+}
+
+.playlist-box{
+padding:22px;
+border-radius:26px;
+border:1px solid var(--line);
+background:var(--panel);
+box-shadow:var(--shadow);
+}
+
+.playlist-box h2{
+margin-top:0;
+color:white;
+}
+
+.playlist-box p{
+color:var(--muted);
+margin-bottom:18px;
+}
+
+.soundcloud-player{
+border-radius:18px;
+overflow:hidden;
+}
+
+.footer{
+margin-top:24px;
+text-align:center;
+color:var(--muted);
+}
+
+@media(max-width:1040px){
+.hero-grid,
+.manifesto{
+grid-template-columns:1fr;
+}
+.features{
+grid-template-columns:repeat(2,1fr);
+}
+}
+
+@media(max-width:720px){
+.features{
+grid-template-columns:1fr;
+}
+.topbar{
+flex-direction:column;
+align-items:flex-start;
+}
+}
+</style>
+</head>
+
+<body>
+
+<main class="wrap">
+
+<header class="topbar">
+
+<div class="brand">
+<img src="logo-boyington.png" alt="Boyington Remix">
+<div class="brand-text">
+<strong>Boyington Remix</strong>
+<span>Site officiel — SoundCloud, manifeste et vitrine artistique</span>
+</div>
+</div>
+
+<div class="badge">🎧 Born From Passion</div>
+
+</header>
+
+<section class="hero-grid">
+
+<div class="panel hero-copy">
+
+<div class="eyebrow">
+✨ Boyington Remix — a story born from passion
+</div>
+
+<h1>
+Une vitrine musicale claire, premium et légère.
+</h1>
+
+<p class="lead">
+Un site pensé pour mettre en avant l’univers Boyington Remix avec un visuel noir/or,
+une playlist SoundCloud propre et un affichage compatible mobile.
+</p>
+
+</div>
+
+<div class="panel hero-visual">
+<img src="boyington-studio.jpg" alt="Studio Boyington Remix">
+</div>
+
+</section>
+
+<section class="manifesto">
+
+<div class="manifesto-image">
+<img src="boyington-studio.jpg" alt="Boyington Remix Studio">
+</div>
+
+<div class="manifesto-content">
+
+<h2>🎧 𝐁𝐨𝐲𝐢𝐧𝐠𝐭𝐨𝐧 𝐑𝐞𝐦𝐢𝐱 🎧</h2>
+
+<h3>✨ A Story Born From Passion</h3>
+
+<p>
+Boyington Remix was not born from strategy or a desire for fame.
+It is a project born from pure passion.
+</p>
+
+<div class="highlight">
+✅ Just authentic music, created with soul and shared without limits ✨
+</div>
+
+<blockquote>
+💭 Music should touch people before it tries to please.
+</blockquote>
+
+<p>
+🎵 Every track is a confession<br>
+🌍 Every remix is a journey<br>
+🔥 Nothing here is calculated. Everything is felt.
+</p>
+
+</div>
+
+</section>
+
+<section class="features">
+
+<div class="feature-card">
+<h3>⚡ Rapide</h3>
+<p>Site léger et optimisé pour GitHub Pages.</p>
+</div>
+
+<div class="feature-card">
+<h3>🎧 Automatique</h3>
+<p>Les nouveaux liens SoundCloud apparaissent automatiquement.</p>
+</div>
+
+<div class="feature-card">
+<h3>📱 Responsive</h3>
+<p>Compatible smartphone, tablette et desktop.</p>
+</div>
+
+<div class="feature-card">
+<h3>🔥 Premium</h3>
+<p>Ambiance sombre, élégante et cohérente avec l’univers Boyington Remix.</p>
+</div>
+
+</section>
+
+<section class="playlist-box">
+
+<h2>Playlist SoundCloud</h2>
+
+<p>
+Player SoundCloud officiel Boyington Remix.
+</p>
+
+<div class="soundcloud-player">
+
+<iframe
+width="100%"
+height="450"
+scrolling="no"
+frameborder="0"
+allow="autoplay"
+src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/boyingtonremix&color=%23d4a43a&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&visual=true">
+</iframe>
+
+</div>
+
+</section>
+
+<div class="footer">
+© Boyington Remix — Tous droits réservés
+</div>
+
+</main>
+
+</body>
+</html>
