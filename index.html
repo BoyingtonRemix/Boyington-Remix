@@ -1,15 +1,16 @@
+
 <!doctype html>
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Boyington Remix</title>
-  <meta name="description" content="Boyington Remix — site officiel, manifeste et player SoundCloud." />
+  <meta name="description" content="Boyington Remix — site officiel, playlist SoundCloud et présentation artistique." />
   <style>
     :root{
       --bg:#050505;
-      --panel:rgba(14,14,14,.92);
-      --panel2:rgba(10,10,10,.86);
+      --panel:rgba(14,14,14,.90);
+      --panel-soft:rgba(10,10,10,.82);
       --line:rgba(255,215,0,.14);
       --gold:#f4c542;
       --gold2:#ffd76a;
@@ -26,9 +27,13 @@
       min-height:100vh;
       color:var(--text);
       font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-      background:
-        radial-gradient(circle at top, rgba(255,215,0,.08), transparent 35%),
-        linear-gradient(180deg, #090909 0%, #050505 55%, #030303 100%);
+      background-color:var(--bg);
+      background-image:
+        linear-gradient(rgba(0,0,0,.76), rgba(0,0,0,.86)),
+        url("background-boyington-remix.jpg");
+      background-size:cover;
+      background-position:center;
+      background-attachment:fixed;
       overflow-x:hidden;
     }
 
@@ -36,7 +41,7 @@
     a{color:inherit;text-decoration:none}
 
     .wrap{
-      width:min(calc(100% - 28px), var(--max));
+      width:min(calc(100% - 28px),var(--max));
       margin:0 auto;
       padding:26px 0 54px;
     }
@@ -50,7 +55,7 @@
       padding:14px 18px;
       border:1px solid var(--line);
       border-radius:999px;
-      background:rgba(0,0,0,.35);
+      background:rgba(0,0,0,.36);
       backdrop-filter:blur(10px);
       box-shadow:var(--shadow);
     }
@@ -190,7 +195,7 @@
     .hero-visual{
       position:relative;
       min-height:100%;
-      background:var(--panel2);
+      background:var(--panel-soft);
     }
 
     .hero-visual img{
@@ -402,14 +407,6 @@
       text-align:center;
     }
 
-    .social-share,
-    .social-icons,
-    .share-buttons,
-    .social-links,
-    [data-social]{
-      display:none !important;
-    }
-
     @media (max-width:1040px){
       .hero,
       .manifesto{
@@ -469,7 +466,7 @@
         <h1>Une vitrine musicale claire, premium et légère.</h1>
         <p class="lead">
           Un site pensé pour mettre en avant l’univers Boyington Remix avec un design noir/or sobre,
-          un manifeste en ouverture, une playlist SoundCloud directe et un affichage compatible mobile.
+          un manifeste en ouverture, une playlist SoundCloud propre et un affichage compatible mobile.
         </p>
 
         <div class="hero-points">
@@ -531,26 +528,10 @@
         </div>
       </div>
       <div class="features">
-        <article class="feature-card">
-          <div class="feature-icon">⚡</div>
-          <h3>Rapide</h3>
-          <p>Site léger et optimisé pour GitHub Pages.</p>
-        </article>
-        <article class="feature-card">
-          <div class="feature-icon">🎧</div>
-          <h3>SoundCloud</h3>
-          <p>Lecture intégrée directement depuis le lien officiel.</p>
-        </article>
-        <article class="feature-card">
-          <div class="feature-icon">📱</div>
-          <h3>Responsive</h3>
-          <p>Lecture agréable sur smartphone, tablette et desktop.</p>
-        </article>
-        <article class="feature-card">
-          <div class="feature-icon">🔥</div>
-          <h3>Premium</h3>
-          <p>Ambiance sombre, élégante et cohérente avec le projet.</p>
-        </article>
+        <article class="feature-card"><div class="feature-icon">⚡</div><h3>Rapide</h3><p>Site léger et optimisé pour GitHub Pages.</p></article>
+        <article class="feature-card"><div class="feature-icon">🎧</div><h3>SoundCloud</h3><p>Lecture intégrée directement depuis le lien officiel.</p></article>
+        <article class="feature-card"><div class="feature-icon">📱</div><h3>Responsive</h3><p>Lecture agréable sur smartphone, tablette et desktop.</p></article>
+        <article class="feature-card"><div class="feature-icon">🔥</div><h3>Premium</h3><p>Ambiance sombre, élégante et cohérente avec le projet.</p></article>
       </div>
     </section>
 
@@ -558,7 +539,7 @@
       <div class="section-title">
         <div>
           <h2>Playlist SoundCloud</h2>
-          <p>Player SoundCloud officiel Boyington Remix.</p>
+          <p>Player officiel Boyington Remix.</p>
         </div>
       </div>
       <div class="playlist" id="playlistGrid"></div>
@@ -572,11 +553,7 @@
         </div>
       </div>
       <div class="panel" style="padding:16px;">
-        <img
-          src="promo-soundcloud.png"
-          alt="Promo SoundCloud Boyington Remix"
-          style="width:100%;height:auto;border-radius:18px;"
-        >
+        <img src="promo-soundcloud.png" alt="Promo SoundCloud Boyington Remix" style="width:100%;height:auto;border-radius:18px;">
       </div>
     </section>
 
@@ -588,11 +565,7 @@
         </div>
       </div>
       <div class="panel" style="padding:16px;">
-        <img
-          src="couverture-principal.jpg"
-          alt="Couverture principale Boyington Remix"
-          style="width:100%;height:auto;border-radius:18px;"
-        >
+        <img src="couverture-principal.jpg" alt="Couverture principale Boyington Remix" style="width:100%;height:auto;border-radius:18px;">
       </div>
     </section>
 
