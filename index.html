@@ -212,9 +212,93 @@
       max-height:240px;
     }
 
-    a:hover .promo-image{
+    a:hover .promo-image,
+    a:hover .cover-image,
+    a:hover .studio-image{
       transform:scale(1.015);
       box-shadow:0 16px 40px rgba(0,0,0,0.42);
+    }
+
+    .quick-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:22px;
+      margin-bottom:24px;
+    }
+
+    .quick-card{
+      padding:20px;
+    }
+
+    .social-grid{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:12px;
+    }
+
+    .social-link{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:64px;
+      text-decoration:none;
+      color:var(--text);
+      border-radius:16px;
+      background:rgba(255,255,255,0.035);
+      border:1px solid rgba(255,255,255,0.07);
+      transition:transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      font-size:0.95rem;
+      font-weight:700;
+    }
+
+    .social-link span{
+      width:28px;
+      height:28px;
+      border-radius:999px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(212,175,55,0.14);
+      color:var(--gold);
+      font-size:0.9rem;
+      flex:0 0 auto;
+    }
+
+    .social-link:hover{
+      transform:translateY(-2px);
+      border-color:rgba(212,175,55,0.24);
+      background:rgba(212,175,55,0.08);
+    }
+
+    .latest-release{
+      display:block;
+      text-decoration:none;
+      color:inherit;
+    }
+
+    .latest-frame{
+      overflow:hidden;
+      border-radius:18px;
+      border:1px solid rgba(212,175,55,0.14);
+      background:#0a0a0a;
+    }
+
+    .latest-copy{
+      margin-top:12px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    .latest-copy strong{
+      display:block;
+      color:#fff;
+      margin-bottom:4px;
+      font-size:1rem;
     }
 
     .player-section{
@@ -254,23 +338,59 @@
       margin-top:24px;
     }
 
-    .feature-panel{
+    .feature-panel,
+    .support-panel{
       background:rgba(255,255,255,0.03);
       border:1px solid rgba(255,255,255,0.06);
       border-radius:20px;
       padding:18px;
     }
 
-    .feature-panel h2{
+    .feature-panel h2,
+    .support-panel h2{
       font-size:1.2rem;
       margin-bottom:12px;
+      color:#fff;
     }
 
     .feature-panel p,
+    .support-panel p,
     .notes,
     footer{
       color:var(--muted);
       line-height:1.85;
+    }
+
+    .support-list{
+      list-style:none;
+      display:grid;
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .support-list a{
+      text-decoration:none;
+      color:var(--text);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 16px;
+      border-radius:16px;
+      background:rgba(255,255,255,0.035);
+      border:1px solid rgba(255,255,255,0.06);
+      transition:transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .support-list a:hover{
+      transform:translateY(-2px);
+      border-color:rgba(212,175,55,0.24);
+      background:rgba(212,175,55,0.08);
+    }
+
+    .support-list span{
+      color:var(--gold);
+      font-weight:700;
     }
 
     .cover-image{
@@ -303,8 +423,13 @@
 
     @media (max-width: 1080px){
       .hero,
+      .quick-grid,
       .bottom-grid{
         grid-template-columns:1fr;
+      }
+
+      .social-grid{
+        grid-template-columns:repeat(2, 1fr);
       }
 
       iframe{
@@ -320,7 +445,8 @@
 
       .hero-main,
       .hero-side,
-      .card{
+      .card,
+      .quick-card{
         padding:16px;
         border-radius:18px;
       }
@@ -331,7 +457,8 @@
       }
 
       .info-grid,
-      .bottom-grid{
+      .bottom-grid,
+      .social-grid{
         grid-template-columns:1fr;
       }
 
@@ -342,6 +469,10 @@
       iframe{
         height:620px;
         min-height:620px;
+      }
+
+      .latest-copy{
+        flex-direction:column;
       }
     }
   </style>
@@ -399,7 +530,43 @@
       </aside>
     </section>
 
-    <section class="card player-section">
+    <section class="quick-grid" aria-label="Accès rapides">
+      <div class="card quick-card">
+        <h2 class="section-title">Dernier titre uploadé</h2>
+        <a class="latest-release" href="#player" aria-label="Aller au lecteur SoundCloud">
+          <div class="latest-frame">
+            <img class="cover-image" src="cover-principal.jpg" alt="Dernier titre Boyington Remix" />
+          </div>
+          <div class="latest-copy">
+            <div>
+              <strong>Dernier titre publié</strong>
+              Clique sur la pochette pour aller directement au player SoundCloud.
+            </div>
+            <span>▶ Ouvrir</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="card quick-card">
+        <h2 class="section-title">Réseaux & liens</h2>
+        <div class="social-grid">
+          <a class="social-link" href="https://soundcloud.com/boyingtonremix" target="_blank" rel="noopener noreferrer">
+            <span>SC</span> SoundCloud
+          </a>
+          <a class="social-link" href="https://www.facebook.com/PeppinoGitano/" target="_blank" rel="noopener noreferrer">
+            <span>f</span> Facebook
+          </a>
+          <a class="social-link" href="#" aria-label="TikTok à renseigner">
+            <span>TT</span> TikTok
+          </a>
+          <a class="social-link" href="#" aria-label="YouTube à renseigner">
+            <span>YT</span> YouTube
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="card player-section" id="player">
       <h2 class="section-title">Dernières sorties SoundCloud</h2>
 
       <div class="player-wrap">
@@ -417,74 +584,43 @@
         <h2 class="section-title">Boyington Remix Project</h2>
 
         <div class="feature-panel">
-          <h2 style="font-size:1.55rem; color:var(--gold); margin-bottom:18px; line-height:1.5;">
-            🎧 𝐁𝐨𝐲𝐢𝐧𝐠𝐭𝐨𝐧 𝐑𝐞𝐦𝐢𝐱 🎧
-          </h2>
+          <h2>Boyington Remix</h2>
 
-          <p style="font-size:0.98rem; line-height:1.9; color:#d2d2d2;">
-            ✨ <strong>𝐀 𝐒𝐭𝐨𝐫𝐲 𝐁𝐨𝐫𝐧 𝐅𝐫𝐨𝐦 𝐏𝐚𝐬𝐬𝐢𝐨𝐧</strong><br><br>
-
-            <strong>𝐁𝐨𝐲𝐢𝐧𝐠𝐭𝐨𝐧 𝐑𝐞𝐦𝐢𝐱</strong> was not born from strategy or a desire for fame.
-            It is a project born from pure passion — the kind that wakes you up in the middle of the night searching for the right sound 🎹, the perfect drop 🔥, the right emotion ❤️.
-            <br><br>
-
-            🎶 <strong>𝐒𝐢𝐧𝐜𝐞𝐫𝐞 𝐌𝐮𝐬𝐢𝐜</strong><br><br>
-
-            Here, every sound is genuine.
-            Every Remix or Original Mix tells something real 🌌.
-            Because music only has meaning when it is shared 🤝🎵.
-            <br><br>
-
-            ✅ Just authentic music, created with soul and shared without limits ✨
-            <br><br>
-
-            🌙 <strong>𝐀 𝐃𝐢𝐟𝐟𝐞𝐫𝐞𝐧𝐭 𝐕𝐢𝐬𝐢𝐨𝐧</strong><br><br>
-
-            Boyington Remix was born differently — in the silence of a passionate creator 🎧, guided by one single belief:
-            <br><br>
-
-            💭 <strong>𝐌𝐮𝐬𝐢𝐜 𝐬𝐡𝐨𝐮𝐥𝐝 𝐭𝐨𝐮𝐜𝐡 𝐩𝐞𝐨𝐩𝐥𝐞 𝐛𝐞𝐟𝐨𝐫𝐞 𝐢𝐭 𝐭𝐫𝐢𝐞𝐬 𝐭𝐨 𝐩𝐥𝐞𝐚𝐬𝐞.</strong>
-            <br><br>
-
-            ❤️ <strong>𝐄𝐯𝐞𝐫𝐲 𝐑𝐞𝐦𝐢𝐱 𝐈𝐬 𝐀 𝐉𝐨𝐮𝐫𝐧𝐞𝐲</strong><br><br>
-
-            🎵 Every track is a confession<br>
-            🌍 Every remix is a journey<br>
-            🔥 Nothing here is calculated. Everything is felt.
-            <br><br>
-
-            Just one man, his sounds, and the sincere desire to share something beautiful ✨
-            <br><br>
-
-            👑 <strong>𝐁𝐨𝐲𝐢𝐧𝐠𝐭𝐨𝐧 𝐑𝐞𝐦𝐢𝐱</strong><br>
-            🎼 <strong>𝐁𝐨𝐫𝐧 𝐅𝐫𝐨𝐦 𝐏𝐚𝐬𝐬𝐢𝐨𝐧 𝐀𝐧𝐝 𝐒𝐡𝐚𝐫𝐢𝐧𝐠</strong> 🎼
+          <p>
+            Le site met désormais en avant l’univers Boyington Remix avec une disposition plus fluide, plus horizontale et davantage centrée sur l’écoute musicale.
+            Le lecteur SoundCloud reste totalement fonctionnel et conserve son intégration officielle.
           </p>
+
+          <img class="cover-image" src="promo-soundcloud.png" alt="Promotion SoundCloud Boyington Remix" />
         </div>
       </div>
 
       <div class="card">
-        <h2 class="section-title">Ambiance Studio</h2>
+        <h2 class="section-title">Support the Project</h2>
 
-        <div class="feature-panel">
+        <div class="support-panel">
+          <h2>Support the Project</h2>
           <p>
-            Atmosphère studio cinématique, esthétique noir et or, branding premium et mise en avant des dernières créations Boyington Remix.
+            Aide le projet à grandir et reste connecté à l’univers Boyington Remix.
           </p>
 
-          <img class="cover-image" src="Studio Console.png" alt="Studio Boyington Remix" />
+          <ul class="support-list">
+            <li><a href="https://soundcloud.com/boyingtonremix" target="_blank" rel="noopener noreferrer"><span>01</span> Follow on SoundCloud</a></li>
+            <li><a href="https://www.facebook.com/PeppinoGitano/" target="_blank" rel="noopener noreferrer"><span>02</span> Share the music</a></li>
+            <li><a href="https://www.facebook.com/groups/DjsSetMusicForPeople" target="_blank" rel="noopener noreferrer"><span>03</span> Join the Facebook community</a></li>
+          </ul>
         </div>
       </div>
     </section>
 
     <div class="notes">
-      <div class="notes">
-  A musical universe between emotion, groove and cinematic atmosphere — Welcome to Boyington Remix.
-</div>
+      Ajoute tes nouveaux tracks sur ton profil SoundCloud en public pour qu'ils remontent automatiquement dans le lecteur.
     </div>
 
     <div class="footer-wrap">
       <div class="footer-brand">Boyington Remix</div>
 
-       <footer style="text-align:center; max-width:900px; margin:0 auto;">
+      <footer style="text-align:center; max-width:900px; margin:0 auto;">
         🎧 Créations/Remixes DJ non commerciales et non Officiel<br />
         🎶 Soutenez toujours les artistes et labels officiels.<br />
         📀 Licence : Creative Commons (CC BY-NC)<br />
@@ -500,5 +636,4 @@
   </div>
 </body>
 </html>
-
 
