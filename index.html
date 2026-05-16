@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Boyington Remix - site officiel avec player SoundCloud, visuels premium et dernières sorties." />
+  <title>Boyington Remix</title>
+
+  <style>
+    :root{
+      --bg: #090909;
+      --panel: #121212;
+      --panel-2: #171717;
+      --text: #f7f7f7;
+      --muted: #c9c9c9;
+      --red: #c1121f;
+      --red-soft: rgba(193,18,31,.14);
+      --gold: #d4af37;
+      --gold-soft: rgba(212,175,55,.14);
+      --line: rgba(255,255,255,.08);
+      --shadow: 0 18px 50px rgba(0,0,0,.38);
+      --radius: 22px;
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family: Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top, rgba(193,18,31,.18), transparent 28%),
+        radial-gradient(circle at 20% 20%, rgba(212,175,55,.10), transparent 20%),
+        linear-gradient(180deg, #070707 0%, #0e0e0e 100%);
+      min-height:100vh;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    .container{
+      width:min(1200px, calc(100% - 24px));
+      margin:0 auto;
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:20;
+      backdrop-filter: blur(10px);
+      background: rgba(9,9,9,.78);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+
+    .topbar-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:12px 0;
+    }
+
+    .brand-mini{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+
+    .brand-mini img{
+      width:44px;
+      height:44px;
+      object-fit:contain;
+      border-radius:999px;
+      background:#0c0c0c;
+      box-shadow:0 0 18px rgba(212,175,55,.18);
+      flex:0 0 auto;
+    }
+
+    .brand-mini strong{
+      color:var(--gold);
+      letter-spacing:.12em;
+      font-size:.94rem;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .nav{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      color:var(--muted);
+      font-size:.95rem;
+    }
+
+    .nav a:hover{
+      color:var(--gold);
+    }
+
+    .hero{
+      padding:34px 0 14px;
+      text-align:center;
+    }
+
+    .hero-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      margin-bottom:16px;
+      border:1px solid rgba(212,175,55,.18);
+      border-radius:999px;
+      background:rgba(255,255,255,.03);
+      color:#f1d98b;
+      font-size:.86rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .hero-logo{
+      width:180px;
+      height:180px;
+      object-fit:contain;
+      margin:0 auto 18px;
+      display:block;
+      border-radius:999px;
+      background:#0c0c0c;
+      box-shadow:0 0 32px rgba(212,175,55,.16);
+    }
+
+    h1{
+      font-size:clamp(2.2rem, 5vw, 4rem);
+      letter-spacing:.18em;
+      color:var(--gold);
+      text-transform:uppercase;
+      margin-bottom:10px;
+      line-height:1.05;
+    }
+
+    .hero p{
+      max-width:860px;
+      margin:0 auto;
+      color:var(--muted);
+      line-height:1.8;
+      font-size:1rem;
+    }
+
+    .section{
+      padding:18px 0;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:22px;
+      align-items:start;
+    }
+
+    .card{
+      background:linear-gradient(180deg, rgba(18,18,18,.98), rgba(13,13,13,.98));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+
+    .card-head{
+      padding:18px 18px 14px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+
+    .card-head h2{
+      font-size:1.12rem;
+      margin-bottom:8px;
+      letter-spacing:.04em;
+    }
+
+    .card-head .accent-red{
+      color:#ff8088;
+    }
+
+    .card-head .accent-gold{
+      color:var(--gold);
+    }
+
+    .card-head p{
+      color:var(--muted);
+      line-height:1.6;
+      font-size:.95rem;
+    }
+
+    .card-body{
+      padding:18px;
+    }
+
+    .visual-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:14px;
+    }
+
+    .visual-tile{
+      background:var(--panel-2);
+      border:1px solid rgba(212,175,55,.10);
+      border-radius:18px;
+      overflow:hidden;
+      position:relative;
+      min-height:220px;
+    }
+
+    .visual-tile img{
+      width:100%;
+      height:100%;
+      min-height:220px;
+      object-fit:cover;
+      display:block;
+      background:#0a0a0a;
+    }
+
+    .visual-overlay{
+      position:absolute;
+      inset:auto 0 0 0;
+      padding:12px 14px;
+      background:linear-gradient(180deg, transparent, rgba(0,0,0,.82));
+      color:#fff;
+      font-size:.92rem;
+      line-height:1.45;
+    }
+
+    .label{
+      display:inline-block;
+      margin-bottom:6px;
+      padding:5px 9px;
+      border-radius:999px;
+      background:rgba(212,175,55,.12);
+      color:var(--gold);
+      font-size:.76rem;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+
+    .player-wrap{
+      background:#090909;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.05);
+    }
+
+    iframe{
+      display:block;
+      width:100%;
+      border:0;
+      min-height:700px;
+    }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 16px;
+      border-radius:14px;
+      font-weight:700;
+      letter-spacing:.03em;
+      transition:transform .15s ease, opacity .15s ease, background .15s ease;
+      border:1px solid transparent;
+    }
+
+    .btn:hover{
+      transform:translateY(-1px);
+      opacity:.96;
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg, var(--red), #8f0f19);
+      color:#fff;
+      border-color:rgba(255,255,255,.08);
+    }
+
+    .btn-secondary{
+      background:rgba(255,255,255,.04);
+      color:#fff;
+      border-color:rgba(212,175,55,.16);
+    }
+
+    .quick{
+      display:grid;
+      gap:12px;
+    }
+
+    .quick-item{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+      padding:14px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:16px;
+    }
+
+    .quick-num{
+      width:42px;
+      height:42px;
+      flex:0 0 auto;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      background:rgba(193,18,31,.16);
+      color:#ff9aa2;
+      font-weight:800;
+    }
+
+    .quick-item strong{
+      display:block;
+      margin-bottom:4px;
+      color:#fff;
+      font-size:.98rem;
+    }
+
+    .quick-item span{
+      color:var(--muted);
+      line-height:1.55;
+      font-size:.92rem;
+    }
+
+    .config{
+      display:grid;
+      gap:10px;
+      line-height:1.7;
+      color:var(--muted);
+      font-size:.96rem;
+    }
+
+    .config code{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.06);
+      padding:2px 7px;
+      border-radius:8px;
+      color:#fff;
+      font-family:Consolas, monospace;
+      font-size:.92em;
+    }
+
+    .divider{
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(212,175,55,.22), transparent);
+      margin:16px 0;
+    }
+
+    .footer{
+      text-align:center;
+      padding:30px 0 36px;
+      color:#a2a2a2;
+      font-size:.9rem;
+      line-height:1.8;
+    }
+
+    .footer strong{
+      color:var(--gold);
+    }
+
+    .footer a{
+      color:#ff9aa2;
+    }
+
+    .sr-only{
+      position:absolute;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      border:0;
+    }
+
+    @media (max-width: 980px){
+      .grid{
+        grid-template-columns:1fr;
+      }
+
+      .nav{
+        display:none;
+      }
+
+      iframe{
+        min-height:620px;
+      }
+    }
+
+    @media (max-width: 700px){
+      .container{
+        width:min(100% - 16px, 1200px);
+      }
+
+      .hero{
+        padding-top:26px;
+      }
+
+      .hero-logo{
+        width:138px;
+        height:138px;
+      }
+
+      .visual-grid{
+        grid-template-columns:1fr;
+      }
+
+      iframe{
+        min-height:540px;
+      }
+
+      .card-head,
+      .card-body{
+        padding:14px;
+      }
+
+      .actions{
+        flex-direction:column;
+      }
+
+      .btn{
+        width:100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================= -->
+  <!-- ===================== ZONE NAV ========================== -->
+  <!-- ========================================================= -->
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand-mini">
+        <img src="boyington-official-logo.png" alt="Boyington official logo">
+        <strong>BOYINGTON REMIX</strong>
+      </div>
+
+      <nav class="nav" aria-label="Navigation principale">
+        <a href="#hero">Accueil</a>
+        <a href="#player">SoundCloud</a>
+        <a href="#visuals">Visuels</a>
+        <a href="#setup">Réglages</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ========================================================= -->
+    <!-- ===================== HERO ============================== -->
+    <!-- ========================================================= -->
+    <section class="hero container" id="hero">
+      <div class="hero-badge">Official Music Hub</div>
+      <img class="hero-logo" src="boyington-official-logo.png" alt="Boyington official logo">
+      <h1>Boyington Remix</h1>
+      <p>
+        Vitrine musicale premium pour présenter tes dernières sorties, centraliser ton SoundCloud
+        et garder un site rapide, propre et professionnel.
+      </p>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="#player">Ouvrir le lecteur</a>
+        <a class="btn btn-secondary" href="https://soundcloud.com/boyingtonremix" target="_blank" rel="noopener noreferrer">Voir le profil SoundCloud</a>
+      </div>
+    </section>
+
+    <section class="container section grid">
+      <!-- ===================================================== -->
+      <!-- ===================== PLAYER ======================== -->
+      <!-- ===================================================== -->
+      <article class="card" id="player">
+        <div class="card-head">
+          <h2><span class="accent-gold">Player</span> SoundCloud officiel</h2>
+          <p>
+            Le lecteur pointe vers ton profil SoundCloud. Les nouveaux morceaux publiés en public
+            apparaissent dans ton flux SoundCloud selon l'ordre du compte.
+          </p>
+        </div>
+        <div class="card-body">
+          <div class="player-wrap">
+            <iframe
+              title="Boyington Remix SoundCloud Profile"
+              scrolling="no"
+              allow="autoplay"
+              src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/boyingtonremix&color=%23d4af37&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true">
+            </iframe>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="config">
+            <div><code>Profile</code> = flux officiel SoundCloud</div>
+            <div><code>Brand colors</code> = rouge / blanc / or</div>
+            <div><code>Files</code> = logo + visuels à placer dans le même dossier que <code>index.html</code></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ===================================================== -->
+      <!-- ===================== SETUP ========================= -->
+      <!-- ===================================================== -->
+      <aside class="card" id="setup">
+        <div class="card-head">
+          <h2><span class="accent-red">Réglages</span> rapides</h2>
+          <p>Bloc pensé pour gagner du temps à chaque mise à jour du site.</p>
+        </div>
+        <div class="card-body">
+          <div class="quick">
+            <div class="quick-item">
+              <div class="quick-num">01</div>
+              <div>
+                <strong>Logo officiel</strong>
+                <span>Le site utilise <code>boyington-official-logo.png</code> dans l’en-tête et le hero.</span>
+              </div>
+            </div>
+
+            <div class="quick-item">
+              <div class="quick-num">02</div>
+              <div>
+                <strong>Image Studio</strong>
+                <span>Place <code>Studio_Boyington.png</code> dans le dossier du site pour remplir le bloc visuel.</span>
+              </div>
+            </div>
+
+            <div class="quick-item">
+              <div class="quick-num">03</div>
+              <div>
+                <strong>Promo SoundCloud</strong>
+                <span>Place <code>Promo_SoundCloud.png</code> pour la bannière promotionnelle ou la section news.</span>
+              </div>
+            </div>
+
+            <div class="quick-item">
+              <div class="quick-num">04</div>
+              <div>
+                <strong>Couleurs</strong>
+                <span>Palette déjà configurée en rouge, blanc et or, avec fond noir premium.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- ===================== VISUALS =========================== -->
+    <!-- ========================================================= -->
+    <section class="container section" id="visuals">
+      <article class="card">
+        <div class="card-head">
+          <h2>Visuels officiels</h2>
+          <p>Les trois fichiers ci-dessous sont déjà prévus dans la structure du site.</p>
+        </div>
+
+        <div class="card-body">
+          <div class="visual-grid">
+            <div class="visual-tile">
+              <img src="Studio_Boyington.png" alt="Studio Boyington">
+              <div class="visual-overlay">
+                <div class="label">Studio</div><br>
+                Image principale de présentation du projet.
+              </div>
+            </div>
+
+            <div class="visual-tile">
+              <img src="Promo_SoundCloud.png" alt="Promo SoundCloud">
+              <div class="visual-overlay">
+                <div class="label">Promo</div><br>
+                Bloc utile pour annoncer les nouveautés SoundCloud.
+              </div>
+            </div>
+
+            <div class="visual-tile">
+              <img src="boyington-official-logo.png" alt="Boyington official logo">
+              <div class="visual-overlay">
+                <div class="label">Logo</div><br>
+                Version officielle intégrée dans la page.
+              </div>
+            </div>
+
+            <div class="visual-tile">
+              <img src="boyington-official-logo.png" alt="Boyington official logo duplicate preview">
+              <div class="visual-overlay">
+                <div class="label">Branding</div><br>
+                Zone réservée pour une future cover ou un visuel de sortie.
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer container">
+    <strong>@BoyingtonRemixOfficial All Rights Reserved</strong><br>
+    Alias Péppino<br>
+    <span class="sr-only">Boyington Remix official website</span>
+  </footer>
+
+</body>
+</html>
