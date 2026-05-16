@@ -477,6 +477,18 @@
 
     .helper{padding:20px 18px;color:#bdbdbd;font-size:14px}
     .muted{color:var(--muted2)}
+    .sc-embed{
+      margin-top:12px;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.06);
+      background:rgba(255,255,255,.02);
+    }
+    .sc-embed iframe{
+      display:block;
+      width:100%;
+    }
+
 
     @media (max-width:1180px){
       .hero{grid-template-columns:1fr}
@@ -500,6 +512,10 @@
       .footer{padding-bottom:110px}
     }
   </style>
+
+  <link rel="stylesheet" href="style.css?v=2">
+  <script src="script.js?v=2"></script>
+
 </head>
 <body>
   <audio id="audio" preload="metadata"></audio>
@@ -623,6 +639,60 @@
       <div class="feed" id="feed"></div>
     </section>
 
+    <section class="section" id="soundcloud" style="margin-top:18px;">
+      <div class="section-head">
+        <h2>SoundCloud</h2>
+        <div class="tools">
+          <span class="muted">Un morceau, puis tu ajoutes les suivants dans la liste</span>
+        </div>
+      </div>
+
+      <div class="player-wrap">
+        <div class="player" style="grid-template-columns:120px 1fr;">
+          <div class="player-cover">
+            <img src="boyington-official-logo.png" alt="Boyington Remix SoundCloud">
+            <div class="time-badge">SC</div>
+          </div>
+          <div class="player-content">
+            <div class="track-meta">
+              <div class="author">@BoyingtonRemix</div>
+              <div class="tag">SoundCloud player</div>
+            </div>
+            <div class="track-title">Truly (Remix Emotional) By Boyington Remix</div>
+            <p class="track-sub">Version de test intégrée depuis ton lien SoundCloud.</p>
+
+            <div class="sc-embed">
+              <iframe
+                id="soundcloudFrame"
+                width="100%"
+                height="166"
+                scrolling="no"
+                frameborder="no"
+                allow="autoplay"
+                src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/boyingtonremix/truly-remix-emotional-by&color=%23d7a73a&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false">
+              </iframe>
+            </div>
+
+            <div class="card-bottom" style="margin-top:12px;">
+              <div class="card-tools">
+                <button class="mini-ghost" id="scPlay" title="Lire">▶</button>
+                <button class="mini-ghost" id="scPrev" title="Morceau précédent">⟨</button>
+                <button class="mini-ghost" id="scNext" title="Morceau suivant">⟩</button>
+              </div>
+              <div class="spacer-row"></div>
+              <div class="muted">Ajoute simplement les prochains liens dans la liste JavaScript.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="compact-grid">
+        <div class="compact-slot">Ajouter lien SoundCloud 2</div>
+        <div class="compact-slot">Ajouter lien SoundCloud 3</div>
+        <div class="compact-slot">Ajouter lien SoundCloud 4</div>
+      </div>
+    </section>
+
     <section class="section" id="images" style="margin-top:18px;">
       <div class="section-head">
         <h2>Emplacements images</h2>
@@ -700,6 +770,31 @@
     const shuffleBtn = $('shuffleBtn');
     const modeBtns = [...document.querySelectorAll('.mode-btn')];
     const miniPlayer = $('miniPlayer');
+
+    const scTracks = [
+      {
+        title: 'Truly (Remix Emotional) By Boyington Remix',
+        url: 'https://soundcloud.com/boyingtonremix/truly-remix-emotional-by'
+      },
+      {
+        title: 'À ajouter ensuite',
+        url: 'https://soundcloud.com/boyingtonremix'
+      }
+    ];
+    let scIndex = 0;
+
+    function loadSoundCloudTrack(index) {
+      scIndex = (index + scTracks.length) % scTracks.length;
+      const track = scTracks[scIndex];
+      const frame = $('soundcloudFrame');
+      const clean = encodeURIComponent(track.url);
+      frame.src = `https://w.soundcloud.com/player/?url=${clean}&color=%23d7a73a&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false`;
+      const title = document.querySelector('#soundcloud .track-title');
+      const subtitle = document.querySelector('#soundcloud .track-sub');
+      if (title) title.textContent = track.title;
+      if (subtitle) subtitle.textContent = 'Lien prêt pour lecture SoundCloud intégrée.';
+      statusLine && (statusLine.textContent = `SoundCloud : ${track.title}`);
+    }
     const mainWave = $('mainWave');
 
     let tracks = [];
@@ -1010,6 +1105,20 @@
     miniPrev.onclick = () => prevBtn.click();
     miniNext.onclick = () => nextBtn.click();
 
+    const scPlay = $('scPlay');
+    const scPrev = $('scPrev');
+    const scNext = $('scNext');
+
+    if (scPlay) scPlay.onclick = () => {
+      const iframe = $('soundcloudFrame');
+      if (iframe) {
+        const current = iframe.src;
+        iframe.src = current; // recharge simple pour relancer si besoin
+      }
+    };
+    if (scPrev) scPrev.onclick = () => loadSoundCloudTrack(scIndex - 1);
+    if (scNext) scNext.onclick = () => loadSoundCloudTrack(scIndex + 1);
+
     audio.onloadedmetadata = () => {
       const d = formatTime(audio.duration);
       durationBadge.textContent = d;
@@ -1049,6 +1158,8 @@
       miniPlayer.style.display = window.matchMedia('(max-width: 720px)').matches ? 'grid' : 'none';
     });
     miniPlayer.style.display = window.matchMedia('(max-width: 720px)').matches ? 'grid' : 'none';
+
+    loadSoundCloudTrack(0);
 
     init().catch(() => {
       statusLine.textContent = 'Impossible de charger la playlist depuis GitHub.';
