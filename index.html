@@ -286,6 +286,34 @@
       width:42px;height:42px;border-radius:12px;border:1px solid rgba(255,255,255,.08);
       background:rgba(255,255,255,.04);color:#fff;cursor:pointer;font-size:15px
     }
+    .mode-group{
+      display:inline-flex;
+      gap:8px;
+      padding:4px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+    }
+    .mode-btn{
+      height:34px;
+      min-width:56px;
+      padding:0 12px;
+      border:0;
+      border-radius:11px;
+      background:transparent;
+      color:#d8d8d8;
+      cursor:pointer;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+    .mode-btn.active{
+      background:linear-gradient(180deg,var(--gold2),var(--gold));
+      color:#111;
+      box-shadow:0 8px 18px rgba(215,167,58,.18);
+    }
+
     .spacer{flex:1}
     .stats{
       display:flex;align-items:center;gap:18px;color:#d6d6d6;font-size:13px;font-weight:700
@@ -560,7 +588,11 @@
               <button class="mini-btn" id="prevBtn">⟨</button>
               <button class="mini-btn" id="nextBtn">⟩</button>
               <button class="mini-btn" id="shuffleBtn" title="Lecture aléatoire">⇄</button>
-              <button class="mini-btn" id="repeatBtn" title="Répétition">↻</button>
+              <div class="mode-group" aria-label="Mode de lecture">
+        <button class="mode-btn active" data-mode="sequential" title="Lecture séquentielle">Séq.</button>
+        <button class="mode-btn" data-mode="repeat" title="Répéter le morceau">Rep.</button>
+        <button class="mode-btn" data-mode="stop" title="Arrêt après le dernier morceau">Stop</button>
+      </div>
               <div class="spacer"></div>
               <div class="stats">
                 <span>▶ <b id="currentPlays">0</b></span>
@@ -666,7 +698,7 @@
     const searchInput = $('searchInput');
     const sortSelect = $('sortSelect');
     const shuffleBtn = $('shuffleBtn');
-    const repeatBtn = $('repeatBtn');
+    const modeBtns = [...document.querySelectorAll('.mode-btn')];
     const miniPlayer = $('miniPlayer');
     const mainWave = $('mainWave');
 
@@ -674,8 +706,8 @@
     let currentIndex = 0;
     let searchTerm = '';
     let shuffleEnabled = false;
-    let repeatEnabled = true;
     let sortMode = 'az';
+    let playMode = 'sequential';
     let activeBranch = BRANCH_CANDIDATES[0];
 
     const formatTime = (s) => isFinite(s) ? `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}` : '0:00';
@@ -818,6 +850,17 @@
       return (currentIndex + delta + tracks.length) % tracks.length;
     }
 
+    function setPlayMode(mode) {
+      playMode = mode;
+      modeBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.mode === mode));
+      const labels = {
+        sequential: 'Mode : lecture séquentielle',
+        repeat: 'Mode : répétition du morceau',
+        stop: 'Mode : arrêt après la fin'
+      };
+      statusLine.textContent = labels[mode] || labels.sequential;
+    }
+
     function updateRenderedTrack(t) {
       if (currentIndex === t.index) applyTrack(t);
       renderFeed();
@@ -942,10 +985,11 @@
       shuffleEnabled = !shuffleEnabled;
       statusLine.textContent = shuffleEnabled ? 'Lecture aléatoire activée.' : 'Lecture aléatoire désactivée.';
     };
-    repeatBtn.onclick = () => {
-      repeatEnabled = !repeatEnabled;
-      statusLine.textContent = repeatEnabled ? 'Lecture continue activée.' : 'Lecture continue désactivée.';
-    };
+
+    modeBtns.forEach(btn => {
+      btn.onclick = () => setPlayMode(btn.dataset.mode);
+    });
+    setPlayMode('sequential');
     playBtn.onclick = () => {
       if (!tracks.length) return;
       if (!audio.src) loadTrack(currentIndex, false);
@@ -977,11 +1021,23 @@
       durationBadge.textContent = d;
     };
     audio.onended = () => {
-      if (repeatEnabled) loadTrack(chooseNext(1), true);
-      else {
-        playBtn.textContent = '▶';
-        miniPlay.textContent = '▶';
+      if (playMode === 'repeat') {
+        loadTrack(currentIndex, true);
+        return;
       }
+      if (playMode === 'sequential') {
+        if (currentIndex < tracks.length - 1) {
+          loadTrack(currentIndex + 1, true);
+        } else {
+          playBtn.textContent = '▶';
+          miniPlay.textContent = '▶';
+          statusLine.textContent = 'Fin de la playlist.';
+        }
+        return;
+      }
+      playBtn.textContent = '▶';
+      miniPlay.textContent = '▶';
+      statusLine.textContent = 'Lecture arrêtée à la fin du morceau.';
     };
     audio.onerror = () => {
       playBtn.textContent = '▶';
