@@ -4,12 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Boyington Remix</title>
-  <meta name="description" content="Boyington Remix — site officiel, manifeste artistique et player SoundCloud." />
+  <meta name="description" content="Boyington Remix — site officiel, manifeste et player SoundCloud." />
   <style>
     :root{
       --bg:#050505;
-      --panel:rgba(14,14,14,.90);
-      --panel-2:rgba(10,10,10,.84);
+      --panel:rgba(14,14,14,.92);
+      --panel2:rgba(10,10,10,.86);
       --line:rgba(255,215,0,.14);
       --gold:#f4c542;
       --gold2:#ffd76a;
@@ -26,22 +26,19 @@
       min-height:100vh;
       color:var(--text);
       font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-      background-color:var(--bg);
-      background-image:
-        linear-gradient(rgba(0,0,0,.80), rgba(0,0,0,.88)),
-        url("background-boyington-remix.jpg");
-      background-size:cover;
-      background-position:center;
-      background-attachment:fixed;
+      background:
+        radial-gradient(circle at top, rgba(255,215,0,.08), transparent 35%),
+        linear-gradient(180deg, #090909 0%, #050505 55%, #030303 100%);
       overflow-x:hidden;
     }
 
     img{display:block;max-width:100%}
     a{color:inherit;text-decoration:none}
+
     .wrap{
-      width:min(calc(100% - 32px),var(--max));
+      width:min(calc(100% - 28px), var(--max));
       margin:0 auto;
-      padding:28px 0 56px;
+      padding:26px 0 54px;
     }
 
     .topbar{
@@ -53,7 +50,7 @@
       padding:14px 18px;
       border:1px solid var(--line);
       border-radius:999px;
-      background:rgba(0,0,0,.36);
+      background:rgba(0,0,0,.35);
       backdrop-filter:blur(10px);
       box-shadow:var(--shadow);
     }
@@ -66,37 +63,25 @@
     }
 
     .brand-logo{
-      position:relative;
-      width:52px;
-      height:52px;
-      flex:0 0 auto;
-    }
-
-    .brand-logo img{
-      width:52px;
-      height:52px;
-      object-fit:contain;
-      position:relative;
-      z-index:2;
-    }
-
-    .brand-logo-fallback{
-      display:none;
-      place-items:center;
       width:52px;
       height:52px;
       border-radius:50%;
-      border:1px solid rgba(255,215,0,.25);
+      overflow:hidden;
+      flex:0 0 auto;
+      border:1px solid rgba(255,215,0,.18);
       background:rgba(255,255,255,.03);
-      color:var(--gold2);
-      font-weight:700;
-      letter-spacing:.08em;
-      position:absolute;
-      inset:0;
-      z-index:1;
     }
 
-    .brand-text{min-width:0}
+    .brand-logo img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+    }
+
+    .brand-text{
+      min-width:0;
+    }
+
     .brand-text strong{
       display:block;
       letter-spacing:.12em;
@@ -104,10 +89,11 @@
       font-size:.82rem;
       color:var(--gold);
     }
+
     .brand-text span{
       display:block;
-      font-size:.93rem;
       color:var(--muted);
+      font-size:.93rem;
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
@@ -126,24 +112,25 @@
       white-space:nowrap;
     }
 
-    .hero{padding:28px 0 18px;margin-bottom:18px}
-    .hero-grid{
+    .hero{
       display:grid;
-      grid-template-columns:1.06fr .94fr;
+      grid-template-columns:1.08fr .92fr;
       gap:22px;
-      align-items:stretch;
+      margin-bottom:22px;
     }
 
     .panel{
       border:1px solid var(--line);
       border-radius:var(--radius);
       background:var(--panel);
-      backdrop-filter:blur(10px);
       box-shadow:var(--shadow);
       overflow:hidden;
     }
 
-    .hero-copy{padding:34px 34px 30px}
+    .hero-copy{
+      padding:34px;
+    }
+
     .eyebrow{
       display:inline-flex;
       align-items:center;
@@ -153,12 +140,12 @@
       border:1px solid var(--line);
       background:rgba(255,255,255,.03);
       color:var(--gold2);
-      font-size:.9rem;
       margin-bottom:18px;
+      font-size:.92rem;
     }
 
     h1{
-      margin:0 0 14px;
+      margin:0 0 16px;
       font-size:clamp(2rem,4vw,4rem);
       line-height:1.02;
       letter-spacing:-.03em;
@@ -166,11 +153,11 @@
     }
 
     .lead{
-      margin:0 0 18px;
+      margin:0;
       color:var(--muted);
+      line-height:1.9;
       font-size:1.05rem;
-      line-height:1.85;
-      max-width:62ch;
+      max-width:64ch;
     }
 
     .hero-points{
@@ -181,7 +168,7 @@
     }
 
     .point{
-      padding:14px 14px 15px;
+      padding:14px;
       border-radius:18px;
       border:1px solid rgba(255,215,0,.10);
       background:rgba(255,255,255,.03);
@@ -189,21 +176,21 @@
 
     .point strong{
       display:block;
-      font-size:1rem;
       color:var(--gold2);
-      margin-bottom:4px;
+      margin-bottom:6px;
+      font-size:1rem;
     }
 
     .point span{
       color:var(--muted);
       font-size:.94rem;
-      line-height:1.5;
+      line-height:1.6;
     }
 
     .hero-visual{
       position:relative;
       min-height:100%;
-      background:#0a0a0a;
+      background:var(--panel2);
     }
 
     .hero-visual img{
@@ -211,42 +198,25 @@
       height:100%;
       object-fit:cover;
       min-height:100%;
-      opacity:.97;
     }
 
-    .hero-visual-fallback{
-      display:none;
-      min-height:100%;
-      padding:28px;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(255,215,0,.12), transparent 35%),
-        linear-gradient(145deg, rgba(18,18,18,.95), rgba(8,8,8,.98));
-      align-items:flex-end;
-    }
-
-    .fallback-title{
-      color:var(--gold2);
-      font-weight:800;
-      letter-spacing:.20em;
-      font-size:1.2rem;
-      margin-bottom:8px;
-    }
-
-    .fallback-sub{
-      color:var(--muted);
-      font-size:.95rem;
-    }
-
-    .overlay{
+    .hero-visual .caption{
       position:absolute;
-      inset:0;
-      background:
-        linear-gradient(180deg, rgba(0,0,0,.03), rgba(0,0,0,.42)),
-        radial-gradient(circle at 30% 20%, rgba(255,215,0,.12), transparent 35%);
-      pointer-events:none;
+      left:18px;
+      bottom:18px;
+      right:18px;
+      padding:12px 14px;
+      border-radius:16px;
+      background:rgba(0,0,0,.38);
+      border:1px solid rgba(255,215,0,.12);
+      color:#fff;
+      backdrop-filter:blur(8px);
     }
 
-    .section{margin-top:22px}
+    .section{
+      margin-top:22px;
+    }
+
     .section-title{
       display:flex;
       align-items:end;
@@ -268,7 +238,7 @@
       font-size:.95rem;
     }
 
-    .manifesto-wrapper{
+    .manifesto{
       display:grid;
       grid-template-columns:360px 1fr;
       gap:24px;
@@ -284,29 +254,18 @@
       overflow:hidden;
       border:1px solid rgba(255,215,0,.10);
       background:#0b0b0b;
-      min-height:100%;
     }
 
     .manifesto-image img{
       width:100%;
       height:100%;
       object-fit:cover;
-      min-height:100%;
     }
 
-    .manifesto-image-fallback{
-      display:none;
-      min-height:100%;
-      padding:22px;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(255,215,0,.12), transparent 35%),
-        linear-gradient(145deg, rgba(18,18,18,.95), rgba(8,8,8,.98));
-      color:var(--gold2);
-      font-weight:700;
-      letter-spacing:.08em;
+    .manifesto-content{
+      padding:4px 2px 2px;
     }
 
-    .manifesto-content{padding:4px 2px 2px}
     .manifesto-content h1,
     .manifesto-content h2,
     .manifesto-content h3{
@@ -371,13 +330,6 @@
       border:1px solid rgba(255,215,0,.12);
       background:linear-gradient(145deg, rgba(18,18,18,.95), rgba(8,8,8,.98));
       box-shadow:0 0 25px rgba(0,0,0,.45), 0 0 12px rgba(255,180,0,.04);
-      transition:transform .28s ease,border-color .28s ease,box-shadow .28s ease;
-    }
-
-    .feature-card:hover{
-      transform:translateY(-5px);
-      border-color:rgba(255,215,0,.35);
-      box-shadow:0 0 35px rgba(255,180,0,.10), 0 0 60px rgba(0,0,0,.65);
     }
 
     .feature-icon{
@@ -405,12 +357,17 @@
       font-size:.96rem;
     }
 
-    .playlist{display:grid;gap:14px}
+    .playlist{
+      display:grid;
+      gap:14px;
+    }
+
     .track-card{
       padding:18px;
       border-radius:22px;
       border:1px solid var(--line);
       background:rgba(9,9,9,.82);
+      box-shadow:var(--shadow);
     }
 
     .track-card h4{
@@ -454,8 +411,8 @@
     }
 
     @media (max-width:1040px){
-      .hero-grid,
-      .manifesto-wrapper{
+      .hero,
+      .manifesto{
         grid-template-columns:1fr;
       }
 
@@ -484,7 +441,7 @@
       .hero-copy{padding:24px 18px 20px}
       .hero-points{grid-template-columns:1fr}
       .features{grid-template-columns:1fr}
-      .manifesto-wrapper{padding:14px}
+      .manifesto{padding:14px}
       .manifesto-content{padding:2px 0 0}
       .section-title{flex-direction:column;align-items:flex-start}
     }
@@ -492,74 +449,79 @@
 </head>
 <body>
   <main class="wrap">
+
     <header class="topbar">
       <div class="brand">
         <div class="brand-logo">
-          <img
-            src="logo-boyington.png"
-            alt="Logo officiel Boyington Remix"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='grid';"
-          >
-          <span class="brand-logo-fallback" aria-hidden="true">B</span>
+          <img src="logo-boyington.png" alt="Logo officiel Boyington Remix">
         </div>
-
         <div class="brand-text">
           <strong>Boyington Remix</strong>
           <span>Site officiel — SoundCloud, manifeste et vitrine artistique</span>
         </div>
       </div>
-
       <div class="badge">🎧 Born From Passion</div>
     </header>
 
     <section class="hero">
-      <div class="hero-grid">
-        <div class="panel hero-copy">
-          <div class="eyebrow">✨ Boyington Remix — a story born from passion</div>
-          <h1>Une vitrine musicale claire, premium et légère.</h1>
-          <p class="lead">
-            Un site pensé pour mettre en avant l’univers Boyington Remix avec un visuel noir/or,
-            un manifeste en ouverture, une playlist SoundCloud propre et un affichage compatible mobile.
-          </p>
+      <div class="panel hero-copy">
+        <div class="eyebrow">✨ Boyington Remix — a story born from passion</div>
+        <h1>Une vitrine musicale claire, premium et légère.</h1>
+        <p class="lead">
+          Un site pensé pour mettre en avant l’univers Boyington Remix avec un design noir/or sobre,
+          un manifeste en ouverture, une playlist SoundCloud directe et un affichage compatible mobile.
+        </p>
 
-          <div class="hero-points">
-            <div class="point">
-              <strong>Streaming SoundCloud</strong>
-              <span>Les morceaux sont affichés directement depuis SoundCloud, sans hébergement MP3 sur GitHub.</span>
-            </div>
-            <div class="point">
-              <strong>Visuel maîtrisé</strong>
-              <span>Fond cinématique discret pour laisser respirer les covers et les lecteurs audio.</span>
-            </div>
-            <div class="point">
-              <strong>Branding cohérent</strong>
-              <span>Logo, couleurs et mise en page alignés sur l’identité Boyington Remix.</span>
-            </div>
-            <div class="point">
-              <strong>Simple à maintenir</strong>
-              <span>Ajout des futurs tracks dans un seul bloc identifié dans le script.</span>
-            </div>
+        <div class="hero-points">
+          <div class="point">
+            <strong>Streaming SoundCloud</strong>
+            <span>Le player est intégré directement depuis le lien officiel SoundCloud.</span>
           </div>
-        </div>
-
-        <div class="panel hero-visual">
-          <img
-            src="studio-boyington.png"
-            alt="Studio Boyington Remix"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
-          >
-          <div class="hero-visual-fallback">
-            <div>
-              <div class="fallback-title">BOYINGTON REMIX</div>
-              <div class="fallback-sub">Studio / Lounge / Premium</div>
-            </div>
+          <div class="point">
+            <strong>Visuel maîtrisé</strong>
+            <span>Fond simple et propre pour laisser respirer les images et le lecteur audio.</span>
           </div>
-          <div class="overlay"></div>
+          <div class="point">
+            <strong>Branding cohérent</strong>
+            <span>Logo, couleurs et mise en page alignés sur l’identité Boyington Remix.</span>
+          </div>
+          <div class="point">
+            <strong>Simple à maintenir</strong>
+            <span>Les futurs liens SoundCloud se remplacent en une seule ligne.</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="manifestoSection"></section>
+    <section class="section" id="manifestoSection">
+      <div class="manifesto">
+        <div class="manifesto-image">
+          <img src="studio-boyington.png" alt="Boyington Remix Studio">
+        </div>
+        <div class="manifesto-content">
+          <h1>🎧 𝐁𝐨𝐲𝐢𝐧𝐠𝐭𝐨𝐧 𝐑𝐞𝐦𝐢𝐱 🎧</h1>
+          <h2>✨ 𝐀 𝐒𝐭𝐨𝐫𝐲 𝐁𝐨𝐫𝐧 𝐅𝐫𝐨𝐦 𝐏𝐚𝐬𝐬𝐢𝐨𝐧</h2>
+          <p><strong>𝐁𝐨𝐲𝐢𝐧𝐠𝐭𝐨𝐧 𝐑𝐞𝐦𝐢𝐱</strong> was not born from strategy or a desire for fame. It is a project born from pure passion — the kind that wakes you up in the middle of the night searching for the right sound 🎹, the perfect drop 🔥, the right emotion ❤️.</p>
+          <h3>🎶 𝐒𝐢𝐧𝐜𝐞𝐫𝐞 𝐌𝐮𝐬𝐢𝐜</h3>
+          <p>Here, every sound is genuine. Every remix or original mix tells something real 🌌. Because music only has meaning when it is shared 🤝🎵.</p>
+          <p class="manifesto-highlight">✅ Just authentic music, created with soul and shared without limits ✨</p>
+          <h3>🌙 𝐀 𝐃𝐢𝐟𝐟𝐞𝐫𝐞𝐧𝐭 𝐕𝐢𝐬𝐢𝐨𝐧</h3>
+          <p>Boyington Remix was born differently — in the silence of a passionate creator 🎧, guided by one single belief:</p>
+          <blockquote>💭 𝐌𝐮𝐬𝐢𝐜 𝐬𝐡𝐨𝐮𝐥𝐝 𝐭𝐨𝐮𝐜𝐡 𝐩𝐞𝐨𝐩𝐥𝐞 𝐛𝐞𝐟𝐨𝐫𝐞 𝐢𝐭 𝐭𝐫𝐢𝐞𝐬 𝐭𝐨 𝐩𝐥𝐞𝐚𝐬𝐞.</blockquote>
+          <h3>❤️ 𝐄𝐯𝐞𝐫𝐲 𝐑𝐞𝐦𝐢𝐱 𝐈𝐬 𝐀 𝐉𝐨𝐮𝐫𝐧𝐞𝐲</h3>
+          <ul class="manifesto-list">
+            <li>🎵 Every track is a confession</li>
+            <li>🌍 Every remix is a journey</li>
+            <li>🔥 Nothing here is calculated. Everything is felt.</li>
+          </ul>
+          <p>Just one man, his sounds, and the sincere desire to share something beautiful ✨</p>
+          <div class="manifesto-footer">
+            <h2>👑 𝐁𝐨𝐲𝐢𝐧𝐠𝐭𝐨𝐧 𝐑𝐞𝐦𝐢𝐱</h2>
+            <p>🎼 𝐁𝐨𝐫𝐧 𝐅𝐫𝐨𝐦 𝐏𝐚𝐬𝐬𝐢𝐨𝐧 𝐀𝐧𝐝 𝐒𝐡𝐚𝐫𝐢𝐧𝐠 🎼</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section class="section">
       <div class="section-title">
@@ -568,14 +530,35 @@
           <p>Un rendu sobre, premium et compatible avec le player.</p>
         </div>
       </div>
-      <div class="features" id="featuresGrid"></div>
+      <div class="features">
+        <article class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Rapide</h3>
+          <p>Site léger et optimisé pour GitHub Pages.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">🎧</div>
+          <h3>SoundCloud</h3>
+          <p>Lecture intégrée directement depuis le lien officiel.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3>Responsive</h3>
+          <p>Lecture agréable sur smartphone, tablette et desktop.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">🔥</div>
+          <h3>Premium</h3>
+          <p>Ambiance sombre, élégante et cohérente avec le projet.</p>
+        </article>
+      </div>
     </section>
 
     <section class="section">
       <div class="section-title">
         <div>
           <h2>Playlist SoundCloud</h2>
-          <p>Player SoundCloud direct depuis le lien officiel.</p>
+          <p>Player SoundCloud officiel Boyington Remix.</p>
         </div>
       </div>
       <div class="playlist" id="playlistGrid"></div>
@@ -593,7 +576,6 @@
           src="promo-soundcloud.png"
           alt="Promo SoundCloud Boyington Remix"
           style="width:100%;height:auto;border-radius:18px;"
-          onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div class="empty-state">Image promo introuvable.</div>');"
         >
       </div>
     </section>
@@ -610,7 +592,6 @@
           src="couverture-principal.jpg"
           alt="Couverture principale Boyington Remix"
           style="width:100%;height:auto;border-radius:18px;"
-          onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div class="empty-state">Image de couverture introuvable.</div>');"
         >
       </div>
     </section>
@@ -620,86 +601,11 @@
 
   <script>
     const soundcloudLinks = [
-      {
-        title: "Boyington Remix",
-        url: "https://soundcloud.com/boyingtonremix"
-      }
-    ];
-
-    const features = [
-      { icon: "⚡", title: "Rapide", text: "Site léger et optimisé pour GitHub Pages." },
-      { icon: "🎧", title: "SoundCloud", text: "Lecture intégrée directement depuis le lien officiel." },
-      { icon: "📱", title: "Responsive", text: "Lecture agréable sur smartphone, tablette et desktop." },
-      { icon: "🔥", title: "Premium", text: "Ambiance sombre, élégante et cohérente avec le projet." },
+      { title: "Boyington Remix", url: "https://soundcloud.com/boyingtonremix" }
     ];
 
     function isSoundCloudUrl(url) {
       return typeof url === "string" && /^https?:\/\/(www\.)?soundcloud\.com\/[^\s]+/i.test(url.trim());
-    }
-
-    function renderManifesto() {
-      const manifesto = document.querySelector("#manifestoSection");
-      if (!manifesto) return;
-
-      manifesto.innerHTML = `
-        <section class="manifesto-wrapper">
-          <div class="manifesto-image">
-            <img
-              src="studio-boyington.png"
-              alt="Boyington Remix Studio"
-              onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
-            >
-            <div class="manifesto-image-fallback">BOYINGTON REMIX STUDIO</div>
-          </div>
-
-          <div class="manifesto-content">
-            <h1>🎧 𝐁𝐨𝐲𝐢𝐧𝐠𝐭𝐨𝐧 𝐑𝐞𝐦𝐢𝐱 🎧</h1>
-            <h2>✨ 𝐀 𝐒𝐭𝐨𝐫𝐲 𝐁𝐨𝐫𝐧 𝐅𝐫𝐨𝐦 𝐏𝐚𝐬𝐬𝐢𝐨𝐧</h2>
-
-            <p><strong>𝐁𝐨𝐲𝐢𝐧𝐠𝐭𝐨𝐧 𝐑𝐞𝐦𝐢𝐱</strong> was not born from strategy or a desire for fame.
-            It is a project born from pure passion — the kind that wakes you up in the middle of the night searching for the right sound 🎹, the perfect drop 🔥, the right emotion ❤️.</p>
-
-            <h3>🎶 𝐒𝐢𝐧𝐜𝐞𝐫𝐞 𝐌𝐮𝐬𝐢𝐜</h3>
-            <p>Here, every sound is genuine. Every Remix or Original Mix tells something real 🌌.
-            Because music only has meaning when it is shared 🤝🎵.</p>
-
-            <p class="manifesto-highlight">✅ Just authentic music, created with soul and shared without limits ✨</p>
-
-            <h3>🌙 𝐀 𝐃𝐢𝐟𝐟𝐞𝐫𝐞𝐧𝐭 𝐕𝐢𝐬𝐢𝐨𝐧</h3>
-            <p>Boyington Remix was born differently — in the silence of a passionate creator 🎧,
-            guided by one single belief:</p>
-
-            <blockquote>💭 𝐌𝐮𝐬𝐢𝐜 𝐬𝐡𝐨𝐮𝐥𝐝 𝐭𝐨𝐮𝐜𝐡 𝐩𝐞𝐨𝐩𝐥𝐞 𝐛𝐞𝐟𝐨𝐫𝐞 𝐢𝐭 𝐭𝐫𝐢𝐞𝐬 𝐭𝐨 𝐩𝐥𝐞𝐚𝐬𝐞.</blockquote>
-
-            <h3>❤️ 𝐄𝐯𝐞𝐫𝐲 𝐑𝐞𝐦𝐢𝐱 𝐈𝐬 𝐀 𝐉𝐨𝐮𝐫𝐧𝐞𝐲</h3>
-            <ul class="manifesto-list">
-              <li>🎵 Every track is a confession</li>
-              <li>🌍 Every remix is a journey</li>
-              <li>🔥 Nothing here is calculated. Everything is felt.</li>
-            </ul>
-
-            <p>Just one man, his sounds, and the sincere desire to share something beautiful ✨</p>
-
-            <div class="manifesto-footer">
-              <h2>👑 𝐁𝐨𝐲𝐢𝐧𝐠𝐭𝐨𝐧 𝐑𝐞𝐦𝐢𝐱</h2>
-              <p>🎼 𝐁𝐨𝐫𝐧 𝐅𝐫𝐨𝐦 𝐏𝐚𝐬𝐬𝐢𝐨𝐧 𝐀𝐧𝐝 𝐒𝐡𝐚𝐫𝐢𝐧𝐠 🎼</p>
-            </div>
-          </div>
-        </section>
-      `;
-    }
-
-    function renderFeatures() {
-      const container = document.querySelector("#featuresGrid");
-      if (!container) return;
-
-      container.innerHTML = features.map(feature => `
-        <article class="feature-card">
-          <div class="feature-icon">${feature.icon}</div>
-          <h3>${feature.title}</h3>
-          <p>${feature.text}</p>
-        </article>
-      `).join("");
     }
 
     function renderPlaylist() {
@@ -731,11 +637,7 @@
       `).join("");
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      renderManifesto();
-      renderFeatures();
-      renderPlaylist();
-    });
+    document.addEventListener("DOMContentLoaded", renderPlaylist);
   </script>
 </body>
 </html>
