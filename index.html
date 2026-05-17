@@ -1,13 +1,15 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
 <title>Boyington Remix</title>
 
 <style>
-
+/* =========================================================
+   =============== RÉGLAGES FACILES À MODIFIER =============
+   ========================================================= */
 :root{
   --gold:#d4af37;
   --gold-light:#f1cd63;
@@ -19,18 +21,22 @@
   --border:rgba(212,175,55,0.18);
   --shadow:0 18px 60px rgba(0,0,0,0.55);
   --radius:22px;
+
+  /* MODIFIE ICI SI BESOIN */
+  --hero-title-margin-top: 35px;
+  --hero-logo-width: 360px;
+  --hero-logo-width-mobile: 240px;
 }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+/* =========================================================
+   ====================== RESET ============================
+   ========================================================= */
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
 
-html{
-  scroll-behavior:smooth;
-}
-
+/* =========================================================
+   ====================== BODY =============================
+   ========================================================= */
 body{
   font-family:Arial, Helvetica, sans-serif;
   color:var(--text);
@@ -53,6 +59,9 @@ body::before{
   z-index:0;
 }
 
+/* =========================================================
+   ====================== STRUCTURE ========================
+   ========================================================= */
 .container{
   position:relative;
   z-index:1;
@@ -68,6 +77,9 @@ body::before{
   box-shadow:var(--shadow);
 }
 
+/* =========================================================
+   ====================== HERO =============================
+   ========================================================= */
 .hero{
   display:grid;
   grid-template-columns:1.8fr 0.8fr;
@@ -83,12 +95,8 @@ body::before{
   align-items:flex-start;
   justify-content:center;
   text-align:center;
-  padding-top:0;
-  padding-left:40px;
-  padding-right:40px;
-  padding-bottom:40px;
-  background:
-    linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.72));
+  padding:0 40px 40px;
+  background:linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.72));
 }
 
 .hero-main::before{
@@ -113,6 +121,7 @@ body::before{
   max-width:900px;
 }
 
+/* ===== TITRE ===== */
 h1{
   color:var(--gold);
   font-size:clamp(3rem, 7vw, 6.4rem);
@@ -121,11 +130,12 @@ h1{
   text-transform:uppercase;
   text-align:center;
   text-shadow:0 0 18px rgba(212,175,55,0.14);
-  margin-top:-35px;
+  margin-top:var(--hero-title-margin-top);
 }
 
+/* ===== LOGO ===== */
 .logo{
-  width:360px;
+  width:var(--hero-logo-width);
   height:auto;
   object-fit:contain;
   margin:12px auto 8px;
@@ -133,6 +143,7 @@ h1{
   filter:drop-shadow(0 0 18px rgba(212,175,55,0.20));
 }
 
+/* ===== DIVIDER ===== */
 .hero-divider{
   width:420px;
   max-width:85%;
@@ -151,13 +162,8 @@ h1{
   background:linear-gradient(90deg, transparent, var(--gold), transparent);
 }
 
-.hero-divider::before{
-  left:0;
-}
-
-.hero-divider::after{
-  right:0;
-}
+.hero-divider::before{left:0;}
+.hero-divider::after{right:0;}
 
 .hero-divider span{
   position:absolute;
@@ -170,6 +176,7 @@ h1{
   background:rgba(212,175,55,0.08);
 }
 
+/* ===== HERO DROIT ===== */
 .hero-side{
   display:flex;
   flex-direction:column;
@@ -209,14 +216,12 @@ h1{
   object-fit:cover;
 }
 
-.promo-image{
-  aspect-ratio:1/1;
-}
+.promo-image{aspect-ratio:1/1;}
+.studio-image{aspect-ratio:16/8;}
 
-.studio-image{
-  aspect-ratio:16/8;
-}
-
+/* =========================================================
+   ====================== PLAYER ============================
+   ========================================================= */
 .player-section{
   padding:18px;
   margin-bottom:20px;
@@ -243,6 +248,9 @@ iframe{
   display:block;
 }
 
+/* =========================================================
+   ====================== QUICK GRID =======================
+   ========================================================= */
 .quick-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -250,9 +258,7 @@ iframe{
   margin-bottom:20px;
 }
 
-.quick-card{
-  padding:18px;
-}
+.quick-card{padding:18px;}
 
 .latest-release{
   text-decoration:none;
@@ -318,6 +324,9 @@ iframe{
   transform:translateY(-2px);
 }
 
+/* =========================================================
+   ====================== BOTTOM GRID ======================
+   ========================================================= */
 .bottom-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -363,6 +372,9 @@ iframe{
   font-weight:bold;
 }
 
+/* =========================================================
+   ====================== FOOTER ===========================
+   ========================================================= */
 .notes{
   margin-top:22px;
   text-align:center;
@@ -389,317 +401,228 @@ footer{
   font-size:0.9rem;
 }
 
+/* =========================================================
+   ====================== MOBILE ===========================
+   ========================================================= */
 @media(max-width:1100px){
+  .hero,
+  .quick-grid,
+  .bottom-grid{
+    grid-template-columns:1fr;
+  }
 
-.hero,
-.quick-grid,
-.bottom-grid{
-  grid-template-columns:1fr;
-}
+  .social-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
 
-.social-grid{
-  grid-template-columns:repeat(2,1fr);
-}
-
-.hero-main{
-  min-height:auto;
-}
-
+  .hero-main{
+    min-height:auto;
+  }
 }
 
 @media(max-width:700px){
+  body{padding:10px;}
 
-body{
-  padding:10px;
+  .logo{
+    width:var(--hero-logo-width-mobile);
+    height:auto;
+  }
+
+  h1{
+    font-size:clamp(2.4rem, 13vw, 4rem);
+    letter-spacing:0.14em;
+    margin-top:15px;
+  }
+
+  .social-grid{
+    grid-template-columns:1fr;
+  }
+
+  .quick-grid,
+  .bottom-grid{
+    grid-template-columns:1fr;
+  }
+
+  .latest-copy{
+    flex-direction:column;
+  }
+
+  iframe{
+    height:620px;
+  }
 }
-
-.logo{
-  width:240px;
-  height:auto;
-}
-
-h1{
-  font-size:clamp(2.4rem, 13vw, 4rem);
-  letter-spacing:0.14em;
-  margin-top:-18px;
-}
-
-.social-grid{
-  grid-template-columns:1fr;
-}
-
-.quick-grid,
-.bottom-grid{
-  grid-template-columns:1fr;
-}
-
-.latest-copy{
-  flex-direction:column;
-}
-
-iframe{
-  height:620px;
-}
-
-}
-
 </style>
 </head>
 
 <body>
-
 <div class="container">
 
-<section class="hero">
+  <!-- ========================= -->
+  <!-- ===== HERO ============== -->
+  <!-- ========================= -->
+  <section class="hero">
 
-<div class="panel hero-main">
+    <div class="panel hero-main">
+      <div class="hero-center">
 
-<div class="hero-center">
+        <!-- ===== Titre principal ===== -->
+        <h1>
+          BOYINGTON<br>
+          REMIX
+        </h1>
 
-<h1>
-BOYINGTON<br>
-REMIX
-</h1>
+        <!-- ===== Logo ===== -->
+        <img class="logo"
+             src="logo-boyington.png"
+             alt="Boyington Remix"
+             width="420">
 
-<img class="logo"
-src="logo-boyington.png"
-alt="Boyington Remix">
+        <!-- ===== Séparation ===== -->
+        <div class="hero-divider">
+          <span></span>
+        </div>
 
-<div class="hero-divider">
-<span></span>
-</div>
+      </div>
+    </div>
 
-</div>
+    <aside class="panel hero-side">
 
-</div>
+      <div class="side-box">
+        <div class="side-title">
+          Compte SoundCloud Boyington Remix
+          <span>(Clique, écoute, partage)</span>
+        </div>
 
-<aside class="panel hero-side">
+        <a href="https://soundcloud.com/boyingtonremix" target="_blank">
+          <img class="promo-image"
+               src="cover-principal.jpg"
+               alt="Boyington Remix">
+        </a>
+      </div>
 
-<div class="side-box">
+      <div class="side-box">
+        <div class="side-title">
+          Studio Boyington Remix
+        </div>
 
-<div class="side-title">
-Compte SoundCloud Boyington Remix
-<span>(Clique, écoute, partage)</span>
-</div>
+        <img class="studio-image"
+             src="Studio-Console.jpg"
+             alt="Studio Boyington Remix">
+      </div>
 
-<a href="https://soundcloud.com/boyingtonremix" target="_blank">
+    </aside>
+  </section>
 
-<img class="promo-image"
-src="cover-principal.jpg"
-alt="Boyington Remix">
+  <!-- ========================= -->
+  <!-- ===== PLAYER ============ -->
+  <!-- ========================= -->
+  <section class="card player-section" id="player">
+    <h2 class="section-title">Dernières sorties SoundCloud</h2>
 
-</a>
+    <div class="player-wrap">
+      <iframe
+        title="Boyington Remix SoundCloud Profile"
+        scrolling="no"
+        allow="autoplay"
+        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/boyingtonremix&color=%23d4af37&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true">
+      </iframe>
+    </div>
+  </section>
 
-</div>
+  <section class="quick-grid">
 
-<div class="side-box">
+    <div class="card quick-card">
+      <h2 class="section-title">Dernier titre uploadé</h2>
 
-<div class="side-title">
-Studio Boyington Remix
-</div>
+      <a class="latest-release" href="#player">
+        <div class="latest-frame">
+          <img class="cover-image"
+               src="cover-principal.jpg"
+               alt="Boyington Remix">
+        </div>
 
-<img class="studio-image"
-src="Studio-Console.jpg"
-alt="Studio Boyington Remix">
+        <div class="latest-copy">
+          <div>
+            <strong>Dernier titre publié</strong>
+            Clique sur la pochette pour aller directement au player SoundCloud.
+          </div>
 
-</div>
+          <div class="open-btn">▶ Ouvrir</div>
+        </div>
+      </a>
+    </div>
 
-</aside>
+    <div class="card quick-card">
+      <h2 class="section-title">Réseaux & liens</h2>
 
-</section>
+      <div class="social-grid">
+        <a class="social-link" href="https://soundcloud.com/boyingtonremix" target="_blank">SoundCloud</a>
+        <a class="social-link" href="https://www.facebook.com/LoranBoyington/" target="_blank">Facebook</a>
+        <a class="social-link" href="https://www.tiktok.com/@boyingtonremixofficiel" target="_blank">TikTok</a>
+        <a class="social-link" href="https://www.youtube.com/@BoyingtonCollection" target="_blank">YouTube</a>
+        <a class="social-link" href="https://www.facebook.com/groups/DjsSetMusicForPeople" target="_blank" style="grid-column:1/-1;">Groupe Facebook DJ</a>
+      </div>
+    </div>
 
-<section class="card player-section" id="player">
+  </section>
 
-<h2 class="section-title">
-Dernières sorties SoundCloud
-</h2>
+  <!-- ========================= -->
+  <!-- ===== BOTTOM ============ -->
+  <!-- ========================= -->
+  <section class="bottom-grid">
 
-<div class="player-wrap">
+    <div class="card quick-card">
+      <h2 class="section-title">Boyington Remix Project</h2>
 
-<iframe
-title="Boyington Remix SoundCloud Profile"
-scrolling="no"
-allow="autoplay"
-src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/boyingtonremix&color=%23d4af37&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true">
-</iframe>
+      <div class="feature-panel">
+        <p>
+          🎧 <strong>Boyington Remix</strong><br><br>
+          A Story Born From Passion.<br><br>
+          Boyington Remix was not born from strategy or a desire for fame.
+          It is a project born from pure passion.
+        </p>
+      </div>
+    </div>
 
-</div>
+    <div class="card quick-card">
+      <h2 class="section-title">Support The Project</h2>
 
-</section>
+      <div class="support-panel">
+        <p>Aide le projet à grandir et reste connecté à l’univers Boyington Remix.</p>
 
-<section class="quick-grid">
+        <ul class="support-list">
+          <li><a href="https://soundcloud.com/boyingtonremix" target="_blank"><span>01</span>Follow on SoundCloud</a></li>
+          <li><a href="https://www.facebook.com/LoranBoyington/" target="_blank"><span>02</span>Share the music</a></li>
+          <li><a href="https://www.facebook.com/groups/DjsSetMusicForPeople" target="_blank"><span>03</span>Join the Facebook community</a></li>
+        </ul>
+      </div>
+    </div>
 
-<div class="card quick-card">
+  </section>
 
-<h2 class="section-title">
-Dernier titre uploadé
-</h2>
+  <!-- ========================= -->
+  <!-- ===== FOOTER ============ -->
+  <!-- ========================= -->
+  <div class="notes">
+    ✨ Vivre éternellement au rythme du rythme.
+  </div>
 
-<a class="latest-release" href="#player">
+  <div class="footer-wrap">
+    <div class="footer-brand">Boyington Remix</div>
 
-<div class="latest-frame">
+    <footer>
+      🎧 Créations/Remixes DJ non commerciales et non Officiel<br>
+      🎶 Soutenez toujours les artistes et labels officiels.<br>
+      📀 Licence : Creative Commons (CC BY-NC)<br>
+      Utilisation non commerciale autorisée avec crédit.<br><br>
 
-<img class="cover-image"
-src="cover-principal.jpg"
-alt="Boyington Remix">
+      ⚠️ Tous les droits sur les œuvres originales appartiennent à leurs propriétaires respectifs.<br><br>
 
-</div>
-
-<div class="latest-copy">
-
-<div>
-<strong>Dernier titre publié</strong>
-Clique sur la pochette pour aller directement au player SoundCloud.
-</div>
-
-<div class="open-btn">
-▶ Ouvrir
-</div>
-
-</div>
-
-</a>
-
-</div>
-
-<div class="card quick-card">
-
-<h2 class="section-title">
-Réseaux & liens
-</h2>
-
-<div class="social-grid">
-
-<a class="social-link"
-href="https://soundcloud.com/boyingtonremix"
-target="_blank">
-SoundCloud
-</a>
-
-<a class="social-link"
-href="https://www.facebook.com/LoranBoyington/"
-target="_blank">
-Facebook
-</a>
-
-<a class="social-link"
-href="https://www.tiktok.com/@boyingtonremixofficiel"
-target="_blank">
-TikTok
-</a>
-
-<a class="social-link"
-href="https://www.youtube.com/@BoyingtonCollection"
-target="_blank">
-YouTube
-</a>
-
-<a class="social-link"
-href="https://www.facebook.com/groups/DjsSetMusicForPeople"
-target="_blank"
-style="grid-column:1/-1;">
-Groupe Facebook DJ
-</a>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="bottom-grid">
-
-<div class="card quick-card">
-
-<h2 class="section-title">
-Boyington Remix Project
-</h2>
-
-<div class="feature-panel">
-
-<p>
-🎧 <strong>Boyington Remix</strong><br><br>
-
-A Story Born From Passion.<br><br>
-
-Boyington Remix was not born from strategy or a desire for fame.
-It is a project born from pure passion.
-</p>
+      @BoyingtonRemixOfficial All Rights Reserved<br>
+      Alias Péppino
+    </footer>
+  </div>
 
 </div>
-
-</div>
-
-<div class="card quick-card">
-
-<h2 class="section-title">
-Support The Project
-</h2>
-
-<div class="support-panel">
-
-<p>
-Aide le projet à grandir et reste connecté à l’univers Boyington Remix.
-</p>
-
-<ul class="support-list">
-
-<li>
-<a href="https://soundcloud.com/boyingtonremix" target="_blank">
-<span>01</span>
-Follow on SoundCloud
-</a>
-</li>
-
-<li>
-<a href="https://www.facebook.com/LoranBoyington/" target="_blank">
-<span>02</span>
-Share the music
-</a>
-</li>
-
-<li>
-<a href="https://www.facebook.com/groups/DjsSetMusicForPeople" target="_blank">
-<span>03</span>
-Join the Facebook community
-</a>
-</li>
-
-</ul>
-
-</div>
-
-</div>
-
-</section>
-
-<div class="notes">
-✨ Vivre éternellement au rythme du rythme.
-</div>
-
-<div class="footer-wrap">
-
-<div class="footer-brand">
-Boyington Remix
-</div>
-
-<footer>
-
-🎧 Créations/Remixes DJ non commerciales et non Officiel<br>
-🎶 Soutenez toujours les artistes et labels officiels.<br>
-📀 Licence : Creative Commons (CC BY-NC)<br>
-Utilisation non commerciale autorisée avec crédit.<br><br>
-
-⚠️ Tous les droits sur les œuvres originales appartiennent à leurs propriétaires respectifs.<br><br>
-
-@BoyingtonRemixOfficial All Rights Reserved<br>
-Alias Péppino
-
-</footer>
-
-</div>
-
-</div>
-
 </body>
 </html>
