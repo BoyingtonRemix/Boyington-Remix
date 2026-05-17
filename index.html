@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,623 +6,242 @@
 <title>Boyington Remix</title>
 
 <style>
-/* =========================================================
-   =============== RÉGLAGES FACILES À MODIFIER =============
-   ========================================================= */
 :root{
   --gold:#d4af37;
   --gold-light:#f1cd63;
   --bg:#050505;
   --panel:#0b0b0b;
-  --panel-2:#101010;
   --text:#f3f3f3;
   --muted:#bdbdbd;
   --border:rgba(212,175,55,0.18);
   --shadow:0 18px 60px rgba(0,0,0,0.55);
   --radius:22px;
-
-  /* MODIFIE ICI SI BESOIN */
-  --hero-title-margin-top: 35px;
-  --hero-logo-width: 360px;
-  --hero-logo-width-mobile: 240px;
 }
 
-/* =========================================================
-   ====================== RESET ============================
-   ========================================================= */
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-
-/* =========================================================
-   ====================== BODY =============================
-   ========================================================= */
 body{
   font-family:Arial, Helvetica, sans-serif;
-  color:var(--text);
-  background:
-    linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.92)),
-    url('background-boyington-remix.jpg') center/cover fixed no-repeat;
-  min-height:100vh;
-  overflow-x:hidden;
-  padding:18px;
+  background:#050505;
+  color:#f3f3f3;
+  margin:0;
+  padding:20px;
 }
 
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  background:
-    radial-gradient(circle at top, rgba(212,175,55,0.08), transparent 22%),
-    radial-gradient(circle at bottom right, rgba(212,175,55,0.06), transparent 20%);
-  z-index:0;
-}
-
-/* =========================================================
-   ====================== STRUCTURE ========================
-   ========================================================= */
-.container{
-  position:relative;
-  z-index:1;
-  max-width:1400px;
-  margin:auto;
-}
-
-.panel,
 .card{
-  background:linear-gradient(180deg, rgba(10,10,10,0.95), rgba(5,5,5,0.96));
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-}
-
-/* =========================================================
-   ====================== HERO =============================
-   ========================================================= */
-.hero{
-  display:grid;
-  grid-template-columns:1.8fr 0.8fr;
-  gap:20px;
-  margin-bottom:18px;
-}
-
-.hero-main{
-  position:relative;
-  min-height:560px;
-  overflow:hidden;
-  display:flex;
-  align-items:flex-start;
-  justify-content:center;
-  text-align:center;
-  padding:0 40px 40px;
-  background:linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.72));
-}
-
-.hero-main::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(90deg,
-      transparent 0%,
-      rgba(212,175,55,0.05) 18%,
-      transparent 36%,
-      transparent 64%,
-      rgba(212,175,55,0.05) 82%,
-      transparent 100%);
-  pointer-events:none;
-}
-
-.hero-center{
-  position:relative;
-  z-index:2;
-  width:100%;
-  max-width:900px;
-}
-
-/* ===== TITRE ===== */
-h1{
-  color:var(--gold);
-  font-size:clamp(3rem, 7vw, 6.4rem);
-  line-height:0.95;
-  letter-spacing:0.22em;
-  text-transform:uppercase;
-  text-align:center;
-  text-shadow:0 0 18px rgba(212,175,55,0.14);
-  margin-top:var(--hero-title-margin-top);
-}
-
-/* ===== LOGO ===== */
-.logo{
-  width:var(--hero-logo-width);
-  height:auto;
-  object-fit:contain;
-  margin:12px auto 8px;
-  display:block;
-  filter:drop-shadow(0 0 18px rgba(212,175,55,0.20));
-}
-
-/* ===== DIVIDER ===== */
-.hero-divider{
-  width:420px;
-  max-width:85%;
-  height:34px;
-  margin:26px auto 0;
-  position:relative;
-}
-
-.hero-divider::before,
-.hero-divider::after{
-  content:"";
-  position:absolute;
-  top:50%;
-  width:42%;
-  height:1px;
-  background:linear-gradient(90deg, transparent, var(--gold), transparent);
-}
-
-.hero-divider::before{left:0;}
-.hero-divider::after{right:0;}
-
-.hero-divider span{
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:24px;
-  height:24px;
-  transform:translate(-50%, -50%) rotate(45deg);
-  border:1px solid rgba(212,175,55,0.7);
-  background:rgba(212,175,55,0.08);
-}
-
-/* ===== HERO DROIT ===== */
-.hero-side{
-  display:flex;
-  flex-direction:column;
-  gap:16px;
-  padding:16px;
-}
-
-.side-box{
-  background:rgba(8,8,8,0.92);
+  background:#0b0b0b;
   border:1px solid rgba(212,175,55,0.18);
-  border-radius:18px;
-  padding:12px;
-}
-
-.side-title{
-  color:var(--gold-light);
-  text-transform:uppercase;
-  text-align:center;
-  line-height:1.6;
-  font-size:0.95rem;
-  margin-bottom:10px;
-}
-
-.side-title span{
-  color:#d8d8d8;
-  display:block;
-  font-size:0.82rem;
-}
-
-.promo-image,
-.studio-image,
-.cover-image{
-  width:100%;
-  border-radius:14px;
-  border:1px solid rgba(212,175,55,0.14);
-  display:block;
-  object-fit:cover;
-}
-
-.promo-image{aspect-ratio:1/1;}
-.studio-image{aspect-ratio:16/8;}
-
-/* =========================================================
-   ====================== PLAYER ============================
-   ========================================================= */
-.player-section{
-  padding:18px;
-  margin-bottom:20px;
+  border-radius:22px;
+  padding:24px;
+  box-shadow:0 18px 60px rgba(0,0,0,0.55);
 }
 
 .section-title{
-  color:var(--gold-light);
+  color:#f1cd63;
+  text-align:center;
   text-transform:uppercase;
   letter-spacing:0.08em;
-  margin-bottom:14px;
-  font-size:1.08rem;
 }
 
-.player-wrap{
-  border-radius:18px;
+.dj-world-matrix{
+  position:relative;
   overflow:hidden;
-  border:1px solid rgba(212,175,55,0.14);
+  padding:24px;
+  margin-top:20px;
 }
 
-iframe{
-  width:100%;
-  height:460px;
-  border:0;
-  display:block;
+.dj-world-matrix::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at top, rgba(212,175,55,0.18), transparent 24%),
+    radial-gradient(circle at center, rgba(241,205,99,0.08), transparent 42%),
+    radial-gradient(circle at bottom right, rgba(212,175,55,0.08), transparent 22%);
 }
 
-/* =========================================================
-   ====================== QUICK GRID =======================
-   ========================================================= */
-.quick-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
-  margin-bottom:20px;
+.dj-world-matrix-head{
+  position:relative;
+  z-index:1;
+  text-align:center;
+  margin-bottom:18px;
 }
 
-.quick-card{padding:18px;}
-
-.latest-release{
-  text-decoration:none;
-  color:inherit;
-  display:block;
-}
-
-.latest-frame{
-  border-radius:16px;
-  overflow:hidden;
-  border:1px solid rgba(212,175,55,0.14);
-}
-
-.latest-copy{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:12px;
-  margin-top:14px;
-  line-height:1.7;
+.dj-world-matrix-sub{
   color:var(--muted);
+  margin-top:-4px;
+  letter-spacing:0.10em;
+  font-size:0.92rem;
 }
 
-.latest-copy strong{
-  display:block;
-  color:#fff;
-  margin-bottom:4px;
-}
-
-.open-btn{
-  border:1px solid rgba(212,175,55,0.22);
-  color:var(--gold);
-  padding:12px 18px;
-  border-radius:12px;
-  text-transform:uppercase;
-  font-weight:bold;
-  letter-spacing:0.08em;
-}
-
-.social-grid{
+.dj-world-matrix-layout{
+  position:relative;
+  z-index:1;
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
+  grid-template-columns:1.1fr 0.9fr;
+  gap:20px;
+  align-items:center;
 }
 
-.social-link{
-  min-height:66px;
+.dj-matrix-ring{
+  position:relative;
+  width:min(100%, 580px);
+  aspect-ratio:1/1;
+  border-radius:50%;
+  padding:22px;
+  margin:auto;
+  background:radial-gradient(circle at center, rgba(212,175,55,0.06), transparent 58%);
+  border:1px solid rgba(212,175,55,0.16);
+}
+
+.dj-matrix-face{
+  height:100%;
+  border-radius:50%;
   display:flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:10px;
-  border-radius:14px;
-  border:1px solid rgba(212,175,55,0.14);
-  background:rgba(255,255,255,0.02);
-  color:#fff;
-  text-decoration:none;
-  font-weight:bold;
-  transition:0.2s ease;
+  background:radial-gradient(circle at center, rgba(0,0,0,0.72), rgba(0,0,0,0.94));
 }
 
-.social-link:hover{
-  background:rgba(212,175,55,0.08);
-  transform:translateY(-2px);
+.dj-digital-time{
+  color:var(--gold);
+  font-size:clamp(2rem, 5vw, 4rem);
+  font-weight:800;
 }
 
-/* =========================================================
-   ====================== BOTTOM GRID ======================
-   ========================================================= */
-.bottom-grid{
+.dj-digital-date{
+  color:var(--muted);
+  margin-top:10px;
+}
+
+.dj-matrix-orbit{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:20px;
+  gap:14px;
 }
 
-.feature-panel,
-.support-panel{
-  background:rgba(255,255,255,0.02);
-  border:1px solid rgba(255,255,255,0.05);
-  border-radius:18px;
-  padding:18px;
-}
-
-.feature-panel p,
-.support-panel p{
-  color:var(--muted);
-  line-height:1.9;
-}
-
-.support-list{
-  list-style:none;
-  margin-top:16px;
-  display:grid;
-  gap:12px;
-}
-
-.support-list a{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  text-decoration:none;
-  color:#fff;
-  padding:14px 16px;
-  border-radius:14px;
+.orbit-city{
+  padding:16px;
+  border-radius:16px;
   border:1px solid rgba(212,175,55,0.14);
-  background:rgba(255,255,255,0.02);
-}
-
-.support-list span{
-  color:var(--gold);
-  font-weight:bold;
-}
-
-/* =========================================================
-   ====================== FOOTER ===========================
-   ========================================================= */
-.notes{
-  margin-top:22px;
-  text-align:center;
-  color:var(--muted);
-  line-height:1.8;
-}
-
-.footer-wrap{
-  margin-top:28px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.16));
   text-align:center;
 }
 
-.footer-brand{
-  color:var(--gold);
-  margin-bottom:10px;
-  text-transform:uppercase;
-  letter-spacing:0.08em;
-  font-weight:bold;
+.orbit-city-name{
+  display:block;
+  color:var(--gold-light);
+  margin-bottom:8px;
 }
 
-footer{
-  color:var(--muted);
-  line-height:1.9;
-  font-size:0.9rem;
-}
-
-/* =========================================================
-   ====================== MOBILE ===========================
-   ========================================================= */
-@media(max-width:1100px){
-  .hero,
-  .quick-grid,
-  .bottom-grid{
-    grid-template-columns:1fr;
-  }
-
-  .social-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .hero-main{
-    min-height:auto;
-  }
+.orbit-city-time{
+  color:#fff;
+  font-size:1.2rem;
+  font-weight:700;
 }
 
 @media(max-width:700px){
-  body{padding:10px;}
-
-  .logo{
-    width:var(--hero-logo-width-mobile);
-    height:auto;
-  }
-
-  h1{
-    font-size:clamp(2.4rem, 13vw, 4rem);
-    letter-spacing:0.14em;
-    margin-top:15px;
-     transform:translateX(-25px);
-  }
-
-  .social-grid{
+  .dj-world-matrix-layout{
     grid-template-columns:1fr;
   }
 
-  .quick-grid,
-  .bottom-grid{
+  .dj-matrix-orbit{
     grid-template-columns:1fr;
-  }
-
-  .latest-copy{
-    flex-direction:column;
-  }
-
-  iframe{
-    height:620px;
   }
 }
 </style>
 </head>
 
 <body>
-<div class="container">
 
-  <!-- ========================= -->
-  <!-- ===== HERO ============== -->
-  <!-- ========================= -->
-  <section class="hero">
-
-    <div class="panel hero-main">
-      <div class="hero-center">
-
-        <!-- ===== Titre principal ===== -->
-        <h1>
-          BOYINGTON<br>
-          REMIX
-        </h1>
-
-        <!-- ===== Logo ===== -->
-        <img class="logo"
-             src="logo-boyington.png"
-             alt="Boyington Remix"
-             width="420">
-
-        <!-- ===== Séparation ===== -->
-        <div class="hero-divider">
-          <span></span>
-        </div>
-
-      </div>
-    </div>
-
-    <aside class="panel hero-side">
-
-      <div class="side-box">
-        <div class="side-title">
-          Compte SoundCloud Boyington Remix
-          <span>(Clique, écoute, partage)</span>
-        </div>
-
-        <a href="https://soundcloud.com/boyingtonremix" target="_blank">
-          <img class="promo-image"
-               src="cover-principal.jpg"
-               alt="Boyington Remix">
-        </a>
-      </div>
-
-      <div class="side-box">
-        <div class="side-title">
-          Studio Boyington Remix
-        </div>
-
-        <img class="studio-image"
-             src="Studio-Console.jpg"
-             alt="Studio Boyington Remix">
-      </div>
-
-    </aside>
-  </section>
-
-  <!-- ========================= -->
-  <!-- ===== PLAYER ============ -->
-  <!-- ========================= -->
-  <section class="card player-section" id="player">
-    <h2 class="section-title">Dernières sorties SoundCloud</h2>
-
-    <div class="player-wrap">
-      <iframe
-        title="Boyington Remix SoundCloud Profile"
-        scrolling="no"
-        allow="autoplay"
-        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/boyingtonremix&color=%23d4af37&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true">
-      </iframe>
-    </div>
-  </section>
-
-  <section class="quick-grid">
-
-    <div class="card quick-card">
-      <h2 class="section-title">Dernier titre uploadé</h2>
-
-      <a class="latest-release" href="#player">
-        <div class="latest-frame">
-          <img class="cover-image"
-               src="cover-principal.jpg"
-               alt="Boyington Remix">
-        </div>
-
-        <div class="latest-copy">
-          <div>
-            <strong>Dernier titre publié</strong>
-            Clique sur la pochette pour aller directement au player SoundCloud.
-          </div>
-
-          <div class="open-btn">▶ Ouvrir</div>
-        </div>
-      </a>
-    </div>
-
-    <div class="card quick-card">
-      <h2 class="section-title">Réseaux & liens</h2>
-
-      <div class="social-grid">
-        <a class="social-link" href="https://soundcloud.com/boyingtonremix" target="_blank">SoundCloud</a>
-        <a class="social-link" href="https://www.facebook.com/LoranBoyington/" target="_blank">Facebook</a>
-        <a class="social-link" href="https://www.tiktok.com/@boyingtonremixofficiel" target="_blank">TikTok</a>
-        <a class="social-link" href="https://www.youtube.com/@BoyingtonCollection" target="_blank">YouTube</a>
-        <a class="social-link" href="https://www.facebook.com/groups/DjsSetMusicForPeople" target="_blank" style="grid-column:1/-1;">Groupe Facebook DJ</a>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- ========================= -->
-  <!-- ===== BOTTOM ============ -->
-  <!-- ========================= -->
-  <section class="bottom-grid">
-
-    <div class="card quick-card">
-      <h2 class="section-title">Boyington Remix Project</h2>
-
-      <div class="feature-panel">
-        <p>
-          🎧 <strong>Boyington Remix</strong><br><br>
-          A Story Born From Passion.<br><br>
-          Boyington Remix was not born from strategy or a desire for fame.
-          It is a project born from pure passion.
-        </p>
-      </div>
-    </div>
-
-    <div class="card quick-card">
-      <h2 class="section-title">Support The Project</h2>
-
-      <div class="support-panel">
-        <p>Aide le projet à grandir et reste connecté à l’univers Boyington Remix.</p>
-
-        <ul class="support-list">
-          <li><a href="https://soundcloud.com/boyingtonremix" target="_blank"><span>01</span>Follow on SoundCloud</a></li>
-          <li><a href="https://www.facebook.com/LoranBoyington/" target="_blank"><span>02</span>Share the music</a></li>
-          <li><a href="https://www.facebook.com/groups/DjsSetMusicForPeople" target="_blank"><span>03</span>Join the Facebook community</a></li>
-        </ul>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- ========================= -->
-  <!-- ===== FOOTER ============ -->
-  <!-- ========================= -->
-  <div class="notes">
-    ✨ Vivre éternellement au rythme du rythme.
+<section class="card dj-world-matrix">
+  <div class="dj-world-matrix-head">
+    <h2 class="section-title">DJ World Matrix</h2>
+    <p class="dj-world-matrix-sub">Global Time • Live Session • World Control</p>
   </div>
 
-  <div class="footer-wrap">
-    <div class="footer-brand">Boyington Remix</div>
+  <div class="dj-world-matrix-layout">
 
-    <footer>
-      🎧 Créations/Remixes DJ non commerciales et non Officiel<br>
-      🎶 Soutenez toujours les artistes et labels officiels.<br>
-      📀 Licence : Creative Commons (CC BY-NC)<br>
-      Utilisation non commerciale autorisée avec crédit.<br><br>
+    <div class="dj-matrix-core-wrap">
+      <div class="dj-matrix-ring">
+        <div class="dj-matrix-face">
 
-      ⚠️ Tous les droits sur les œuvres originales appartiennent à leurs propriétaires respectifs.<br><br>
+          <div class="dj-matrix-label">GLOBAL LIVE CLOCK</div>
 
-      @BoyingtonRemixOfficial All Rights Reserved<br>
-      Alias Péppino
-    </footer>
+          <div class="dj-digital-time" id="matrixLocalTime">--:--:--</div>
+          <div class="dj-digital-date" id="matrixLocalDate">---</div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="dj-matrix-orbit">
+
+      <div class="orbit-city">
+        <span class="orbit-city-name">Paris</span>
+        <span class="orbit-city-time" data-timezone="Europe/Paris">--:--:--</span>
+      </div>
+
+      <div class="orbit-city">
+        <span class="orbit-city-name">London</span>
+        <span class="orbit-city-time" data-timezone="Europe/London">--:--:--</span>
+      </div>
+
+      <div class="orbit-city">
+        <span class="orbit-city-name">New York</span>
+        <span class="orbit-city-time" data-timezone="America/New_York">--:--:--</span>
+      </div>
+
+      <div class="orbit-city">
+        <span class="orbit-city-name">Tokyo</span>
+        <span class="orbit-city-time" data-timezone="Asia/Tokyo">--:--:--</span>
+      </div>
+
+    </div>
+
   </div>
+</section>
 
-</div>
+<script>
+function updateDJWorldMatrix() {
+  const now = new Date();
+
+  const localTimeEl = document.getElementById('matrixLocalTime');
+  const localDateEl = document.getElementById('matrixLocalDate');
+
+  if (localTimeEl) {
+    localTimeEl.textContent = now.toLocaleTimeString('fr-FR', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    });
+  }
+
+  if (localDateEl) {
+    localDateEl.textContent = now.toLocaleDateString('fr-FR', {
+      weekday: 'long',
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    });
+  }
+
+  document.querySelectorAll('.orbit-city-time').forEach(el => {
+    const tz = el.getAttribute('data-timezone');
+    el.textContent = now.toLocaleTimeString('fr-FR', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+      timeZone: tz
+    });
+  });
+}
+
+updateDJWorldMatrix();
+setInterval(updateDJWorldMatrix, 1000);
+</script>
+
 </body>
 </html>
