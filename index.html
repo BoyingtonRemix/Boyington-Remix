@@ -411,7 +411,7 @@ footer{
   position:relative;
   overflow:hidden;
   padding:24px;
-  margin-top:20px;
+  margin:20px 0 0;
 }
 
 .dj-world-matrix::before{
@@ -462,6 +462,31 @@ footer{
   box-shadow:
     0 0 0 1px rgba(212,175,55,0.06) inset,
     0 0 60px rgba(212,175,55,0.08);
+}
+
+.dj-matrix-ring::before{
+  content:"";
+  position:absolute;
+  inset:14px;
+  border-radius:50%;
+  border:1px dashed rgba(212,175,55,0.18);
+}
+
+.dj-matrix-ring::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  background:conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(212,175,55,0.00) 32deg,
+    rgba(212,175,55,0.22) 86deg,
+    rgba(212,175,55,0.00) 144deg,
+    transparent 360deg
+  );
+  animation:matrixSpin 14s linear infinite;
+  opacity:0.55;
 }
 
 .dj-matrix-face{
@@ -646,14 +671,6 @@ footer{
 .orbit-b{top:13%; left:76%;}
 .orbit-c{top:32%; left:86%;}
 .orbit-d{top:54%; left:82%;}
-.orbit-e{top:74%; left:76%;}
-.orbit-f{top:86%; left:50%; transform:translateX(-50%);}
-.orbit-g{top:74%; left:8%;}
-.orbit-h{top:54%; left:-2%;}
-.orbit-i{top:32%; left:-8%;}
-.orbit-j{top:13%; left:10%;}
-.orbit-k{top:46%; left:18%;}
-.orbit-l{top:46%; left:62%;}
 
 .dj-matrix-footer{
   position:relative;
@@ -694,14 +711,6 @@ footer{
   .orbit-b{top:12%; left:68%;}
   .orbit-c{top:28%; left:82%;}
   .orbit-d{top:48%; left:86%;}
-  .orbit-e{top:68%; left:78%;}
-  .orbit-f{top:84%; left:50%; transform:translateX(-50%);}
-  .orbit-g{top:68%; left:6%;}
-  .orbit-h{top:48%; left:-2%;}
-  .orbit-i{top:28%; left:4%;}
-  .orbit-j{top:12%; left:14%;}
-  .orbit-k{top:40%; left:18%;}
-  .orbit-l{top:40%; left:62%;}
 }
 
 @media(max-width:700px){
@@ -732,14 +741,6 @@ footer{
   .orbit-b{top:10%;}
   .orbit-c{top:18%;}
   .orbit-d{top:26%;}
-  .orbit-e{top:34%;}
-  .orbit-f{top:42%;}
-  .orbit-g{top:50%;}
-  .orbit-h{top:58%;}
-  .orbit-i{top:66%;}
-  .orbit-j{top:74%;}
-  .orbit-k{top:82%;}
-  .orbit-l{top:90%;}
 }
 
 /* =========================================================
@@ -954,11 +955,9 @@ footer{
   </div>
 
   <div class="dj-world-matrix-layout">
-
     <div class="dj-matrix-core-wrap">
       <div class="dj-matrix-ring">
         <div class="dj-matrix-face">
-
           <div class="dj-matrix-label">GLOBAL LIVE CLOCK</div>
 
           <div class="dj-analog-clock">
@@ -970,13 +969,11 @@ footer{
 
           <div class="dj-digital-time" id="matrixLocalTime">--:--:--</div>
           <div class="dj-digital-date" id="matrixLocalDate">---</div>
-
         </div>
       </div>
     </div>
 
     <div class="dj-matrix-orbit">
-
       <div class="orbit-city orbit-a">
         <span class="orbit-city-name">Paris</span>
         <span class="orbit-city-time" data-timezone="Europe/Paris">--:--:--</span>
@@ -996,9 +993,13 @@ footer{
         <span class="orbit-city-name">Tokyo</span>
         <span class="orbit-city-time" data-timezone="Asia/Tokyo">--:--:--</span>
       </div>
-
     </div>
+  </div>
 
+  <div class="dj-matrix-footer">
+    <div class="matrix-footer-chip">LIVE WORLD SYNC</div>
+    <div class="matrix-footer-chip">BPM READY</div>
+    <div class="matrix-footer-chip">DJ SESSION MODE</div>
   </div>
 </section>
 
