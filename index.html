@@ -401,348 +401,6 @@ footer{
   font-size:0.9rem;
 }
 
-
-
-/* =========================================================
-   =================== WORLD MATRIX ========================
-   ========================================================= */
-
-.dj-world-matrix{
-  position:relative;
-  overflow:hidden;
-  padding:24px;
-  margin:20px 0 0;
-}
-
-.dj-world-matrix::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  background:
-    radial-gradient(circle at top, rgba(212,175,55,0.18), transparent 24%),
-    radial-gradient(circle at center, rgba(241,205,99,0.08), transparent 42%),
-    radial-gradient(circle at bottom right, rgba(212,175,55,0.08), transparent 22%);
-}
-
-.dj-world-matrix-head{
-  position:relative;
-  z-index:1;
-  text-align:center;
-  margin-bottom:18px;
-}
-
-.dj-world-matrix-sub{
-  color:var(--muted);
-  margin-top:-4px;
-  letter-spacing:0.10em;
-  font-size:0.92rem;
-}
-
-.dj-world-matrix-layout{
-  position:relative;
-  z-index:1;
-  display:grid;
-  grid-template-columns:1.1fr 0.9fr;
-  gap:20px;
-  align-items:center;
-}
-
-.dj-matrix-ring{
-  position:relative;
-  width:min(100%, 580px);
-  aspect-ratio:1/1;
-  border-radius:50%;
-  padding:22px;
-  margin:auto;
-  background:
-    radial-gradient(circle at center, rgba(212,175,55,0.06), transparent 58%),
-    linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.16));
-  border:1px solid rgba(212,175,55,0.16);
-  box-shadow:
-    0 0 0 1px rgba(212,175,55,0.06) inset,
-    0 0 60px rgba(212,175,55,0.08);
-}
-
-.dj-matrix-ring::before{
-  content:"";
-  position:absolute;
-  inset:14px;
-  border-radius:50%;
-  border:1px dashed rgba(212,175,55,0.18);
-}
-
-.dj-matrix-ring::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:50%;
-  background:conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    rgba(212,175,55,0.00) 32deg,
-    rgba(212,175,55,0.22) 86deg,
-    rgba(212,175,55,0.00) 144deg,
-    transparent 360deg
-  );
-  animation:matrixSpin 14s linear infinite;
-  opacity:0.55;
-}
-
-.dj-matrix-face{
-  position:relative;
-  z-index:2;
-  height:100%;
-  border-radius:50%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  background:
-    radial-gradient(circle at center, rgba(0,0,0,0.72), rgba(0,0,0,0.94));
-  border:1px solid rgba(212,175,55,0.12);
-  box-shadow:inset 0 0 40px rgba(0,0,0,0.65);
-}
-
-.dj-matrix-label{
-  color:var(--gold-light);
-  text-transform:uppercase;
-  letter-spacing:0.22em;
-  font-size:0.76rem;
-  margin-bottom:14px;
-}
-
-.dj-analog-clock{
-  position:relative;
-  width:min(66%, 300px);
-  aspect-ratio:1/1;
-  border-radius:50%;
-  margin-bottom:14px;
-  background:
-    radial-gradient(circle at center, rgba(255,255,255,0.03), rgba(0,0,0,0.08)),
-    radial-gradient(circle at center, rgba(212,175,55,0.06), transparent 60%);
-  border:1px solid rgba(212,175,55,0.12);
-  box-shadow:inset 0 0 30px rgba(0,0,0,0.55);
-}
-
-.dj-analog-clock::before{
-  content:"";
-  position:absolute;
-  inset:16px;
-  border-radius:50%;
-  border:1px solid rgba(212,175,55,0.10);
-}
-
-.dj-analog-clock::after{
-  content:"";
-  position:absolute;
-  inset:8px;
-  border-radius:50%;
-  border:1px dashed rgba(212,175,55,0.18);
-  opacity:0.8;
-}
-
-.dj-hand{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform-origin:50% 100%;
-  transform:translate(-50%, -100%) rotate(0deg);
-  border-radius:999px;
-}
-
-.dj-hand-hour{
-  width:8px;
-  height:28%;
-  background:linear-gradient(180deg, var(--gold-light), var(--gold));
-  box-shadow:0 0 12px rgba(212,175,55,0.18);
-}
-
-.dj-hand-minute{
-  width:6px;
-  height:36%;
-  background:linear-gradient(180deg, #fff, var(--gold-light));
-  box-shadow:0 0 12px rgba(241,205,99,0.14);
-}
-
-.dj-hand-second{
-  width:3px;
-  height:42%;
-  background:rgba(212,175,55,0.95);
-  box-shadow:0 0 14px rgba(212,175,55,0.25);
-}
-
-.dj-clock-dot{
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:18px;
-  height:18px;
-  transform:translate(-50%, -50%);
-  border-radius:50%;
-  background:var(--gold);
-  box-shadow:0 0 18px rgba(212,175,55,0.4);
-}
-
-.dj-digital-time{
-  color:var(--gold);
-  font-size:clamp(2rem, 5vw, 4.2rem);
-  font-weight:800;
-  letter-spacing:0.12em;
-  text-shadow:0 0 18px rgba(212,175,55,0.2);
-}
-
-.dj-digital-date{
-  color:var(--muted);
-  margin-top:10px;
-  letter-spacing:0.08em;
-  font-size:0.92rem;
-  text-transform:capitalize;
-}
-
-.dj-matrix-orbit{
-  position:relative;
-  min-height:620px;
-  border-radius:24px;
-  border:1px solid rgba(212,175,55,0.08);
-  background:
-    radial-gradient(circle at center, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
-  overflow:hidden;
-}
-
-.dj-matrix-orbit::before{
-  content:"";
-  position:absolute;
-  inset:16px;
-  border-radius:22px;
-  border:1px solid rgba(212,175,55,0.08);
-}
-
-.dj-matrix-orbit::after{
-  content:"";
-  position:absolute;
-  inset:12px;
-  border-radius:22px;
-  background:
-    radial-gradient(circle at 50% 50%, rgba(212,175,55,0.06), transparent 18%),
-    radial-gradient(circle at 50% 50%, rgba(212,175,55,0.03), transparent 34%),
-    radial-gradient(circle at 50% 50%, rgba(212,175,55,0.02), transparent 50%);
-  pointer-events:none;
-}
-
-.orbit-city{
-  position:absolute;
-  min-width:150px;
-  padding:14px 16px;
-  border-radius:16px;
-  border:1px solid rgba(212,175,55,0.14);
-  background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.16));
-  text-align:center;
-  box-shadow:0 10px 30px rgba(0,0,0,0.22);
-  transition:transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
-  backdrop-filter:blur(4px);
-}
-
-.orbit-city:hover{
-  transform:translateY(-3px) scale(1.02);
-  border-color:rgba(241,205,99,0.32);
-  background:linear-gradient(180deg, rgba(212,175,55,0.08), rgba(0,0,0,0.16));
-}
-
-.orbit-city-name{
-  display:block;
-  color:var(--gold-light);
-  text-transform:uppercase;
-  letter-spacing:0.14em;
-  font-size:0.86rem;
-  margin-bottom:8px;
-}
-
-.orbit-city-time{
-  display:block;
-  color:#fff;
-  font-size:1.2rem;
-  font-weight:700;
-  letter-spacing:0.08em;
-}
-
-.orbit-a{top:5%; left:50%; transform:translateX(-50%);}
-.orbit-b{top:13%; left:76%;}
-.orbit-c{top:32%; left:86%;}
-.orbit-d{top:54%; left:82%;}
-
-.dj-matrix-footer{
-  position:relative;
-  z-index:1;
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:10px;
-  margin-top:18px;
-}
-
-.matrix-footer-chip{
-  padding:10px 16px;
-  border-radius:999px;
-  border:1px solid rgba(212,175,55,0.16);
-  background:rgba(255,255,255,0.03);
-  color:var(--gold-light);
-  text-transform:uppercase;
-  letter-spacing:0.12em;
-  font-size:0.76rem;
-}
-
-@keyframes matrixSpin{
-  from{transform:rotate(0deg);}
-  to{transform:rotate(360deg);}
-}
-
-@media(max-width:1100px){
-  .dj-world-matrix-layout{
-    grid-template-columns:1fr;
-  }
-
-  .dj-matrix-orbit{
-    min-height:720px;
-  }
-
-  .orbit-a{top:5%; left:50%; transform:translateX(-50%);}
-  .orbit-b{top:12%; left:68%;}
-  .orbit-c{top:28%; left:82%;}
-  .orbit-d{top:48%; left:86%;}
-}
-
-@media(max-width:700px){
-  .dj-world-matrix{
-    padding:18px;
-  }
-
-  .dj-matrix-ring{
-    max-width:560px;
-  }
-
-  .dj-analog-clock{
-    width:min(74%, 250px);
-  }
-
-  .dj-matrix-orbit{
-    min-height:1280px;
-  }
-
-  .orbit-city{
-    min-width:auto;
-    width:76%;
-    left:50% !important;
-    transform:translateX(-50%) !important;
-  }
-
-  .orbit-a{top:2%;}
-  .orbit-b{top:10%;}
-  .orbit-c{top:18%;}
-  .orbit-d{top:26%;}
-}
-
 /* =========================================================
    ====================== MOBILE ===========================
    ========================================================= */
@@ -905,9 +563,267 @@ footer{
         <a class="social-link" href="https://www.youtube.com/@BoyingtonCollection" target="_blank">YouTube</a>
         <a class="social-link" href="https://www.facebook.com/groups/DjsSetMusicForPeople" target="_blank" style="grid-column:1/-1;">Groupe Facebook DJ</a>
       </div>
+    
+
+<div class="world-mini">
+  <div class="world-mini-head">
+    <div class="world-mini-title">DJ World Matrix</div>
+    <div class="world-mini-sub">Global Time • Live Session</div>
+  </div>
+
+  <div class="world-mini-layout">
+    <div class="world-mini-clock-wrap">
+      <div class="world-mini-ring">
+        <div class="world-mini-face">
+          <div class="world-mini-label">LIVE TIME</div>
+
+          <div class="world-mini-analog">
+            <div class="world-mini-hand world-mini-hour" id="matrixHourHand"></div>
+            <div class="world-mini-hand world-mini-minute" id="matrixMinuteHand"></div>
+            <div class="world-mini-hand world-mini-second" id="matrixSecondHand"></div>
+            <div class="world-mini-dot"></div>
+          </div>
+
+          <div class="world-mini-digital" id="matrixLocalTime">--:--:--</div>
+          <div class="world-mini-date" id="matrixLocalDate">---</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="world-mini-cities">
+      <div class="world-mini-city">
+        <span class="city-name">Paris</span>
+        <span class="city-time" data-timezone="Europe/Paris">--:--:--</span>
+      </div>
+
+      <div class="world-mini-city">
+        <span class="city-name">London</span>
+        <span class="city-time" data-timezone="Europe/London">--:--:--</span>
+      </div>
+
+      <div class="world-mini-city">
+        <span class="city-name">New York</span>
+        <span class="city-time" data-timezone="America/New_York">--:--:--</span>
+      </div>
+
+      <div class="world-mini-city">
+        <span class="city-name">Tokyo</span>
+        <span class="city-time" data-timezone="Asia/Tokyo">--:--:--</span>
+      </div>
+    </div>
+  </div>
+</div>
     </div>
 
   </section>
+
+
+
+/* =========================================================
+   =================== WORLD MINI MATRIX ===================
+   ========================================================= */
+
+.world-mini{
+  margin-top:16px;
+  padding:16px;
+  border-radius:18px;
+  border:1px solid rgba(212,175,55,0.14);
+  background:rgba(255,255,255,0.02);
+  overflow:hidden;
+}
+
+.world-mini-head{
+  text-align:center;
+  margin-bottom:14px;
+}
+
+.world-mini-title{
+  color:var(--gold-light);
+  text-transform:uppercase;
+  letter-spacing:0.12em;
+  font-weight:bold;
+  font-size:0.98rem;
+}
+
+.world-mini-sub{
+  color:var(--muted);
+  font-size:0.84rem;
+  margin-top:4px;
+  letter-spacing:0.06em;
+}
+
+.world-mini-layout{
+  display:grid;
+  grid-template-columns:0.95fr 1.05fr;
+  gap:14px;
+  align-items:center;
+}
+
+.world-mini-clock-wrap{
+  display:flex;
+  justify-content:center;
+}
+
+.world-mini-ring{
+  width:100%;
+  max-width:250px;
+  aspect-ratio:1/1;
+  border-radius:50%;
+  padding:12px;
+  background:
+    radial-gradient(circle at center, rgba(212,175,55,0.05), transparent 58%),
+    linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.16));
+  border:1px solid rgba(212,175,55,0.12);
+  box-shadow:
+    0 0 0 1px rgba(212,175,55,0.04) inset,
+    0 0 28px rgba(212,175,55,0.05);
+}
+
+.world-mini-face{
+  position:relative;
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:radial-gradient(circle at center, rgba(0,0,0,0.76), rgba(0,0,0,0.94));
+  border:1px solid rgba(212,175,55,0.10);
+  box-shadow:inset 0 0 24px rgba(0,0,0,0.55);
+}
+
+.world-mini-label{
+  color:var(--gold-light);
+  text-transform:uppercase;
+  letter-spacing:0.18em;
+  font-size:0.70rem;
+  margin-bottom:10px;
+}
+
+.world-mini-analog{
+  position:relative;
+  width:64%;
+  aspect-ratio:1/1;
+  border-radius:50%;
+  margin-bottom:10px;
+  background:
+    radial-gradient(circle at center, rgba(255,255,255,0.02), rgba(0,0,0,0.08)),
+    radial-gradient(circle at center, rgba(212,175,55,0.05), transparent 60%);
+  border:1px solid rgba(212,175,55,0.10);
+}
+
+.world-mini-analog::before{
+  content:"";
+  position:absolute;
+  inset:11px;
+  border-radius:50%;
+  border:1px solid rgba(212,175,55,0.08);
+}
+
+.world-mini-hand{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform-origin:50% 100%;
+  transform:translate(-50%, -100%) rotate(0deg);
+  border-radius:999px;
+}
+
+.world-mini-hour{
+  width:5px;
+  height:26%;
+  background:linear-gradient(180deg, var(--gold-light), var(--gold));
+}
+
+.world-mini-minute{
+  width:4px;
+  height:34%;
+  background:linear-gradient(180deg, #fff, var(--gold-light));
+}
+
+.world-mini-second{
+  width:2px;
+  height:40%;
+  background:rgba(212,175,55,0.95);
+}
+
+.world-mini-dot{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:12px;
+  height:12px;
+  transform:translate(-50%, -50%);
+  border-radius:50%;
+  background:var(--gold);
+  box-shadow:0 0 10px rgba(212,175,55,0.35);
+}
+
+.world-mini-digital{
+  color:var(--gold);
+  font-size:clamp(1.2rem, 3vw, 2rem);
+  font-weight:800;
+  letter-spacing:0.08em;
+  line-height:1.05;
+}
+
+.world-mini-date{
+  color:var(--muted);
+  margin-top:8px;
+  font-size:0.78rem;
+  letter-spacing:0.05em;
+  text-transform:capitalize;
+}
+
+.world-mini-cities{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.world-mini-city{
+  min-height:74px;
+  border-radius:14px;
+  border:1px solid rgba(212,175,55,0.12);
+  background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.14));
+  padding:10px 12px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+.world-mini-city .city-name{
+  color:var(--gold-light);
+  text-transform:uppercase;
+  font-size:0.74rem;
+  letter-spacing:0.10em;
+  margin-bottom:6px;
+}
+
+.world-mini-city .city-time{
+  color:#fff;
+  font-size:1rem;
+  font-weight:700;
+  letter-spacing:0.05em;
+}
+
+@media(max-width:700px){
+  .world-mini-layout{
+    grid-template-columns:1fr;
+  }
+
+  .world-mini-cities{
+    grid-template-columns:1fr;
+  }
+
+  .world-mini-ring{
+    max-width:220px;
+  }
+}
 
   <!-- ========================= -->
   <!-- ===== BOTTOM ============ -->
@@ -942,66 +858,6 @@ footer{
     </div>
 
   </section>
-
-
-<!-- ========================= -->
-<!-- ===== WORLD MATRIX ====== -->
-<!-- ========================= -->
-
-<section class="card dj-world-matrix">
-  <div class="dj-world-matrix-head">
-    <h2 class="section-title">DJ World Matrix</h2>
-    <p class="dj-world-matrix-sub">Global Time • Live Session • World Control</p>
-  </div>
-
-  <div class="dj-world-matrix-layout">
-    <div class="dj-matrix-core-wrap">
-      <div class="dj-matrix-ring">
-        <div class="dj-matrix-face">
-          <div class="dj-matrix-label">GLOBAL LIVE CLOCK</div>
-
-          <div class="dj-analog-clock">
-            <div class="dj-hand dj-hand-hour" id="matrixHourHand"></div>
-            <div class="dj-hand dj-hand-minute" id="matrixMinuteHand"></div>
-            <div class="dj-hand dj-hand-second" id="matrixSecondHand"></div>
-            <div class="dj-clock-dot"></div>
-          </div>
-
-          <div class="dj-digital-time" id="matrixLocalTime">--:--:--</div>
-          <div class="dj-digital-date" id="matrixLocalDate">---</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="dj-matrix-orbit">
-      <div class="orbit-city orbit-a">
-        <span class="orbit-city-name">Paris</span>
-        <span class="orbit-city-time" data-timezone="Europe/Paris">--:--:--</span>
-      </div>
-
-      <div class="orbit-city orbit-b">
-        <span class="orbit-city-name">London</span>
-        <span class="orbit-city-time" data-timezone="Europe/London">--:--:--</span>
-      </div>
-
-      <div class="orbit-city orbit-c">
-        <span class="orbit-city-name">New York</span>
-        <span class="orbit-city-time" data-timezone="America/New_York">--:--:--</span>
-      </div>
-
-      <div class="orbit-city orbit-d">
-        <span class="orbit-city-name">Tokyo</span>
-        <span class="orbit-city-time" data-timezone="Asia/Tokyo">--:--:--</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="dj-matrix-footer">
-    <div class="matrix-footer-chip">LIVE WORLD SYNC</div>
-    <div class="matrix-footer-chip">BPM READY</div>
-    <div class="matrix-footer-chip">DJ SESSION MODE</div>
-  </div>
-</section>
 
   <!-- ========================= -->
   <!-- ===== FOOTER ============ -->
@@ -1069,7 +925,7 @@ function updateDJWorldMatrix() {
     });
   }
 
-  document.querySelectorAll('.orbit-city-time').forEach(el => {
+  document.querySelectorAll('.city-time').forEach(el => {
     const tz = el.getAttribute('data-timezone');
     el.textContent = now.toLocaleTimeString('fr-FR', {
       hour: '2-digit',
