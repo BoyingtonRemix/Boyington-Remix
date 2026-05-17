@@ -324,8 +324,6 @@ iframe{
   transform:translateY(-2px);
 }
 
-
-
 /* =========================================================
    =================== WORLD MINI MATRIX ===================
    ========================================================= */
@@ -609,7 +607,6 @@ footer{
   font-size:0.9rem;
 }
 
-
 /* =========================================================
    ================= DJ COMMUNITY BANNER ===================
    ========================================================= */
@@ -707,11 +704,6 @@ footer{
 
       </div>
     </div>
-
-      <img class="dj-community-banner"
-      src="djs-international-banner.jpg"
-      alt="DJs International">
-
     <aside class="panel hero-side">
 
       <div class="side-box">
@@ -789,56 +781,59 @@ footer{
         <a class="social-link" href="https://www.youtube.com/@BoyingtonCollection" target="_blank">YouTube</a>
         <a class="social-link" href="https://www.facebook.com/groups/DjsSetMusicForPeople" target="_blank" style="grid-column:1/-1;">Groupe Facebook DJ</a>
       </div>
-    
 
-<div class="world-mini">
-  <div class="world-mini-head">
-    <div class="world-mini-title">DJ World Matrix</div>
-    <div class="world-mini-sub">Global Time • Live Session</div>
-  </div>
+      <div class="world-mini">
+        <div class="world-mini-head">
+          <div class="world-mini-title">DJ World Matrix</div>
+          <div class="world-mini-sub">Global Time • Live Session</div>
+        </div>
 
-  <div class="world-mini-layout">
-    <div class="world-mini-clock-wrap">
-      <div class="world-mini-ring">
-        <div class="world-mini-face">
-          <div class="world-mini-label">LIVE TIME</div>
+        <div class="world-mini-layout">
+          <div class="world-mini-clock-wrap">
+            <div class="world-mini-ring">
+              <div class="world-mini-face">
+                <div class="world-mini-label">LIVE TIME</div>
 
-          <div class="world-mini-analog">
-            <div class="world-mini-hand world-mini-hour" id="matrixHourHand"></div>
-            <div class="world-mini-hand world-mini-minute" id="matrixMinuteHand"></div>
-            <div class="world-mini-hand world-mini-second" id="matrixSecondHand"></div>
-            <div class="world-mini-dot"></div>
+                <div class="world-mini-analog">
+                  <div class="world-mini-hand world-mini-hour" id="matrixHourHand"></div>
+                  <div class="world-mini-hand world-mini-minute" id="matrixMinuteHand"></div>
+                  <div class="world-mini-hand world-mini-second" id="matrixSecondHand"></div>
+                  <div class="world-mini-dot"></div>
+                </div>
+
+                <div class="world-mini-digital" id="matrixLocalTime">--:--:--</div>
+                <div class="world-mini-date" id="matrixLocalDate">---</div>
+              </div>
+            </div>
           </div>
 
-          <div class="world-mini-digital" id="matrixLocalTime">--:--:--</div>
-          <div class="world-mini-date" id="matrixLocalDate">---</div>
+          <div class="world-mini-cities">
+            <div class="world-mini-city">
+              <span class="city-name">Paris</span>
+              <span class="city-time" data-timezone="Europe/Paris">--:--:--</span>
+            </div>
+
+            <div class="world-mini-city">
+              <span class="city-name">London</span>
+              <span class="city-time" data-timezone="Europe/London">--:--:--</span>
+            </div>
+
+            <div class="world-mini-city">
+              <span class="city-name">New York</span>
+              <span class="city-time" data-timezone="America/New_York">--:--:--</span>
+            </div>
+
+            <div class="world-mini-city">
+              <span class="city-name">Tokyo</span>
+              <span class="city-time" data-timezone="Asia/Tokyo">--:--:--</span>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="world-mini-cities">
-      <div class="world-mini-city">
-        <span class="city-name">Paris</span>
-        <span class="city-time" data-timezone="Europe/Paris">--:--:--</span>
-      </div>
-
-      <div class="world-mini-city">
-        <span class="city-name">London</span>
-        <span class="city-time" data-timezone="Europe/London">--:--:--</span>
-      </div>
-
-      <div class="world-mini-city">
-        <span class="city-name">New York</span>
-        <span class="city-time" data-timezone="America/New_York">--:--:--</span>
-      </div>
-
-      <div class="world-mini-city">
-        <span class="city-name">Tokyo</span>
-        <span class="city-time" data-timezone="Asia/Tokyo">--:--:--</span>
-      </div>
-    </div>
-  </div>
-</div>
+      <img class="dj-community-banner"
+           src="djs-international-banner.jpg"
+           alt="DJs International">
     </div>
 
   </section>
@@ -901,7 +896,6 @@ footer{
   </div>
 
 </div>
-
 
 <script>
 function updateDJWorldMatrix() {
