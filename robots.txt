@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://boyingtonremix.github.io/Boyington-Remix/sitemap.xml
