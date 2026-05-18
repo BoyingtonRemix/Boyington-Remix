@@ -4,14 +4,10 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Boyington Remix</title>
-   <meta name="description" content="Official Boyington Remix website. DJ producer, remixes, electronic music, SoundCloud mixes, Latin House, Melodic Techno and cinematic vibes.">
-
+<meta name="description" content="Official Boyington Remix website. DJ producer, remixes, electronic music, SoundCloud mixes, Latin House, Melodic Techno and cinematic vibes.">
 <meta name="keywords" content="Boyington Remix,DJ Remix,Electronic Music,Latin House,Melodic Techno,SoundCloud DJ,Producer">
-
 <meta name="author" content="Boyington Remix">
-
 <meta name="robots" content="index, follow">
-
 <meta property="og:title" content="Boyington Remix">
 <meta property="og:description" content="Official DJ Producer Website">
 <meta property="og:image" content="https://boyingtonremix.github.io/Boyington-Remix/couverture-principal.jpg">
@@ -19,9 +15,6 @@
 <meta property="og:type" content="website">
 
 <style>
-/* =========================================================
-   =============== RÉGLAGES FACILES À MODIFIER =============
-   ========================================================= */
 :root{
   --gold:#d4af37;
   --gold-light:#f1cd63;
@@ -33,22 +26,14 @@
   --border:rgba(212,175,55,0.18);
   --shadow:0 18px 60px rgba(0,0,0,0.55);
   --radius:22px;
-
-  /* MODIFIE ICI SI BESOIN */
   --hero-title-margin-top: 35px;
   --hero-logo-width: 360px;
   --hero-logo-width-mobile: 240px;
 }
 
-/* =========================================================
-   ====================== RESET ============================
-   ========================================================= */
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 
-/* =========================================================
-   ====================== BODY =============================
-   ========================================================= */
 body{
   font-family:Arial, Helvetica, sans-serif;
   color:var(--text);
@@ -71,9 +56,6 @@ body::before{
   z-index:0;
 }
 
-/* =========================================================
-   ====================== STRUCTURE ========================
-   ========================================================= */
 .container{
   position:relative;
   z-index:1;
@@ -89,9 +71,6 @@ body::before{
   box-shadow:var(--shadow);
 }
 
-/* =========================================================
-   ====================== HERO =============================
-   ========================================================= */
 .hero{
   display:grid;
   grid-template-columns:1.8fr 0.8fr;
@@ -133,7 +112,6 @@ body::before{
   max-width:900px;
 }
 
-/* ===== TITRE ===== */
 h1{
   color:var(--gold);
   font-size:clamp(3rem, 7vw, 6.4rem);
@@ -145,7 +123,6 @@ h1{
   margin-top:var(--hero-title-margin-top);
 }
 
-/* ===== LOGO ===== */
 .logo{
   width:var(--hero-logo-width);
   height:auto;
@@ -155,7 +132,6 @@ h1{
   filter:drop-shadow(0 0 18px rgba(212,175,55,0.20));
 }
 
-/* ===== DIVIDER ===== */
 .hero-divider{
   width:420px;
   max-width:85%;
@@ -188,7 +164,6 @@ h1{
   background:rgba(212,175,55,0.08);
 }
 
-/* ===== HERO DROIT ===== */
 .hero-side{
   display:flex;
   flex-direction:column;
@@ -231,9 +206,6 @@ h1{
 .promo-image{aspect-ratio:1/1;}
 .studio-image{aspect-ratio:16/8;}
 
-/* =========================================================
-   ====================== PLAYER ============================
-   ========================================================= */
 .player-section{
   padding:18px;
   margin-bottom:20px;
@@ -251,18 +223,16 @@ h1{
   border-radius:18px;
   overflow:hidden;
   border:1px solid rgba(212,175,55,0.14);
+  background:rgba(255,255,255,0.02);
 }
 
-.player-wrap iframe{
+.soundcloud-iframe{
   width:100%;
-  height:520px;
+  height:460px;
   border:0;
   display:block;
 }
 
-/* =========================================================
-   ====================== QUICK GRID =======================
-   ========================================================= */
 .quick-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -335,10 +305,6 @@ h1{
   background:rgba(212,175,55,0.08);
   transform:translateY(-2px);
 }
-
-/* =========================================================
-   =================== WORLD MINI MATRIX ===================
-   ========================================================= */
 
 .world-mini{
   margin-top:16px;
@@ -542,9 +508,6 @@ h1{
   }
 }
 
-/* =========================================================
-   ====================== BOTTOM GRID ======================
-   ========================================================= */
 .bottom-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -590,9 +553,6 @@ h1{
   font-weight:bold;
 }
 
-/* =========================================================
-   ====================== FOOTER ===========================
-   ========================================================= */
 .notes{
   margin-top:22px;
   text-align:center;
@@ -619,10 +579,6 @@ footer{
   font-size:0.9rem;
 }
 
-/* =========================================================
-   ================= DJ COMMUNITY BANNER ===================
-   ========================================================= */
-
 .dj-community-banner{
   width:100%;
   margin-top:18px;
@@ -632,9 +588,6 @@ footer{
   display:block;
 }
 
-/* =========================================================
-   ====================== MOBILE ===========================
-   ========================================================= */
 @media(max-width:1100px){
   .hero,
   .quick-grid,
@@ -663,7 +616,7 @@ footer{
     font-size:clamp(2.4rem, 13vw, 4rem);
     letter-spacing:0.14em;
     margin-top:15px;
-     transform:translateX(-25px);
+    transform:translateX(-25px);
   }
 
   .social-grid{
@@ -679,8 +632,17 @@ footer{
     flex-direction:column;
   }
 
-  .player-wrap iframe{
-    height:820px;
+  /* Mobile only: let the SoundCloud list be visible */
+  .player-section{
+    padding:12px;
+  }
+
+  .player-wrap{
+    border-radius:14px;
+  }
+
+  .soundcloud-iframe{
+    height:780px;
   }
 }
 </style>
@@ -689,33 +651,26 @@ footer{
 <body>
 <div class="container">
 
-  <!-- ========================= -->
-  <!-- ===== HERO ============== -->
-  <!-- ========================= -->
   <section class="hero">
 
     <div class="panel hero-main">
       <div class="hero-center">
-
-        <!-- ===== Titre principal ===== -->
         <h1>
           BOYINGTON<br>
           REMIX
         </h1>
 
-        <!-- ===== Logo ===== -->
         <img class="logo"
              src="logo-boyington.png"
              alt="Boyington Remix"
              width="420">
 
-        <!-- ===== Séparation ===== -->
         <div class="hero-divider">
           <span></span>
         </div>
-
       </div>
     </div>
+
     <aside class="panel hero-side">
 
       <div class="side-box">
@@ -724,7 +679,7 @@ footer{
           <span>(Clique, écoute, partage)</span>
         </div>
 
-        <a href="https://soundcloud.com/boyingtonremix" target="_blank">
+        <a href="https://soundcloud.com/boyingtonremix" target="_blank" rel="noopener noreferrer">
           <img class="promo-image"
                src="cover-principal.jpg"
                alt="Boyington Remix">
@@ -744,18 +699,16 @@ footer{
     </aside>
   </section>
 
-  <!-- ========================= -->
-  <!-- ===== PLAYER ============ -->
-  <!-- ========================= -->
   <section class="card player-section" id="player">
     <h2 class="section-title">Dernières sorties SoundCloud</h2>
 
     <div class="player-wrap">
       <iframe
+        class="soundcloud-iframe"
         title="Boyington Remix SoundCloud Profile"
         scrolling="no"
         allow="autoplay"
-        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/boyingtonremix&color=%23d4af37&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true">
+        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/boyingtonremix&color=%23d4af37&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">
       </iframe>
     </div>
   </section>
@@ -787,11 +740,11 @@ footer{
       <h2 class="section-title">Réseaux & liens</h2>
 
       <div class="social-grid">
-        <a class="social-link" href="https://soundcloud.com/boyingtonremix" target="_blank">SoundCloud</a>
-        <a class="social-link" href="https://www.facebook.com/LoranBoyington/" target="_blank">Facebook</a>
-        <a class="social-link" href="https://www.tiktok.com/@boyingtonremixofficiel" target="_blank">TikTok</a>
-        <a class="social-link" href="https://www.youtube.com/@BoyingtonCollection" target="_blank">YouTube</a>
-        <a class="social-link" href="https://www.facebook.com/groups/DjsSetMusicForPeople" target="_blank" style="grid-column:1/-1;">Groupe Facebook DJ</a>
+        <a class="social-link" href="https://soundcloud.com/boyingtonremix" target="_blank" rel="noopener noreferrer">SoundCloud</a>
+        <a class="social-link" href="https://www.facebook.com/LoranBoyington/" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <a class="social-link" href="https://www.tiktok.com/@boyingtonremixofficiel" target="_blank" rel="noopener noreferrer">TikTok</a>
+        <a class="social-link" href="https://www.youtube.com/@BoyingtonCollection" target="_blank" rel="noopener noreferrer">YouTube</a>
+        <a class="social-link" href="https://www.facebook.com/groups/DjsSetMusicForPeople" target="_blank" rel="noopener noreferrer" style="grid-column:1/-1;">Groupe Facebook DJ</a>
       </div>
 
       <div class="world-mini">
@@ -850,9 +803,6 @@ footer{
 
   </section>
 
-  <!-- ========================= -->
-  <!-- ===== BOTTOM ============ -->
-  <!-- ========================= -->
   <section class="bottom-grid">
 
     <div class="card quick-card">
@@ -875,18 +825,15 @@ footer{
         <p>Aide le projet à grandir et reste connecté à l’univers Boyington Remix.</p>
 
         <ul class="support-list">
-          <li><a href="https://soundcloud.com/boyingtonremix" target="_blank"><span>01</span>Follow on SoundCloud</a></li>
-          <li><a href="https://www.facebook.com/LoranBoyington/" target="_blank"><span>02</span>Share the music</a></li>
-          <li><a href="https://www.facebook.com/groups/DjsSetMusicForPeople" target="_blank"><span>03</span>Join the Facebook community</a></li>
+          <li><a href="https://soundcloud.com/boyingtonremix" target="_blank" rel="noopener noreferrer"><span>01</span>Follow on SoundCloud</a></li>
+          <li><a href="https://www.facebook.com/LoranBoyington/" target="_blank" rel="noopener noreferrer"><span>02</span>Share the music</a></li>
+          <li><a href="https://www.facebook.com/groups/DjsSetMusicForPeople" target="_blank" rel="noopener noreferrer"><span>03</span>Join the Facebook community</a></li>
         </ul>
       </div>
     </div>
 
   </section>
 
-  <!-- ========================= -->
-  <!-- ===== FOOTER ============ -->
-  <!-- ========================= -->
   <div class="notes">
     ✨ Vivre éternellement au rythme du rythme.
   </div>
