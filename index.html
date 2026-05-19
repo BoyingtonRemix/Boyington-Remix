@@ -15,38 +15,6 @@
 <meta property="og:type" content="website">
 
 <style>
-
-
-<!-- ========================================== -->
-<!-- 🔥 GUIDE RAPIDE VARIABLES FACILES -->
-<!-- ========================================== -->
-
-<!--
-Taille titre desktop :
---title-font-size-desktop
-
-Taille titre mobile :
---title-font-size-mobile
-
-Décalage titre droite/gauche desktop :
---title-shift-desktop
-
-Décalage titre droite/gauche mobile :
---title-shift-mobile
-
-Décalage logo desktop :
---logo-shift-desktop
-
-Décalage logo mobile :
---logo-shift-mobile
-
-Taille globale texte :
---text-global-size
-
-Taille titres sections :
---section-title-size
--->
-
 :root{
   --gold:#d4af37;
   --gold-light:#f1cd63;
@@ -61,23 +29,6 @@ Taille titres sections :
   --hero-title-margin-top: 35px;
   --hero-logo-width: 360px;
   --hero-logo-width-mobile: 240px;
-
-  /* ========================================== */
-  /* 🔥 MARKER 15 : CONTROLES FACILES */
-  /* ========================================== */
-
-  --title-font-size-desktop: clamp(3rem, 7vw, 6.4rem);
-  --title-font-size-mobile: clamp(2.4rem, 13vw, 4rem);
-
-  --title-shift-desktop: 0px;
-  --title-shift-mobile: -25px;
-
-  --logo-shift-desktop: 0px;
-  --logo-shift-mobile: 0px;
-
-  --section-title-size: 1.08rem;
-
-  --text-global-size: 16px;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -85,7 +36,6 @@ html{scroll-behavior:smooth;}
 
 body{
   font-family:Arial, Helvetica, sans-serif;
-  font-size:var(--text-global-size);
   color:var(--text);
   background:
     linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.92)),
@@ -164,14 +114,13 @@ body::before{
 
 h1{
   color:var(--gold);
-  font-size:var(--title-font-size-desktop);
+  font-size:clamp(3rem, 7vw, 6.4rem);
   line-height:0.95;
   letter-spacing:0.22em;
   text-transform:uppercase;
   text-align:center;
   text-shadow:0 0 18px rgba(212,175,55,0.14);
   margin-top:var(--hero-title-margin-top);
-  transform:translateX(var(--title-shift-desktop));
 }
 
 .logo{
@@ -181,7 +130,6 @@ h1{
   margin:12px auto 8px;
   display:block;
   filter:drop-shadow(0 0 18px rgba(212,175,55,0.20));
-  transform:translateX(var(--logo-shift-desktop));
 }
 
 .hero-divider{
@@ -268,7 +216,7 @@ h1{
   text-transform:uppercase;
   letter-spacing:0.08em;
   margin-bottom:14px;
-  font-size:var(--section-title-size);
+  font-size:1.08rem;
 }
 
 .player-wrap{
@@ -718,11 +666,10 @@ footer{
   .logo{
     width:var(--hero-logo-width-mobile);
     height:auto;
-    transform:translateX(var(--logo-shift-mobile));
   }
 
   h1{
-    font-size:var(--title-font-size-mobile);
+    font-size:clamp(2.4rem, 13vw, 4rem);
     letter-spacing:0.14em;
     margin-top:15px;
     transform:translateX(var(--title-shift-mobile));
