@@ -14,10 +14,39 @@
 <meta property="og:url" content="https://boyingtonremix.github.io/Boyington-Remix/">
 <meta property="og:type" content="website">
 
-<!-- =============================== -->
-<!-- 🔥 MARKER 01 : CSS GLOBAL STYLE -->
-<!-- =============================== -->
 <style>
+
+
+<!-- ========================================== -->
+<!-- 🔥 GUIDE RAPIDE VARIABLES FACILES -->
+<!-- ========================================== -->
+
+<!--
+Taille titre desktop :
+--title-font-size-desktop
+
+Taille titre mobile :
+--title-font-size-mobile
+
+Décalage titre droite/gauche desktop :
+--title-shift-desktop
+
+Décalage titre droite/gauche mobile :
+--title-shift-mobile
+
+Décalage logo desktop :
+--logo-shift-desktop
+
+Décalage logo mobile :
+--logo-shift-mobile
+
+Taille globale texte :
+--text-global-size
+
+Taille titres sections :
+--section-title-size
+-->
+
 :root{
   --gold:#d4af37;
   --gold-light:#f1cd63;
@@ -32,6 +61,23 @@
   --hero-title-margin-top: 35px;
   --hero-logo-width: 360px;
   --hero-logo-width-mobile: 240px;
+
+  /* ========================================== */
+  /* 🔥 MARKER 15 : CONTROLES FACILES */
+  /* ========================================== */
+
+  --title-font-size-desktop: clamp(3rem, 7vw, 6.4rem);
+  --title-font-size-mobile: clamp(2.4rem, 13vw, 4rem);
+
+  --title-shift-desktop: 0px;
+  --title-shift-mobile: -25px;
+
+  --logo-shift-desktop: 0px;
+  --logo-shift-mobile: 0px;
+
+  --section-title-size: 1.08rem;
+
+  --text-global-size: 16px;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -39,6 +85,7 @@ html{scroll-behavior:smooth;}
 
 body{
   font-family:Arial, Helvetica, sans-serif;
+  font-size:var(--text-global-size);
   color:var(--text);
   background:
     linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.92)),
@@ -74,9 +121,6 @@ body::before{
   box-shadow:var(--shadow);
 }
 
-/* ========================================== */
-/* 🔥 MARKER 02 : HERO SECTION PRINCIPALE */
-/* ========================================== */
 .hero{
   display:grid;
   grid-template-columns:1.8fr 0.8fr;
@@ -120,13 +164,14 @@ body::before{
 
 h1{
   color:var(--gold);
-  font-size:clamp(3rem, 7vw, 6.4rem);
+  font-size:var(--title-font-size-desktop);
   line-height:0.95;
   letter-spacing:0.22em;
   text-transform:uppercase;
   text-align:center;
   text-shadow:0 0 18px rgba(212,175,55,0.14);
   margin-top:var(--hero-title-margin-top);
+  transform:translateX(var(--title-shift-desktop));
 }
 
 .logo{
@@ -136,6 +181,7 @@ h1{
   margin:12px auto 8px;
   display:block;
   filter:drop-shadow(0 0 18px rgba(212,175,55,0.20));
+  transform:translateX(var(--logo-shift-desktop));
 }
 
 .hero-divider{
@@ -212,9 +258,6 @@ h1{
 .promo-image{aspect-ratio:1/1;}
 .studio-image{aspect-ratio:16/8;}
 
-/* ========================================== */
-/* 🔥 MARKER 03 : PLAYER SOUNDCLOUD */
-/* ========================================== */
 .player-section{
   padding:18px;
   margin-bottom:20px;
@@ -225,7 +268,7 @@ h1{
   text-transform:uppercase;
   letter-spacing:0.08em;
   margin-bottom:14px;
-  font-size:1.08rem;
+  font-size:var(--section-title-size);
 }
 
 .player-wrap{
@@ -289,9 +332,6 @@ h1{
   letter-spacing:0.08em;
 }
 
-/* ========================================== */
-/* 🔥 MARKER 04 : RESEAUX SOCIAUX */
-/* ========================================== */
 .social-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -374,9 +414,6 @@ h1{
   text-transform:uppercase;
 }
 
-/* ========================================== */
-/* 🔥 MARKER 05 : DJ WORLD MATRIX */
-/* ========================================== */
 .world-mini{
   margin-top:16px;
   padding:16px;
@@ -579,9 +616,6 @@ h1{
   }
 }
 
-/* ========================================== */
-/* 🔥 MARKER 07 : SECTION BASSE */
-/* ========================================== */
 .bottom-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -653,9 +687,6 @@ footer{
   font-size:0.9rem;
 }
 
-/* ========================================== */
-/* 🔥 MARKER 06 : BANNIERE DJ COMMUNITY */
-/* ========================================== */
 .dj-community-banner{
   width:100%;
   margin-top:18px;
@@ -687,13 +718,14 @@ footer{
   .logo{
     width:var(--hero-logo-width-mobile);
     height:auto;
+    transform:translateX(var(--logo-shift-mobile));
   }
 
   h1{
-    font-size:clamp(2.4rem, 13vw, 4rem);
+    font-size:var(--title-font-size-mobile);
     letter-spacing:0.14em;
     margin-top:15px;
-    transform:translateX(-25px);
+    transform:translateX(var(--title-shift-mobile));
   }
 
   .social-grid{
@@ -755,10 +787,7 @@ footer{
 <body>
 <div class="container">
 
-  <!-- ========================================== -->
-<!-- 🔥 MARKER 08 : HERO HTML -->
-<!-- ========================================== -->
-<section class="hero">
+  <section class="hero">
 
     <div class="panel hero-main">
       <div class="hero-center">
@@ -806,10 +835,7 @@ footer{
     </aside>
   </section>
 
-  <!-- ========================================== -->
-<!-- 🔥 MARKER 09 : PLAYER HTML -->
-<!-- ========================================== -->
-<section class="card player-section" id="player">
+  <section class="card player-section" id="player">
     <h2 class="section-title">Dernières sorties SoundCloud</h2>
 
     <div class="player-wrap">
@@ -823,10 +849,7 @@ footer{
     </div>
   </section>
 
-  <!-- ========================================== -->
-<!-- 🔥 MARKER 10 : QUICK GRID -->
-<!-- ========================================== -->
-<section class="quick-grid">
+  <section class="quick-grid">
 
     <div class="card quick-card">
       <h2 class="section-title">Dernier titre uploadé</h2>
@@ -865,10 +888,7 @@ footer{
         </div>
       </div>
 
-      <!-- ========================================== -->
-<!-- 🔥 MARKER 11 : DJ WORLD MATRIX HTML -->
-<!-- ========================================== -->
-<div class="world-mini">
+      <div class="world-mini">
         <div class="world-mini-head">
           <div class="world-mini-title">DJ World Matrix</div>
           <div class="world-mini-sub">Global Time • Live Session</div>
@@ -917,20 +937,14 @@ footer{
         </div>
       </div>
 
-      <!-- ========================================== -->
-<!-- 🔥 MARKER 12 : BANNIERE DJ COMMUNITY -->
-<!-- ========================================== -->
-<img class="dj-community-banner" 
+      <img class="dj-community-banner"
            src="djs-international-banner.jpg"
            alt="DJs International">
     </div>
 
   </section>
 
-  <!-- ========================================== -->
-<!-- 🔥 MARKER 13 : BOTTOM GRID -->
-<!-- ========================================== -->
-<section class="bottom-grid">
+  <section class="bottom-grid">
 
     <div class="card quick-card">
       <h2 class="section-title">Boyington Remix Project</h2>
@@ -983,9 +997,6 @@ footer{
 
 </div>
 
-<!-- ========================================== -->
-<!-- 🔥 MARKER 14 : JAVASCRIPT -->
-<!-- ========================================== -->
 <script>
 
 async function loadSiteVisitCounter() {
