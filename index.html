@@ -309,15 +309,20 @@ h1{
 
 .social-link.is-wide{
   grid-column:span 2;
+  justify-content:center;
+  text-align:center;
 }
 
 .visit-tile{
   flex-direction:column;
   justify-content:center;
-  align-items:flex-start;
+  align-items:center;
+  text-align:center;
   gap:4px;
   position:relative;
   overflow:hidden;
+  min-height:92px;
+  padding:14px 12px;
 }
 
 .visit-tile::before{
@@ -326,6 +331,12 @@ h1{
   inset:0;
   background:linear-gradient(135deg, rgba(212,175,55,0.12), transparent 45%);
   pointer-events:none;
+}
+
+.visit-tile .visit-label,
+.visit-tile .visit-count,
+.visit-tile .visit-sub{
+  width:100%;
 }
 
 .visit-tile .visit-label{
@@ -337,7 +348,7 @@ h1{
 }
 
 .visit-tile .visit-count{
-  font-size:1.6rem;
+  font-size:1.82rem;
   line-height:1;
   font-weight:900;
   color:#fff;
@@ -685,6 +696,15 @@ footer{
     flex-direction:column;
   }
 
+  .visit-tile{
+    min-height:84px;
+    padding:12px 10px;
+  }
+
+  .visit-tile .visit-count{
+    font-size:1.55rem;
+  }
+
   /* Mobile only: let the SoundCloud list be visible */
   .player-section{
     padding:12px;
@@ -924,9 +944,18 @@ async function loadSiteVisitCounter() {
   if (!counterEl) return;
 
   try {
-    const response = await fetch('https://boyingtonremix.goatcounter.com/counter/TOTAL.json', {
-      cache: 'no-store'
-    });
+    const path =
+      (window.goatcounter &&
+       typeof window.goatcounter.get_data === 'function' &&
+       window.goatcounter.get_data() &&
+       window.goatcounter.get_data().p)
+        ? window.goatcounter.get_data().p
+        : location.pathname;
+
+    const response = await fetch(
+      'https://boyingtonremix.goatcounter.com/counter/' + encodeURIComponent(path) + '.json',
+      { cache: 'no-store' }
+    );
 
     if (!response.ok) {
       throw new Error('HTTP ' + response.status);
@@ -935,7 +964,7 @@ async function loadSiteVisitCounter() {
     const data = await response.json();
     counterEl.textContent = data.count || data.count_unique || '0';
   } catch (error) {
-    counterEl.textContent = '—';
+    counterEl.textContent = '0';
   }
 }
 
