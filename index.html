@@ -237,14 +237,10 @@
       padding: 16px;
     }
 
-    .cover-card,
-    .panel-grid {
-      min-width: 0;
-    }
-
     .panel-grid {
       display: grid;
       gap: 14px;
+      min-width: 0;
     }
 
     .card-header {
@@ -787,8 +783,6 @@
 <body>
   <main class="page">
     <div class="shell">
-      <!-- [M0] LÉGENDE RAPIDE : les marqueurs M0.* correspondent aux titres, textes, boutons et images visibles sur la page. -->
-
       <header class="topbar">
         <div class="brand">
           <div class="logo-box">
@@ -1138,6 +1132,7 @@
         }
 
         const radioWidget = SC.Widget(iframePlayer);
+        let coverPoll = null;
 
         const refreshCover = () => {
           try {
@@ -1163,6 +1158,9 @@
         radioWidget.bind(SC.Widget.Events.READY, () => {
           refreshCover();
           setTimeout(launchRadio, 1800);
+          if (!coverPoll) {
+            coverPoll = setInterval(refreshCover, 12000);
+          }
         });
 
         radioWidget.bind(SC.Widget.Events.PLAY, refreshCover);
@@ -1186,8 +1184,3 @@
   </script>
 </body>
 </html>
-``` 
-
-Le montage utilise le Widget API SoundCloud pour récupérer la piste courante avec `getCurrentSound()` et réagir aux événements `READY`, `PLAY` et `FINISH`, ce qui permet de mettre à jour le cover quand la piste change. ([developers.soundcloud.com](https://developers.soundcloud.com/docs/api/html5-widget?utm_source=chatgpt.com))
-
-Si tu veux, je peux maintenant te faire la version avec un **cover encore plus grand**, style **pochette centrée comme une vraie jaquette de radio**.([developers.soundcloud.com](https://developers.soundcloud.com/docs/api/html5-widget?utm_source=chatgpt.com)) on aurait été en train de citer l'API, but the user asked just the script; can keep final concise but with one citation paragraph. Need ensure no direct URL raw. We have cited. But note: we wrote same code block and a sentence after. Since we already used web, all statements should have citations. The code block itself doesn't need citations? It is the artifact. Maybe okay. However code block includes factual values like SC.Widget.Events READY etc derived from docs. But since it's code, maybe not need citations. Yet if we mention it outside, cite. Also the last sentence 
