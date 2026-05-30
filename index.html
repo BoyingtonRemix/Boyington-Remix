@@ -725,6 +725,72 @@ footer{
   }
 }
 
+
+/* ===== BOYINGTON CINEMA BANNER ===== */
+
+.remix-cinema-banner{
+  position:relative;
+  width:100%;
+  height:500px;
+  margin:20px 0;
+  overflow:hidden;
+  border-radius:22px;
+  border:1px solid rgba(212,175,55,.18);
+  box-shadow:0 18px 60px rgba(0,0,0,.55);
+}
+
+.remix-cinema-banner video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.remix-cinema-overlay{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  background:linear-gradient(
+    rgba(0,0,0,.15),
+    rgba(0,0,0,.55)
+  );
+}
+
+.remix-cinema-title{
+  color:#d4af37;
+  font-size:clamp(2rem,4vw,4rem);
+  font-weight:900;
+  letter-spacing:.20em;
+  text-transform:uppercase;
+  text-shadow:0 0 25px rgba(212,175,55,.35);
+}
+
+.remix-cinema-sub{
+  margin-top:10px;
+  color:#fff;
+  font-size:1rem;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+
+@media(max-width:700px){
+  .remix-cinema-banner{
+    height:260px;
+  }
+
+  .remix-cinema-title{
+    font-size:1.5rem;
+  }
+
+  .remix-cinema-sub{
+    font-size:.75rem;
+  }
+}
+
 </style>
 
 <script data-goatcounter="https://boyingtonremix.goatcounter.com/count"
@@ -795,6 +861,28 @@ footer{
       </iframe>
     </div>
   </section>
+  <!-- BOYINGTON CINEMA BANNER -->
+
+  <section class="remix-cinema-banner">
+
+    <video autoplay muted loop playsinline>
+        <source src="boyington-remix-banner.mp4" type="video/mp4">
+    </video>
+
+    <div class="remix-cinema-overlay">
+
+        <div class="remix-cinema-title">
+            BOYINGTON REMIX
+        </div>
+
+        <div class="remix-cinema-sub">
+            Music Without Borders
+        </div>
+
+    </div>
+
+  </section>
+
 
   <section class="quick-grid">
 
