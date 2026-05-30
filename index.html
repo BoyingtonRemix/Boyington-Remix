@@ -731,8 +731,8 @@ footer{
 .remix-video-banner{
   position:relative;
   width:100%;
-  height:clamp(190px, 20vw, 290px);
-  margin:20px 0 22px;
+  aspect-ratio:2560 / 1068;
+  margin:26px 0 8px;
   overflow:hidden;
   border-radius:22px;
   border:1px solid rgba(212,175,55,.18);
@@ -749,12 +749,11 @@ footer{
 
 @media (max-width:700px){
   .remix-video-banner{
-    height:180px;
-    margin:14px 0 16px;
+    aspect-ratio:2560 / 1068;
+    margin:18px 0 6px;
     border-radius:18px;
   }
 }
-
 </style>
 
 <script data-goatcounter="https://boyingtonremix.goatcounter.com/count"
@@ -825,18 +824,7 @@ footer{
       </iframe>
     </div>
   </section>
-
-
-  <!-- BOYINGTON VIDEO BANNER -->
-
-  <section class="remix-video-banner" aria-label="Boyington Remix banner vidéo">
-    <video autoplay muted loop playsinline preload="metadata" poster="cover-principal.jpg">
-      <source src="boyington-remix-banner.mp4" type="video/mp4">
-    </video>
-  </section>
-
-
-  <section class="quick-grid">
+<section class="quick-grid">
 
     <div class="card quick-card">
       <h2 class="section-title">Dernier titre uploadé</h2>
@@ -1022,6 +1010,15 @@ footer{
       </div>
     </div>
 
+  </section>
+
+
+  <!-- BOYINGTON VIDEO BANNER -->
+
+  <section class="remix-video-banner" aria-label="Boyington Remix banner vidéo">
+    <video autoplay muted loop playsinline preload="metadata" poster="cover-principal.jpg">
+      <source src="boyington-remix-banner.mp4" type="video/mp4">
+    </video>
   </section>
 
   <div class="notes">
